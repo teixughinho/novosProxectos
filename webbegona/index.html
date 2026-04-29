@@ -3,143 +3,210 @@
 
 <style>
 #overlay {
-  position: absolute; bottom: 30px; width: 100%; text-align: center;
-  color: white; z-index: 1000; font-family: sans-serif; pointer-events: none;
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  z-index: 1000;
+  font-family: sans-serif;
+  pointer-events: none;
 }
+
 .burbulla {
   background: rgba(26, 42, 58, 0.95);
   padding: 15px 25px;
   border-radius: 50px;
   border: 2px solid #ff007f;
   display: inline-block;
-  box-shadow: 0 0 20px #ff007f;
+  box-shadow: 0 0 25px #ff007f;
   font-weight: bold;
 }
 </style>
 
 <div id="overlay">
-  <div id="msg" class="burbulla">
-    TOCA [AR] e o CÍRCULO para te rodear de Begoña Caamaño
+  <div class="burbulla">
+    TOCA [AR] e sitúa a exposición de Begoña Caamaño
   </div>
 </div>
 
 <a-scene webxr="optionalFeatures: hit-test, dom-overlay; overlayElement: #overlay">
 
 <a-assets>
-  <img id="bego-sentada" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Begonha_Caama%C3%B1o.jpg/960px-Begonha_Caama%C3%B1o.jpg">
-  <img id="libro-bio" src="https://m.media-amazon.com/images/I/51vGPSrsJ8L._SL1000_.jpg">
-  <img id="cartel-rag" src="https://www.cronica3.com/wp-content/uploads/2026/04/Cartel-3000x1746.png">
+  <img id="bego" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Begonha_Caama%C3%B1o.jpg/960px-Begonha_Caama%C3%B1o.jpg">
+  <img id="libro" src="https://m.media-amazon.com/images/I/51vGPSrsJ8L._SL1000_.jpg">
+  <img id="cartel" src="https://www.cronica3.com/wp-content/uploads/2026/04/Cartel-3000x1746.png">
   <img id="circe" src="https://imagessl4.casadellibro.com/a/l/s7/64/9788411764964.webp">
-  <img id="bego-sonia" src="https://observatorioigualdade.org/wp-content/uploads/2013/03/3-begoa-caamao-sonia-daz-copiar.jpg">
-  <img id="icona-voz" src="https://cdn-icons-png.flaticon.com/512/727/727269.png">
+  <img id="sonia" src="https://observatorioigualdade.org/wp-content/uploads/2013/03/3-begoa-caamao-sonia-daz-copiar.jpg">
+  <img id="play" src="https://cdn-icons-png.flaticon.com/512/727/727245.png">
+  <img id="mic" src="https://cdn-icons-png.flaticon.com/512/727/727269.png">
   <audio id="audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 </a-assets>
 
-<a-camera><a-cursor visible="false"></a-cursor></a-camera>
+<a-camera><a-cursor></a-cursor></a-camera>
 
 <a-entity id="reticle" ar-hit-test="target: #museo">
-  <a-ring color="#ff007f" rotation="-90 0 0" radius-inner="0.15" radius-outer="0.2"></a-ring>
+  <a-ring color="#ff007f" radius-inner="0.15" radius-outer="0.22"></a-ring>
 </a-entity>
 
 <a-entity id="museo" visible="false">
 
-  <!-- SECCIÓN 1 -->
-  <a-entity position="0 2 -8">
-    <a-plane width="4.8" height="2.8" color="#ff007f" opacity="0.12" position="0 0 0"></a-plane>
-    <a-plane width="4.5" height="2.5" color="#111" opacity="0.75" position="0 0 0.01"></a-plane>
+<!-- ===================== SECCIÓN 1 ===================== -->
+<a-entity position="0 2 -8">
 
-    <a-text value="DE ONDE ERA E A QUE SE DEDICOU?"
-      align="center" width="7" position="0 1.5 0.02"
-      color="#ff007f" letter-spacing="2"></a-text>
+  <!-- fondo dinámico -->
+  <a-plane width="5" height="3"
+           color="#1b1b2f"
+           opacity="0.85"></a-plane>
 
-    <a-text value="DE ONDE ERA E A QUE SE DEDICOU?"
-      align="center" width="7" position="0.03 1.5 0.019"
-      color="#ff007f" opacity="0.4"></a-text>
+  <a-plane width="5.2" height="3.2"
+           color="#ff007f"
+           opacity="0.12"
+           position="0 0 0.01"></a-plane>
 
-    <a-text value="Nada en Vigo (1962). Foi unha xornalista comprometida na TVG e Radio Galega..."
-      align="center" width="4.5" position="0 0.8 0.02"></a-text>
+  <!-- título (efecto grosor real) -->
+  <a-text value="DE ONDE ERA E A QUE SE DEDICOU?"
+          width="6.5"
+          align="center"
+          position="0 1.5 0.02"
+          color="#ff007f"
+          letter-spacing="2"></a-text>
 
-    <a-plane width="3" height="2.2" src="#bego-sentada" position="0 -1 0.03"></a-plane>
+  <a-text value="DE ONDE ERA E A QUE SE DEDICOU?"
+          width="6.5"
+          align="center"
+          position="0.04 1.5 0.01"
+          color="#ff007f"
+          opacity="0.4"></a-text>
+
+  <a-text value="Xornalista galega, TVG e Radio Galega, voz feminista e cultural"
+          width="4.8"
+          align="center"
+          position="0 0.7 0.02"></a-text>
+
+  <a-plane src="#bego" width="3" height="2.2" position="0 -1 0.03"></a-plane>
+
+</a-entity>
+
+<!-- ===================== SECCIÓN 2 ===================== -->
+<a-entity position="-10 2 -2" rotation="0 90 0">
+
+  <a-plane width="5.5" height="3.2" color="#0f3460" opacity="0.85"></a-plane>
+  <a-plane width="5.7" height="3.4" color="#ff007f" opacity="0.10"></a-plane>
+
+  <a-text value="POR QUE FOI IMPORTANTE?"
+          width="7"
+          align="center"
+          position="0 1.5 0.02"
+          color="#ff007f"
+          letter-spacing="2"></a-text>
+
+  <a-text value="Reescribiu mitos dende unha mirada feminista e contemporánea"
+          width="5"
+          align="center"
+          position="0 0.5 0.02"></a-text>
+
+  <!-- PANTALLA VIDEO -->
+  <a-entity position="0 -1.3 0.03">
+    <a-plane width="3.2" height="2"
+             color="#000"></a-plane>
+
+    <a-circle radius="0.25" color="#ff007f" position="0 0 0.01"></a-circle>
+
+    <a-image src="#play"
+             width="0.6" height="0.6"
+             position="0 0 0.02"></a-image>
+
+    <a-text value="AQUÍ IRÁ UN VÍDEO"
+            width="3"
+            align="center"
+            position="0 -0.9 0.02"
+            color="white"></a-text>
   </a-entity>
 
-  <!-- SECCIÓN 2 -->
-  <a-entity position="-10 2 -2" rotation="0 90 0">
-    <a-plane width="5.2" height="3" color="#ff007f" opacity="0.12" position="0 0 0"></a-plane>
-    <a-plane width="5" height="2.7" color="#111" opacity="0.75" position="0 0 0.01"></a-plane>
+</a-entity>
 
-    <a-text value="POR QUE FOI IMPORTANTE?"
-      align="center" width="7" position="0 1.5 0.02"
-      color="#ff007f" letter-spacing="2"></a-text>
+<!-- ===================== SECCIÓN 3 ===================== -->
+<a-entity position="10 2 -2" rotation="0 -90 0">
 
-    <a-text value="Pola súa capacidade de darlles voz ás mulleres da historia..."
-      align="center" width="5" position="0 0.5 0.02"></a-text>
+  <a-plane width="5.5" height="3.2" color="#16213e" opacity="0.85"></a-plane>
 
-    <a-plane width="4" height="2.5" src="#cartel-rag" position="0 -1.5 0.03"></a-plane>
+  <a-text value="QUE OBRAS ESCRIBIU?"
+          width="7"
+          align="center"
+          position="0 1.5 0.02"
+          color="#ff007f"></a-text>
+
+  <a-text value="Circe ou o pracer do azul · Morgana en Esmelle"
+          width="5"
+          align="center"
+          position="0 0.5 0.02"></a-text>
+
+  <a-plane src="#circe" width="1.7" height="2.5" position="-1.5 -1.2 0.03"></a-plane>
+  <a-plane src="#libro" width="1.7" height="2.5" position="1.5 -1.2 0.03"></a-plane>
+
+</a-entity>
+
+<!-- ===================== SECCIÓN 4 ===================== -->
+<a-entity position="-8 2.5 10" rotation="0 150 0">
+
+  <a-plane width="5.5" height="3.2" color="#1a1a2e" opacity="0.85"></a-plane>
+
+  <a-text value="COMO ERAN AS SÚAS OBRAS?"
+          width="7"
+          align="center"
+          position="0 1.2 0.02"
+          color="#ff007f"></a-text>
+
+  <a-text value="Mestura de mito, liberdade e voz feminina"
+          width="5"
+          align="center"
+          position="0 0.2 0.02"></a-text>
+
+  <!-- PANTALLA ENTREVISTA -->
+  <a-entity position="0 -1.5 0.03">
+    <a-plane width="3.2" height="2" color="#000"></a-plane>
+
+    <a-image src="#play" width="0.6" height="0.6"></a-image>
+
+    <a-text value="ENTREVISTA"
+            width="3"
+            align="center"
+            position="0 -0.9 0.02"
+            color="white"></a-text>
   </a-entity>
 
-  <!-- SECCIÓN 3 -->
-  <a-entity position="10 2 -2" rotation="0 -90 0">
-    <a-plane width="5.2" height="3" color="#ff007f" opacity="0.12" position="0 0 0"></a-plane>
-    <a-plane width="5" height="2.7" color="#111" opacity="0.75" position="0 0 0.01"></a-plane>
+</a-entity>
 
-    <a-text value="QUE OBRAS ESCRIBIU?"
-      align="center" width="7" position="0 1.5 0.02"
-      color="#ff007f" letter-spacing="2"></a-text>
+<!-- ===================== AUDIO ===================== -->
+<a-entity id="audioBtn" position="5 1.5 5" rotation="0 220 0">
 
-    <a-text value="Destacan 'Circe...' e 'Morgana en Esmelle'..."
-      align="center" width="5" position="0 0.5 0.02"></a-text>
+  <a-circle radius="0.6" color="#00bcd4"></a-circle>
 
-    <a-plane width="1.8" height="2.8" src="#circe" position="-1.5 -1.5 0.03"></a-plane>
-    <a-plane width="1.8" height="2.8" src="#libro-bio" position="1.5 -1.5 0.03"></a-plane>
-  </a-entity>
+  <a-image src="#mic" width="0.5" height="0.5" position="0 0 0.02"></a-image>
 
-  <!-- SECCIÓN 4 -->
-  <a-entity position="-8 2.5 10" rotation="0 150 0">
-    <a-plane width="5.2" height="3" color="#ff007f" opacity="0.12" position="0 0 0"></a-plane>
-    <a-plane width="5" height="2.7" color="#111" opacity="0.75" position="0 0 0.01"></a-plane>
+  <a-text value="AUDIO"
+          width="4"
+          align="center"
+          position="0 -1 0"
+          color="#00bcd4"></a-text>
 
-    <a-text value="COMO ERAN AS SÚAS OBRAS?"
-      align="center" width="7" position="0 1.2 0.02"
-      color="#ff007f" letter-spacing="2"></a-text>
+</a-entity>
 
-    <a-text value="Unha escrita elegante que mestura o mito coa reivindicación..."
-      align="center" width="5" position="0 0.2 0.02"></a-text>
+<!-- ===================== VERSOS ===================== -->
+<a-text value="As nosas mans tecen o futuro"
+        position="-8 7 -5"
+        rotation="30 45 0"
+        width="10"
+        color="#00bcd4"
+        opacity="0.9"></a-text>
 
-    <a-plane width="4" height="3" src="#bego-sonia" position="0 -1.8 0.03"></a-plane>
-  </a-entity>
-
-  <!-- AUDIO -->
-  <a-entity id="btn-audio" position="5 1.5 5" rotation="0 220 0">
-    <a-circle radius="0.7" color="#00bcd4" opacity="0.2"></a-circle>
-
-    <a-circle radius="0.5" src="#icona-voz"
-      material="transparent:true"
-      animation="property: scale; to:1.15 1.15 1.15; loop:true; dir:alternate; dur:800">
-    </a-circle>
-
-    <a-text value="ESCOITA"
-      align="center" width="4"
-      position="0 -1 0"
-      color="#00bcd4"
-      letter-spacing="2"></a-text>
-  </a-entity>
-
-  <!-- VERSOS -->
-  <a-text value="As nosas mans tecen o futuro"
-    position="-8 7 -5"
-    rotation="30 45 0"
-    width="10"
-    color="#00bcd4"
-    letter-spacing="3"
-    opacity="0.9"></a-text>
-
-  <a-text value="Escribo para rescatar a voz"
-    position="0 8 0"
-    rotation="90 0 0"
-    width="12"
-    color="white"
-    letter-spacing="2"
-    opacity="0.85"></a-text>
+<a-text value="Escribo para rescatar a voz"
+        position="0 8 0"
+        rotation="90 0 0"
+        width="12"
+        color="white"
+        opacity="0.85"></a-text>
 
 </a-entity>
 </a-scene>
@@ -149,7 +216,6 @@ const scene = document.querySelector('a-scene');
 const museo = document.querySelector('#museo');
 const reticle = document.querySelector('#reticle');
 const audio = document.querySelector('#audio');
-const btn = document.querySelector('#btn-audio');
 
 window.addEventListener('click', () => {
   if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
@@ -159,11 +225,5 @@ window.addEventListener('click', () => {
     reticle.setAttribute('visible', false);
     reticle.removeAttribute('ar-hit-test');
   }
-});
-
-btn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  if (audio.paused) audio.play();
-  else audio.pause();
 });
 </script>
