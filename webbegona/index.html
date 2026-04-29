@@ -1,0 +1,103 @@
+<script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+
+<style>
+  #overlay {
+    position: absolute; bottom: 30px; width: 100%; text-align: center;
+    color: white; z-index: 1000; font-family: sans-serif; pointer-events: none;
+  }
+  .burbulla {
+    background: rgba(26, 42, 58, 0.95); padding: 15px 25px; border-radius: 50px;
+    border: 2px solid #ff007f; display: inline-block; box-shadow: 0 0 20px #ff007f;
+    font-weight: bold;
+  }
+</style>
+
+<div id="overlay">
+  <div id="msg" class="burbulla">TOCA O AR e o CÍRCULO para te rodear de Begoña Caamaño </div>
+</div>
+
+<a-scene 
+  webxr="optionalFeatures: hit-test, dom-overlay; overlayElement: #overlay"
+  renderer="colorManagement: true; alpha: true; antialias: true;">
+  
+  <a-assets>
+    <img id="bego-sentada" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Begonha_Caama%C3%B1o.jpg/960px-Begonha_Caama%C3%B1o.jpg" crossorigin="anonymous">
+    <img id="libro-bio" src="https://m.media-amazon.com/images/I/51vGPSrsJ8L._SL1000_.jpg" crossorigin="anonymous">
+    <img id="cartel-rag" src="https://www.cronica3.com/wp-content/uploads/2026/04/Cartel-3000x1746.png" crossorigin="anonymous">
+    <img id="circe" src="https://imagessl4.casadellibro.com/a/l/s7/64/9788411764964.webp" crossorigin="anonymous">
+    <img id="bego-sonia" src="https://observatorioigualdade.org/wp-content/uploads/2013/03/3-begoa-caamao-sonia-daz-copiar.jpg" crossorigin="anonymous">
+    <img id="icona-voz" src="https://cdn-icons-png.flaticon.com/512/727/727269.png" crossorigin="anonymous">
+    <audio id="audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" crossorigin="anonymous"></audio>
+  </a-assets>
+
+  <a-camera><a-cursor visible="false"></a-cursor></a-camera>
+
+  <a-entity id="reticle" ar-hit-test="target: #museo">
+    <a-ring color="#ff007f" rotation="-90 0 0" radius-inner="0.15" radius-outer="0.2"></a-ring>
+  </a-entity>
+
+  <a-entity id="museo" visible="false">
+    
+    <a-entity position="0 2 -8">
+       <a-text value="DE ONDE ERA E A QUE SE DEDICOU?" align="center" width="6" position="0 1.5 0" color="#ff007f" font="kelsonsans"></a-text>
+       <a-text value="Nada en Vigo (1962). Foi unha xornalista comprometida na TVG e Radio Galega, e unha activista feminista e galeguista incansable." 
+               align="center" width="4.5" position="0 0.8 0" font="kelsonsans"></a-text>
+       <a-plane width="3" height="2.2" src="#bego-sentada" position="0 -1 0" material="shader: flat"></a-plane>
+    </a-entity>
+
+    <a-entity position="-10 2 -2" rotation="0 90 0">
+       <a-text value="POR QUE FOI IMPORTANTE?" align="center" width="7" position="0 1.5 0" color="#ff007f" font="kelsonsans"></a-text>
+       <a-text value="Pola súa capacidade de darlles voz as mulleres da historia e mitoloxia, reescribindo os seus relatos desde unha perspectiva feminista e contemporanea." 
+               align="center" width="5" position="0 0.5 0" font="kelsonsans"></a-text>
+       <a-plane width="4" height="2.5" src="#cartel-rag" position="0 -1.5 0" material="shader: flat"></a-plane>
+    </a-entity>
+
+    <a-entity position="10 2 -2" rotation="0 -90 0">
+       <a-text value="QUE OBRAS ESCRIBIU?" align="center" width="7" position="0 1.5 0" color="#ff007f" font="kelsonsans"></a-text>
+       <a-text value="Destacan 'Circe ou o pracer do azul' (2009) e 'Morgana en Esmelle' (2012), coas que gañou os premios mais importantes da critica." 
+               align="center" width="5" position="0 0.5 0" font="kelsonsans"></a-text>
+       <a-plane width="1.8" height="2.8" src="#circe" position="-1.5 -1.5 0" material="shader: flat"></a-plane>
+       <a-plane width="1.8" height="2.8" src="#libro-bio" position="1.5 -1.5 0" material="shader: flat"></a-plane>
+    </a-entity>
+
+    <a-entity position="-8 2.5 10" rotation="0 150 0">
+       <a-text value="COMO ERAN AS SUAS OBRAS?" align="center" width="7" position="0 1.2 0" color="#ff007f" font="kelsonsans"></a-text>
+       <a-text value="Unha escrita elegante que mestura o mito coa reivindicacion, explorando a sororidade e a liberdade das mulleres fronte ao patriarcado." 
+               align="center" width="5" position="0 0.2 0" font="kelsonsans"></a-text>
+       <a-plane width="4" height="3" src="#bego-sonia" position="0 -1.8 0" material="shader: flat"></a-plane>
+    </a-entity>
+
+    <a-entity id="btn-audio" class="clickable" position="5 1.5 5" rotation="0 220 0">
+       <a-text value="ESCOITA A SUA VOZ" align="center" width="5" position="0 0.8 0" color="#00bcd4" font="kelsonsans"></a-text>
+       <a-circle radius="0.5" src="#icona-voz" material="transparent: true; shader: flat" animation="property: scale; to: 1.1 1.1 1.1; dir: alternate; loop: true; dur: 1000"></a-circle>
+    </a-entity>
+
+    <a-text value="As nosas mans tecen o futuro" position="-8 7 -5" rotation="30 45 0" align="center" width="12" color="#00bcd4" font="kelsonsans"></a-text>
+    <a-text value="Escribo para rescatar a voz" position="0 8 0" rotation="90 0 0" align="center" width="15" color="white" font="kelsonsans"></a-text>
+
+  </a-entity>
+</a-scene>
+
+<script>
+  const scene = document.querySelector('a-scene');
+  const museo = document.querySelector('#museo');
+  const reticle = document.querySelector('#reticle');
+  const audio = document.querySelector('#audio');
+  const btn = document.querySelector('#btn-audio');
+
+  window.addEventListener('click', () => {
+    if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
+      const p = reticle.getAttribute('position');
+      museo.setAttribute('position', p);
+      museo.setAttribute('visible', true);
+      reticle.setAttribute('visible', false);
+      reticle.removeAttribute('ar-hit-test');
+      document.getElementById('msg').innerHTML = "¡EXPOSICIÓN ESPALLADA!<br>Camiña para atopar as 5 estacións";
+    }
+  });
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (audio.paused) { audio.play(); } else { audio.pause(); }
+  });
+</script>
