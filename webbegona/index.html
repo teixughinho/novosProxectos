@@ -6,15 +6,15 @@
 <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 
 <style>
-/* ─── PORTADA NOVA (non toca nada do overlay orixinal) ─── */
 *, *::before, *::after { box-sizing: border-box; }
 body { margin: 0; font-family: 'Segoe UI', sans-serif; overflow: hidden; background: #07090f; }
 
+/* ── PORTADA ── */
 #portada {
   position: fixed; inset: 0; z-index: 9999;
   display: flex; align-items: center; justify-content: center;
 }
-#portada-bg NON {
+#portada-bg {
   position: absolute; inset: 0;
   background: url('imax/begonha2.png') center top / cover no-repeat;
   filter: brightness(.22) saturate(.5);
@@ -57,57 +57,26 @@ body { margin: 0; font-family: 'Segoe UI', sans-serif; overflow: hidden; backgro
   justify-content: center; flex-wrap: wrap; margin-bottom: 12px;
 }
 .pbtn {
-  padding: 11px 24px; border-radius: 30px;
+  flex: 1; min-width: 120px;
+  padding: 11px 16px; border-radius: 30px;
   font-size: .88rem; font-weight: 600;
   cursor: pointer; border: none;
   font-family: 'Segoe UI', sans-serif;
   transition: transform .12s;
 }
 .pbtn:active { transform: scale(.95); }
-.pbtn-ar {
-  background: #ff4d6d; color: #fff;
-  box-shadow: 0 4px 18px rgba(255,77,109,.45);
-}
-.pbtn-sala {
-  background: transparent; color: #00e5ff;
-  border: 2px solid #00e5ff;
-}
+.pbtn-ar { background: #ff4d6d; color: #fff; box-shadow: 0 4px 18px rgba(255,77,109,.45); }
 .pbtn-quiz {
   width: 100%; padding: 10px; border-radius: 20px;
   background: rgba(0,229,255,.1); color: #00e5ff;
   border: 1.5px solid rgba(0,229,255,.4);
   font-size: .82rem; font-weight: 600;
   cursor: pointer; font-family: 'Segoe UI', sans-serif;
+  margin-top: 8px;
 }
 .pbtn-quiz:hover { background: rgba(0,229,255,.2); }
 
-/* ─── OVERLAY ORIXINAL (sen cambios) ─── */
-#overlay {
-  position: absolute; bottom: 20px; width: 100%;
-  text-align: center; z-index: 1000;
-  font-family: 'Segoe UI', sans-serif; pointer-events: none;
-}
-.portada-escolar {
-  display: none;
-  padding: 25px; border-radius: 20px;
-  background: rgba(5, 15, 35, 0.96);
-  border: 2px solid #00e5ff; color: white;
-  pointer-events: auto; max-width: 80%;
-  box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
-}
-.foto-escolar {
-  width: 80px; height: 80px; border-radius: 50%;
-  border: 2px solid #00e5ff; margin-bottom: 10px; object-fit: cover;
-}
-.nome { font-size: 1.4rem; font-weight: bold; margin: 0; color: #00e5ff; }
-.letras { font-size: 0.9rem; margin-bottom: 15px; display: block; opacity: .8; }
-.instrucions {
-  font-size: 0.85rem; line-height: 1.4;
-  background: rgba(255,255,255,0.1);
-  padding: 10px; border-radius: 12px; color: #00e5ff;
-}
-
-/* ─── BOTÓN QUIZ FLOTANTE (dentro da sala) ─── */
+/* ── BOTÓN QUIZ FLOTANTE (sala non-AR) ── */
 #btn-quiz-sala {
   display: none;
   position: fixed; bottom: 20px; right: 16px; z-index: 2000;
@@ -118,40 +87,89 @@ body { margin: 0; font-family: 'Segoe UI', sans-serif; overflow: hidden; backgro
   box-shadow: 0 4px 18px rgba(255,77,109,.5);
 }
 
-/* ─── QUIZ ─── */
-#quiz-panel {
-  display: none; position: fixed; inset: 0; z-index: 8000;
-  background: rgba(5,10,25,.97);
-  flex-direction: column; align-items: center; justify-content: center;
-  padding: 24px 20px;
+/*
+ * OVERLAY DE AR
+ * overlayElement de WebXR apunta a #overlay.
+ * Debe cubrir TODA a pantalla (inset:0) para que
+ * os fillos con position:absolute se posicionen ben.
+ * pointer-events:none por defecto; os fillos interactivos
+ * teñen pointer-events:auto individualmente.
+ */
+#overlay {
+  position: absolute;
+  inset: 0;              /* cobre toda a pantalla */
+  z-index: 1000;
+  pointer-events: none;
 }
-#quiz-panel.activo { display: flex; }
+
+/* Caixa de instrucións AR, ancorada abaixo */
+.portada-escolar {
+  display: none;
+  position: absolute;
+  bottom: 20px; left: 50%;
+  transform: translateX(-50%);
+  padding: 25px; border-radius: 20px;
+  background: rgba(5, 15, 35, 0.96);
+  border: 2px solid #00e5ff; color: white;
+  pointer-events: auto;
+  max-width: 80%;
+  box-shadow: 0 0 20px rgba(0,229,255,.3);
+  text-align: center;
+}
+.nome  { font-size: 1.4rem; font-weight: bold; margin: 0; color: #00e5ff; }
+.letras { font-size: 0.9rem; margin-bottom: 15px; display: block; opacity: .8; }
+.instrucions {
+  font-size: 0.85rem; line-height: 1.4;
+  background: rgba(255,255,255,0.1);
+  padding: 10px; border-radius: 12px; color: #00e5ff;
+}
+
+/*
+ * PANEL DO QUIZ
+ * position:absolute dentro de #overlay (que é inset:0).
+ * top/left 50% + translate centra na pantalla.
+ * pointer-events:auto para que os botóns respondan en AR.
+ * UN SÓ bloque CSS — sen duplicados.
+ */
+#quiz-panel {
+  display: none;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background: rgba(5, 15, 35, 0.98);
+  border: 2px solid #00e5ff;
+  border-radius: 15px;
+  padding: 20px;
+  width: 90%; max-width: 450px;
+  color: white;
+  pointer-events: auto;
+}
+#quiz-panel.activo { display: flex; flex-direction: column; }
+
 .qx {
-  position: absolute; top: 16px; right: 18px;
-  background: none; border: none; color: #555;
+  position: absolute; top: 10px; right: 15px;
+  background: none; border: none; color: #888;
   font-size: 1.5rem; cursor: pointer;
 }
 .qx:hover { color: #fff; }
 .q-logo { font-size: 1.25rem; font-weight: 700; color: #00e5ff; text-align: center; margin-bottom: 2px; }
 .q-sub  { font-size: .78rem; color: #888; text-align: center; margin-bottom: 16px; }
 .q-barra-c {
-  width: 100%; max-width: 500px; height: 5px;
+  width: 100%; height: 5px;
   background: rgba(255,255,255,.08); border-radius: 3px;
   margin-bottom: 18px; overflow: hidden;
 }
 .q-barra {
-  height: 100%; background: linear-gradient(90deg,#00e5ff,#ff4d6d);
+  height: 100%;
+  background: linear-gradient(90deg, #00e5ff, #ff4d6d);
   border-radius: 3px; transition: width .4s ease;
 }
 .q-preg {
   color: #fff; font-size: 1rem; font-weight: 600;
-  text-align: center; max-width: 500px;
-  line-height: 1.5; margin-bottom: 20px;
+  text-align: center; line-height: 1.5; margin-bottom: 20px;
 }
-.q-ops {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 10px; width: 100%; max-width: 500px;
-}
+.q-ops { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .opcion {
   padding: 13px 14px; border-radius: 12px;
   border: 2px solid rgba(0,229,255,.3);
@@ -165,13 +183,12 @@ body { margin: 0; font-family: 'Segoe UI', sans-serif; overflow: hidden; backgro
   border-color: #00e5ff; background: rgba(0,229,255,.15); transform: translateY(-1px);
 }
 .opcion:disabled { cursor: default; transform: none; }
-.opcion.correcta  { background: rgba(0,230,100,.2) !important; border-color: #00e664 !important; color: #00e664 !important; }
+.opcion.correcta   { background: rgba(0,230,100,.2) !important; border-color: #00e664 !important; color: #00e664 !important; }
 .opcion.incorrecta { background: rgba(255,77,109,.2) !important; border-color: #ff4d6d !important; color: #ff7a8a !important; }
 .q-fb {
   min-height: 38px; margin-top: 14px;
   font-size: .87rem; text-align: center;
-  font-weight: 600; color: #00e664;
-  max-width: 500px; line-height: 1.4;
+  font-weight: 600; color: #00e664; line-height: 1.4;
 }
 .q-fb.mal { color: #ff7a8a; }
 .q-btn-seg {
@@ -180,6 +197,7 @@ body { margin: 0; font-family: 'Segoe UI', sans-serif; overflow: hidden; backgro
   background: #00e5ff; color: #07090f;
   border: none; font-size: .9rem; font-weight: 700;
   cursor: pointer; font-family: 'Segoe UI', sans-serif;
+  align-self: center;
 }
 #q-resultado {
   display: none; flex-direction: column;
@@ -188,7 +206,7 @@ body { margin: 0; font-family: 'Segoe UI', sans-serif; overflow: hidden; backgro
 .r-puntos { font-size: 4rem; font-weight: 800; color: #00e5ff; line-height: 1; }
 .r-label  { font-size: .95rem; color: #aaa; }
 .r-stars  { font-size: 1.8rem; }
-.r-msg    { font-size: .92rem; color: #ddd; max-width: 360px; line-height: 1.5; }
+.r-msg    { font-size: .92rem; color: #ddd; max-width: 360px; line-height: 1.5; margin: 0; }
 .r-bots   { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; justify-content: center; }
 .r-btn-rep {
   padding: 10px 26px; border-radius: 20px;
@@ -203,26 +221,11 @@ body { margin: 0; font-family: 'Segoe UI', sans-serif; overflow: hidden; backgro
   font-size: .88rem; cursor: pointer;
   font-family: 'Segoe UI', sans-serif;
 }
-  #quiz-panel {
-  position: absolute; /* ou fixed, fai que flote sobre o resto */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* Centra o panel exactamente na pantalla */
-  z-index: 9999; /* CLAVE: Moi superior ao 1000 da portada */
-  
-  /* Un pouco de estilo básico para que se vexa ben (axústao ao teu gusto) */
-  background: rgba(5, 15, 35, 0.98);
-  border: 2px solid #00e5ff;
-  border-radius: 15px;
-  padding: 20px;
-  width: 80%;
-  max-width: 400px;
-  color: white;
-}
 </style>
 </head>
 <body>
 
+<!-- ══ PORTADA ══ -->
 <div id="portada">
   <div id="portada-bg"></div>
   <div class="portada-inner">
@@ -231,206 +234,238 @@ body { margin: 0; font-family: 'Segoe UI', sans-serif; overflow: hidden; backgro
     <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
     <span class="portada-data">Letras Galegas &middot; 2026</span>
     <div class="portada-botoes">
-   <button class="pbtn-quiz" onclick="abrirQuiz()">&#127942; Canto sabes de Bego&ntilde;a Caamaño?</button>
+      <!-- entrarAR() oculta a portada e activa WebXR -->
+<!--       <button class="pbtn pbtn-ar" onclick="entrarAR()">&#128247; Entrar en AR</button> -->
     </div>
-   <span class="">Para entrares preme [AR] e logo toca a pantalla</span>
+<!--     <button class="pbtn-quiz" onclick="abrirQuiz()">&#127942; Canto sabes de Bego&ntilde;a Caamaño?</button> -->
+    <span style="font-size:.75rem; opacity:.7; margin-top:10px; display:block;">Preme [AR] e toca a pantalla para colocar a sala</span>
   </div>
 </div>
 
-<button id="btn-quiz-sala" onclick="abrirQuiz()">&#127942; Canto sabes?</button>
+<!-- Botón quiz flotante na sala non-AR -->
+<!-- <button id="btn-quiz-sala" onclick="abrirQuiz()">&#127942; Canto sabes?</button> -->
 
-<div id="quiz-panel">
-  <button class="qx" onclick="pecharQuiz()">&#x2715;</button>
-  <div id="q-xogo">
-    <div class="q-logo">&#127942; Canto sabes?</div>
-    <div class="q-sub">Bego&ntilde;a Caama&ntilde;o &middot; Letras Galegas 2026</div>
-    <div class="q-barra-c"><div class="q-barra" id="q-barra" style="width:0%"></div></div>
-    <div class="q-preg" id="q-preg"></div>
-    <div class="q-ops" id="q-ops"></div>
-    <div class="q-fb" id="q-fb"></div>
-    <button class="q-btn-seg" id="q-btn-seg" onclick="qSeguinte()">Seguinte &#8594;</button>
-  </div>
-  <div id="q-resultado">
-    <div class="r-puntos" id="r-puntos"></div>
-    <div class="r-label" id="r-label"></div>
-    <div class="r-stars" id="r-stars"></div>
-    <div class="r-msg" id="r-msg"></div>
-    <div class="r-bots">
-      <button class="r-btn-rep" onclick="qReiniciar()">&#8635; Repetir</button>
-      <button class="r-btn-pec" onclick="pecharQuiz()">Pechar</button>
-    </div>
-  </div>
-</div>
-
+<!--
+  OVERLAY DE AR (overlayElement:#overlay)
+  Todo o que se ve en AR debe estar AQUÍ DENTRO.
+  .portada-escolar: instrucións ao entrar en AR.
+  #quiz-panel: o quiz, fillo directo de #overlay (NON dentro de .portada-escolar).
+-->
 <div id="overlay">
+
+  <!-- Instrucións AR: aparece ao entrar en modo AR -->
   <div class="portada-escolar">
-    <img src="imax/begonha2.png" class="foto-bego" alt="Bego&ntilde;a Caamaño">
-    <h1 class="nome">BEGO&Ntilde;A CAAMAÑO</h1>
+    <img src="imax/begonha2.png" style="width:70px;height:70px;border-radius:50%;border:2px solid #00e5ff;margin-bottom:10px;object-fit:cover;" alt="Begoña Caamaño">
+    <h1 class="nome">BEGO&Ntilde;A CAAMA&Ntilde;O</h1>
     <span class="letras">Letras Galegas 2026</span>
     <div class="instrucions">
-      Pulsa <b>[AR]</b> para abrir a c&aacute;mara.<br>
-      Toca a pantalla para <b>entrar na sala</b>.<br>
-      Interact&uacute;a co legado de Bego&ntilde;a na pantalla.
+      Toca a pantalla para <b>colocar a sala</b>.<br>
+      Interact&uacute;a cos paneis tocándoos.
     </div>
   </div>
-</div>
 
-<a-scene renderer="colorManagement:true; antialias:true" webxr="optionalFeatures: hit-test, dom-overlay; overlayElement:#overlay">
+  <!-- QUIZ: fillo directo de #overlay, centrado na pantalla -->
+  <div id="quiz-panel">
+    <button class="qx" onclick="pecharQuiz()">&#x2715;</button>
+    <div id="q-xogo">
+      <div class="q-logo">&#127942; Canto sabes?</div>
+      <div class="q-sub">Bego&ntilde;a Caama&ntilde;o &middot; Letras Galegas 2026</div>
+      <div class="q-barra-c"><div class="q-barra" id="q-barra" style="width:0%"></div></div>
+      <div class="q-preg" id="q-preg"></div>
+      <div class="q-ops"  id="q-ops"></div>
+      <div class="q-fb"   id="q-fb"></div>
+      <button class="q-btn-seg" id="q-btn-seg" onclick="qSeguinte()">Seguinte &#8594;</button>
+    </div>
+    <div id="q-resultado">
+      <div class="r-puntos" id="r-puntos"></div>
+      <div class="r-label"  id="r-label"></div>
+      <div class="r-stars"  id="r-stars"></div>
+      <p   class="r-msg"    id="r-msg"></p>
+      <div class="r-bots">
+        <button class="r-btn-rep" onclick="qReiniciar()">&#8635; Repetir</button>
+        <button class="r-btn-pec" onclick="pecharQuiz()">Pechar</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- fin #overlay -->
+
+<!-- ══ ESCENA A-FRAME ══ -->
+<!-- overlayElement:#overlay — CORRECTO, nunca #quiz-panel -->
+<a-scene renderer="colorManagement:true; antialias:true"
+         webxr="optionalFeatures: hit-test, dom-overlay; overlayElement:#overlay">
 
   <a-assets>
-    <img id="img-bego" src="imax/Begonha1.jpg">
-    <img id="img-bego2" src="imax/begonha2.png">
-    <img id="img-circe" src="imax/circe.jpg">
-    <img id="img-esmelle" src="imax/esmelle.jpg">
-    <audio id="audio-file" src="sons/begonhaaudio.mp3" preload="auto"></audio>
-    <video id="video-file" src="imax/begona.mp4" preload="auto" loop="true" crossorigin="anonymous"></video>
-    <img id="icon-audio" src="https://cdn-icons-png.flaticon.com/512/727/727269.png">
+    <img   id="img-bego"    src="imax/Begonha1.jpg">
+    <img   id="img-circe"   src="imax/circe.jpg">
+    <img   id="img-esmelle" src="imax/esmelle.jpg">
+    <audio id="audio-file"  src="sons/begonhaaudio.mp3" preload="auto"></audio>
+    <video id="video-file"  src="imax/begona.mp4" preload="auto" loop crossorigin="anonymous"></video>
+    <img   id="icon-audio"  src="https://cdn-icons-png.flaticon.com/512/727/727269.png">
   </a-assets>
 
   <a-camera position="0 1.6 0">
-    <a-entity cursor="fuse: false; rayOrigin: entity;" raycaster="objects: .area-clic" position="0 0 -1"
-              geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.02" material="color: #ff4d6d; shader: flat"></a-entity>
+    <a-entity
+      cursor="fuse:false; rayOrigin:entity;"
+      raycaster="objects:.area-clic"
+      position="0 0 -1"
+      geometry="primitive:ring; radiusInner:0.015; radiusOuter:0.02"
+      material="color:#ff4d6d; shader:flat">
+    </a-entity>
   </a-camera>
 
   <a-entity id="reticle" ar-hit-test="target:#museo"></a-entity>
 
   <a-entity id="museo" visible="false">
 
-    <a-entity position="0 2.5 -5">
+    <!-- ① NORTE: Quen foi Begoña Caamaño? -->
+    <a-entity position="0 2.5 -9">
       <a-plane width="4.5" height="2.2" color="#0f172a" opacity="0.95" position="0 0.8 0">
         <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" align="center" width="5" position="0 0.7 0.02" color="#ff4d6d"></a-text>
         <a-text value="Xornalista e activista que redefiniu a narrativa&#10;galega dende o feminismo e a sororidade." align="center" width="3.8" position="0 0.1 0.02"></a-text>
       </a-plane>
       <a-image src="#img-bego" width="3.8" height="2.2" position="0 -0.6 0.1"></a-image>
-      <a-plane class="area-clic" width="4.5" height="4.5" position="0 0 0.15" material="opacity: 0; transparent: true" onclick="toggle('info1')"></a-plane>
+      <a-plane class="area-clic" width="4.5" height="4.5" position="0 0 0.15"
+               material="opacity:0; transparent:true" onclick="toggle('info1')"></a-plane>
       <a-entity id="info1" visible="false" position="0 0.2 0.3">
         <a-plane width="4.2" height="2.4" color="#222" opacity="0.8"></a-plane>
-        <a-text value="Vigo (1964) - Santiago (2014). Foi unha voz fundamental na Radio Galega e unha activista incansable. Nas súas novelas, deu voz a mulleres silenciadas pola mitoloxía clásica, converténdoas en protagonistas da súa propia historia con gran mestría lingüística." align="center" width="3.8" color="white" position="0 0 0.05"></a-text>
+        <a-text value="Vigo (1964) - Santiago (2014). Foi unha voz fundamental na Radio Galega e unha activista incansable. Nas súas novelas, deu voz a mulleres silenciadas pola mitoloxía clásica." align="center" width="3.8" color="white" position="0 0 0.05"></a-text>
       </a-entity>
     </a-entity>
 
-    <a-entity position="0 2.5 5" rotation="0 -140 0">
+    <!-- ② SUR: Obras fundamentais -->
+    <a-entity position="0 2.5 9" rotation="0 180 0">
       <a-plane width="4.5" height="2.1" color="#0f172a" opacity="0.95" position="0 0.8 0">
         <a-text value="OBRAS FUNDAMENTAIS" align="center" width="5" position="0 0.6 0.02" color="#ffb6c1"></a-text>
         <a-text value="A reescritura dos mitos clásicos e artúricos." align="center" width="3.5" position="0 0 0.02"></a-text>
       </a-plane>
-      <a-image src="#img-circe" width="1.6" height="2.4" position="-1 -0.6 0.1"></a-image>
+      <a-image src="#img-circe"   width="1.6" height="2.4" position="-1 -0.6 0.1"></a-image>
       <a-image src="#img-esmelle" width="1.6" height="2.4" position="1 -0.6 0.1"></a-image>
-      <a-plane class="area-clic" width="4.5" height="4.5" position="0 0 0.15" material="opacity: 0; transparent: true" onclick="toggle('info3')"></a-plane>
+      <a-plane class="area-clic" width="4.5" height="4.5" position="0 0 0.15"
+               material="opacity:0; transparent:true" onclick="toggle('info3')"></a-plane>
       <a-entity id="info3" visible="false" position="0 0.2 0.3">
         <a-plane width="4.2" height="2.6" color="#222" opacity="0.8"></a-plane>
-        <a-text value="'Circe ou o pracer do azul' (2009) rompe coa imaxe de muller fatal para amosar unha muller dona do seu desexo. 'Morgana en Esmelle' (2012), gañadora de múltiples premios, explora a culpa e a redención nunha Galicia mitolóxica inesquecible." align="center" width="3.8" position="0 0 0.05"></a-text>
+        <a-text value="'Circe ou o pracer do azul' (2009): muller dona do seu desexo. 'Morgana en Esmelle' (2012): culpa e redención nunha Galicia mitolóxica inesquecible." align="center" width="3.8" position="0 0 0.05"></a-text>
       </a-entity>
     </a-entity>
 
-    <a-entity position="-5 2.2 0" rotation="0 80 0">
-      <a-ring radius-inner="0.8" radius-outer="0.85" color="#00e5ff" position="0 0 0"></a-ring>
-      <a-image src="#icon-audio" width="0.6" height="0.6" position="0 0.3 0.05"></a-image>
-      <a-text value="A VOZ DA AUTORA" align="center" width="6" position="0 -0.3 0.05" color="#00e5ff" font="mozillavr"></a-text>
-      <a-text value="(Toca para escoitar)" align="center" width="3" position="0 -0.7 0.05" color="#ccc"></a-text>
-      <a-plane class="area-clic" width="2" height="2" position="0 0 0.1" material="opacity: 0; transparent: true" onclick="toggleAudio()"></a-plane>
-      <a-entity id="sound-emitter" sound="src: #audio-file; volume: 3"></a-entity>
+    <!-- ③ OESTE: Audio -->
+    <a-entity position="-9 2.2 0" rotation="0 90 0">
+      <a-ring radius-inner="1.4" radius-outer="1.55" color="#00e5ff"></a-ring>
+      <a-image src="#icon-audio" width="0.8" height="0.8" position="0 0.4 0.05"></a-image>
+      <a-text value="A VOZ DA AUTORA" align="center" width="6" position="0 -0.5 0.05" color="#00e5ff"></a-text>
+      <a-text value="(Toca para escoitar)" align="center" width="3" position="0 -1.0 0.05" color="#ccc"></a-text>
+      <a-plane class="area-clic" width="3.2" height="3.2"
+               material="opacity:0; transparent:true" onclick="toggleAudio()"></a-plane>
+      <a-entity id="sound-emitter" sound="src:#audio-file; volume:3"></a-entity>
     </a-entity>
 
-    <a-entity position="5 2.2 0" rotation="0 -80 0">
+    <!-- ④ LESTE: Vídeo -->
+    <a-entity position="9 2.2 0" rotation="0 -90 0">
       <a-plane width="4.2" height="1.2" color="#0f172a" opacity="0.95" position="0 1.2 0">
         <a-text value="XORNALISMO POLÍTICO" align="center" width="4" color="#00e5ff"></a-text>
       </a-plane>
       <a-video src="#video-file" width="3.8" height="2.1" position="0 -0.2 0.1"></a-video>
-      <a-plane class="area-clic" width="4" height="3.5" position="0 0 0.2" material="opacity: 0; transparent: true" onclick="toggleVideo()"></a-plane>
+      <a-plane class="area-clic" width="4" height="3.5" position="0 0 0.2"
+               material="opacity:0; transparent:true" onclick="toggleVideo()"></a-plane>
     </a-entity>
 
-  </a-entity>
+    <!-- ⑤ NORESTE: Canto sabes? -->
+    <a-entity position="6 2.2 -6" rotation="0 -45 0">
+      <a-plane width="3.5" height="3" color="#0f172a" opacity="0.95">
+        <a-text value="CANTO SABES?" align="center" width="4" position="0 0.9 0.02" color="#ff4d6d"></a-text>
+        <a-text value="Pon a proba os teus&#10;coñecementos sobre&#10;Begoña Caamaño" align="center" width="3" position="0 0.1 0.02" color="#ccc"></a-text>
+        <a-text value="★ INICIAR QUIZ ★" align="center" width="3.5" position="0 -0.8 0.02" color="#00e5ff"></a-text>
+      </a-plane>
+      <a-plane width="3.6" height="3.1" color="#00e5ff" opacity="0.12" position="0 0 -0.01"></a-plane>
+      <a-plane class="area-clic" width="3.5" height="3" position="0 0 0.05"
+               material="opacity:0; transparent:true" onclick="abrirQuiz()"></a-plane>
+    </a-entity>
+
+  </a-entity><!-- fin #museo -->
 </a-scene>
 
 <script>
+const scene       = document.querySelector('a-scene');
+const museo       = document.querySelector('#museo');
+const reticle     = document.querySelector('#reticle');
+const portadaEl   = document.getElementById('portada');
+const btnQuizSala = document.getElementById('btn-quiz-sala');
+
 function toggle(id) {
   const el = document.getElementById(id);
   el.setAttribute('visible', !el.getAttribute('visible'));
 }
 function toggleAudio() {
   const s = document.querySelector('#sound-emitter');
+  if (!s?.components?.sound) return;
   s.components.sound.isPlaying ? s.components.sound.stopSound() : s.components.sound.playSound();
 }
 function toggleVideo() {
   const v = document.querySelector('#video-file');
-  v.paused ? v.play() : v.pause();
+  if (!v) return;
+  v.paused ? v.play().catch(()=>{}) : v.pause();
 }
-const scene = document.querySelector('a-scene');
-const museo = document.querySelector('#museo');
-const reticle = document.querySelector('#reticle');
 
-window.addEventListener('click', () => {
-  if(scene.is('ar-mode') && reticle.getAttribute('visible')){
-    museo.setAttribute('position', reticle.getAttribute('position'));
-    museo.setAttribute('visible', true);
-    reticle.setAttribute('visible', false);
-    document.querySelector('.portada-escolar').style.display = 'none';
-  }
-});
-</script>
-
-<script>
-const portadaEl = document.getElementById('portada');
-const btnQuizSala = document.getElementById('btn-quiz-sala');
-
-function portadaAR() {
+/* Entra en AR: oculta portada, mostra instrucións, activa cámara */
+function entrarAR() {
   portadaEl.style.display = 'none';
-  // Delega no botón NATIVO de A-Frame, non chama enterVR() directamente
+  document.querySelector('.portada-escolar').style.display = 'block';
   const aBtn = document.querySelector('.a-enter-vr-button');
   if (aBtn) aBtn.click();
 }
 
-function portadaSala() {
-  portadaEl.style.display = 'none';
-  museo.setAttribute('visible', true);
-  btnQuizSala.style.display = 'block';
-}
+/*
+ * Placement do museo en AR.
+ * Garda: se o quiz está aberto, non fai nada.
+ * Garda: se o clic vén do interior do quiz, non fai nada.
+ */
+window.addEventListener('click', (e) => {
+  if (e.target.closest('#quiz-panel')) return;
+  if (document.getElementById('quiz-panel').classList.contains('activo')) return;
+  if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
+    museo.setAttribute('position', reticle.getAttribute('position'));
+    museo.setAttribute('visible', true);
+    reticle.setAttribute('visible', false);
+    document.querySelector('.portada-escolar').style.display = 'none';
+    btnQuizSala.style.display = 'block';
+  }
+});
 
 scene.addEventListener('enter-vr', () => {
   portadaEl.style.display = 'none';
-  if (!scene.is('ar-mode')) btnQuizSala.style.display = 'block';
+  if (!scene.is('ar-mode')) {
+    museo.setAttribute('visible', true);
+    btnQuizSala.style.display = 'block';
+  }
 });
 scene.addEventListener('exit-vr', () => {
   btnQuizSala.style.display = 'block';
 });
 
+/* ══ LÓXICA DO QUIZ ══ */
 const QP = [
-  {
-    p: "En que cidade naceu Begoña Caamaño?",
+  { p: "En que cidade naceu Begoña Caamaño?",
     ops: ["Vigo", "Santiago de Compostela", "A Coruña", "Pontevedra"],
-    ok: 0, exp: "Naceu en Vigo no ano 1964."
-  },
-  {
-    p: "En que medio traballou como xornalista durante anos?",
+    ok: 0, exp: "Naceu en Vigo no ano 1964." },
+  { p: "En que medio traballou como xornalista durante anos?",
     ops: ["TVG", "Radio Galega", "La Voz de Galicia", "El Correo Gallego"],
-    ok: 1, exp: "Foi unha voz fundamental na Radio Galega."
-  },
-  {
-    p: "En que ano faleceu Begoña Caamaño?",
+    ok: 1, exp: "Foi unha voz fundamental na Radio Galega." },
+  { p: "En que ano faleceu Begoña Caamaño?",
     ops: ["2010", "2012", "2014", "2016"],
-    ok: 2, exp: "Faleceu en Santiago de Compostela en 2014."
-  },
-  {
-    p: "Cal é o título da súa novela de 2009?",
+    ok: 2, exp: "Faleceu en Santiago de Compostela en 2014." },
+  { p: "Cal é o título da súa novela de 2009?",
     ops: ["Morgana en Esmelle", "Circe ou o pracer do azul", "A illa das mulleres", "O libro das fadas"],
-    ok: 1, exp: "'Circe ou o pracer do azul' publicouse en 2009."
-  },
-  {
-    p: "En que ano se publicou 'Morgana en Esmelle'?",
+    ok: 1, exp: "'Circe ou o pracer do azul' publicouse en 2009." },
+  { p: "En que ano se publicou 'Morgana en Esmelle'?",
     ops: ["2008", "2010", "2012", "2014"],
-    ok: 2, exp: "'Morgana en Esmelle' publicouse en 2012 e gañou múltiples premios."
-  },
-  {
-    p: "Que temática atravesa principalmente a obra de Begoña Caamaño?",
+    ok: 2, exp: "'Morgana en Esmelle' publicouse en 2012." },
+  { p: "Que temática atravesa principalmente a obra de Begoña Caamaño?",
     ops: ["A guerra civil española", "O feminismo e a reescritura de mitos clásicos", "A emigración galega a América", "A vida rural no século XIX"],
-    ok: 1, exp: "O feminismo e a revisión dos mitos clásicos son o núcleo da súa obra."
-  },
-  {
-    p: "A que ano das Letras Galegas corresponde a homenaxe a Begoña Caamaño?",
+    ok: 1, exp: "O feminismo e a revisión dos mitos clásicos son o núcleo da súa obra." },
+  { p: "A que ano das Letras Galegas corresponde a homenaxe a Begoña Caamaño?",
     ops: ["2024", "2025", "2026", "2027"],
-    ok: 2, exp: "O Día das Letras Galegas 2026 está dedicado a Begoña Caamaño."
-  }
+    ok: 2, exp: "O Día das Letras Galegas 2026 está dedicado a Begoña Caamaño." }
 ];
 
 let qIdx = 0, qPts = 0, qResp = false;
@@ -496,18 +531,17 @@ function qSeguinte() {
 function qResultado() {
   document.getElementById('q-xogo').style.display = 'none';
   document.getElementById('q-barra').style.width = '100%';
-  const r = document.getElementById('q-resultado');
-  r.style.display = 'flex';
+  document.getElementById('q-resultado').style.display = 'flex';
   const tot = QP.length, pct = Math.round(qPts / tot * 100);
   document.getElementById('r-puntos').textContent = qPts + '/' + tot;
   let lb, mg, st;
-  if      (pct === 100) { lb = 'Excelente!'; st = '★★★★★'; mg = 'Dominas o legado de Begoña Caamaño!'; }
-  else if (pct >= 71)   { lb = 'Moi ben!'; st = '★★★★☆'; mg = 'Coñeces ben a vida e a obra desta escritora.'; }
-  else if (pct >= 43)   { lb = 'Vai ben!'; st = '★★★☆☆'; mg = 'Tes boa base. Explora os paneis para completar.'; }
+  if      (pct === 100) { lb = 'Excelente!';       st = '★★★★★'; mg = 'Dominas o legado de Begoña Caamaño!'; }
+  else if (pct >= 71)   { lb = 'Moi ben!';          st = '★★★★☆'; mg = 'Coñeces ben a vida e a obra desta escritora.'; }
+  else if (pct >= 43)   { lb = 'Vai ben!';           st = '★★★☆☆'; mg = 'Tes boa base. Explora os paneis para completar.'; }
   else                  { lb = 'Segue aprendendo!'; st = '★★☆☆☆'; mg = 'Revisa os paneis da sala e volve tentar!'; }
   document.getElementById('r-label').textContent = lb;
   document.getElementById('r-stars').textContent = st;
-  document.getElementById('r-msg').textContent = mg;
+  document.getElementById('r-msg').textContent   = mg;
 }
 </script>
 </body>
