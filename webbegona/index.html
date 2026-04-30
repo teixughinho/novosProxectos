@@ -15,27 +15,59 @@
   font-family: 'Inter', 'SF Pro Display', -apple-system, sans-serif;
 }
 
+/* ANTES: burbulla redonda.
+   AGORA: tarxeta cadrada dedicada a Begoña, mesmo lugar, mesmo overlay. */
 .burbulla {
-  background: linear-gradient(135deg, rgba(0,229,255,0.15) 0%, rgba(156,39,176,0.15) 100%);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  padding: 18px 32px;
-  border-radius: 50px;
-  border: 2px solid rgba(255,255,255,0.25);
-  box-shadow: 0 8px 32px rgba(0,229,255,0.3), 
-              0 0 80px rgba(156,39,176,0.2),
-              inset 0 1px 1px rgba(255,255,255,0.3);
+  display: inline-block;
+  max-width: 520px;
+  width: 85%;
+  padding: 20px 22px 18px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.85));
+  border: 1px solid rgba(56,189,248,0.5);
+  box-shadow: 0 24px 80px rgba(15,23,42,0.9);
   color: white;
-  font-weight: 600;
-  font-size: 15px;
-  letter-spacing: 0.5px;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  text-align: left;
+}
+
+/* Texto interno da pantalla inicial */
+.burbulla-titulo {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.burbulla-sub {
+  font-size: 13px;
+  opacity: 0.9;
+  margin-bottom: 6px;
+}
+
+.burbulla-steps {
+  font-size: 12px;
+  opacity: 0.85;
+  line-height: 1.5;
 }
 </style>
 </head>
 <body>
 
 <div id="overlay">
-  <div class="burbulla" id="mensaje">👉 TOCA AR E COLOCA O MUSEO DE BEGOÑA CAAMAÑO</div>
+  <div class="burbulla" id="mensaje">
+    <div class="burbulla-titulo">MUSEO AR · BEGOÑA CAAMAÑO</div>
+    <div class="burbulla-sub">
+      👉 Toca o botón <strong>AR</strong> para entrar no museo en realidade aumentada.
+    </div>
+    <div class="burbulla-steps">
+      1. Preme AR no navegador e concede permisos de cámara.<br>
+      2. Móvete ata detectar o chan (círculo).<br>
+      3. Cando vexas o círculo, toca para colocar o museo de Begoña Caamaño.
+    </div>
+  </div>
 </div>
 
 <a-scene renderer="colorManagement:true; antialias:true; physicallyCorrectLights:true" 
