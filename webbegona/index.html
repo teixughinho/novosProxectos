@@ -1,229 +1,506 @@
-<meta charset="utf-8">
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 
 <style>
 #overlay {
   position: absolute;
-  bottom: 30px;
+  bottom: 40px;
   width: 100%;
   text-align: center;
-  color: white;
   z-index: 1000;
-  font-family: sans-serif;
-  pointer-events: none;
+  font-family: 'Inter', 'SF Pro Display', -apple-system, sans-serif;
 }
 
 .burbulla {
-  background: rgba(26, 42, 58, 0.95);
-  padding: 15px 25px;
+  background: linear-gradient(135deg, rgba(0,229,255,0.15) 0%, rgba(156,39,176,0.15) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  padding: 18px 32px;
   border-radius: 50px;
-  border: 2px solid #ff007f;
-  display: inline-block;
-  box-shadow: 0 0 25px #ff007f;
-  font-weight: bold;
+  border: 2px solid rgba(255,255,255,0.25);
+  box-shadow: 0 8px 32px rgba(0,229,255,0.3), 
+              0 0 80px rgba(156,39,176,0.2),
+              inset 0 1px 1px rgba(255,255,255,0.3);
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.5px;
 }
 </style>
+</head>
+<body>
 
 <div id="overlay">
-  <div class="burbulla">
-    TOCA [AR] e sitúa a exposición de Begoña Caamaño
-  </div>
+  <div class="burbulla" id="mensaje">👉 TOCA AR E COLOCA O MUSEO DE BEGOÑA CAAMAÑO</div>
 </div>
 
-<a-scene webxr="optionalFeatures: hit-test, dom-overlay; overlayElement: #overlay">
+<a-scene renderer="colorManagement:true; antialias:true; physicallyCorrectLights:true" 
+         webxr="optionalFeatures: hit-test, dom-overlay; overlayElement:#overlay">
 
+<!-- ========== ASSETS ========== -->
 <a-assets>
-  <img id="bego" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Begonha_Caama%C3%B1o.jpg/960px-Begonha_Caama%C3%B1o.jpg">
-  <img id="libro" src="https://m.media-amazon.com/images/I/51vGPSrsJ8L._SL1000_.jpg">
-  <img id="cartel" src="https://www.cronica3.com/wp-content/uploads/2026/04/Cartel-3000x1746.png">
-  <img id="circe" src="https://imagessl4.casadellibro.com/a/l/s7/64/9788411764964.webp">
-  <img id="sonia" src="https://observatorioigualdade.org/wp-content/uploads/2013/03/3-begoa-caamao-sonia-daz-copiar.jpg">
-  <img id="play" src="https://cdn-icons-png.flaticon.com/512/727/727245.png">
-  <img id="mic" src="https://cdn-icons-png.flaticon.com/512/727/727269.png">
+  <img id="bego" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Begonha_Caama%C3%B1o.jpg/960px-Begonha_Caama%C3%B1o.jpg" crossorigin="anonymous">
+  <img id="circe" src="https://imagessl4.casadellibro.com/a/l/s7/64/9788411764964.webp" crossorigin="anonymous">
+  <img id="libro" src="https://m.media-amazon.com/images/I/51vGPSrsJ8L._SL1000_.jpg" crossorigin="anonymous">
+  <img id="sonia" src="https://observatorioigualdade.org/wp-content/uploads/2013/03/3-begoa-caamao-sonia-daz-copiar.jpg" crossorigin="anonymous">
+  <img id="play" src="https://cdn-icons-png.flaticon.com/512/727/727245.png" crossorigin="anonymous">
+  <img id="mic" src="https://cdn-icons-png.flaticon.com/512/727/727269.png" crossorigin="anonymous">
   <audio id="audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 </a-assets>
 
-<a-camera><a-cursor></a-cursor></a-camera>
+<a-camera position="0 1.6 0">
+  <a-cursor raycaster="objects: .clickable"></a-cursor>
+</a-camera>
 
-<a-entity id="reticle" ar-hit-test="target: #museo">
-  <a-ring color="#ff007f" radius-inner="0.15" radius-outer="0.22"></a-ring>
-</a-entity>
+<!-- retícula AR INVISIBLE -->
+<a-entity id="reticle" ar-hit-test="target:#museo"></a-entity>
 
+<!-- ========== ATMOSFERA MUSEO ========== -->
 <a-entity id="museo" visible="false">
 
-<!-- ===================== SECCIÓN 1 ===================== -->
-<a-entity position="0 2 -8">
+  <!-- ILUMINACIÓN MODERNA -->
+  <a-light type="ambient" intensity="0.6" color="#ffffff"></a-light>
+  <a-light type="directional" intensity="0.9" position="5 10 5" color="#ffffff"></a-light>
+  <a-light type="point" intensity="1.2" position="0 8 0" color="#00e5ff" distance="25"></a-light>
+  
+  <!-- Luces de acento -->
+  <a-light type="point" intensity="0.8" position="-10 3 0" color="#9c27b0" distance="15"></a-light>
+  <a-light type="point" intensity="0.8" position="10 3 0" color="#00e5ff" distance="15"></a-light>
 
-  <!-- fondo dinámico -->
-  <a-plane width="5" height="3"
-           color="#1b1b2f"
-           opacity="0.85"></a-plane>
-
-  <a-plane width="5.2" height="3.2"
-           color="#ff007f"
-           opacity="0.12"
-           position="0 0 0.01"></a-plane>
-
-  <!-- título (efecto grosor real) -->
-  <a-text value="DE ONDE ERA E A QUE SE DEDICOU?"
-          width="6.5"
+  <!-- ===================== VERSOS FLOTANTES NO TEITO ===================== -->
+  
+  <!-- Verso 1 -->
+  <a-text value="«Era un mar de espuma&#10;e luz azul»"
           align="center"
-          position="0 1.5 0.02"
-          color="#ff007f"
-          letter-spacing="2"></a-text>
-
-  <a-text value="DE ONDE ERA E A QUE SE DEDICOU?"
-          width="6.5"
-          align="center"
-          position="0.04 1.5 0.01"
-          color="#ff007f"
-          opacity="0.4"></a-text>
-
-  <a-text value="Xornalista galega, TVG e Radio Galega, voz feminista e cultural"
-          width="4.8"
-          align="center"
-          position="0 0.7 0.02"></a-text>
-
-  <a-plane src="#bego" width="3" height="2.2" position="0 -1 0.03"></a-plane>
-
-</a-entity>
-
-<!-- ===================== SECCIÓN 2 ===================== -->
-<a-entity position="-10 2 -2" rotation="0 90 0">
-
-  <a-plane width="5.5" height="3.2" color="#0f3460" opacity="0.85"></a-plane>
-  <a-plane width="5.7" height="3.4" color="#ff007f" opacity="0.10"></a-plane>
-
-  <a-text value="POR QUE FOI IMPORTANTE?"
-          width="7"
-          align="center"
-          position="0 1.5 0.02"
-          color="#ff007f"
-          letter-spacing="2"></a-text>
-
-  <a-text value="Reescribiu mitos dende unha mirada feminista e contemporánea"
-          width="5"
-          align="center"
-          position="0 0.5 0.02"></a-text>
-
-  <!-- PANTALLA VIDEO -->
-  <a-entity position="0 -1.3 0.03">
-    <a-plane width="3.2" height="2"
-             color="#000"></a-plane>
-
-    <a-circle radius="0.25" color="#ff007f" position="0 0 0.01"></a-circle>
-
-    <a-image src="#play"
-             width="0.6" height="0.6"
-             position="0 0 0.02"></a-image>
-
-    <a-text value="AQUÍ IRÁ UN VÍDEO"
-            width="3"
-            align="center"
-            position="0 -0.9 0.02"
-            color="white"></a-text>
-  </a-entity>
-
-</a-entity>
-
-<!-- ===================== SECCIÓN 3 ===================== -->
-<a-entity position="10 2 -2" rotation="0 -90 0">
-
-  <a-plane width="5.5" height="3.2" color="#16213e" opacity="0.85"></a-plane>
-
-  <a-text value="QUE OBRAS ESCRIBIU?"
-          width="7"
-          align="center"
-          position="0 1.5 0.02"
-          color="#ff007f"></a-text>
-
-  <a-text value="Circe ou o pracer do azul · Morgana en Esmelle"
-          width="5"
-          align="center"
-          position="0 0.5 0.02"></a-text>
-
-  <a-plane src="#circe" width="1.7" height="2.5" position="-1.5 -1.2 0.03"></a-plane>
-  <a-plane src="#libro" width="1.7" height="2.5" position="1.5 -1.2 0.03"></a-plane>
-
-</a-entity>
-
-<!-- ===================== SECCIÓN 4 ===================== -->
-<a-entity position="-8 2.5 10" rotation="0 150 0">
-
-  <a-plane width="5.5" height="3.2" color="#1a1a2e" opacity="0.85"></a-plane>
-
-  <a-text value="COMO ERAN AS SÚAS OBRAS?"
-          width="7"
-          align="center"
-          position="0 1.2 0.02"
-          color="#ff007f"></a-text>
-
-  <a-text value="Mestura de mito, liberdade e voz feminina"
-          width="5"
-          align="center"
-          position="0 0.2 0.02"></a-text>
-
-  <!-- PANTALLA ENTREVISTA -->
-  <a-entity position="0 -1.5 0.03">
-    <a-plane width="3.2" height="2" color="#000"></a-plane>
-
-    <a-image src="#play" width="0.6" height="0.6"></a-image>
-
-    <a-text value="ENTREVISTA"
-            width="3"
-            align="center"
-            position="0 -0.9 0.02"
-            color="white"></a-text>
-  </a-entity>
-
-</a-entity>
-
-<!-- ===================== AUDIO ===================== -->
-<a-entity id="audioBtn" position="5 1.5 5" rotation="0 220 0">
-
-  <a-circle radius="0.6" color="#00bcd4"></a-circle>
-
-  <a-image src="#mic" width="0.5" height="0.5" position="0 0 0.02"></a-image>
-
-  <a-text value="AUDIO"
           width="4"
+          position="3 7 -5"
+          color="#00ffff"
+          opacity="0.95"
+          animation="property: position; from: 3 7 -5; to: 3 7.5 -5; dur: 4000; dir: alternate; loop: true; easing:easeInOutSine"
+          animation__rotate="property: rotation; from: 0 -15 0; to: 0 15 0; dur: 6000; dir: alternate; loop: true">
+  </a-text>
+
+  <!-- Verso 2 -->
+  <a-text value="«Mulleres que teñen&#10;a palabra»"
           align="center"
-          position="0 -1 0"
-          color="#00bcd4"></a-text>
+          width="4"
+          position="-4 7.5 3"
+          color="#ff69b4"
+          opacity="0.95"
+          animation="property: position; from: -4 7.5 3; to: -4 8 3; dur: 5000; dir: alternate; loop: true; easing:easeInOutSine; delay:500"
+          animation__rotate="property: rotation; from: 0 20 0; to: 0 -10 0; dur: 7000; dir: alternate; loop: true">
+  </a-text>
 
-</a-entity>
+  <!-- Verso 3 -->
+  <a-text value="«Somos fillas&#10;de Circe»"
+          align="center"
+          width="3.5"
+          position="5 8 4"
+          color="#bb86fc"
+          opacity="0.95"
+          animation="property: position; from: 5 8 4; to: 5 8.5 4; dur: 4500; dir: alternate; loop: true; easing:easeInOutSine; delay:1000"
+          animation__rotate="property: rotation; from: 0 -20 0; to: 0 20 0; dur: 6500; dir: alternate; loop: true">
+  </a-text>
 
-<!-- ===================== VERSOS ===================== -->
-<a-text value="As nosas mans tecen o futuro"
-        position="-8 7 -5"
-        rotation="30 45 0"
-        width="10"
-        color="#00bcd4"
-        opacity="0.9"></a-text>
+  <!-- Verso 4 -->
+  <a-text value="«O pracer&#10;do azul»"
+          align="center"
+          width="3"
+          position="-5 7.2 -6"
+          color="#00e5ff"
+          opacity="0.95"
+          animation="property: position; from: -5 7.2 -6; to: -5 7.8 -6; dur: 5500; dir: alternate; loop: true; easing:easeInOutSine; delay:1500"
+          animation__rotate="property: rotation; from: 0 10 0; to: 0 -15 0; dur: 8000; dir: alternate; loop: true">
+  </a-text>
 
-<a-text value="Escribo para rescatar a voz"
-        position="0 8 0"
-        rotation="90 0 0"
-        width="12"
-        color="white"
-        opacity="0.85"></a-text>
+  <!-- Verso 5 -->
+  <a-text value="«Liberdade&#10;na mirada»"
+          align="center"
+          width="3.5"
+          position="-7 8.5 1"
+          color="#ffb6c1"
+          opacity="0.95"
+          animation="property: position; from: -7 8.5 1; to: -7 9 1; dur: 4800; dir: alternate; loop: true; easing:easeInOutSine; delay:2000"
+          animation__rotate="property: rotation; from: 0 -25 0; to: 0 10 0; dur: 7500; dir: alternate; loop: true">
+  </a-text>
+
+  <!-- Verso 6 -->
+  <a-text value="«Reclamo&#10;o meu espazo»"
+          align="center"
+          width="3.8"
+          position="6 7.8 -7"
+          color="#a78bfa"
+          opacity="0.95"
+          animation="property: position; from: 6 7.8 -7; to: 6 8.3 -7; dur: 5200; dir: alternate; loop: true; easing:easeInOutSine; delay:2500"
+          animation__rotate="property: rotation; from: 0 15 0; to: 0 -20 0; dur: 6800; dir: alternate; loop: true">
+  </a-text>
+
+  <!-- Verso 7 -->
+  <a-text value="«Navegantes&#10;de sombras»"
+          align="center"
+          width="3.2"
+          position="2 8.8 6"
+          color="#00ffff"
+          opacity="0.95"
+          animation="property: position; from: 2 8.8 6; to: 2 9.3 6; dur: 4300; dir: alternate; loop: true; easing:easeInOutSine; delay:3000"
+          animation__rotate="property: rotation; from: 0 -30 0; to: 0 25 0; dur: 7200; dir: alternate; loop: true">
+  </a-text>
+
+  <!-- Verso 8 -->
+  <a-text value="«Escribo&#10;para existir»"
+          align="center"
+          width="3.5"
+          position="-3 7.6 7"
+          color="#ff6b9d"
+          opacity="0.95"
+          animation="property: position; from: -3 7.6 7; to: -3 8.2 7; dur: 4700; dir: alternate; loop: true; easing:easeInOutSine; delay:3500"
+          animation__rotate="property: rotation; from: 0 20 0; to: 0 -15 0; dur: 6600; dir: alternate; loop: true">
+  </a-text>
+
+  <!-- ===================== 1 QUEN ERA ===================== -->
+  <a-entity position="0 2.5 -9">
+    
+    <a-plane width="6.5" height="4.2" 
+             material="color:#00e5ff; opacity:0.15; shader:flat"
+             animation="property: material.opacity; from: 0.1; to: 0.2; dur: 2000; 
+                        dir: alternate; loop: true">
+    </a-plane>
+    
+    <a-plane width="6.2" height="3.9" position="0 0 0.02"
+             material="color:#0f1729; opacity:0.75; metalness:0.3; roughness:0.7">
+    </a-plane>
+    
+    <a-plane width="6.2" height="0.15" position="0 1.875 0.04"
+             material="color:#00e5ff; metalness:0.9; roughness:0.1; emissive:#00e5ff; emissiveIntensity:0.5">
+    </a-plane>
+
+    <a-text value="QUEN ERA BEGOÑA CAAMAÑO"
+            align="center"
+            width="6.8"
+            position="0 1.6 0.05"
+            color="#00e5ff"
+            letter-spacing="2"></a-text>
+
+    <a-text value="Nace en Vigo (1962). Xornalista e escritora galega.&#10;Figura clave do pensamento feminista contemporáneo en Galicia."
+            align="center"
+            width="5.5"
+            position="0 0.6 0.05"
+            color="#e8f4f8"
+            line-height="55"></a-text>
+
+    <!-- Imaxe interactiva de Begoña -->
+    <a-entity id="foto-bego">
+      <a-plane width="3.3" height="2.5" position="0 -1.1 0.03"
+               material="color:#00e5ff; opacity:0.3; shader:flat"></a-plane>
+      <a-image src="#bego" width="3.1" height="2.3" position="0 -1.1 0.06"
+               class="clickable"
+               id="img-bego"></a-image>
+      
+      <!-- Panel de info oculto -->
+      <a-entity id="info-bego" visible="false" position="4 -0.5 0.1">
+        <a-plane width="5" height="3" material="color:#0f1729; opacity:0.9"></a-plane>
+        <a-text value="BEGOÑA CAAMAÑO FRAGA&#10;&#10;Nace en Vigo en 1962.&#10;Funda a revista FESTA en 1990.&#10;Profesora de Literatura.&#10;Activista feminista galega.&#10;Faleceu en 2010."
+                align="left"
+                width="4.5"
+                position="-2.2 0.8 0.02"
+                color="#00e5ff"
+                line-height="50"></a-text>
+      </a-entity>
+    </a-entity>
+
+  </a-entity>
+
+  <!-- ===================== 2 IMPORTANCIA ===================== -->
+  <a-entity position="-10 2.5 -2" rotation="0 90 0">
+
+    <a-plane width="6.5" height="4.2" 
+             material="color:#9c27b0; opacity:0.15; shader:flat"
+             animation="property: material.opacity; from: 0.1; to: 0.2; dur: 2000; 
+                        dir: alternate; loop: true; delay:500">
+    </a-plane>
+
+    <a-plane width="6.2" height="3.9" position="0 0 0.02"
+             material="color:#1a0d2e; opacity:0.8; metalness:0.3; roughness:0.7">
+    </a-plane>
+    
+    <a-plane width="6.2" height="0.15" position="0 1.875 0.04"
+             material="color:#ff4d6d; metalness:0.9; roughness:0.1; emissive:#ff4d6d; emissiveIntensity:0.5">
+    </a-plane>
+
+    <a-text value="POR QUE FOI IMPORTANTE?"
+            align="center"
+            width="6.8"
+            position="0 1.6 0.05"
+            color="#ff4d6d"
+            letter-spacing="2"></a-text>
+
+    <a-text value="Reescribiu mitos dende unha mirada feminista.&#10;Recuperou voces silenciadas da literatura clásica."
+            align="center"
+            width="5.5"
+            position="0 0.5 0.05"
+            color="#ffd6dd"
+            line-height="55"></a-text>
+
+    <a-entity position="0 -1.2 0.05">
+      <a-plane width="3.8" height="2.4" 
+               material="color:#000000; opacity:0.9; metalness:0.5; roughness:0.3"></a-plane>
+      
+      <a-circle radius="0.5" position="0 0 0.01"
+                material="color:#ff4d6d; opacity:0.8; metalness:0.7; roughness:0.3"
+                animation="property: scale; from: 1 1 1; to: 1.1 1.1 1.1; dur: 1000; 
+                           dir: alternate; loop: true">
+      </a-circle>
+      <a-image src="#play" width="0.5" height="0.5" position="0 0 0.02"></a-image>
+    </a-entity>
+
+  </a-entity>
+
+  <!-- ===================== 3 OBRAS ===================== -->
+  <a-entity position="10 2.5 -2" rotation="0 -90 0">
+
+    <a-plane width="6.5" height="4.2" 
+             material="color:#a78bfa; opacity:0.15; shader:flat"
+             animation="property: material.opacity; from: 0.1; to: 0.2; dur: 2000; 
+                        dir: alternate; loop: true; delay:1000">
+    </a-plane>
+
+    <a-plane width="6.2" height="3.9" position="0 0 0.02"
+             material="color:#160f29; opacity:0.8; metalness:0.3; roughness:0.7">
+    </a-plane>
+    
+    <a-plane width="6.2" height="0.15" position="0 1.875 0.04"
+             material="color:#a78bfa; metalness:0.9; roughness:0.1; emissive:#a78bfa; emissiveIntensity:0.5">
+    </a-plane>
+
+    <a-text value="QUE PUBLICOU?"
+            align="center"
+            width="6.8"
+            position="0 1.6 0.05"
+            color="#a78bfa"
+            letter-spacing="2"></a-text>
+
+    <a-text value="Circe ou o pracer do azul · Morgana en Esmelle"
+            align="center"
+            width="5.5"
+            position="0 0.5 0.05"
+            color="#e8dbff"
+            line-height="55"></a-text>
+
+    <!-- Libro 1: Circe interactivo -->
+    <a-entity id="libro-circe">
+      <a-plane width="1.95" height="2.75" position="-1.5 -1.2 0.03"
+               material="color:#a78bfa; opacity:0.3; shader:flat"></a-plane>
+      <a-image src="#circe" width="1.85" height="2.65" position="-1.5 -1.2 0.06"
+               class="clickable"
+               id="img-circe"></a-image>
+      
+      <!-- Sinopse Circe -->
+      <a-entity id="info-circe" visible="false" position="-1.5 -1.2 1">
+        <a-plane width="4" height="3.5" material="color:#160f29; opacity:0.95"></a-plane>
+        <a-text value="CIRCE OU O PRACER DO AZUL&#10;&#10;Reescritura feminista do mito de Circe.&#10;A deusa feiticeira narra a súa historia&#10;en primeira persoa. Reclama o dereito&#10;ao pracer e á liberdade. Publicado en 2000."
+                align="left"
+                width="3.5"
+                position="-1.8 1.3 0.02"
+                color="#a78bfa"
+                line-height="48"></a-text>
+      </a-entity>
+    </a-entity>
+    
+    <!-- Libro 2: Morgana interactivo -->
+    <a-entity id="libro-morgana">
+      <a-plane width="1.95" height="2.75" position="1.5 -1.2 0.03"
+               material="color:#a78bfa; opacity:0.3; shader:flat"></a-plane>
+      <a-image src="#libro" width="1.85" height="2.65" position="1.5 -1.2 0.06"
+               class="clickable"
+               id="img-morgana"></a-image>
+      
+      <!-- Sinopse Morgana -->
+      <a-entity id="info-morgana" visible="false" position="1.5 -1.2 1">
+        <a-plane width="4" height="3.5" material="color:#160f29; opacity:0.95"></a-plane>
+        <a-text value="MORGANA EN ESMELLE&#10;&#10;Adaptación galega do mito artúrico.&#10;Morgana Le Fay como símbolo da&#10;resistencia feminina. Mestura maxia,&#10;identidade e poder. Publicado en 2009."
+                align="left"
+                width="3.5"
+                position="-1.8 1.3 0.02"
+                color="#a78bfa"
+                line-height="48"></a-text>
+      </a-entity>
+    </a-entity>
+
+  </a-entity>
+
+  <!-- ===================== 4 ESTILO ===================== -->
+  <a-entity position="0 2.5 10" rotation="0 180 0">
+
+    <a-plane width="6.5" height="4.2" 
+             material="color:#00e5ff; opacity:0.15; shader:flat"
+             animation="property: material.opacity; from: 0.1; to: 0.2; dur: 2000; 
+                        dir: alternate; loop: true; delay:1500">
+    </a-plane>
+
+    <a-plane width="6.2" height="3.9" position="0 0 0.02"
+             material="color:#0b1020; opacity:0.8; metalness:0.3; roughness:0.7">
+    </a-plane>
+    
+    <a-plane width="6.2" height="0.15" position="0 1.875 0.04"
+             material="color:#00e5ff; metalness:0.9; roughness:0.1; emissive:#00e5ff; emissiveIntensity:0.5">
+    </a-plane>
+
+    <a-text value="COMO ESCRIBÍA?"
+            align="center"
+            width="6.8"
+            position="0 1.6 0.05"
+            color="#00e5ff"
+            letter-spacing="2"></a-text>
+
+    <a-text value="Estilo poético, simbólico e feminista.&#10;Mestura mito, identidade e liberdade."
+            align="center"
+            width="5.5"
+            position="0 0.6 0.05"
+            color="#e8f4f8"
+            line-height="55"></a-text>
+
+    <!-- Imaxe interactiva Sonia -->
+    <a-entity id="foto-sonia">
+      <a-plane width="3.3" height="2.5" position="0 -1.1 0.03"
+               material="color:#00e5ff; opacity:0.3; shader:flat"></a-plane>
+      <a-image src="#sonia" width="3.1" height="2.3" position="0 -1.1 0.06"
+               class="clickable"
+               id="img-sonia"></a-image>
+      
+      <!-- Panel de info oculto -->
+      <a-entity id="info-sonia" visible="false" position="4 -0.5 0.1">
+        <a-plane width="5" height="3" material="color:#0b1020; opacity:0.9"></a-plane>
+        <a-text value="BEGOÑA E SONIA DÍAZ&#10;&#10;Na foto con Sonia Díaz, outra&#10;escritora galega feminista.&#10;Ambas compartiron proxectos&#10;culturais e de reivindicación da&#10;literatura en galego."
+                align="left"
+                width="4.5"
+                position="-2.2 0.8 0.02"
+                color="#00e5ff"
+                line-height="50"></a-text>
+      </a-entity>
+    </a-entity>
+
+  </a-entity>
+
+  <!-- ===================== AUDIO MODERNIZADO ===================== -->
+  <a-entity id="audioBtn" class="clickable" position="6 1.8 6">
+
+    <a-circle radius="0.75" position="0 0 0.01"
+              material="color:#00e5ff; metalness:0.8; roughness:0.2; emissive:#00e5ff; emissiveIntensity:0.4"
+              animation="property: rotation; to: 0 0 360; dur: 20000; loop: true; easing:linear">
+    </a-circle>
+
+    <a-image src="#mic" width="0.55" height="0.55" position="0 0 0.02"></a-image>
+
+    <a-text value="AUDIO"
+            align="center"
+            width="4.5"
+            position="0 -1.1 0"
+            color="#00e5ff"
+            letter-spacing="3"></a-text>
+
+  </a-entity>
 
 </a-entity>
 </a-scene>
 
 <script>
+AFRAME.registerComponent('tap-handler', {
+  init: function() {
+    this.onClick = this.onClick.bind(this);
+    this.el.addEventListener('click', this.onClick);
+    this.el.addEventListener('touchstart', this.onClick);
+  },
+  onClick: function(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    
+    const targetId = this.el.id.replace('img-', 'info-');
+    const target = document.getElementById(targetId);
+    
+    if(target) {
+      const isVisible = target.getAttribute('visible');
+      
+      // Pechar todos primeiro
+      document.querySelectorAll('[id^="info-"]').forEach(panel => {
+        panel.setAttribute('visible', false);
+      });
+      
+      // Reset scales
+      document.querySelectorAll('[id^="img-"]').forEach(img => {
+        img.setAttribute('scale', '1 1 1');
+      });
+      
+      // Abrir só se estaba pechado
+      if(!isVisible) {
+        target.setAttribute('visible', true);
+        this.el.setAttribute('scale', '1.15 1.15 1.15');
+      }
+    }
+  }
+});
+
 const scene = document.querySelector('a-scene');
 const museo = document.querySelector('#museo');
 const reticle = document.querySelector('#reticle');
 const audio = document.querySelector('#audio');
+const audioBtn = document.querySelector('#audioBtn');
+const mensaje = document.getElementById('mensaje');
+const camera = document.querySelector('a-camera');
+
+scene.addEventListener('loaded', function() {
+  // Aplicar tap-handler ás imaxes
+  document.getElementById('img-bego').setAttribute('tap-handler', '');
+  document.getElementById('img-circe').setAttribute('tap-handler', '');
+  document.getElementById('img-morgana').setAttribute('tap-handler', '');
+  document.getElementById('img-sonia').setAttribute('tap-handler', '');
+});
 
 window.addEventListener('click', () => {
-  if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
-    const p = reticle.getAttribute('position');
-    museo.setAttribute('position', p);
+  if(scene.is('ar-mode') && reticle.getAttribute('visible')){
+    museo.setAttribute('position', reticle.getAttribute('position'));
     museo.setAttribute('visible', true);
     reticle.setAttribute('visible', false);
-    reticle.removeAttribute('ar-hit-test');
+    
+    mensaje.innerHTML = '🎨 MUSEO DE BEGOÑA CAAMAÑO · 👆 TOCA AS IMAXES';
   }
 });
+
+// Pechar paneis ao afastarse
+setInterval(() => {
+  if(museo.getAttribute('visible')) {
+    const cameraPos = camera.object3D.position;
+    const museoPos = museo.object3D.getWorldPosition(new THREE.Vector3());
+    
+    const distance = cameraPos.distanceTo(museoPos);
+    
+    // Se te afastas máis de 12 metros, pechar todo
+    if(distance > 12) {
+      document.querySelectorAll('[id^="info-"]').forEach(panel => {
+        panel.setAttribute('visible', false);
+      });
+      document.querySelectorAll('[id^="img-"]').forEach(img => {
+        img.setAttribute('scale', '1 1 1');
+      });
+    }
+  }
+}, 1000);
+
+// Audio
+audioBtn.addEventListener('click', () => {
+  if(audio.paused) audio.play();
+  else audio.pause();
+});
+
+audioBtn.addEventListener('touchstart', (evt) => {
+  evt.stopPropagation();
+  if(audio.paused) audio.play();
+  else audio.pause();
+});
 </script>
+
+</body>
+</html>
