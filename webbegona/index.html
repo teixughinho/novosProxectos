@@ -5,134 +5,159 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 <style>
+  #overlay { position: absolute; bottom: 20px; width: 100%; text-align: center; z-index: 1000; font-family: 'Segoe UI', sans-serif; pointer-events: none; }
+
+</style>
+  <style>
   #overlay { 
     position: absolute; bottom: 20px; width: 100%; text-align: center; 
     z-index: 1000; font-family: 'Segoe UI', sans-serif; pointer-events: none; 
   }
-  .portada-escolar { 
+.portada-escolar { 
     display: inline-block; padding: 25px; border-radius: 20px; 
-    background: rgba(5, 15, 35, 0.96); border: 2px solid #00e5ff; 
+    background: rgba(5, 15, 35, 0.96); /* Azul moi escuro */
+    border: 2px solid #00e5ff; /* Bordo ciano */
     color: white; pointer-events: auto; max-width: 80%;
     box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
   }
-  .foto-bego { width: 80px; height: 80px; border-radius: 50%; border: 2px solid #00e5ff; margin-bottom: 10px; object-fit: cover; }
+  .foto-escolar {
+    width: 80px; height: 80px; border-radius: 50%; 
+    border: 2px solid #00e5ff; margin-bottom: 10px; object-fit: cover;
+  }
   .nome { font-size: 1.4rem; font-weight: bold; margin: 0; color: #00e5ff; }
   .letras { font-size: 0.9rem; margin-bottom: 15px; display: block; opacity: 0.8; }
-  .instrucions { font-size: 0.85rem; line-height: 1.4; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 12px; color: #00e5ff; }
+  .instrucions { 
+    font-size: 0.85rem; line-height: 1.4; background: rgba(255,255,255,0.1); 
+    padding: 10px; border-radius: 12px; color: #00e5ff;
+  }
 </style>
 </head>
 <body>
 
 <div id="overlay">
   <div class="portada-escolar">
+    <!-- Imaxe personalizada -->
     <img src="imax/Begonha1.jpg" class="foto-bego" alt="Begoña Caamaño">
+    
     <h1 class="nome">BEGOÑA CAAMAÑO</h1>
     <span class="letras">Letras Galegas 2026</span>
+    
     <div class="instrucions">
       Pulsa <b>[AR]</b> para abrir a cámara.<br>
-      Toca a pantalla para <b>fixar o museo</b>.<br>
-      Xira sobre ti para ver as seccións.
+      Toca a pantalla para <b>entrar na sala</b>.<br>
+      Interactúa co legado de Begoña na pantalla.
     </div>
   </div>
 </div>
-
 <a-scene renderer="colorManagement:true; antialias:true" webxr="optionalFeatures: hit-test, dom-overlay; overlayElement:#overlay">
 
-  <a-assets>
-    <img id="img-bego" src="imax/Begonha1.jpg">
-    <img id="img-circe" src="imax/circe.jpg">
-    <img id="img-esmelle" src="imax/esmelle.jpg">
-    <audio id="audio-file" src="sons/begonhaaudio.mp3" preload="auto"></audio>
-    <video id="video-file" src="imax/begona.mp4" preload="auto" loop="true" crossorigin="anonymous"></video>
-    <img id="icon-audio" src="https://cdn-icons-png.flaticon.com/512/727/727269.png">
-    <!-- FONTE PARA GALLEGO -->
-    <a-asset-item id="galego-font" src="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt"></a-asset-item>
-  </a-assets>
+  <a-assets>
+    <img id="img-bego" src="imax/Begonha1.jpg">
+    <img id="img-circe" src="imax/circe.jpg">
+    <img id="img-esmelle" src="imax/esmelle.jpg">
+    <audio id="audio-file" src="sons/begonhaaudio.mp3" preload="auto"></audio>
+    <video id="video-file" src="imax/begona.mp4" preload="auto" loop="true" crossorigin="anonymous"></video>
+    <img id="icon-audio" src="https://cdn-icons-png.flaticon.com/512/727/727269.png">
+  </a-assets>
 
-  <a-camera position="0 1.6 0">
-    <a-entity cursor="fuse: false; rayOrigin: entity;" raycaster="objects: .area-clic" position="0 0 -1" 
-              geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.02" material="color: #00e5ff; shader: flat"></a-entity>
-  </a-camera>
+  <a-camera position="0 1.6 0">
+    <a-entity cursor="fuse: false; rayOrigin: entity;" raycaster="objects: .area-clic" position="0 0 -1" 
+              geometry="primitive: ring; radiusInner: 0.015; radiusOuter: 0.02" material="color: #ff4d6d; shader: flat"></a-entity>
+  </a-camera>
 
-  <a-entity id="reticle" ar-hit-test="target:#museo">
-     <a-ring rotation="-90 0 0" radius-inner="0.1" radius-outer="0.15" color="#00e5ff"></a-ring>
-  </a-entity>
+  <a-entity id="reticle" ar-hit-test="target:#museo"></a-entity>
 
-  <a-entity id="museo" visible="false">
+  <a-entity id="museo" visible="false">
 
-    <!-- 1. BIOGRAFÍA (NORTE: FRENTE) -->
-    <a-entity position="0 2.5 -5">
-      <a-plane width="4.5" height="2.2" color="#0f172a" opacity="0.95" position="0 0.8 0">
-        <a-text font="#galego-font" value="QUEN FOI BEGOÑA CAAMAÑO?" align="center" width="5" position="0 0.7 0.02" color="#00e5ff"></a-text>
-        <a-text font="#galego-font" value="Xornalista e activista que redefiniu a narrativa\ngalega dende o feminismo e a sororidade." align="center" width="3.8" position="0 0.1 0.02"></a-text>
-      </a-plane>
-      <a-image src="#img-bego" width="3.8" height="2.2" position="0 -0.6 0.1"></a-image>
-      <a-plane class="area-clic" width="4.5" height="4.5" position="0 0 0.15" material="opacity: 0; transparent: true" onclick="toggle('info1')"></a-plane>
-      <a-entity id="info1" visible="false" position="0 0.2 0.3">
-        <a-plane width="4.2" height="2.4" color="#051020" opacity="0.95"></a-plane>
-        <a-text font="#galego-font" value="Vigo (1964) - Santiago (2014). Foi unha voz fundamental na Radio Galega e unha activista incansable pola igualdade." align="center" width="3.8" color="white" position="0 0 0.05"></a-text>
-      </a-entity>
-    </a-entity>
+    <!-- 1. BIOGRAFÍA (NORTE) -->
+    <a-entity position="0 2.5 -5">
+      <!-- Fondo: máis curto para que a imaxe sobresaia por abaixo -->
+      <a-plane width="4.5" height="2.2" color="#0f172a" opacity="0.95" position="0 0.8 0">
+        <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" align="center" width="5" position="0 0.7 0.02" color="#ff4d6d"></a-text>
+        <a-text value="Xornalista e activista que redefiniu a narrativa&#10;galega dende o feminismo e a sororidade." align="center" width="3.8" position="0 0.1 0.02"></a-text>
+      </a-plane>
+      
+      <!-- Imaxe superposta sobresaíndo polo bordo inferior do plane -->
+      <a-image src="#img-bego" width="3.8" height="2.2" position="0 -0.6 0.1"></a-image>
+      
+      <!-- Area de clic que cobre todo o conxunto -->
+      <a-plane class="area-clic" width="4.5" height="4.5" position="0 0 0.15" material="opacity: 0; transparent: true" onclick="toggle('info1')"></a-plane>
+      
+      <!-- Despregable detallado: Gris transparente -->
+      <a-entity id="info1" visible="false" position="0 0.2 0.3">
+        <a-plane width="4.2" height="2.4" color="#222" opacity="0.8"></a-plane>
+        <a-text value="Vigo (1964) - Santiago (2014). Foi unha voz fundamental na Radio Galega e unha activista incansable. Nas súas novelas, deu voz a mulleres silenciadas pola mitoloxía clásica, converténdoas en protagonistas da súa propia historia con gran mestría lingüística." align="center" width="3.8" color="white" position="0 0 0.05"></a-text>
+      </a-entity>
+    </a-entity>
 
-    <!-- 2. OBRAS (SUR: ATRÁS) -->
-    <a-entity position="0 2.5 5" rotation="0 180 0">
-      <a-plane width="4.5" height="2.2" color="#0f172a" opacity="0.95" position="0 0.8 0">
-        <a-text font="#galego-font" value="OBRAS FUNDAMENTAIS" align="center" width="5" position="0 0.6 0.02" color="#00e5ff"></a-text>
-      </a-plane>
-      <a-image src="#img-circe" width="1.6" height="2.4" position="-1 -0.6 0.1"></a-image>
-      <a-image src="#img-esmelle" width="1.6" height="2.4" position="1 -0.6 0.1"></a-image>
-      <a-plane class="area-clic" width="4.5" height="4.5" position="0 0 0.15" material="opacity: 0; transparent: true" onclick="toggle('info3')"></a-plane>
-      <a-entity id="info3" visible="false" position="0 0.2 0.3">
-        <a-plane width="4.2" height="2.6" color="#051020" opacity="0.95"></a-plane>
-        <a-text font="#galego-font" value="'Circe ou o pracer do azul' e 'Morgana en Esmelle' son obras clave que reescriben os mitos dende unha ollada feminina e propia." align="center" width="3.8" position="0 0 0.05"></a-text>
-      </a-entity>
-    </a-entity>
+    <!-- 2. OBRAS (SUESTE) -->
+    <a-entity position="0 2.5 5" rotation="0 -140 0">
+      <a-plane width="4.5" height="2.1" color="#0f172a" opacity="0.95" position="0 0.8 0">
+        <a-text value="OBRAS FUNDAMENTAIS" align="center" width="5" position="0 0.6 0.02" color="#ffb6c1"></a-text>
+        <a-text value="A reescritura dos mitos clásicos e artúricos." align="center" width="3.5" position="0 0 0.02"></a-text>
+      </a-plane>
+      
+      <!-- Imaxes sobresaíndo -->
+      <a-image src="#img-circe" width="1.6" height="2.4" position="-1 -0.6 0.1"></a-image>
+      <a-image src="#img-esmelle" width="1.6" height="2.4" position="1 -0.6 0.1"></a-image>
 
-    <!-- 3. AUDIO (OESTE: ESQUERDA) -->
-    <a-entity position="-5 2.2 0" rotation="0 90 0">
-      <a-ring radius-inner="0.8" radius-outer="0.85" color="#00e5ff"></a-ring>
-      <a-image src="#icon-audio" width="0.6" height="0.6" position="0 0.3 0.05"></a-image>
-      <a-text font="#galego-font" value="A VOZ DA AUTORA" align="center" width="6" position="0 -0.3 0.05" color="#00e5ff"></a-text>
-      <a-plane class="area-clic" width="2" height="2" position="0 0 0.1" material="opacity: 0; transparent: true" onclick="toggleAudio()"></a-plane>
-      <a-entity id="sound-emitter" sound="src: #audio-file; volume: 3"></a-entity>
-    </a-entity>
+      <a-plane class="area-clic" width="4.5" height="4.5" position="0 0 0.15" material="opacity: 0; transparent: true" onclick="toggle('info3')"></a-plane>
 
-    <!-- 4. VIDEO (LESTE: DEREITA) -->
-    <a-entity position="5 2.2 0" rotation="0 -90 0">
-      <a-plane width="4.2" height="1" color="#0f172a" opacity="0.95" position="0 1.5 0">
-        <a-text font="#galego-font" value="XORNALISMO POLÍTICO" align="center" width="4" color="#00e5ff"></a-text>
-      </a-plane>
-      <a-video src="#video-file" width="3.8" height="2.1" position="0 0 0.1"></a-video>
-      <a-plane class="area-clic" width="4" height="3.5" position="0 0 0.2" material="opacity: 0; transparent: true" onclick="toggleVideo()"></a-plane>
-    </a-entity>
+      <a-entity id="info3" visible="false" position="0 0.2 0.3">
+        <a-plane width="4.2" height="2.6" color="#222" opacity="0.8"></a-plane>
+        <a-text value="'Circe ou o pracer do azul' (2009) rompe coa imaxe de muller fatal para amosar unha muller dona do seu desexo. 'Morgana en Esmelle' (2012), gañadora de múltiples premios, explora a culpa e a redención nunha Galicia mitolóxica inesquecible." align="center" width="3.8" position="0 0 0.05"></a-text>
+      </a-entity>
+    </a-entity>
 
-  </a-entity>
+    <!-- 3. AUDIO (OESTE) - ESTILO OCO -->
+    <a-entity position="-5 2.2 0" rotation="0 80 0">
+      <!-- Círculo oco (Ring) -->
+      <a-ring radius-inner="0.8" radius-outer="0.85" color="#00e5ff" position="0 0 0"></a-ring>
+      <a-image src="#icon-audio" width="0.6" height="0.6" position="0 0.3 0.05"></a-image>
+      <a-text value="A VOZ DA AUTORA" align="center" width="6" position="0 -0.3 0.05" color="#00e5ff" font="mozillavr"></a-text>
+      <a-text value="(Toca para escoitar)" align="center" width="3" position="0 -0.7 0.05" color="#ccc"></a-text>
+      
+      <a-plane class="area-clic" width="2" height="2" position="0 0 0.1" material="opacity: 0; transparent: true" onclick="toggleAudio()"></a-plane>
+      <a-entity id="sound-emitter" sound="src: #audio-file; volume: 3"></a-entity>
+    </a-entity>
+
+    <!-- 4. VIDEO / XORNALISMO (LESTE) -->
+    <a-entity position="5 2.2" rotation="0 -80 0">
+      <a-plane width="4.2" height="1.2" color="#0f172a" opacity="0.95" position="0 1.2 0">
+        <a-text value="XORNALISMO POLÍTICO" align="center" width="4" color="#00e5ff"></a-text>
+      </a-plane>
+      <!-- O video tamén sobresae un pouco por abaixo do título -->
+      <a-video src="#video-file" width="3.8" height="2.1" position="0 -0.2 0.1"></a-video>
+      <a-plane class="area-clic" width="4" height="3.5" position="0 0 0.2" material="opacity: 0; transparent: true" onclick="toggleVideo()"></a-video>
+    </a-entity>
+
+  </a-entity>
 </a-scene>
 
 <script>
 function toggle(id) {
-  const el = document.getElementById(id);
-  el.setAttribute('visible', !el.getAttribute('visible'));
+  const el = document.getElementById(id);
+  el.setAttribute('visible', !el.getAttribute('visible'));
 }
 function toggleAudio() {
-  const s = document.querySelector('#sound-emitter');
-  s.components.sound.isPlaying ? s.components.sound.stopSound() : s.components.sound.playSound();
+  const s = document.querySelector('#sound-emitter');
+  s.components.sound.isPlaying ? s.components.sound.stopSound() : s.components.sound.playSound();
 }
 function toggleVideo() {
-  const v = document.querySelector('#video-file');
-  if (v.paused) { v.play(); } else { v.pause(); }
+  const v = document.querySelector('#video-file');
+  v.paused ? v.play() : v.pause();
 }
 const scene = document.querySelector('a-scene');
 const museo = document.querySelector('#museo');
 const reticle = document.querySelector('#reticle');
 
 window.addEventListener('click', () => {
-  if(scene.is('ar-mode') && reticle.getAttribute('visible')){
-    museo.setAttribute('position', reticle.getAttribute('position'));
-    museo.setAttribute('visible', true);
-    reticle.setAttribute('visible', false);
-    document.querySelector('.portada-escolar').style.display = 'none';
-  }
+  if(scene.is('ar-mode') && reticle.getAttribute('visible')){
+    museo.setAttribute('position', reticle.getAttribute('position'));
+    museo.setAttribute('visible', true);
+    reticle.setAttribute('visible', false);
+    document.querySelector('.portada-escolar').style.display = 'none';
+  }
 });
 </script>
 </body>
