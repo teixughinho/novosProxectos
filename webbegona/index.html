@@ -653,7 +653,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
       <p class="portada-sub">Xornalista, escritora e voz esencial das Letras Galegas 2026.</p>
       <span class="portada-data">Letras Galegas · 2026</span><br>
-      <p class="portada-hint">Preme o botón [AR] (abaixo á dereita 2) para entrares na mostra.</p>
+      <p class="portada-hint">Preme o botón [AR] (abaixo á dereita) para entrares na mostra.</p>
     </div>
   </div>
 
@@ -719,7 +719,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <video id="video-file" src="imax/begona.mp4" preload="auto" loop crossorigin="anonymous" playsinline></video>
       <img id="icon-audio" src="https://cdn-icons-png.flaticon.com/512/727/727269.png">
     </a-assets>
-<!-- raycaster="objects:.area-clic" -->
+    <!-- raycaster="objects:.area-clic" -->
     <a-camera position="0 1.6 0">
       <a-entity cursor="fuse:false; rayOrigin:entity;" raycaster="objects:.area-clic; far: 40;" position="0 0 -1"
         geometry="primitive:ring; radiusInner:0.015; radiusOuter:0.02"
@@ -731,7 +731,9 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
 
     <a-entity id="museo" visible="false">
       <!-- BIOGRAFÍA  esquerda atrás-->
-      <a-entity position="-2 2.5 -9">
+      <!-- BIOGRAFÍA (ESQUERDA) -->
+      <!-- Aula Mediana: position="-5 2.5 0" -->
+      <a-entity position="-15 2.5 0" rotation="0 90 0">
         <a-plane width="5.6" height="2.4" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
         <a-plane width="5.6" height="0.05" color="#FFFFFF" position="0 2.25 0.01"></a-plane>
         <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" font="fonts/Outfit-Bold-msdf.json"
@@ -781,17 +783,22 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       </a-entity>
 
       <!-- esquerda diante -->
-      <a-entity position="-12 2.5 -6" rotation="0 60 0">
+
+      <!-- A QUE SE DEDICOU? (NOVO) -->
+      <!-- Aula Mediana: position="-4 2.5 -5" -->
+      <a-entity position="-10 2.5 -15" rotation="0 0 0">
         <a-plane width="5" height="3" color="#08101d" opacity="0.9"></a-plane>
-        <a-text value="A QUE SE DEDICOU?" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
-          align="center" width="7" color="#00E5FF" negate="false"></a-text>
+        <a-text value="A QUE SE DEDICOU?" font="fonts/Outfit-Bold-msdf.json" align="center" width="7" color="#00E5FF"
+          negate="false"></a-text>
+
         <a-text value="(Contido en construción)" position="0 -0.8 0.1" align="center" width="4"
           color="#FFFFFF"></a-text>
       </a-entity>
 
       <!-- OBRAS -->
-      <a-entity position="0 2.5 9" rotation="0 180 0">
-        <a-plane width="5.6" height="2.4" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
+      <!-- OBRAS (DEREITA) -->
+      <!-- Aula Mediana: position="5 2.5 0" -->
+      <a-entity position="15 2.5 0" rotation="0 -90 0">
         <a-plane width="5.6" height="0.05" color="#ffb6c1" position="0 2.36 0.01"></a-plane>
         <a-text value="OBRAS FUNDAMENTAIS" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
           align="center" width="5.3" position="0 1.92 0.1" color="#ffd6de" negate="false" wrap-count="22"></a-text>
@@ -844,16 +851,83 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       </a-entity>
 
       <!-- DEREITA ADIANTE -->
-      <a-entity position="12 2.5 -6" rotation="0 300 0">
+      <!-- POR QUE MERECE AS LETRAS? (NOVO) -->
+      <!-- Aula Mediana: position="4 2.5 -5" -->
+      <a-entity position="10 2.5 -15" rotation="0 0 0">
         <a-plane width="5" height="3" color="#08101d" opacity="0.9"></a-plane>
-        <a-text value="POR QUE MERECE AS LETRAS?" font="fonts/Outfit-Bold-msdf.json"
-          font-image="fonts/Outfit-Bold-msdf.png" align="center" width="7" color="#FF0055" negate="false"></a-text>
+        <a-text value=" POR QUE MERECE AS LETRAS GALEGAS 2026?" font="fonts/Outfit-Bold-msdf.json" align="center"
+          width="7" color="#FF0055" negate="false"></a-text>
         <a-text value="(Contido en construción)" position="0 -0.8 0.1" align="center" width="4"
           color="#FFFFFF"></a-text>
       </a-entity>
-      <!-- AUDIO --- ANACOS DA SÚA OBRA ATRÁS -->
-      <a-entity position="0 2.2 10" rotation="0 180 0">
-        <!-- <a-entity position="-9 2.2 0" rotation="0 90 0"> -->
+       <!-- ICONA DE AUDIO (FLOTANTE) -->
+<!-- Aula Mediana: position="-2 1.8 -3" -->
+<!-- <a-entity position="-5 1.8 -8" rotation="0 20 0">
+  <a-image src="#icon-audio" width="1.2" height="1.2" class="area-clic" onclick="toggleAudio()"
+           animation="property: position; from: 0 0 0; to: 0 0.2 0; dir: alternate; dur: 2000; loop: true">
+  </a-image>
+  <a-text value="ESCOITAR VOZ" position="0 -0.8 0" align="center" width="3" color="#00E5FF" font="fonts/Outfit-Bold-msdf.json" negate="false"></a-text>
+  <a-entity id="sound-emitter" sound="src:#audio-file; volume:3"></a-entity>
+</a-entity>
+ -->
+<!-- SECCIÓN: AUDIO INDEPENDENTE (VOZ) -->
+<!-- 
+  OPCIÓN AULA MEDIANA (Comentada):
+  position="-3 1.5 -2" rotation="0 45 0" 
+-->
+<a-entity id="elemento-audio" position="-7 1.8 -10" rotation="0 30 0">
+  
+  <!-- Icona interactiva -->
+  <a-image src="#icon-audio" width="1" height="1" class="area-clic" onclick="toggleAudio()"
+           animation="property: scale; from: 1 1 1; to: 1.1 1.1 1.1; dir: alternate; dur: 1000; loop: true">
+  </a-image>
+
+  <!-- Etiqueta pequena -->
+  <a-text value="ESCORITAR VOZ" position="0 -0.7 0" align="center" width="3" color="#FFFFFF" font="fonts/Outfit-Bold-msdf.json" negate="false"></a-text>
+  
+  <!-- Emisor de son -->
+  <a-entity id="sound-emitter" sound="src:#audio-file; volume:2"></a-entity>
+</a-entity>
+
+<!-- SECCIÓN: ANACOS DA OBRA (TEXTO) -->
+<!-- 
+  OPCIÓN AULA MEDIANA (Comentada):
+  position="0 2.5 5" rotation="0 180 0" 
+-->
+<a-entity id="seccion-anacos" position="0 2.5 15" rotation="0 180 0">
+  <!-- Fondo do panel -->
+  <a-plane width="8" height="5" color="#0a1a2f" opacity="0.9" material="metalness:0.5; roughness:0.2"></a-plane>
+  
+  <!-- Título -->
+  <a-text value="ANACOS LITERARIOS" position="0 2" align="center" width="10" color="#FFD700" font="fonts/Outfit-Bold-msdf.json" negate="false"></a-text>
+  
+  <!-- Texto da obra -->
+  <a-text value="'Non hai memoria que sexa inocente, nin palabra que non garde un eco de mundos que xa non existen.'\n\n- Morgana en Esmelle" 
+          position="0 0.2 0.1" align="center" width="6" font="fonts/Nunito-SemiBold-msdf.json" negate="false"></a-text>
+
+  <a-text value="LER MÁIS FRAGMENTOS" position="0 -1.8 0.1" align="center" width="4" color="#00E5FF" class="area-clic" negate="false"></a-text>
+</a-entity>
+
+
+
+
+
+
+
+
+
+
+<!-- QUIZ (AO FINAL DO PERCORRIDO) -->
+<!-- Aula Mediana: position="6 3 -10" -->
+<!-- <a-entity position="20 4 -30" rotation="0 0 0">
+  <a-entity scale="40 40 1" position="0 2 0">
+     <a-text value="?" align="center" color="#FF0000" negate="false" font="fonts/Outfit-Bold-msdf.json"></a-text>
+  </a-entity>
+  <a-plane class="area-clic" width="10" height="3" position="0 -6 0" color="#FF0000" onclick="abrirQuiz()">
+     <a-text value="CANTO SABES?" align="center" width="18"></a-text>
+  </a-plane>
+</a-entity> -->
+      <!-- <a-entity position="0 2.2 10" rotation="0 180 0">
         <a-plane width="4.7" height="4.7" color="#08101d" opacity="0.97"></a-plane>
         <a-plane width="4.7" height="0.05" color="#00e5ff" position="0 2.32 0.01"></a-plane>
         <a-ring radius-inner="1.12" radius-outer="1.26" color="#00e5ff" position="0 0.48 0.04"
@@ -871,9 +945,12 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
         <a-plane class="area-clic" width="4.7" height="4.7" position="0 0 0.12" material="opacity:0; transparent:true"
           onclick="toggleAudio()"></a-plane>
         <a-entity id="sound-emitter" sound="src:#audio-file; volume:3"></a-entity>
-      </a-entity>
+      </a-entity> -->
 
       <!-- VÍDEO FONDO ESQUERDA-->
+      <!-- XORNALISMO POLÍTICO (VÍDEO) -->
+      <!-- Aula Mediana: position="0 2.2 -6" -->
+
       <a-entity position="0 2.2 -15" rotation="0 0 0">
         <a-plane width="5.5" height="1.7" color="#08101d" opacity="0.98" position="0 1.74 0"></a-plane>
         <a-plane width="5.5" height="0.05" color="#00e5ff" position="0 2.56 0.01"></a-plane>
@@ -889,6 +966,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
           negate="false" wrap-count="34"></a-text>
         <a-plane class="area-clic" width="4.68" height="2.62" position="0 -0.1 0.2"
           material="opacity:0; transparent:true" onclick="toggleVideo()"></a-plane>
+
       </a-entity>
 
       <!-- QUIZ TRIGGER -->
@@ -937,8 +1015,20 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <!-- Iluminación focal para que o interrogante "brille" no chan -->
       <!-- <a-light type="point" color="#FF0000" intensity="1.5" distance="20" position="0 -2 2"></a-light>
 </a-entity> -->
-      <a-entity position="15 3 -22" rotation="0 320 0">
-        <!-- Interrogante Glitch (Escala aumentada para a distancia) -->
+
+
+<!-- QUIZ (AO FINAL DO PERCORRIDO) -->
+<!-- Aula Mediana: position="6 3 -10" -->
+<a-entity position="20 4 -30" rotation="0 0 0">
+  <a-entity scale="40 40 1" position="0 2 0">
+     <a-text value="?" align="center" color="#FF0000" negate="false" font="fonts/Outfit-Bold-msdf.json"></a-text>
+  </a-entity>
+  <a-plane class="area-clic" width="10" height="3" position="0 -6 0" color="#FF0000" onclick="abrirQuiz()">
+     <a-text value="CANTO SABES?" align="center" width="18"></a-text>
+  </a-plane>
+</a-entity>
+      <!-- <a-entity position="15 3 -22" rotation="0 320 0">
+
         <a-entity scale="45 45 1" position="0 4 0">
           <a-text value="?" align="center" color="#FF0000" negate="false" font="fonts/Outfit-Bold-msdf.json"
             font-image="fonts/Outfit-Bold-msdf.png"
@@ -954,7 +1044,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
               font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"></a-text>
           </a-plane>
         </a-entity>
-      </a-entity>
+      </a-entity> -->
   </a-scene>
 
   <script>
