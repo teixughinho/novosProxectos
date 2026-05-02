@@ -7,7 +7,71 @@ Dereita 1 Atrás,Obras (xa creada),8 2.5 8,225,11.3m
 Dereita 2 Diante,Por que merece as letras? (Novo),12 2.5 -6,300,13.4m
 Detrás do usuario,Anacos da súa obra (Audio),0 2.2 10,180,10.0m
 Fronte (Fondo),Xornalismo Político (Vídeo),0 2.2 -15,0,15.0m
-Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
+Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m 
+
+
+Sección,Título / Contido,Posición (X Y Z),Rotación (Y)
+Punto 0,Posición Inicial do Usuario,0 1.6 0,-
+
+Parede esquerda 1,Quen foi? (Biografía),-10 2.5 -4,90
+Parede esquerda 2,A que se dedicou?,-10 2.5 4,90
+
+Parede dereita 1,Obras fundamentais,10 2.5 -4,-90
+Parede dereita 2,Por que merece as Letras?,10 2.5 4,-90
+
+Parede traseira 1,A voz da autora / Audio,-4 2.4 10,180
+Parede traseira 2,Anacos de obras,4 2.4 10,180
+
+Parede frontal 1,Xornalismo político / Vídeo,-4 2.4 -12,0
+Parede frontal 2,Canto sabes? / Quiz,4 2.6 -12,0
+
+
+
+-->
+<!-- Quen foi? -->
+<!-- <a-entity position="-10 2.5 -4" rotation="0 90 0"> -->
+
+<!-- A que se dedicou? -->
+<!-- <a-entity position="-10 2.5 4" rotation="0 90 0"> -->
+
+<!-- Obras -->
+<!-- <a-entity position="10 2.5 -4" rotation="0 -90 0"> -->
+
+<!-- Por que merece as letras? -->
+<!-- <a-entity position="10 2.5 4" rotation="0 -90 0"> -->
+
+<!-- Audio -->
+<!-- <a-entity position="-4 2.4 10" rotation="0 180 0"> -->
+
+<!-- Vídeo -->
+<!-- <a-entity position="-4 2.4 -12" rotation="0 0 0"> -->
+
+<!-- Quiz -->
+<!-- <a-entity position="4 2.6 -12" rotation="0 0 0"> -->
+
+<!-- Anacos de obras -->
+<!-- <a-entity position="4 0 10" rotation="0 180 0"> -->
+
+
+
+
+
+
+<!-- CITA 1: parede esquerda, entre os dous cadros -->
+<!-- <a-entity position="-10 4.6 0" rotation="0 90 0"> -->
+
+<!-- CITA 2: parede dereita, entre os dous cadros -->
+<!-- <a-entity position="10 4.6 0" rotation="0 -90 0"> -->
+
+<!-- CITA 3: parede frontal, por riba/entre vídeo e quiz -->
+<!-- <a-entity position="0 4.8 -12" rotation="0 0 0"> -->
+
+<!-- CITA 4: parede traseira, por riba/entre audio e anacos -->
+<!-- <a-entity position="0 4.8 10" rotation="0 180 0"> -->
+
+
+
+
 <!DOCTYPE html>
 <html lang="gl">
 
@@ -19,7 +83,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
   <link
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Nunito:wght@400;600;700&display=swap"
     rel="stylesheet">
-<script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <style>
     *,
     *::before,
@@ -48,15 +112,16 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       background: linear-gradient(180deg, rgba(2, 8, 20, .76), rgba(5, 8, 16, .9));
     }
 
-  #portada-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;  /* â† ENGADIR ISTO */
-  opacity: 0;
-  background: url('imax/begonha2.png') center top / cover no-repeat;
-  filter: brightness(.22) saturate(.55);
-  transition: opacity .35s ease;
-}
+    #portada-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      /* â† ENGADIR ISTO */
+      opacity: 0;
+      background: url('imax/begonha2.png') center top / cover no-repeat;
+      filter: brightness(.22) saturate(.55);
+      transition: opacity .35s ease;
+    }
 
     #portada-bg.lista {
       opacity: 1;
@@ -245,15 +310,17 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       pointer-events: auto;
       box-shadow: 0 0 60px rgba(0, 229, 255, .15);
     }
+
     /* Fondo semitransparente detrás do quiz para enfocar a atención */
-#quiz-backdrop {
-  display: none;
-  position: absolute;
-  inset: 0;
-  z-index: 9998;
-  background: rgba(0, 0, 0, 0.6);
-  pointer-events: auto;
-}
+    #quiz-backdrop {
+      display: none;
+      position: absolute;
+      inset: 0;
+      z-index: 9998;
+      background: rgba(0, 0, 0, 0.6);
+      pointer-events: auto;
+    }
+
     #quiz-panel.activo {
       display: flex;
       flex-direction: column;
@@ -711,7 +778,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
   </div>
 
 
-   <div id="overlay">
+  <div id="overlay">
     <div class="portada-escolar">
       <img src="imax/begonha2.png"
         style="width:64px;height:64px;border-radius:50%;border:2px solid #00e5ff;object-fit:cover;margin-bottom:8px;"
@@ -723,7 +790,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
         Mira os paneis e <b>tócaos para interactuar</b>.
       </div>
     </div>
-<div id="quiz-backdrop"></div>
+    <div id="quiz-backdrop"></div>
     <div id="escala-distancias-panel">
       <label for="escala-distancias-slider">Escala distancias <span id="escala-distancias-valor">1.00x</span></label>
       <input id="escala-distancias-slider" type="range" min="0.25" max="1.5" step="0.05" value="1">
@@ -762,11 +829,10 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       </div>
     </div>
   </div>
- 
-<a-scene 
-  xr-mode-ui="enabled: true; XRMode: ar"
-  webxr="optionalFeatures: hit-test, dom-overlay; overlayElement: #overlay"
-  renderer="colorManagement:true; antialias:true">
+
+  <a-scene xr-mode-ui="enabled: true; XRMode: ar"
+    webxr="optionalFeatures: hit-test, dom-overlay; overlayElement: #overlay"
+    renderer="colorManagement:true; antialias:true">
     <a-assets>
       <a-asset-item id="font-title" src="fonts/Outfit-Bold-msdf.json"></a-asset-item>
       <a-asset-item id="font-body" src="fonts/Nunito-SemiBold-msdf.json"></a-asset-item>
@@ -789,10 +855,13 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
     <a-entity id="reticle" ar-hit-test="target:#museo"></a-entity>
     <a-entity id="museo" visible="false">
 
-  
+
+
+
+
       <!-- 1. QUEN FOI? (Esquerda 1 Atrás) -->
       <!-- Posición: Atrás á esquerda, rotada cara ao centro -->
-      <a-entity position="-7 2.5 -8" rotation="0 40 0">
+      <a-entity position="-10 2.5 -4" rotation="0 90 0">
         <a-plane width="5.6" height="2.4" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
         <a-plane width="5.6" height="0.05" color="#FFFFFF" position="0 2.25 0.01"></a-plane>
         <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
@@ -825,8 +894,8 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
         </a-entity>
       </a-entity>
 
-      <!-- CITA 1 (Asociada a Quen foi) -->
-      <a-entity position="-9 1.8 -4" rotation="0 70 0">
+      <!-- CITA  (Asociada a Quen foi) -->
+     <a-entity position="-10 4.6 0" rotation="0 90 0">
         <a-plane width="3.8" height="1.5" color="#ff4d6d" opacity="0.08"></a-plane>
         <a-plane width="0.06" height="1.5" color="#ff4d6d" position="-1.87 0 0.01"></a-plane>
         <a-text value="« A muller dona do seu desexo\n e do seu propio corpo »" font="fonts/Nunito-SemiBold-msdf.json"
@@ -836,7 +905,9 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       </a-entity>
 
       <!-- 2. A QUE SE DEDICOU? (Esquerda 2 Diante) -->
-      <a-entity position="-8 2.5 0" rotation="0 90 0">
+
+      <!-- A que se dedicou? -->
+      <a-entity position="-10 2.5 4" rotation="0 90 0">
         <a-plane width="5.6" height="3" color="#08101d" opacity="0.9"></a-plane>
         <a-text value="A QUE SE DEDICOU?" font="fonts/Outfit-Bold-msdf.json" align="center" width="7" color="#00E5FF"
           negate="false" position="0 0.8 0.1"></a-text>
@@ -847,7 +918,10 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       </a-entity>
 
       <!-- 3. OBRAS (Dereita 1 Atrás) -->
-      <a-entity position="7 2.5 -8" rotation="0 -40 0">
+
+
+      <!-- Obras -->
+      <a-entity position="10 2.5 -4" rotation="0 -90 0">
         <a-plane width="5.6" height="2.4" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
         <a-plane width="5.6" height="0.05" color="#ffb6c1" position="0 2.36 0.01"></a-plane>
         <a-text value="OBRAS FUNDAMENTAIS" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
@@ -875,7 +949,11 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       </a-entity>
 
       <!-- 4. POR QUE MERECE AS LETRAS? (Dereita 2 Adiante) -->
-      <a-entity position="8 2.5 0" rotation="0 -90 0">
+
+
+
+      <!-- Por que merece as letras? -->
+      <a-entity position="10 2.5 4" rotation="0 -90 0">
         <a-plane width="5.6" height="3" color="#08101d" opacity="0.9"></a-plane>
         <a-text value="POR QUE MERECE AS LETRAS GALEGAS 2026" font="fonts/Outfit-Bold-msdf.json" align="center"
           width="5.5" color="#FF0055" negate="false" position="0 0.8 0.1"></a-text>
@@ -885,8 +963,9 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
           negate="false"></a-text>
       </a-entity>
 
-      <!-- 5. ANACOS DA SÚA OBRA (Detrás do usuario) -->
-      <a-entity position="0 2.2 8" rotation="0 180 0">
+      <!-- 5. Audio (Detrás do usuario) -->
+      <!-- Audio -->
+      <a-entity position="-4 2.4 10" rotation="0 180 0">
         <a-plane width="4.7" height="4.7" color="#08101d" opacity="0.97"></a-plane>
         <a-plane width="4.7" height="0.05" color="#00e5ff" position="0 2.32 0.01"></a-plane>
         <a-image src="#icon-audio" width="0.92" height="0.92" position="0 0.48 0.1"></a-image>
@@ -897,8 +976,12 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
         <a-entity id="sound-emitter" sound="src:#audio-file; volume:3"></a-entity>
       </a-entity>
 
+
+
+
       <!-- 6. VIDEO (Xornalismo Político) (Fondo Esquerda) -->
-      <a-entity position="-3 2.5 -12" rotation="0 10 0">
+      <!-- Vídeo -->
+      <a-entity position="-4 2.4 -12" rotation="0 0 0">
         <a-plane width="5.5" height="1.7" color="#08101d" opacity="0.98" position="0 1.74 0"></a-plane>
         <a-text value="XORNALISMO POLÍTICO" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.2"
           position="0 2.09 0.1" color="#9af1ff" negate="false"></a-text>
@@ -908,7 +991,9 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       </a-entity>
 
       <!-- 7. CANTO SABES? (Fondo Dereita - A máis afastada) -->
-      <a-entity position="6 2.5 -14" rotation="0 -15 0">
+
+      <!-- Quiz -->
+      <a-entity position="4 2.6 -12" rotation="0 0 0">
 
         <!-- 1. O INTERROGANTE (SÓ VISUAL, MÁIS GRANDE) -->
         <a-entity scale="30 30 1" position="0 3.8 0">
@@ -961,7 +1046,9 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <!-- SALA PEQUENA:  position="-3.5 0 5" rotation="0 180 0" -->
       <!-- SALA MEDIANA:  position="-4.5 0 7" rotation="0 180 0" -->
       <!-- SALA GRANDE:   position="-6 0 9" rotation="0 180 0" -->
-      <a-entity position="-6 0 9" rotation="0 180 0">
+
+      <!-- Anacos de obras -->
+      <a-entity position="4 0 10" rotation="0 180 0">
 
         <!-- Cabeceira do panel -->
         <a-plane width="5.8" height="0.8" color="#08101d" opacity="0.98" position="0 5.1 0"></a-plane>
@@ -1104,7 +1191,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
               color="#e7f0fb" negate="false" wrap-count="46"></a-text>
           </a-entity>
         </a-entity>
-    </a-entity>
+      </a-entity>
     </a-entity>
 
 
@@ -1155,7 +1242,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       escalaDistancias = parseFloat(escalaSlider.value);
       aplicarEscalaDistancias(escalaDistancias);
     });
-//ANCORAR O MUSEO 
+    //ANCORAR O MUSEO 
 
 
 
@@ -1189,33 +1276,33 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
 
     // Lóxica de colocación en AR
     window.addEventListener('click', (e) => {
-  if (e.target.closest('#quiz-panel') || e.target.closest('#escala-distancias-panel') || document.getElementById('quiz-panel').classList.contains('activo')) return;
-  if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
-    // CAMBIO: usa posición real do mundo, non local
-    const pos = new THREE.Vector3();
-    reticle.object3D.getWorldPosition(pos);
-    museo.object3D.position.copy(pos);
-    
-    museo.setAttribute('visible', true);
-    reticle.setAttribute('visible', false);
-    document.querySelector('.portada-escolar').style.display = 'none';
-    btnQuizSala.style.display = 'block';
-    document.querySelector('#reticle').setAttribute('ar-hit-test', 'enabled: false');
-  }
-});
-// window.addEventListener('click', (e) => {
-//   if (e.target.closest('#quiz-panel') || e.target.closest('#escala-distancias-panel') || document.getElementById('quiz-panel').classList.contains('activo')) return;
+      if (e.target.closest('#quiz-panel') || e.target.closest('#escala-distancias-panel') || document.getElementById('quiz-panel').classList.contains('activo')) return;
+      if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
+        // CAMBIO: usa posición real do mundo, non local
+        const pos = new THREE.Vector3();
+        reticle.object3D.getWorldPosition(pos);
+        museo.object3D.position.copy(pos);
 
-//   if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
-//     museo.setAttribute('position', reticle.getAttribute('position'));
-//     museo.setAttribute('visible', true);
-//     reticle.setAttribute('visible', false);
-//     document.querySelector('.portada-escolar').style.display = 'none';
-//     btnQuizSala.style.display = 'block';
-//     // ENGADIR 
-//     document.querySelector('#reticle').setAttribute('ar-hit-test', 'enabled: false');
-//   }
-// });
+        museo.setAttribute('visible', true);
+        reticle.setAttribute('visible', false);
+        document.querySelector('.portada-escolar').style.display = 'none';
+        btnQuizSala.style.display = 'block';
+        document.querySelector('#reticle').setAttribute('ar-hit-test', 'enabled: false');
+      }
+    });
+    // window.addEventListener('click', (e) => {
+    //   if (e.target.closest('#quiz-panel') || e.target.closest('#escala-distancias-panel') || document.getElementById('quiz-panel').classList.contains('activo')) return;
+
+    //   if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
+    //     museo.setAttribute('position', reticle.getAttribute('position'));
+    //     museo.setAttribute('visible', true);
+    //     reticle.setAttribute('visible', false);
+    //     document.querySelector('.portada-escolar').style.display = 'none';
+    //     btnQuizSala.style.display = 'block';
+    //     // ENGADIR 
+    //     document.querySelector('#reticle').setAttribute('ar-hit-test', 'enabled: false');
+    //   }
+    // });
 
     scene.addEventListener('enter-vr', () => {
       portadaEl.style.display = 'none';
@@ -1237,7 +1324,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       escalaPanel.style.display = 'none';
     });
 
-  /* ================= LÓXICA DO QUIZ ================= */
+    /* ================= LÓXICA DO QUIZ ================= */
     const QP = [
       { p: "En que cidade naceu Begoña Caamaño?", ops: ["Vigo", "Santiago de Compostela", "A Coruña", "Pontevedra"], ok: 0, exp: "Naceu en Vigo no ano 1964." },
       { p: "En que medio traballou como xornalista?", ops: ["TVG", "Radio Galega", "La Voz de Galicia", "El Correo Gallego"], ok: 1, exp: "Foi unha voz fundamental na Radio Galega." },
@@ -1249,29 +1336,29 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
     ];
 
     let qIdx = 0, qPts = 0, qResp = false;
-function abrirQuiz() {
-  if (document.getElementById('quiz-panel').classList.contains('activo')) return;
-  qIdx = 0; qPts = 0;
-  document.getElementById('quiz-panel').classList.add('activo');
-  document.getElementById('quiz-backdrop').style.display = 'block';
-  document.getElementById('quiz-backdrop').style.pointerEvents = 'auto';
-  document.getElementById('q-resultado').style.display = 'none';
-  document.getElementById('q-xogo').style.display = 'block';
-  qMostrar();
-}
+    function abrirQuiz() {
+      if (document.getElementById('quiz-panel').classList.contains('activo')) return;
+      qIdx = 0; qPts = 0;
+      document.getElementById('quiz-panel').classList.add('activo');
+      document.getElementById('quiz-backdrop').style.display = 'block';
+      document.getElementById('quiz-backdrop').style.pointerEvents = 'auto';
+      document.getElementById('q-resultado').style.display = 'none';
+      document.getElementById('q-xogo').style.display = 'block';
+      qMostrar();
+    }
 
-function pecharQuiz() {
-  document.getElementById('quiz-panel').classList.remove('activo');
-  document.getElementById('quiz-backdrop').style.display = 'none';
-  document.getElementById('quiz-backdrop').style.pointerEvents = 'none';
-}
+    function pecharQuiz() {
+      document.getElementById('quiz-panel').classList.remove('activo');
+      document.getElementById('quiz-backdrop').style.display = 'none';
+      document.getElementById('quiz-backdrop').style.pointerEvents = 'none';
+    }
 
-function qReiniciar() {
-  qIdx = 0; qPts = 0;
-  document.getElementById('q-resultado').style.display = 'none';
-  document.getElementById('q-xogo').style.display = 'block';
-  qMostrar();
-}
+    function qReiniciar() {
+      qIdx = 0; qPts = 0;
+      document.getElementById('q-resultado').style.display = 'none';
+      document.getElementById('q-xogo').style.display = 'block';
+      qMostrar();
+    }
 
     function qMostrar() {
       qResp = false;
@@ -1322,7 +1409,7 @@ function qReiniciar() {
       document.getElementById('q-barra').style.width = ((qIdx + 1) / QP.length * 100) + '%';
     }
 
-   function qSeguinte() {
+    function qSeguinte() {
       qIdx++;
       qIdx >= QP.length ? qResultado() : qMostrar();
     }
