@@ -245,48 +245,53 @@ Parede frontal 2,Canto sabes? / Quiz,4 2.6 -12,0
       pointer-events: none;
     }
 
-    .portada-escolar {
-      display: none;
-      position: absolute;
-      bottom: 22px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 22px 26px;
-      border-radius: 22px;
-      background: rgba(4, 12, 30, 0.97);
-      border: 2px solid #00e5ff;
-      color: white;
-      pointer-events: auto;
-      max-width: 82%;
-      box-shadow: 0 0 28px rgba(0, 229, 255, .25);
-      text-align: center;
-    }
+  
+.portada-escolar {
+  display: none; /* Controlado por JS */
+  position: absolute;
+  top: 20px;            /* <--- CAMBIO: Agora arriba */
+  left: 50%;
+  transform: translateX(-50%);
+  
+  /* Layout horizontal */
+  display: flex;
+  flex-direction: row;  /* <--- CAMBIO: Elementos en liña */
+  align-items: center;
+  gap: 15px;
+  
+  padding: 12px 20px;
+  border-radius: 50px;  /* <--- Estilo máis "píldora" */
+  background: rgba(4, 12, 30, 0.9);
+  border: 2px solid #00e5ff;
+  color: white;
+  pointer-events: auto;
+  width: 90%;           /* <--- Máis ancho */
+  max-width: 600px;
+  box-shadow: 0 0 20px rgba(0, 229, 255, .2);
+}
 
-    .portada-escolar .nome {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 900;
-      margin: 8px 0 2px;
-      color: #00e5ff;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-    }
+/* Para que os textos non queden un debaixo doutro e ocupen menos alto */
+.portada-escolar .info-textos {
+  text-align: left;
+  flex-grow: 1;
+}
 
-    .portada-escolar .letras {
-      font-size: .78rem;
-      color: #88aacc;
-      display: block;
-      margin-bottom: 12px;
-    }
+.portada-escolar .nome {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;      /* <--- Un chisco máis pequeno para que caiba */
+  font-weight: 900;
+  margin: 0;
+  color: #00e5ff;
+  text-transform: uppercase;
+}
 
-    .instrucions {
-      font-size: .83rem;
-      line-height: 1.55;
-      background: rgba(0, 229, 255, .07);
-      padding: 10px 14px;
-      border-radius: 12px;
-      color: #cce8ff;
-    }
+.instrucions {
+  font-size: .8rem;
+  line-height: 1.2;
+  color: #cce8ff;
+  margin-top: 2px;
+}
+  
 
     .instrucions b {
       color: #00e5ff;
@@ -779,16 +784,18 @@ Parede frontal 2,Canto sabes? / Quiz,4 2.6 -12,0
 
 
   <div id="overlay">
-    <div class="portada-escolar">
-      <img src="imax/begonha2.png"
-        style="width:64px;height:64px;border-radius:50%;border:2px solid #00e5ff;object-fit:cover;margin-bottom:8px;"
-        alt="Begoña Caamaño">
-      <div class="nome">BEGOÑA CAAMAÑO</div>
-      <span class="letras">Letras Galegas 2026</span>
-      <div class="instrucions">
-        Toca a pantalla para <b>colocar a sala</b>.<br>
-        Mira os paneis e <b>tócaos para interactuar</b>.
-      </div>
+   <div class="portada-escolar">
+  <img src="imax/begonha2.png" 
+       style="width:50px; height:50px; border-radius:50%; border:2px solid #00e5ff; object-fit:cover;" 
+       alt="Begoña Caamaño">
+  
+  <div class="info-textos">
+    <div class="nome">BEGOÑA CAAMAÑO <span style="font-size: 0.7rem; color: #88aacc; font-weight: 400; margin-left: 10px;">Letras Galegas 2026</span></div>
+    <div class="instrucions">
+      Toca a pantalla para <b>colocar a sala</b> e os paneis para <b>interactuar</b>.
+    </div>
+  </div>
+</div>
     </div>
     <div id="quiz-backdrop"></div>
     <div id="escala-distancias-panel">
@@ -980,17 +987,25 @@ Parede frontal 2,Canto sabes? / Quiz,4 2.6 -12,0
   <a-image src="#img-bego2" width="4.15" height="2.33" position="0 -1.2 0.1"></a-image>
 </a-entity>
       <!-- 5. Audio (Detrás do usuario) -->
-      <!-- Audio -->
-      <a-entity position="-6 2.4 12" rotation="0 180 0">
-        <a-plane width="4.7" height="4.7" color="#08101d" opacity="0.97"></a-plane>
-        <a-plane width="4.7" height="0.05" color="#00e5ff" position="0 2.32 0.01"></a-plane>
-        <a-image src="#icon-audio" width="0.92" height="0.92" position="0 0.48 0.1"></a-image>
-        <a-text value="A VOZ DA AUTORA" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.2"
-          position="0 -0.82 0.1" color="#9af1ff" negate="false"></a-text>
-        <a-plane class="area-clic" width="4.7" height="4.7" position="0 0 0.12" material="opacity:0; transparent:true"
-          onclick="toggleAudio()"></a-plane>
-        <a-entity id="sound-emitter" sound="src:#audio-file; volume:3"></a-entity>
-      </a-entity>
+    <!-- 5. Audio (Sen fondo) -->
+<a-entity position="-6 2.4 12" rotation="0 180 0">
+  <!-- Eliminamos o plane de cor #08101d e a liña azul superior -->
+  
+  <!-- Icona de audio -->
+  <a-image src="#icon-audio" width="0.92" height="0.92" position="0 0.48 0.1"></a-image>
+  
+  <!-- Texto -->
+  <a-text value="A VOZ DA AUTORA" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.2"
+    position="0 -0.82 0.1" color="#9af1ff" negate="false"></a-text>
+
+  <!-- O CLIC: Mantemos un plano invisible para que sexa fácil de tocar co cursor -->
+  <a-plane class="area-clic" width="2.5" height="2.5" position="0 0 0.05" 
+           material="opacity:0; transparent:true"
+           onclick="toggleAudio()">
+  </a-plane>
+
+  <a-entity id="sound-emitter" sound="src:#audio-file; volume:3"></a-entity>
+</a-entity>
 
 
 
