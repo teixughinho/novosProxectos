@@ -112,16 +112,16 @@ Parede frontal 2,Canto sabes? / Quiz,4 2.6 -12,0
       background: linear-gradient(180deg, rgba(2, 8, 20, .76), rgba(5, 8, 16, .9));
     }
 
-    #portada-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      /* â† ENGADIR ISTO */
-      opacity: 0;
-      background: url('imax/begonha2.png') center top / cover no-repeat;
-      filter: brightness(.22) saturate(.55);
-      transition: opacity .35s ease;
-    }
+ #portada-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Usamos un degradado radial coas túas cores escuras */
+  background: radial-gradient(circle at center, #0a1a35 0%, #040c1e 100%);
+  z-index: -1;
+}
 
     #portada-bg.lista {
       opacity: 1;
