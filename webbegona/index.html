@@ -122,7 +122,17 @@ Parede frontal 2,Canto sabes? / Quiz,4 2.6 -12,0
   background: radial-gradient(circle at center, #0a1a35 0%, #040c1e 100%);
   z-index: -1;
 }
-
+#portada-bg::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, transparent 60%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
     #portada-bg.lista {
       opacity: 1;
     }
