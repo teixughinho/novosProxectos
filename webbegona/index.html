@@ -653,7 +653,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
       <p class="portada-sub">Xornalista, escritora e voz esencial das Letras Galegas 2026.</p>
       <span class="portada-data">Letras Galegas · 2026</span><br>
-      <p class="portada-hint">Preme no botón [AR] (abaixo á dereita) para entrares na mostra.</p>
+      <p class="portada-hint">Preme o botón [AR] (abaixo á dereita 2) para entrares na mostra.</p>
     </div>
   </div>
 
@@ -729,118 +729,66 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
 
     <a-entity id="reticle" ar-hit-test="target:#museo"></a-entity>
 
-    <a-entity id="museo" visible="false">
+   <a-entity id="museo" visible="false">
+      
+      <!-- 1. BIOGRAFÍA (Frontal Esquerda - 8m) -->
+      <a-entity position="-8 2.5 -7" rotation="0 35 0">
+        <a-plane width="6.5" height="4.5" color="#08101d" opacity="0.95"></a-plane>
+        <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" font="#font-title" align="center" width="6" position="0 1.8 0.1" color="#FF0055" negate="false"></a-text>
+        <a-image src="#img-bego" width="4.5" height="2.8" position="0 -0.6 0.1"></a-image>
+      </a-entity>
 
-      <!-- 1. BIOGRAFÍA (ESQUERDA ATRÁS) -->
-      <a-entity position="-5 2.5 4" rotation="0 135 0">
-        <a-plane width="5.6" height="2.4" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
-        <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" font="#font-title" align="center" width="5.3" position="0 1.90 0.1"
-          color="#FF0055" negate="false"></a-text>
-        <a-text value="Xornalista · Escritora · Activista" font="#font-body" align="center" width="4.8"
-          position="0 1.40 0.1" color="#00E5FF" negate="false"></a-text>
-        <a-image src="#img-bego" width="3.5" height="2.1" position="0 -1.1 0.05"></a-image>
-        <a-plane class="area-clic" width="5.6" height="4.5" position="0 0.3 0.1" material="opacity:0; transparent:true"
-          onclick="toggle('info1')"></a-plane>
+      <!-- 2. A QUE SE DEDICOU? / TRAXECTORIA (Lateral Esquerda - 10m) -->
+      <a-entity position="-11 2.5 -2" rotation="0 80 0">
+        <a-plane width="6" height="4" color="#08101d" opacity="0.9"></a-plane>
+        <a-text value="TRAXECTORIA E ACTIVISMO" font="#font-title" align="center" width="5.5" position="0 1.5 0.1" color="#00E5FF" negate="false"></a-text>
+        <a-text value="Referente do xornalismo feminista, vinculada á Marcha Mundial das Mulleres e ao activismo político e social en Galicia." font="#font-body" align="center" width="4.5" position="0 -0.2 0.1" color="#FFFFFF" negate="false"></a-text>
+      </a-entity>
 
-        <a-entity id="info1" visible="false" position="0 0.8 0.5">
-          <a-plane width="5.2" height="3" color="#07101f" opacity="0.99" border="1 1 #ff4d6d"></a-plane>
-          <a-text value="Voz mítica da Radio Galega e defensora do feminismo galego." font="#font-body" align="center"
-            width="4" position="0 0 0.1" color="#e7f0fb" negate="false"></a-text>
+      <!-- 3. OBRAS FUNDAMENTAIS (Frontal Dereita - 8m) -->
+      <a-entity position="8 2.5 -7" rotation="0 -35 0">
+        <a-plane width="7" height="5" color="#08101d" opacity="0.95"></a-plane>
+        <a-text value="OBRAS FUNDAMENTAIS" font="#font-title" align="center" width="6.5" position="0 2 0.1" color="#ffd6de" negate="false"></a-text>
+        <a-image src="#img-circe" width="2" height="3" position="-1.5 -0.5 0.1"></a-image>
+        <a-image src="#img-esmelle" width="2" height="3" position="1.5 -0.5 0.1"></a-image>
+      </a-entity>
+
+      <!-- 4. POR QUE MERECE AS LETRAS? (Lateral Dereita - 10m) -->
+      <a-entity position="11 2.5 -2" rotation="0 -80 0">
+        <a-plane width="6" height="4" color="#08101d" opacity="0.9"></a-plane>
+        <a-text value="LETRAS GALEGAS 2026" font="#font-title" align="center" width="5.5" position="0 1.5 0.1" color="#FF0055" negate="false"></a-text>
+        <a-text value="Pola súa capacidade para darlle unha volta aos mitos clásicos con ollada de muller e a súa pegada na cultura galega." font="#font-body" align="center" width="4.5" position="0 -0.2 0.1" color="#FFFFFF" negate="false"></a-text>
+      </a-entity>
+
+      <!-- 5. VÍDEO / MULTIMEDIA (Fondo Centro - 13m) -->
+      <a-entity position="0 3.5 -13">
+        <a-text value="BEGOÑA NA TV" font="#font-title" align="center" width="10" position="0 3.5 0" color="#00e5ff" negate="false"></a-text>
+        <a-video src="#video-file" width="9" height="5.1" position="0 0 0"></a-video>
+        <a-plane class="area-clic" width="9" height="5" position="0 0 0.1" material="opacity:0; transparent:true" onclick="toggleVideo()"></a-plane>
+      </a-entity>
+
+      <!-- 6. AUDIO E QUIZ (Detrás do usuario - 8m) -->
+      <a-entity position="0 2.5 8" rotation="0 180 0">
+        <!-- Audio -->
+        <a-entity position="-3 0 0">
+          <a-text value="A SÚA VOZ" font="#font-title" align="center" width="5" position="0 1.2 0"></a-text>
+          <a-image src="#icon-audio" width="1.5" height="1.5" class="area-clic" onclick="toggleAudio()" animation="property: scale; from: 1 1 1; to: 1.1 1.1 1.1; dir: alternate; dur: 1000; loop: true"></a-image>
+          <a-entity id="sound-emitter" sound="src:#audio-file; volume:2"></a-entity>
+        </a-entity>
+        
+        <!-- Quiz -->
+        <a-entity position="3 0 0">
+          <a-box width="2.5" height="1.5" depth="0.5" color="#FF0055" class="area-clic" onclick="abrirQuiz()">
+            <a-text value="QUIZ" align="center" width="8" position="0 0 0.3" font="#font-title" negate="false"></a-text>
+          </a-box>
         </a-entity>
       </a-entity>
 
-      <!-- 2. A QUE SE DEDICOU? (ESQUERDA DIANTE) -->
-      <a-entity position="-6 2.5 -4" rotation="0 60 0">
-        <a-plane width="4.5" height="2.5" color="#08101d" opacity="0.9"></a-plane>
-        <a-text value="A SÚA TRAXECTORIA" font="#font-title" align="center" width="5" position="0 0.8 0.1"
-          color="#00E5FF" negate="false"></a-text>
-        <a-text value="Dende o xornalismo político ata a creación de mundos míticos en Esmelle." font="#font-body"
-          align="center" width="3.8" position="0 -0.2 0.1" color="#FFFFFF" negate="false"></a-text>
-      </a-entity>
-
-      <!-- CITA -->
-      <a-entity position="-4.8 1.8 -7" rotation="0 30 0">
-        <a-plane width="3.8" height="1.5" color="#ff4d6d" opacity="0.08"></a-plane>
-        <a-plane width="0.06" height="1.5" color="#ff4d6d" position="-1.87 0 0.01"></a-plane>
-        <a-text value="« A muller dona do seu desexo\n e do seu propio corpo »" font="fonts/Nunito-SemiBold-msdf.json"
-          font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="3.35" position="0 0.24 0.05" color="#ffffff"
-          negate="false" wrap-count="24"></a-text>
-        <a-text value="- Circe ou o pracer do azul" font="fonts/Nunito-SemiBold-msdf.json"
-          font-image="fonts/Nunito-SemiBold-msdf.png" align="right" width="2.55" position="1.15 -0.48 0.05"
-          color="#ffc0cb" negate="false" wrap-count="30"></a-text>
-      </a-entity>
-
-      <!-- 3. OBRAS FUNDAMENTAIS (DEREITA ATRÁS) - FONDO RECUPERADO -->
-      <a-entity position="5 2.5 4" rotation="0 225 0">
-        <!-- O FONDO QUE FALTABA -->
-        <a-plane width="5.6" height="3.5" color="#08101d" opacity="0.98" position="0 0.5 0"></a-plane>
-        <a-plane width="5.6" height="0.05" color="#ffb6c1" position="0 2.2 0.01"></a-plane>
-
-        <a-text value="OBRAS FUNDAMENTAIS" font="#font-title" align="center" width="5.3" position="0 1.8 0.1"
-          color="#ffd6de" negate="false"></a-text>
-        <a-image src="#img-circe" width="1.5" height="2.2" position="-1.2 -0.8 0.05"></a-image>
-        <a-image src="#img-esmelle" width="1.5" height="2.2" position="1.2 -0.8 0.05"></a-image>
-
-        <a-plane class="area-clic" width="5.6" height="4" position="0 0 0.1" material="opacity:0; transparent:true"
-          onclick="toggle('info3')"></a-plane>
-        <a-entity id="info3" visible="false" position="0 0.5 0.6">
-          <a-plane width="4.5" height="2.5" color="#07101f" opacity="0.99"></a-plane>
-          <a-text value="Circe (2009) e Morgana (2012):\nReescritura dos mitos dende a sororidade." align="center"
-            width="4" color="#ffc1cc" negate="false"></a-text>
-        </a-entity>
-      </a-entity>
-
-      <!-- 4. POR QUE MERECE AS LETRAS? (DEREITA DIANTE) -->
-      <a-entity position="6 2.5 -4" rotation="0 300 0">
-        <a-plane width="4.5" height="2.5" color="#08101d" opacity="0.9"></a-plane>
-        <a-text value="LETRAS GALEGAS 2026" font="#font-title" align="center" width="5" position="0 0.8 0.1"
-          color="#FF0055" negate="false"></a-text>
-        <a-text value="Pola súa calidade literaria e por dar voz propia ás mulleres na mitoloxía." font="#font-body"
-          align="center" width="3.8" position="0 -0.2 0.1" color="#FFFFFF" negate="false"></a-text>
-      </a-entity>
-
-      <!-- 5. AUDIO (DETRÁS DO USUARIO) - RECUPERADO -->
-      <a-entity position="0 2.2 6" rotation="0 180 0">
-        <a-plane width="4" height="3" color="#0a1a2f" opacity="0.9"></a-plane>
-        <a-image src="#icon-audio" width="0.8" height="0.8" position="0 0.5 0.1" class="area-clic"
-          onclick="toggleAudio()"
-          animation="property: scale; from: 1 1 1; to: 1.1 1.1 1.1; dir: alternate; dur: 1000; loop: true"></a-image>
-        <a-text value="A VOZ DE BEGOÑA" align="center" width="6" position="0 -0.5 0.1" color="#00E5FF"
-          font="#font-title" negate="false"></a-text>
-        <a-text value="Toca para escoitar" align="center" width="4" position="0 -1 0.1" color="#FFFFFF"
-          negate="false"></a-text>
-        <a-entity id="sound-emitter" sound="src:#audio-file; volume:2"></a-entity>
-      </a-entity>
+    </a-entity>
 
 
 
-   
 
-      <!-- CITA 2 -->
-      <a-entity position="4.8 1.8 7" rotation="0 -150 0">
-        <a-plane width="4.1" height="1.5" color="#00e5ff" opacity="0.08"></a-plane>
-        <a-plane width="0.06" height="1.5" color="#00e5ff" position="-2 0 0.01"></a-plane>
-        <a-text value="« A sororidade como a única arma\n para vencer a culpa »" font="fonts/Nunito-SemiBold-msdf.json"
-          font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="3.55" position="0 0.24 0.05" color="#ffffff"
-          negate="false" wrap-count="26"></a-text>
-        <a-text value="- Morgana en Esmelle" font="fonts/Nunito-SemiBold-msdf.json"
-          font-image="fonts/Nunito-SemiBold-msdf.png" align="right" width="2.55" position="1.25 -0.48 0.05"
-          color="#cce8ff" negate="false" wrap-count="28"></a-text>
-      </a-entity>
-<!-- 6. VÍDEO (FRONTE) -->
-      <a-entity position="0 2.2 -7" rotation="0 0 0">
-        <a-text value="XORNALISMO POLÍTICO" align="center" width="6" position="0 1.8 0" color="#00e5ff" font="#font-title" negate="false"></a-text>
-        <a-video src="#video-file" width="5" height="2.8" position="0 0 0"></a-video>
-        <a-plane class="area-clic" width="5" height="2.8" position="0 0 0.1" material="opacity:0; transparent:true" onclick="toggleVideo()"></a-plane>
-      </a-entity>
-
-      <!-- 7. QUIZ (FONDO DEREITA - SEPARADO DO RESTO) -->
-      <a-entity position="8 3.5 -10" rotation="0 320 0">
-        <a-text value="?" scale="20 20 1" align="center" color="#FF0000" position="0 2 0" negate="false" font="#font-title"></a-text>
-        <a-plane class="area-clic" width="6" height="1.5" color="#FF0000" position="0 -1 0" onclick="abrirQuiz()">
-           <a-text value="CANTO SABES?" align="center" width="12" position="0 0 0.1" negate="false"></a-text>
-        </a-plane>
-      </a-entity>
 
   </a-scene>
 
