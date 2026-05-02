@@ -48,14 +48,15 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       background: linear-gradient(180deg, rgba(2, 8, 20, .76), rgba(5, 8, 16, .9));
     }
 
-    #portada-bg {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      background: url('imax/begonha2.png') center top / cover no-repeat;
-      filter: brightness(.22) saturate(.55);
-      transition: opacity .35s ease;
-    }
+  #portada-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;  /* ← ENGADIR ISTO */
+  opacity: 0;
+  background: url('imax/begonha2.png') center top / cover no-repeat;
+  filter: brightness(.22) saturate(.55);
+  transition: opacity .35s ease;
+}
 
     #portada-bg.lista {
       opacity: 1;
@@ -1142,7 +1143,8 @@ function abrirQuiz() {
   if (document.getElementById('quiz-panel').classList.contains('activo')) return;
   qIdx = 0; qPts = 0;
   document.getElementById('quiz-panel').classList.add('activo');
-  document.getElementById('quiz-backdrop').style.display = 'block'; // ← ENGADIR
+  document.getElementById('quiz-backdrop').style.display = 'block';
+  document.getElementById('quiz-backdrop').style.pointerEvents = 'auto';
   document.getElementById('q-resultado').style.display = 'none';
   document.getElementById('q-xogo').style.display = 'block';
   qMostrar();
@@ -1150,7 +1152,8 @@ function abrirQuiz() {
 
 function pecharQuiz() {
   document.getElementById('quiz-panel').classList.remove('activo');
-  document.getElementById('quiz-backdrop').style.display = 'none'; // ← ENGADIR
+  document.getElementById('quiz-backdrop').style.display = 'none';
+  document.getElementById('quiz-backdrop').style.pointerEvents = 'none';
 }
 
 function qReiniciar() {
@@ -1159,25 +1162,6 @@ function qReiniciar() {
   document.getElementById('q-xogo').style.display = 'block';
   qMostrar();
 }
-    // function abrirQuiz() {
-    //   if (document.getElementById('quiz-panel').classList.contains('activo')) return;
-    //   qIdx = 0; qPts = 0;
-    //   document.getElementById('quiz-panel').classList.add('activo');
-    //   document.getElementById('q-resultado').style.display = 'none';
-    //   document.getElementById('q-xogo').style.display = 'block';
-    //   qMostrar();
-    // }
-
-    // function pecharQuiz() {
-    //   document.getElementById('quiz-panel').classList.remove('activo');
-    // }
-
-    // function qReiniciar() {
-    //   qIdx = 0; qPts = 0;
-    //   document.getElementById('q-resultado').style.display = 'none';
-    //   document.getElementById('q-xogo').style.display = 'block';
-    //   qMostrar();
-    // }
 
     function qMostrar() {
       qResp = false;
