@@ -763,7 +763,8 @@ AFRAME.registerComponent('ar-hit-test', {
         this.el.object3D.quaternion,
         this.el.object3D.scale
       );
-      this.el.setAttribute('visible', true);
+      this.found = true;
+this.el.setAttribute('visible', !museoColocado);
     }
   }
 });
