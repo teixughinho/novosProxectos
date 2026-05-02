@@ -648,6 +648,81 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       display: flex;
       animation: panelEntrada 0.4s ease-out forwards;
     }
+    
+  /* ===== DEV: PANEL ESCALA AR ===== */
+  #dev-escala-panel {
+    display: none;
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid #00e5ff;
+    border-radius: 12px;
+    padding: 10px 16px;
+    pointer-events: auto;
+    z-index: 5000;
+    text-align: center;
+    min-width: 240px;
+  }
+  #dev-escala-panel label {
+    color: #00e5ff;
+    font-family: 'Outfit', sans-serif;
+    font-size: .7rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+    white-space: nowrap;
+  }
+  #dev-escala-panel .val {
+    color: #fff;
+    font-weight: 900;
+    font-size: .9rem;
+  }
+  #dev-escala-slider {
+    width: 100%;
+    accent-color: #00e5ff;
+    cursor: pointer;
+    margin: 0;
+  }
+  /* Marcadores no slider */
+  .dev-marcas {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2px;
+    padding: 0 4px;
+  }
+  .dev-marcas span {
+    font-size: .55rem;
+    color: #00e5ff;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    width: 16px;
+    text-align: center;
+  }
+  .dev-marcas .centro {
+    color: #00ff66;
+    font-weight: 900;
+  }
+  .dev-marcas .positivo {
+    color: #ffff00;
+  }
+  .dev-marcas .negativo {
+    color: #ff6600;
+  }
+  /* Liña marcadora do slider */
+  #dev-escala-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #00e5ff;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0,229,255,.8);
+  }
+  /* ===== FIN DEV ===== */
   </style>
 </head>
 
@@ -660,14 +735,38 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <div class="portada-divider"></div>
       <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high">
       <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
-      <p class="portada-sub">Xornalista, escritora e voz esencial das Letras Galegas 2026.</p>
-      <span class="portada-data">Letras Galegas · 2026</span><br>
-      <p class="portada-hint">Preme o botón [AR] (abaixo á dereita) para entrares na mostra.</p>
-    </div>
-  </div>
 
-
-  <div id="overlay">
+      
+   // ===== DEV: CONTROL ESCALA AR =====
+  (function () {
+    const devPanel = document.getElementById('dev-escala-panel');
+    const slider = document.getElementById('dev-escala-slider');
+    const valLabel = document.getElementById('dev-escala-val');
+    const scales = [-3, -2, -1, 0, 1, 2, 3];
+    
+    // Mostrar panel só en AR
+    scene.addEventListener('enter-vr', () => {
+      if (scene.is('ar-mode')) devPanel.style.display = 'block';
+    });
+    scene.addEventListener('exit-vr', () => {
+      devPanel.style.display = 'none';
+      slider.value = 1.0;
+      valLabel.textContent = '1.0×';
+    });
+    
+    // Slider event
+    slider.addEventListener('input', () => {
+      const value = parseFloat(slider.value);
+      const escala = Math.pow(2, value); // Exponencial: -3 = 0.125×, 0 = 1×, 3 = 8×
+      valLabel.textContent = escala.toFixed(2) + '×';
+      museo.object3D.scale.set(escala, escala, escala);
+      
+      // Mostrar nivel (redondear a 0.05)
+      let nivel = Math.round(value * 20) / 20;
+      valLabel.textContent = 'Nivel: ' + nivel.toFixed(2);
+    });
+  })();
+  // ===== FIN DEV ====="     });</script>  <div id="overlay">
     <div class="portada-escolar">
       <img src="imax/begonha2.png"
         style="width:64px;height:64px;border-radius:50%;border:2px solid #00e5ff;object-fit:cover;margin-bottom:8px;"
@@ -676,10 +775,18 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <span class="letras">Letras Galegas 2026</span>
       <div class="instrucions">
         Toca a pantalla para <b>colocar a sala</b>.<br>
-        Mira os paneis e <b>tócaos para interactuar</b>.
-      </div>
+portada-escolar      </div>
     </div>
 <div id="quiz-backdrop"></div>
+        <!-- ===== DEV: PANEL ESCALA AR ===== -->
+    <div id="dev-escala-panel">
+      <label>⚙ DEV · Escala: <span id="dev-escala-val" class="val">1.0×</span></label>
+      <input id="dev-escala-slider" type="range" min="0.1" max="3.0" step="0.05" value="1.0">
+      <div class="dev-marcas">
+        <span class="negativo">-3</span><span class="negativo">-2</span><span class="negativo">-1</span><span class="centro">0</span><span class="positivo">1</span><span class="positivo">2</span><span class="positivo">3</span>
+      </div>
+    </div>
+    <!-- ===== FIN DEV ===== -->
     <div id="quiz-panel">
       <button class="qx" onclick="pecharQuiz()">✕</button>
       <div id="q-xogo">
