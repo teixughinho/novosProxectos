@@ -729,53 +729,29 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
 <body>
 
   <div id="portada">
-    <div id="portada-bg"></div>
+
+ <div id="portada-bg"></div>
     <div class="portada-inner">
       <div class="portada-kicker">Mostra inmersiva</div>
       <div class="portada-divider"></div>
       <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high">
       <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
-
+      <!-- <p class="portada-sub">Xornalista, escritora e voz esencial das Letras Galegas 2026.</p> -->
+      <span class="portada-data">Letras Galegas · 2026</span><br>
+      <p class="portada-hint">Preme o botón [AR] (abaixo á dereita 2) para entrares na mostra.</p>
+    </div>
       
-   // ===== DEV: CONTROL ESCALA AR =====
-  (function () {
-    const devPanel = document.getElementById('dev-escala-panel');
-    const slider = document.getElementById('dev-escala-slider');
-    const valLabel = document.getElementById('dev-escala-val');
-    const scales = [-3, -2, -1, 0, 1, 2, 3];
-    
-    // Mostrar panel só en AR
-    scene.addEventListener('enter-vr', () => {
-      if (scene.is('ar-mode')) devPanel.style.display = 'block';
-    });
-    scene.addEventListener('exit-vr', () => {
-      devPanel.style.display = 'none';
-      slider.value = 1.0;
-      valLabel.textContent = '1.0×';
-    });
-    
-    // Slider event
-    slider.addEventListener('input', () => {
-      const value = parseFloat(slider.value);
-      const escala = Math.pow(2, value); // Exponencial: -3 = 0.125×, 0 = 1×, 3 = 8×
-      valLabel.textContent = escala.toFixed(2) + '×';
-      museo.object3D.scale.set(escala, escala, escala);
-      
-      // Mostrar nivel (redondear a 0.05)
-      let nivel = Math.round(value * 20) / 20;
-      valLabel.textContent = 'Nivel: ' + nivel.toFixed(2);
-    });
-  })();
-  // ===== FIN DEV ====="     });</script>  <div id="overlay">
+ <div id="overlay">
     <div class="portada-escolar">
       <img src="imax/begonha2.png"
         style="width:64px;height:64px;border-radius:50%;border:2px solid #00e5ff;object-fit:cover;margin-bottom:8px;"
         alt="Begoña Caamaño">
       <div class="nome">BEGOÑA CAAMAÑO</div>
       <span class="letras">Letras Galegas 2026</span>
-      <div class="instrucions">
+      <div class="instrucions"> <div class="instrucions">
         Toca a pantalla para <b>colocar a sala</b>.<br>
-portada-escolar      </div>
+        Mira os paneis e <b>tócaos para interactuar</b>.
+      </div>
     </div>
 <div id="quiz-backdrop"></div>
         <!-- ===== DEV: PANEL ESCALA AR ===== -->
@@ -1363,7 +1339,37 @@ function qReiniciar() {
       document.getElementById('r-stars').textContent = st;
       document.getElementById('r-msg').textContent = mg;
     }
-  </script>
+    // ===== DEV: CONTROL ESCALA AR =====
+  (function () {
+    const devPanel = document.getElementById('dev-escala-panel');
+    const slider = document.getElementById('dev-escala-slider');
+    const valLabel = document.getElementById('dev-escala-val');
+    const scales = [-3, -2, -1, 0, 1, 2, 3];
+    
+    // Mostrar panel só en AR
+    scene.addEventListener('enter-vr', () => {
+      if (scene.is('ar-mode')) devPanel.style.display = 'block';
+    });
+    scene.addEventListener('exit-vr', () => {
+      devPanel.style.display = 'none';
+      slider.value = 1.0;
+      valLabel.textContent = '1.0×';
+    });
+    
+    // Slider event
+    slider.addEventListener('input', () => {
+      const value = parseFloat(slider.value);
+      const escala = Math.pow(2, value); // Exponencial: -3 = 0.125×, 0 = 1×, 3 = 8×
+      valLabel.textContent = escala.toFixed(2) + '×';
+      museo.object3D.scale.set(escala, escala, escala);
+      
+      // Mostrar nivel (redondear a 0.05)
+      let nivel = Math.round(value * 20) / 20;
+      valLabel.textContent = 'Nivel: ' + nivel.toFixed(2);
+    });
+  })();
+  // ===== FIN DEV ====="     });
+  </script> 
 </body>
 
 </html>
