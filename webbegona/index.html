@@ -1,15 +1,11 @@
-<!-- COORDENADAS
-Sección,Título / Contido,Posición (X Y Z),Rotación (Y),Distancia
-Punto 0,Posición Inicial do Usuario,0 1.6 0,-,-
-Esquerda 1 Atrás,Quen foi? (Biografía),-8 2.5 8,135,11.3m
-Esquerda 2 Diante,A que se dedicou? (Novo),-12 2.5 -6,60,13.4m
-Dereita 1 Atrás,Obras (xa creada),8 2.5 8,225,11.3m
-Dereita 2 Diante,Por que merece as letras? (Novo),12 2.5 -6,300,13.4m
-Detrás do usuario,Anacos da súa obra (Audio),0 2.2 10,180,10.0m
-Fronte (Fondo),Xornalismo Político (Vídeo),0 2.2 -15,0,15.0m
-Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
+
+
+
 <!DOCTYPE html>
+
+
 <html lang="gl">
+
 
 <head>
   <meta charset="UTF-8">
@@ -727,69 +723,25 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
 </head>
 
 <body>
-<script>
-AFRAME.registerComponent('ar-hit-test', {
-  init: function () {
-    this.xrHitTestSource = null;
-    this.viewerSpace = null;
-    this.refSpace = null;
-    this.el.sceneEl.addEventListener('enter-vr', this.startHitTest.bind(this));
-    this.el.sceneEl.addEventListener('exit-vr', this.stopHitTest.bind(this));
-  },
-  startHitTest: async function () {
-    const renderer = this.el.sceneEl.renderer;
-    const session = renderer.xr.getSession();
-    if (!session) return;
-    this.viewerSpace = await session.requestReferenceSpace('viewer');
-    this.refSpace = await session.requestReferenceSpace('local');
-    this.xrHitTestSource = await session.requestHitTestSource({ space: this.viewerSpace });
-    this.el.setAttribute('visible', true);
-  },
-  stopHitTest: function () {
-    if (this.xrHitTestSource) { this.xrHitTestSource.cancel(); this.xrHitTestSource = null; }
-    this.el.setAttribute('visible', false);
-  },
-  tick: function () {
-    if (!this.xrHitTestSource) return;
-    const frame = this.el.sceneEl.renderer.xr.getFrame();
-    if (!frame) return;
-    const hits = frame.getHitTestResults(this.xrHitTestSource);
-    if (hits.length > 0) {
-      const pose = hits[0].getPose(this.refSpace);
-      const m = pose.transform.matrix;
-      this.el.object3D.matrix.fromArray(m);
-      this.el.object3D.matrix.decompose(
-        this.el.object3D.position,
-        this.el.object3D.quaternion,
-        this.el.object3D.scale
-      );
-      this.found = true;
-this.el.setAttribute('visible', !museoColocado);
-    }
-  }
-});
-</script>
-  <div id="portada">
-
- <div id="portada-bg"></div>
+   <div id="portada">
+    <div id="portada-bg"></div>
     <div class="portada-inner">
-      <div class="portada-kicker">Mostra inmersiva</div>
+      <div class="portada-kicker">Museo inmersivo</div>
       <div class="portada-divider"></div>
       <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high">
       <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
-      <!-- <p class="portada-sub">Xornalista, escritora e voz esencial das Letras Galegas 2026.</p> -->
-      <span class="portada-data">Letras Galegas · 2026</span><br>
+      <p class="portada-sub">Xornalista, escritora e voz esencial das Letras Galegas 2026.</p>
+      <span class="portada-data">Letras Galegas · 2026</span><br> 
       <p class="portada-hint">Preme o botón [AR] (abaixo á dereita 2) para entrares na mostra.</p>
     </div>
+  </div>
       
  <div id="overlay">
     <div class="portada-escolar">
-      <img src="imax/begonha2.png"
-        style="width:64px;height:64px;border-radius:50%;border:2px solid #00e5ff;object-fit:cover;margin-bottom:8px;"
-        alt="Begoña Caamaño">
+      <img src="imax/begonha2.png" style="width:64px;height:64px;border-radius:50%;border:2px solid #00e5ff;object-fit:cover;margin-bottom:8px;" alt="Begoña Caamaño">
       <div class="nome">BEGOÑA CAAMAÑO</div>
       <span class="letras">Letras Galegas 2026</span>
-      <div class="instrucions"> <div class="instrucions">
+      <div class="instrucions">
         Toca a pantalla para <b>colocar a sala</b>.<br>
         Mira os paneis e <b>tócaos para interactuar</b>.
       </div>
@@ -861,8 +813,24 @@ this.el.setAttribute('visible', !museoColocado);
       </a-entity>
     </a-camera>
 
-  <a-entity id="reticle" visible="false" ar-hit-test="target:#museo">
-    <a-entity id="museo" visible="false">
+<a-entity id="reticle" visible="false" ar-hit-test="target: #museo; enabled: true">
+  <a-ring
+    position="0 0 0"
+    rotation="-90 0 0"
+    radius-inner="0.08"
+    radius-outer="0.11"
+    material="color:#00e5ff; shader:flat; opacity:0.9; transparent:true">
+  </a-ring>
+
+  <a-plane
+    position="0 0.001 0"
+    rotation="-90 0 0"
+    width="0.12"
+    height="0.12"
+    material="color:#00e5ff; shader:flat; opacity:0.15; transparent:true">
+  </a-plane>
+</a-entity>
+  <a-entity id="museo" visible="false">
 
       <!-- 1. QUEN FOI? (Esquerda 1 Atrás) -->
       <!-- Posición: Atrás á esquerda, rotada cara ao centro -->
@@ -1183,237 +1151,362 @@ this.el.setAttribute('visible', !museoColocado);
     </a-entity>
 
   </a-scene>
+<script>
+  AFRAME.registerComponent('ar-hit-test', {
+    schema: {
+      target: { type: 'selector' },
+      enabled: { default: true }
+    },
 
-  <script>
-    const scene = document.querySelector('a-scene');
-    const museo = document.querySelector('#museo');
-    const reticle = document.querySelector('#reticle');
-    const portadaEl = document.getElementById('portada');
-    const btnQuizSala = document.getElementById('btn-quiz-sala');
-    const portadaBg = document.getElementById('portada-bg');
+    init: function () {
+      this.viewerSpace = null;
+      this.refSpace = null;
+      this.hitTestSource = null;
+      this.found = false;
 
-//ANCORAR O MUSEO 
+      this.onEnterVR = this.onEnterVR.bind(this);
+      this.onExitVR = this.onExitVR.bind(this);
 
+      this.el.sceneEl.addEventListener('enter-vr', this.onEnterVR);
+      this.el.sceneEl.addEventListener('exit-vr', this.onExitVR);
 
+      this.el.setAttribute('visible', false);
+    },
 
-
-    // Carga de imaxe de fondo
-    const preloadImg = new Image();
-    preloadImg.src = 'imax/begonha2.png';
-    preloadImg.onload = () => portadaBg.classList.add('lista');
-
-    // Funcións de interacción cos paneis 3D
-    function toggle(id) {
-      const el = document.getElementById(id);
-      el.setAttribute('visible', !el.getAttribute('visible'));
-    }
-
-    function toggleAudio() {
-      const s = document.querySelector('#sound-emitter');
-      if (!s || !s.components || !s.components.sound) return;
-      if (s.components.sound.isPlaying) {
-        s.components.sound.stopSound();
-      } else {
-        s.components.sound.playSound(); // En A-Frame 1.4 isto xa xestiona internamente o contexto de audio interactivo
+    update: function () {
+      if (!this.data.enabled) {
+        this.el.setAttribute('visible', false);
       }
-    }
+    },
 
-    function toggleVideo() {
-      const v = document.querySelector('#video-file');
-      if (!v) return;
-      v.paused ? v.play().catch(() => { }) : v.pause();
-    }
+    async onEnterVR() {
+      const scene = this.el.sceneEl;
+      if (!scene.is('ar-mode') || !this.data.enabled) return;
 
-    // Lóxica de colocación en AR
-    window.addEventListener('click', (e) => {
-  if (e.target.closest('#quiz-panel') || document.getElementById('quiz-panel').classList.contains('activo')) return;
-  if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
-    // CAMBIO: usa posición real do mundo, non local
-    const pos = new THREE.Vector3();
-    reticle.object3D.getWorldPosition(pos);
-    museo.object3D.position.copy(pos);
-    
-    museo.setAttribute('visible', true);
-    reticle.setAttribute('visible', false);
-    document.querySelector('.portada-escolar').style.display = 'none';
-    btnQuizSala.style.display = 'block';
-    document.querySelector('#reticle').setAttribute('ar-hit-test', 'enabled: false');
+      const session = scene.renderer && scene.renderer.xr && scene.renderer.xr.getSession
+        ? scene.renderer.xr.getSession()
+        : null;
+
+      if (!session) return;
+
+      try {
+        this.viewerSpace = await session.requestReferenceSpace('viewer');
+        this.refSpace = await session.requestReferenceSpace('local');
+        this.hitTestSource = await session.requestHitTestSource({ space: this.viewerSpace });
+        this.found = false;
+        this.el.setAttribute('visible', false);
+      } catch (err) {
+        console.warn('Non se puido iniciar hit-test AR:', err);
+      }
+    },
+
+    onExitVR() {
+      if (this.hitTestSource) {
+        this.hitTestSource.cancel();
+        this.hitTestSource = null;
+      }
+      this.viewerSpace = null;
+      this.refSpace = null;
+      this.found = false;
+      this.el.setAttribute('visible', false);
+    },
+
+    tick: function () {
+      if (!this.data.enabled || !this.hitTestSource || !this.refSpace) return;
+
+      const frame = this.el.sceneEl.frame;
+      if (!frame) return;
+
+      const hits = frame.getHitTestResults(this.hitTestSource);
+
+      if (!hits || !hits.length) {
+        this.found = false;
+        this.el.setAttribute('visible', false);
+        return;
+      }
+
+      const pose = hits[0].getPose(this.refSpace);
+      if (!pose) return;
+
+      const mat = new THREE.Matrix4().fromArray(pose.transform.matrix);
+      mat.decompose(
+        this.el.object3D.position,
+        this.el.object3D.quaternion,
+        this.el.object3D.scale
+      );
+this.found = true;
+this.el.setAttribute('visible', !museoColocado);
+    }
+  });
+
+  const scene = document.querySelector('a-scene');
+  const museo = document.querySelector('#museo');
+  const reticle = document.querySelector('#reticle');
+  const portadaEl = document.getElementById('portada');
+  const btnQuizSala = document.getElementById('btn-quiz-sala');
+  const portadaBg = document.getElementById('portada-bg');
+  const portadaEscolar = document.querySelector('.portada-escolar');
+  const quizPanel = document.getElementById('quiz-panel');
+  const quizBackdrop = document.getElementById('quiz-backdrop');
+
+  let museoColocado = false;
+
+  const preloadImg = new Image();
+  preloadImg.src = 'imax/begonha2.png';
+  preloadImg.onload = () => portadaBg.classList.add('lista');
+
+  function toggle(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.setAttribute('visible', !el.getAttribute('visible'));
   }
-});
-// window.addEventListener('click', (e) => {
-//   if (e.target.closest('#quiz-panel') || document.getElementById('quiz-panel').classList.contains('activo')) return;
 
-//   if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
-//     museo.setAttribute('position', reticle.getAttribute('position'));
-//     museo.setAttribute('visible', true);
-//     reticle.setAttribute('visible', false);
-//     document.querySelector('.portada-escolar').style.display = 'none';
-//     btnQuizSala.style.display = 'block';
-//     // ENGADIR 
-//     document.querySelector('#reticle').setAttribute('ar-hit-test', 'enabled: false');
-//   }
-// });
+  function toggleAudio() {
+    const s = document.querySelector('#sound-emitter');
+    if (!s || !s.components || !s.components.sound) return;
 
-    scene.addEventListener('enter-vr', () => {
-      portadaEl.style.display = 'none';
-      if (!scene.is('ar-mode')) {
-        // Modo VR estándar (Gafas ou PC)
-        museo.setAttribute('visible', true);
-        btnQuizSala.style.display = 'block';
-      } else {
-        // Modo AR (Móbil)
-        document.querySelector('.portada-escolar').style.display = 'block';
-      }
+    if (s.components.sound.isPlaying) {
+      s.components.sound.stopSound();
+    } else {
+      s.components.sound.playSound();
+    }
+  }
+
+  function toggleVideo() {
+    const v = document.querySelector('#video-file');
+    if (!v) return;
+    if (v.paused) {
+      v.play().catch(() => {});
+    } else {
+      v.pause();
+    }
+  }
+
+  function resetARState() {
+    museoColocado = false;
+
+    museo.setAttribute('visible', false);
+    museo.object3D.position.set(0, 0, 0);
+    museo.object3D.rotation.set(0, 0, 0);
+    museo.object3D.scale.set(1, 1, 1);
+
+    reticle.setAttribute('visible', false);
+    reticle.setAttribute('ar-hit-test', 'target: #museo; enabled: true');
+
+    btnQuizSala.style.display = 'none';
+    portadaEscolar.style.display = 'none';
+  }
+
+  function colocarMuseoDesdeReticle() {
+    if (!scene.is('ar-mode')) return;
+    if (museoColocado) return;
+    if (!reticle.getAttribute('visible')) return;
+
+    const pos = new THREE.Vector3();
+    const quat = new THREE.Quaternion();
+    const scale = new THREE.Vector3();
+
+    reticle.object3D.matrixWorld.decompose(pos, quat, scale);
+
+    museo.object3D.position.copy(pos);
+    museo.object3D.quaternion.copy(quat);
+
+    museo.object3D.rotation.x = 0;
+    museo.object3D.rotation.z = 0;
+
+    museo.setAttribute('visible', true);
+    museoColocado = true;
+
+    reticle.setAttribute('visible', false);
+    reticle.setAttribute('ar-hit-test', 'target: #museo; enabled: false');
+
+    portadaEscolar.style.display = 'none';
+    btnQuizSala.style.display = 'block';
+  }
+
+  window.addEventListener('click', (e) => {
+    if (quizPanel.classList.contains('activo')) {
+      if (e.target.closest('#quiz-panel')) return;
+      return;
+    }
+
+    colocarMuseoDesdeReticle();
+  });
+
+  scene.addEventListener('enter-vr', () => {
+    portadaEl.style.display = 'none';
+
+    if (scene.is('ar-mode')) {
+      resetARState();
+      portadaEscolar.style.display = 'block';
+    } else {
+      museo.setAttribute('visible', true);
+      btnQuizSala.style.display = 'block';
+    }
+  });
+
+  scene.addEventListener('exit-vr', () => {
+    portadaEl.style.display = 'flex';
+    resetARState();
+  });
+
+  const QP = [
+    { p: "En que cidade naceu Begoña Caamaño?", ops: ["Vigo", "Santiago de Compostela", "A Coruña", "Pontevedra"], ok: 0, exp: "Naceu en Vigo no ano 1964." },
+    { p: "En que medio traballou como xornalista?", ops: ["TVG", "Radio Galega", "La Voz de Galicia", "El Correo Gallego"], ok: 1, exp: "Foi unha voz fundamental na Radio Galega." },
+    { p: "En que ano faleceu Begoña Caamaño?", ops: ["2010", "2012", "2014", "2016"], ok: 2, exp: "Faleceu en Santiago de Compostela en 2014." },
+    { p: "Cal é o título da súa novela de 2009?", ops: ["Morgana en Esmelle", "Circe ou o pracer do azul", "A illa das mulleres", "O libro das fadas"], ok: 1, exp: "'Circe ou o pracer do azul' publicouse en 2009." },
+    { p: "En que ano se publicou 'Morgana en Esmelle'?", ops: ["2008", "2010", "2012", "2014"], ok: 2, exp: "'Morgana en Esmelle' publicouse en 2012." },
+    { p: "Que temática atravesa a obra de Begoña Caamaño?", ops: ["A guerra civil española", "O feminismo e a reescritura de mitos", "A emigración galega", "A vida rural no século XIX"], ok: 1, exp: "O feminismo e a revisión dos mitos son o núcleo da súa obra." },
+    { p: "A que ano das Letras Galegas corresponde a súa homenaxe?", ops: ["2024", "2025", "2026", "2027"], ok: 2, exp: "O Día das Letras Galegas 2026 está dedicado a Begoña Caamaño." }
+  ];
+
+  let qIdx = 0;
+  let qPts = 0;
+  let qResp = false;
+
+  function abrirQuiz() {
+    if (document.getElementById('quiz-panel').classList.contains('activo')) return;
+
+    qIdx = 0;
+    qPts = 0;
+
+    document.getElementById('quiz-panel').classList.add('activo');
+    quizBackdrop.style.display = 'block';
+    quizBackdrop.style.pointerEvents = 'auto';
+    document.getElementById('q-resultado').style.display = 'none';
+    document.getElementById('q-xogo').style.display = 'block';
+
+    qMostrar();
+  }
+
+  function pecharQuiz() {
+    document.getElementById('quiz-panel').classList.remove('activo');
+    quizBackdrop.style.display = 'none';
+    quizBackdrop.style.pointerEvents = 'none';
+  }
+
+  function qReiniciar() {
+    qIdx = 0;
+    qPts = 0;
+    document.getElementById('q-resultado').style.display = 'none';
+    document.getElementById('q-xogo').style.display = 'block';
+    qMostrar();
+  }
+
+  function qMostrar() {
+    qResp = false;
+    const q = QP[qIdx];
+    const tot = QP.length;
+
+    document.getElementById('q-barra').style.width = ((qIdx) / tot * 100) + '%';
+    document.getElementById('q-num').textContent = 'Pregunta ' + (qIdx + 1) + ' de ' + tot;
+    document.getElementById('q-preg').textContent = q.p;
+    document.getElementById('q-fb').textContent = '';
+    document.getElementById('q-fb').className = 'q-fb';
+    document.getElementById('q-btn-seg').style.display = 'none';
+
+    const ops = document.getElementById('q-ops');
+    ops.innerHTML = '';
+
+    q.ops.forEach((o, i) => {
+      const b = document.createElement('button');
+      b.className = 'opcion';
+      b.textContent = o;
+      b.onclick = () => qResponder(i);
+      ops.appendChild(b);
     });
+  }
 
-    scene.addEventListener('exit-vr', () => {
-      portadaEl.style.display = 'flex'; // Volver amosar a portada ao saír
-      btnQuizSala.style.display = 'none';
-      document.querySelector('.portada-escolar').style.display = 'none';
- 
-  museo.setAttribute('visible', false);
-  reticle.setAttribute('visible', false);
-  reticle.setAttribute('ar-hit-test', 'enabled: true'); // reinicia o hit-test
-});
-    /* ================= LÓXICA DO QUIZ ================= */
-    const QP = [
-      { p: "En que cidade naceu Begoña Caamaño?", ops: ["Vigo", "Santiago de Compostela", "A Coruña", "Pontevedra"], ok: 0, exp: "Naceu en Vigo no ano 1964." },
-      { p: "En que medio traballou como xornalista?", ops: ["TVG", "Radio Galega", "La Voz de Galicia", "El Correo Gallego"], ok: 1, exp: "Foi unha voz fundamental na Radio Galega." },
-      { p: "En que ano faleceu Begoña Caamaño?", ops: ["2010", "2012", "2014", "2016"], ok: 2, exp: "Faleceu en Santiago de Compostela en 2014." },
-      { p: "Cal é o título da súa novela de 2009?", ops: ["Morgana en Esmelle", "Circe ou o pracer do azul", "A illa das mulleres", "O libro das fadas"], ok: 1, exp: "'Circe ou o pracer do azul' publicouse en 2009." },
-      { p: "En que ano se publicou 'Morgana en Esmelle'?", ops: ["2008", "2010", "2012", "2014"], ok: 2, exp: "'Morgana en Esmelle' publicouse en 2012." },
-      { p: "Que temática atravesa a obra de Begoña Caamaño?", ops: ["A guerra civil española", "O feminismo e a reescritura de mitos", "A emigración galega", "A vida rural no século XIX"], ok: 1, exp: "O feminismo e a revisión dos mitos son o núcleo da súa obra." },
-      { p: "A que ano das Letras Galegas corresponde a súa homenaxe?", ops: ["2024", "2025", "2026", "2027"], ok: 2, exp: "O Día das Letras Galegas 2026 está dedicado a Begoña Caamaño." }
-    ];
+  function qResponder(idx) {
+    if (qResp) return;
+    qResp = true;
 
-    let qIdx = 0, qPts = 0, qResp = false;
-function abrirQuiz() {
-  if (document.getElementById('quiz-panel').classList.contains('activo')) return;
-  qIdx = 0; qPts = 0;
-  document.getElementById('quiz-panel').classList.add('activo');
-  document.getElementById('quiz-backdrop').style.display = 'block';
-  document.getElementById('quiz-backdrop').style.pointerEvents = 'auto';
-  document.getElementById('q-resultado').style.display = 'none';
-  document.getElementById('q-xogo').style.display = 'block';
-  qMostrar();
-}
+    const q = QP[qIdx];
+    const bts = document.querySelectorAll('.opcion');
+    const fb = document.getElementById('q-fb');
 
-function pecharQuiz() {
-  document.getElementById('quiz-panel').classList.remove('activo');
-  document.getElementById('quiz-backdrop').style.display = 'none';
-  document.getElementById('quiz-backdrop').style.pointerEvents = 'none';
-}
+    bts.forEach(b => b.disabled = true);
 
-function qReiniciar() {
-  qIdx = 0; qPts = 0;
-  document.getElementById('q-resultado').style.display = 'none';
-  document.getElementById('q-xogo').style.display = 'block';
-  qMostrar();
-}
-
-    function qMostrar() {
-      qResp = false;
-      const q = QP[qIdx], tot = QP.length;
-      // Actualizamos a barra para que amose o progreso real *despois* de responder a anterior
-      document.getElementById('q-barra').style.width = ((qIdx) / tot * 100) + '%';
-      document.getElementById('q-num').textContent = 'Pregunta ' + (qIdx + 1) + ' de ' + tot;
-      document.getElementById('q-preg').textContent = q.p;
-      document.getElementById('q-fb').textContent = '';
-      document.getElementById('q-fb').className = 'q-fb';
-      document.getElementById('q-btn-seg').style.display = 'none';
-
-      const ops = document.getElementById('q-ops');
-      ops.innerHTML = '';
-      q.ops.forEach((o, i) => {
-        const b = document.createElement('button');
-        b.className = 'opcion';
-        b.textContent = o;
-        b.onclick = () => qResponder(i);
-        ops.appendChild(b);
-      });
+    if (idx === q.ok) {
+      qPts++;
+      bts[idx].classList.add('correcta');
+      fb.textContent = '✓ Correcto! ' + q.exp;
+    } else {
+      bts[idx].classList.add('incorrecta');
+      bts[q.ok].classList.add('correcta');
+      fb.textContent = '✗ Incorrecto. ' + q.exp;
+      fb.className = 'q-fb mal';
     }
 
-    function qResponder(idx) {
-      if (qResp) return;
-      qResp = true;
-      const q = QP[qIdx];
-      const bts = document.querySelectorAll('.opcion');
-      bts.forEach(b => b.disabled = true);
-      const fb = document.getElementById('q-fb');
+    const bs = document.getElementById('q-btn-seg');
+    bs.style.display = 'inline-block';
+    bs.textContent = qIdx >= QP.length - 1 ? 'Ver resultado ✦' : 'Seguinte →';
 
-      if (idx === q.ok) {
-        qPts++;
-        bts[idx].classList.add('correcta');
-        fb.textContent = '✓ Correcto! ' + q.exp;
-      } else {
-        bts[idx].classList.add('incorrecta');
-        bts[q.ok].classList.add('correcta');
-        fb.textContent = '✗ Incorrecto. ' + q.exp;
-        fb.className = 'q-fb mal';
-      }
+    document.getElementById('q-barra').style.width = ((qIdx + 1) / QP.length * 100) + '%';
+  }
 
-      const bs = document.getElementById('q-btn-seg');
-      bs.style.display = 'inline-block';
-      bs.textContent = qIdx >= QP.length - 1 ? 'Ver resultado ✦' : 'Seguinte →';
+  function qSeguinte() {
+    qIdx++;
+    qIdx >= QP.length ? qResultado() : qMostrar();
+  }
 
-      // Avanzar a barra un pouco ao responder
-      document.getElementById('q-barra').style.width = ((qIdx + 1) / QP.length * 100) + '%';
+  function qResultado() {
+    document.getElementById('q-xogo').style.display = 'none';
+    document.getElementById('q-barra').style.width = '100%';
+    document.getElementById('q-resultado').style.display = 'flex';
+
+    const tot = QP.length;
+    const pct = Math.round(qPts / tot * 100);
+
+    document.getElementById('r-puntos').textContent = qPts + '/' + tot;
+
+    let lb, mg, st;
+
+    if (pct === 100) {
+      lb = 'Excelente!';
+      st = '★★★★★';
+      mg = 'Dominas o legado de Begoña Caamaño. Parabéns!';
+    } else if (pct >= 71) {
+      lb = 'Moi ben!';
+      st = '★★★★☆';
+      mg = 'Coñeces ben a vida e a obra desta escritora fundamental.';
+    } else if (pct >= 43) {
+      lb = 'Vai ben!';
+      st = '★★★☆☆';
+      mg = 'Tes boa base. Explora os paneis do museo para completar.';
+    } else {
+      lb = 'Segue aprendendo!';
+      st = '★★☆☆☆';
+      mg = 'Revisa os paneis da sala e volve tentar. Begoña merece máis tempo.';
     }
 
-    function qSeguinte() {
-      qIdx++;
-      qIdx >= QP.length ? qResultado() : qMostrar();
-    }
+    document.getElementById('r-label').textContent = lb;
+    document.getElementById('r-stars').textContent = st;
+    document.getElementById('r-msg').textContent = mg;
+  }
 
-    function qResultado() {
-      document.getElementById('q-xogo').style.display = 'none';
-      document.getElementById('q-barra').style.width = '100%';
-      document.getElementById('q-resultado').style.display = 'flex';
-
-      const tot = QP.length, pct = Math.round(qPts / tot * 100);
-      document.getElementById('r-puntos').textContent = qPts + '/' + tot;
-
-      let lb, mg, st;
-      if (pct === 100) { lb = 'Excelente!'; st = '★★★★★'; mg = 'Dominas o legado de Begoña Caamaño. Parabéns!'; }
-      else if (pct >= 71) { lb = 'Moi ben!'; st = '★★★★☆'; mg = 'Coñeces ben a vida e a obra desta escritora fundamental.'; }
-      else if (pct >= 43) { lb = 'Vai ben!'; st = '★★★☆☆'; mg = 'Tes boa base. Explora os paneis do museo para completar.'; }
-      else { lb = 'Segue aprendendo!'; st = '★★☆☆☆'; mg = 'Revisa os paneis da sala e volve tentar. Begoña merece máis tempo.'; }
-
-      document.getElementById('r-label').textContent = lb;
-      document.getElementById('r-stars').textContent = st;
-      document.getElementById('r-msg').textContent = mg;
-    }
-    // ===== DEV: CONTROL ESCALA AR =====
   (function () {
     const devPanel = document.getElementById('dev-escala-panel');
     const slider = document.getElementById('dev-escala-slider');
     const valLabel = document.getElementById('dev-escala-val');
-    const scales = [-3, -2, -1, 0, 1, 2, 3];
-    
-    // Mostrar panel só en AR
+
     scene.addEventListener('enter-vr', () => {
       if (scene.is('ar-mode')) devPanel.style.display = 'block';
     });
+
     scene.addEventListener('exit-vr', () => {
       devPanel.style.display = 'none';
       slider.value = 1.0;
       valLabel.textContent = '1.0×';
     });
-    
-    // Slider event
+
     slider.addEventListener('input', () => {
       const value = parseFloat(slider.value);
-      const escala = Math.pow(2, value); // Exponencial: -3 = 0.125×, 0 = 1×, 3 = 8×
-      valLabel.textContent = escala.toFixed(2) + '×';
+      const escala = Math.pow(2, value);
       museo.object3D.scale.set(escala, escala, escala);
-      
-      // Mostrar nivel (redondear a 0.05)
-      let nivel = Math.round(value * 20) / 20;
-      valLabel.textContent = 'Nivel: ' + nivel.toFixed(2);
+      valLabel.textContent = escala.toFixed(2) + '×';
     });
   })();
-  // ===== FIN DEV ====="     });
-  </script> 
+</script>
 </body>
-
 </html>
