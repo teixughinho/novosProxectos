@@ -749,8 +749,8 @@
 <div id="quiz-backdrop"></div>
         <!-- ===== DEV: PANEL ESCALA AR ===== -->
     <div id="dev-escala-panel">
-      <label>⚙ DEV · Escala: <span id="dev-escala-val" class="val">1.0×</span></label>
-      <input id="dev-escala-slider" type="range" min="0.1" max="3.0" step="0.05" value="1.0">
+      <label>⚙ DEV · Escala: <span id="dev-escala-val" class="val">1.00×</span></label>
+      <input id="dev-escala-slider" type="range" min="-3" max="3" step="0.05" value="0">
       <div class="dev-marcas">
         <span class="negativo">-3</span><span class="negativo">-2</span><span class="negativo">-1</span><span class="centro">0</span><span class="positivo">1</span><span class="positivo">2</span><span class="positivo">3</span>
       </div>
@@ -1472,7 +1472,7 @@ museo.object3D.rotation.set(0, 0, 0);
       st = '★★★☆☆';
       mg = 'Tes boa base. Explora os paneis do museo para completar.';
     } else {
-      lb = 'Segue aprendendo!';
+      lb = 'Sigue aprendendo!';
       st = '★★☆☆☆';
       mg = 'Revisa os paneis da sala e volve tentar. Begoña merece máis tempo.';
     }
@@ -1493,8 +1493,8 @@ museo.object3D.rotation.set(0, 0, 0);
 
     scene.addEventListener('exit-vr', () => {
       devPanel.style.display = 'none';
-      slider.value = 1.0;
-      valLabel.textContent = '1.0×';
+      slider.value = 0;
+      valLabel.textContent = '1.00×';
     });
 
     slider.addEventListener('input', () => {
@@ -1504,7 +1504,6 @@ museo.object3D.rotation.set(0, 0, 0);
       valLabel.textContent = escala.toFixed(2) + '×';
     });
   })();
-  });
 </script>
 </body>
 </html>
