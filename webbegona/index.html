@@ -247,47 +247,51 @@
       </a-entity>
 
       <!-- QUIZ TRIGGER -->
-<!-- SECCIÓN EXAME: O PROPIO INTERROGANTE É O CADRO -->
-<!-- Posición moi afastada para que sexa o destino final -->
+<!-- SECCIÓN EXAME FINAL: FOCO NO INTERROGANTE -->
 <a-entity position="12 3 -20" rotation="0 -35 0">
   
-  <!-- GRUPO DO INTERROGANTE (O obxecto é o propio botón) -->
-  <a-entity class="area-clic" onclick="abrirQuiz()" scale="22 22 1" position="0 0 0">
+  <!-- 1. O INTERROGANTE (SÓ VISUAL, MÁIS GRANDE) -->
+  <!-- Subimos a escala a 30 para un impacto total -->
+  <a-entity scale="30 30 1" position="0 2 0">
     
-    <!-- Capa Glitch Vermella (Atrás) -->
+    <!-- Capa Vermella Glitch -->
     <a-text value="?" align="center" color="#FF0000" 
             font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
-            animation="property: position; from: -0.015 0.01 -0.02; to: 0.015 -0.01 -0.02; dir: alternate; dur: 50; loop: true">
+            animation="property: position; from: -0.01 0.01 -0.02; to: 0.01 -0.01 -0.02; dir: alternate; dur: 60; loop: true">
     </a-text>
 
-    <!-- Capa Branca (Centro - A máis brillante) -->
+    <!-- Capa Branca Principal -->
     <a-text value="?" align="center" color="#FFFFFF" 
             font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
-            animation="property: opacity; from: 0.4; to: 1; dir: alternate; dur: 30; loop: true">
+            animation="property: opacity; from: 0.3; to: 1; dir: alternate; dur: 40; loop: true">
     </a-text>
 
-    <!-- Capa Glitch Cian (Diante) -->
+    <!-- Capa Cian (Aberración) -->
     <a-text value="?" align="center" color="#00E5FF" 
             font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
-            animation="property: position; from: 0.015 -0.01 0.01; to: -0.015 0.01 0.01; dir: alternate; dur: 80; loop: true"
-            opacity="0.7">
+            animation="property: position; from: 0.01 -0.01 0.01; to: -0.01 0.01 0.01; dir: alternate; dur: 90; loop: true"
+            opacity="0.6">
     </a-text>
   </a-entity>
 
-  <!-- BOTÓN DE APOIO (Xusto debaixo, moi claro) -->
+  <!-- 2. O BOTÓN (ÚNICO PUNTO DE CLIC) -->
   <a-entity position="0 -6 0">
-    <a-plane class="area-clic" width="6" height="1.4" color="#FF0000" onclick="abrirQuiz()" material="shader: flat">
-        <a-text value="INICIAR EXAME FINAL" align="center" width="12" color="#FFFFFF" 
+    <!-- O cadro do botón con "brillo" neón -->
+    <a-plane class="area-clic" width="7" height="1.6" color="#FF0000" onclick="abrirQuiz()" material="shader: flat">
+        <a-text value="INICIAR EXAME FINAL" align="center" width="14" color="#FFFFFF" 
                 font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png" position="0 0 0.1">
         </a-text>
     </a-plane>
-    <!-- Efecto de liña de escaneado debaixo do botón -->
-    <a-plane width="6" height="0.1" color="#00E5FF" position="0 -0.8 0"
-             animation="property: opacity; from: 0.2; to: 1; dir: alternate; dur: 500; loop: true"></a-plane>
+    
+    <!-- Decoración: Liña de carga debaixo do botón -->
+    <a-plane width="7" height="0.15" color="#FFFFFF" position="0 -1 0" opacity="0.8"></a-plane>
+    <a-plane width="2" height="0.15" color="#00E5FF" position="-2.5 -1 0.01"
+             animation="property: position; from: -2.5 -1 0.01; to: 2.5 -1 0.01; dir: alternate; dur: 1500; loop: true; easing: easeInOutQuad">
+    </a-plane>
   </a-entity>
 
-  <!-- Luz de ambiente vermella para dar dramatismo á zona -->
-  <a-light type="point" color="#FF0000" intensity="1" distance="15" position="0 0 2"></a-light>
+  <!-- Iluminación focal para que o interrogante "brille" no chan -->
+  <a-light type="point" color="#FF0000" intensity="1.5" distance="20" position="0 -2 2"></a-light>
 </a-entity>
       <!-- <a-entity position="6 2.2 -6" rotation="0 -45 0">
         <a-plane width="4.15" height="3.72" color="#00e5ff" opacity="0.06" position="0 0 -0.02"></a-plane>
