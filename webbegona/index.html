@@ -72,6 +72,42 @@
     .r-bots { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; justify-content: center; }
     .r-btn-rep { padding: 11px 28px; border-radius: 22px; background: linear-gradient(135deg,#ff4d6d,#c0392b); color: #fff; border: none; font-family: 'Outfit', sans-serif; font-size: .9rem; font-weight: 700; cursor: pointer; }
     .r-btn-pec { padding: 11px 28px; border-radius: 22px; background: transparent; color: #6688aa; border: 2px solid rgba(255,255,255,.12); font-size: .9rem; cursor: pointer; font-family: 'Nunito', sans-serif; }
+  /* QUIZ PANEL LÚDICO */
+#quiz-panel {
+    background: linear-gradient(180deg, #07101e 0%, #0a1a35 100%);
+    border: 3px solid #00FF66; /* Verde Neón para o éxito */
+    box-shadow: 0 0 40px rgba(0, 255, 102, 0.3);
+}
+
+.opcion {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(0, 229, 255, 0.3);
+    border-radius: 18px; /* Máis redondeado, máis moderno */
+    font-size: 1rem;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.opcion:hover:not(:disabled) {
+    background: #00E5FF;
+    color: #050811;
+    border-color: #fff;
+    transform: scale(1.05); /* Efecto de pop ao tocar */
+}
+
+.q-barra {
+    background: linear-gradient(90deg, #00FF66, #00E5FF);
+    box-shadow: 0 0 10px #00FF66;
+}
+
+/* Efecto de entrada do panel */
+@keyframes panelEntrada {
+    from { opacity: 0; transform: translate(-50%, -40%) scale(0.9); }
+    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+#quiz-panel.activo {
+    display: flex;
+    animation: panelEntrada 0.4s ease-out forwards;
+}
   </style>
 </head>
 <body>
@@ -275,7 +311,7 @@
   </a-entity>
 
   <!-- 2. O BOTÓN (ÚNICO PUNTO DE CLIC) -->
-    <a-text value="Canto sabes?" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="14" position="0  0" color="#FF0055" negate="false" wrap-count="30"></a-text>
+    <a-text value="Canto sabes?" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="16" position="0  0" color="#000000" negate="true" wrap-count="30"></a-text>
 
   <a-entity position="0 -4 0">
     <!-- O cadro do botón con "brillo" neón -->
