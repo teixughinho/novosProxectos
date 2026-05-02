@@ -719,6 +719,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <video id="video-file" src="imax/begona.mp4" preload="auto" loop crossorigin="anonymous" playsinline></video>
       <img id="icon-audio" src="https://cdn-icons-png.flaticon.com/512/727/727269.png">
     </a-assets>
+
     <!-- raycaster="objects:.area-clic" -->
     <a-camera position="0 1.6 0">
       <a-entity cursor="fuse:false; rayOrigin:entity;" raycaster="objects:.area-clic; far: 40;" position="0 0 -1"
@@ -729,67 +730,452 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
 
     <a-entity id="reticle" ar-hit-test="target:#museo"></a-entity>
 
-   <a-entity id="museo" visible="false">
-      
-      <!-- 1. BIOGRAFÍA (Frontal Esquerda - 8m) -->
-      <a-entity position="-8 2.5 -7" rotation="0 35 0">
-        <a-plane width="6.5" height="4.5" color="#08101d" opacity="0.95"></a-plane>
-        <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" font="#font-title" align="center" width="6" position="0 1.8 0.1" color="#FF0055" negate="false"></a-text>
-        <a-image src="#img-bego" width="4.5" height="2.8" position="0 -0.6 0.1"></a-image>
-      </a-entity>
+    <a-entity id="museo" visible="false">
 
-      <!-- 2. A QUE SE DEDICOU? / TRAXECTORIA (Lateral Esquerda - 10m) -->
-      <a-entity position="-11 2.5 -2" rotation="0 80 0">
-        <a-plane width="6" height="4" color="#08101d" opacity="0.9"></a-plane>
-        <a-text value="TRAXECTORIA E ACTIVISMO" font="#font-title" align="center" width="5.5" position="0 1.5 0.1" color="#00E5FF" negate="false"></a-text>
-        <a-text value="Referente do xornalismo feminista, vinculada á Marcha Mundial das Mulleres e ao activismo político e social en Galicia." font="#font-body" align="center" width="4.5" position="0 -0.2 0.1" color="#FFFFFF" negate="false"></a-text>
-      </a-entity>
+      <!-- ============================================================
+           PAREDE ESQUERDA — ZONA ATRÁS
+           Panel pegado á parede esquerda (X negativo), zona posterior (Z negativo).
+           Rotado 90° cara ao interior da sala. Non editar o rotation.
+           Pódese editar: textos, cores, imaxes, width/height dos planos.
+           ============================================================ -->
+      <!-- SALA PEQUENA:  position="-4 0 -4" rotation="0 90 0" -->
+      <!-- SALA MEDIANA:  position="-6 0 -5" rotation="0 90 0" -->
+      <!-- SALA GRANDE:   position="-8 0 -6" rotation="0 90 0" -->
+      <a-entity position="-6 0 -5" rotation="0 90 0">
+        <a-plane width="5.6" height="2.4" color="#08101d" opacity="0.98" position="0 3.7 0"></a-plane>
+        <a-plane width="5.6" height="0.05" color="#FFFFFF" position="0 4.75 0.01"></a-plane>
+        <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" font="fonts/Outfit-Bold-msdf.json"
+          font-image="fonts/Outfit-Bold-msdf.png" align="center" width="5.3" position="0 4.40 0.1" color="#FF0055"
+          negate="false" wrap-count="30"></a-text>
+        <a-text value="Xornalista · Escritora · Activista feminista" font="fonts/Nunito-SemiBold-msdf.json"
+          font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.8" position="0 3.90 0.1" color="#00E5FF"
+          negate="false" wrap-count="42"></a-text>
+        <a-text value="Redefiniu a narrativa galega dende o feminismo e a sororidade."
+          font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.55"
+          position="0 3.40 0.1" color="#FFFFFF" negate="false" wrap-count="40"></a-text>
+        <a-image src="#img-bego" width="4.15" height="2.45" position="0 1.58 0.05"></a-image>
 
-      <!-- 3. OBRAS FUNDAMENTAIS (Frontal Dereita - 8m) -->
-      <a-entity position="8 2.5 -7" rotation="0 -35 0">
-        <a-plane width="7" height="5" color="#08101d" opacity="0.95"></a-plane>
-        <a-text value="OBRAS FUNDAMENTAIS" font="#font-title" align="center" width="6.5" position="0 2 0.1" color="#ffd6de" negate="false"></a-text>
-        <a-image src="#img-circe" width="2" height="3" position="-1.5 -0.5 0.1"></a-image>
-        <a-image src="#img-esmelle" width="2" height="3" position="1.5 -0.5 0.1"></a-image>
-      </a-entity>
+        <a-plane class="area-clic" width="5.6" height="5.4" position="0 2.80 0.15"
+          material="opacity:0; transparent:true" onclick="toggle('info1')"></a-plane>
 
-      <!-- 4. POR QUE MERECE AS LETRAS? (Lateral Dereita - 10m) -->
-      <a-entity position="11 2.5 -2" rotation="0 -80 0">
-        <a-plane width="6" height="4" color="#08101d" opacity="0.9"></a-plane>
-        <a-text value="LETRAS GALEGAS 2026" font="#font-title" align="center" width="5.5" position="0 1.5 0.1" color="#FF0055" negate="false"></a-text>
-        <a-text value="Pola súa capacidade para darlle unha volta aos mitos clásicos con ollada de muller e a súa pegada na cultura galega." font="#font-body" align="center" width="4.5" position="0 -0.2 0.1" color="#FFFFFF" negate="false"></a-text>
-      </a-entity>
-
-      <!-- 5. VÍDEO / MULTIMEDIA (Fondo Centro - 13m) -->
-      <a-entity position="0 3.5 -13">
-        <a-text value="BEGOÑA NA TV" font="#font-title" align="center" width="10" position="0 3.5 0" color="#00e5ff" negate="false"></a-text>
-        <a-video src="#video-file" width="9" height="5.1" position="0 0 0"></a-video>
-        <a-plane class="area-clic" width="9" height="5" position="0 0 0.1" material="opacity:0; transparent:true" onclick="toggleVideo()"></a-plane>
-      </a-entity>
-
-      <!-- 6. AUDIO E QUIZ (Detrás do usuario - 8m) -->
-      <a-entity position="0 2.5 8" rotation="0 180 0">
-        <!-- Audio -->
-        <a-entity position="-3 0 0">
-          <a-text value="A SÚA VOZ" font="#font-title" align="center" width="5" position="0 1.2 0"></a-text>
-          <a-image src="#icon-audio" width="1.5" height="1.5" class="area-clic" onclick="toggleAudio()" animation="property: scale; from: 1 1 1; to: 1.1 1.1 1.1; dir: alternate; dur: 1000; loop: true"></a-image>
-          <a-entity id="sound-emitter" sound="src:#audio-file; volume:2"></a-entity>
+        <a-entity id="info1" visible="false" position="0 3.30 0.5">
+          <a-plane width="5.25" height="3.55" color="#07101f" opacity="0.99"></a-plane>
+          <a-plane width="5.25" height="0.05" color="#ff4d6d" position="0 1.74 0.01"></a-plane>
+          <a-text value="VIGO, 1964 - SANTIAGO, 2014" font="fonts/Outfit-Bold-msdf.json"
+            font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.8" position="0 1.35 0.1" color="#ff8ca1"
+            negate="false" wrap-count="26"></a-text>
+          <a-text
+            value="Voz mítica da Radio Galega durante décadas. Traballou como xornalista política e cultural, sempre comprometida coa lingua galega e cos dereitos das mulleres."
+            font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center"
+            width="4.45" position="0 0.58 0.1" color="#e7f0fb" negate="false" wrap-count="46"></a-text>
+          <a-text
+            value="Nas súas novelas, Circe e Morgana deixan de ser vilás para converterse en protagonistas donas do seu propio destino."
+            font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center"
+            width="4.45" position="0 -0.28 0.1" color="#acd4ee" negate="false" wrap-count="46"></a-text>
+          <a-text value="Premio da Crítica Española · Finalista Blanco Amor" font="fonts/Outfit-Bold-msdf.json"
+            font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 -1.16 0.1" color="#ffc978"
+            negate="false" wrap-count="34"></a-text>
         </a-entity>
-        
-        <!-- Quiz -->
-        <a-entity position="3 0 0">
-          <a-box width="2.5" height="1.5" depth="0.5" color="#FF0055" class="area-clic" onclick="abrirQuiz()">
-            <a-text value="QUIZ" align="center" width="8" position="0 0 0.3" font="#font-title" negate="false"></a-text>
-          </a-box>
+      </a-entity>
+
+
+      <!-- ============================================================
+           CITA 1 — ESPAZO INTERMEDIO ESQUERDA
+           Flotando na esquina interior esquerda atrás, entre a parede
+           esquerda e a parede do fondo. Rotation cara ao interior.
+           Pódese editar: textos, cores, rotation para axustar ángulo.
+           ============================================================ -->
+      <!-- SALA PEQUENA:  position="-3.5 1.8 -3" rotation="0 55 0" -->
+      <!-- SALA MEDIANA:  position="-4.5 1.8 -4.5" rotation="0 45 0" -->
+      <!-- SALA GRANDE:   position="-6 1.8 -6" rotation="0 40 0" -->
+      <a-entity position="-4.5 1.8 -4.5" rotation="0 45 0">
+        <a-plane width="3.8" height="1.5" color="#ff4d6d" opacity="0.08"></a-plane>
+        <a-plane width="0.06" height="1.5" color="#ff4d6d" position="-1.87 0 0.01"></a-plane>
+        <a-text value="« A muller dona do seu desexo\n e do seu propio corpo »" font="fonts/Nunito-SemiBold-msdf.json"
+          font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="3.35" position="0 0.24 0.05" color="#ffffff"
+          negate="false" wrap-count="24"></a-text>
+        <a-text value="- Circe ou o pracer do azul" font="fonts/Nunito-SemiBold-msdf.json"
+          font-image="fonts/Nunito-SemiBold-msdf.png" align="right" width="2.55" position="1.15 -0.48 0.05"
+          color="#ffc0cb" negate="false" wrap-count="30"></a-text>
+      </a-entity>
+
+
+      <!-- ============================================================
+           PAREDE ESQUERDA — ZONA DIANTE
+           Panel pegado á parede esquerda (X negativo), zona anterior (Z positivo).
+           Rotado 90° cara ao interior. Non editar o rotation.
+           Pódese editar: textos, cores, width/height. Contido en construción.
+           ============================================================ -->
+      <!-- SALA PEQUENA:  position="-4 0 3" rotation="0 90 0" -->
+      <!-- SALA MEDIANA:  position="-6 0 4" rotation="0 90 0" -->
+      <!-- SALA GRANDE:   position="-8 0 5" rotation="0 90 0" -->
+      <a-entity position="-6 0 4" rotation="0 90 0">
+        <a-plane width="5" height="3" color="#08101d" opacity="0.9" position="0 2.5 0"></a-plane>
+        <a-text value="A QUE SE DEDICOU?" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+          align="center" width="7" color="#00E5FF" negate="false" position="0 3.3 0.1"></a-text>
+        <a-text value="(Contido en construción)" position="0 1.7 0.1" align="center" width="4" color="#FFFFFF"
+          font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png"></a-text>
+      </a-entity>
+
+
+      <!-- ============================================================
+           PAREDE DEREITA — ZONA ATRÁS
+           Panel pegado á parede dereita (X positivo), zona posterior (Z negativo).
+           Rotado -90° cara ao interior. Non editar o rotation.
+           Pódese editar: textos, imaxes (circe, esmelle), cores, popup info3.
+           ============================================================ -->
+      <!-- SALA PEQUENA:  position="4 0 -4" rotation="0 -90 0" -->
+      <!-- SALA MEDIANA:  position="6 0 -5" rotation="0 -90 0" -->
+      <!-- SALA GRANDE:   position="8 0 -6" rotation="0 -90 0" -->
+      <a-entity position="6 0 -5" rotation="0 -90 0">
+        <a-plane width="5.6" height="2.4" color="#08101d" opacity="0.98" position="0 3.7 0"></a-plane>
+        <a-plane width="5.6" height="0.05" color="#ffb6c1" position="0 4.86 0.01"></a-plane>
+        <a-text value="OBRAS FUNDAMENTAIS" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+          align="center" width="5.3" position="0 4.42 0.1" color="#ffd6de" negate="false" wrap-count="22"></a-text>
+        <a-text value="A reescritura feminista dos mitos clásicos e artúricos" font="fonts/Nunito-SemiBold-msdf.json"
+          font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.8" position="0 3.98 0.1" color="#79b9d8"
+          negate="false" wrap-count="40"></a-text>
+        <a-text value="Toca para coñecer as súas novelas" font="fonts/Nunito-SemiBold-msdf.json"
+          font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.1" position="0 3.48 0.1" color="#6a89a5"
+          negate="false" wrap-count="34"></a-text>
+        <a-image src="#img-circe" width="1.85" height="2.7" position="-1.22 1.54 0.05"></a-image>
+        <a-image src="#img-esmelle" width="1.85" height="2.7" position="1.22 1.54 0.05"></a-image>
+        <a-text value="Circe · 2009" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+          align="center" width="2.8" position="-1.22 0.03 0.1" color="#ff9aaa" negate="false" wrap-count="18"></a-text>
+        <a-text value="Morgana · 2012" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+          align="center" width="2.8" position="1.22 0.03 0.1" color="#ff9aaa" negate="false" wrap-count="18"></a-text>
+
+        <a-plane class="area-clic" width="5.6" height="6.1" position="0 2.45 0.15"
+          material="opacity:0; transparent:true" onclick="toggle('info3')"></a-plane>
+
+        <a-entity id="info3" visible="false" position="0 3.32 0.5">
+          <a-plane width="5.25" height="3.7" color="#07101f" opacity="0.99"></a-plane>
+          <a-plane width="5.25" height="0.05" color="#ffb6c1" position="0 1.83 0.01"></a-plane>
+          <a-text value="CIRCE OU O PRACER DO AZUL · 2009" font="fonts/Outfit-Bold-msdf.json"
+            font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.8" position="0 1.42 0.1" color="#ffc1cc"
+            negate="false" wrap-count="28"></a-text>
+          <a-text
+            value="Circe non é a bruxa que transforma homes en porcos. É unha muller que descobre o seu propio desexo e reclama a súa liberdade."
+            font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center"
+            width="4.45" position="0 0.67 0.1" color="#e7f0fb" negate="false" wrap-count="46"></a-text>
+          <a-text value="MORGANA EN ESMELLE · 2012" font="fonts/Outfit-Bold-msdf.json"
+            font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.8" position="0 -0.08 0.1" color="#ffc1cc"
+            negate="false" wrap-count="28"></a-text>
+          <a-text
+            value="Morgana convértese nunha muller chea de culpa e tenrura nunha Galicia contemporánea. Premio da Crítica Española."
+            font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center"
+            width="4.45" position="0 -0.88 0.1" color="#acd4ee" negate="false" wrap-count="46"></a-text>
         </a-entity>
+      </a-entity>
+
+
+      <!-- ============================================================
+           CITA 2 — ESPAZO INTERMEDIO DEREITA
+           Flotando na esquina interior dereita diante, entre a parede
+           dereita e a parede traseira. Rotation cara ao interior.
+           Pódese editar: textos, cores, rotation para axustar ángulo.
+           ============================================================ -->
+      <!-- SALA PEQUENA:  position="3.5 1.8 3" rotation="0 -130 0" -->
+      <!-- SALA MEDIANA:  position="4.5 1.8 4.5" rotation="0 -135 0" -->
+      <!-- SALA GRANDE:   position="6 1.8 6" rotation="0 -140 0" -->
+      <a-entity position="4.5 1.8 4.5" rotation="0 -135 0">
+        <a-plane width="4.1" height="1.5" color="#00e5ff" opacity="0.08"></a-plane>
+        <a-plane width="0.06" height="1.5" color="#00e5ff" position="-2 0 0.01"></a-plane>
+        <a-text value="« A sororidade como a única arma\n para vencer a culpa »" font="fonts/Nunito-SemiBold-msdf.json"
+          font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="3.55" position="0 0.24 0.05" color="#ffffff"
+          negate="false" wrap-count="26"></a-text>
+        <a-text value="- Morgana en Esmelle" font="fonts/Nunito-SemiBold-msdf.json"
+          font-image="fonts/Nunito-SemiBold-msdf.png" align="right" width="2.55" position="1.25 -0.48 0.05"
+          color="#cce8ff" negate="false" wrap-count="28"></a-text>
+      </a-entity>
+
+
+      <!-- ============================================================
+           PAREDE DEREITA — ZONA DIANTE
+           Panel pegado á parede dereita (X positivo), zona anterior (Z positivo).
+           Rotado -90° cara ao interior. Non editar o rotation.
+           Pódese editar: textos, cores, width/height. Contido en construción.
+           ============================================================ -->
+      <!-- SALA PEQUENA:  position="4 0 3" rotation="0 -90 0" -->
+      <!-- SALA MEDIANA:  position="6 0 4" rotation="0 -90 0" -->
+      <!-- SALA GRANDE:   position="8 0 5" rotation="0 -90 0" -->
+      <a-entity position="6 0 4" rotation="0 -90 0">
+        <a-plane width="5" height="3" color="#08101d" opacity="0.9" position="0 2.5 0"></a-plane>
+        <a-text value="POR QUE MERECE AS LETRAS GALEGAS 2026" font="fonts/Outfit-Bold-msdf.json"
+          font-image="fonts/Outfit-Bold-msdf.png" align="center" width="7" color="#FF0055" negate="false"
+          position="0 3.3 0.1"></a-text>
+        <a-text value="(Contido en construción)" position="0 1.7 0.1" align="center" width="4" color="#FFFFFF"
+          font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png"></a-text>
+      </a-entity>
+
+
+      <!-- ============================================================
+           PAREDE TRASEIRA (DETRÁS DO USUARIO)
+           Panel na parede norte (Z positivo), centrado. O usuario ten
+           que darse a volta para velo. Rotation 180° no Y.
+           Pódese editar: textos, icon-audio, volume no sound-emitter.
+           ============================================================ -->
+      <!-- SALA PEQUENA:  position="0 0 5" rotation="0 180 0" -->
+      <!-- SALA MEDIANA:  position="0 0 7" rotation="0 180 0" -->
+      <!-- SALA GRANDE:   position="0 0 9" rotation="0 180 0" -->
+      <a-entity position="0 0 7" rotation="0 180 0">
+        <a-plane width="4.7" height="4.7" color="#08101d" opacity="0.97" position="0 2.45 0"></a-plane>
+        <a-plane width="4.7" height="0.05" color="#00e5ff" position="0 4.77 0.01"></a-plane>
+        <a-ring radius-inner="1.12" radius-outer="1.26" color="#00e5ff" position="0 2.93 0.04"
+          material="opacity:0.3; shader:flat"></a-ring>
+        <a-ring radius-inner="0.72" radius-outer="0.79" color="#00e5ff" position="0 2.93 0.05"
+          material="opacity:0.55; shader:flat"></a-ring>
+        <a-image src="#icon-audio" width="0.92" height="0.92" position="0 2.93 0.1"></a-image>
+        <a-text value="A VOZ DA AUTORA" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+          align="center" width="5.2" position="0 1.63 0.1" color="#9af1ff" negate="false" wrap-count="18"></a-text>
+        <a-text value="Escoita a Begoña Caamaño" font="fonts/Nunito-SemiBold-msdf.json"
+          font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.2" position="0 1.13 0.1" color="#9dc5de"
+          negate="false" wrap-count="28"></a-text>
+        <a-text value="TOCA PARA REPRODUCIR" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+          align="center" width="3.8" position="0 0.69 0.1" color="#3f708c" negate="false" wrap-count="24"></a-text>
+        <a-plane class="area-clic" width="4.7" height="4.7" position="0 2.45 0.12"
+          material="opacity:0; transparent:true" onclick="toggleAudio()"></a-plane>
+        <a-entity id="sound-emitter" sound="src:#audio-file; volume:3"></a-entity>
+      </a-entity>
+
+      <!-- ============================================================
+     PAREDE TRASEIRA — ESQUERDA (ANACOS DE OBRAS)
+     Panel con cadros clicables que despregan fragmentos de texto.
+     Cada cadro é independente e ten o seu propio popup (infoAnaco1..5).
+     Pódese editar: títulos dos cadros, textos dos popups, cores.
+     Os textos están baleiros agás Circe e Morgana, listos para encher.
+     ============================================================ -->
+      <!-- SALA PEQUENA:  position="-3.5 0 5" rotation="0 180 0" -->
+      <!-- SALA MEDIANA:  position="-4.5 0 7" rotation="0 180 0" -->
+      <!-- SALA GRANDE:   position="-6 0 9" rotation="0 180 0" -->
+      <a-entity position="-4.5 0 7" rotation="0 180 0">
+
+        <!-- Cabeceira do panel -->
+        <a-plane width="5.8" height="0.8" color="#08101d" opacity="0.98" position="0 5.1 0"></a-plane>
+        <a-plane width="5.8" height="0.05" color="#ff4d6d" position="0 5.48 0.01"></a-plane>
+        <a-text value="ANACOS DE OBRAS" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+          align="center" width="5.4" position="0 5.08 0.1" color="#ffd6de" negate="false" wrap-count="22"></a-text>
+
+        <!-- CADRO 1 — CIRCE -->
+        <a-entity position="-2.2 3.9 0">
+          <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
+          <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
+          <a-text value="Circe" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+            align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc" negate="false" wrap-count="16"></a-text>
+          <a-text value="Circe ou o pracer do azul" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1"
+            color="#acd4ee" negate="false" wrap-count="20"></a-text>
+          <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.6" position="0 -0.42 0.1"
+            color="#3f708c" negate="false" wrap-count="18"></a-text>
+          <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true"
+            onclick="toggle('infoAnaco1')"></a-plane>
+          <!-- Popup cadro 1 -->
+          <a-entity id="infoAnaco1" visible="false" position="0 0 0.6">
+            <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
+            <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
+            <a-text value="CIRCE OU O PRACER DO AZUL" font="fonts/Outfit-Bold-msdf.json"
+              font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"
+              negate="false" wrap-count="28"></a-text>
+            <!-- EDITAR: substitúe este texto polo fragmento real da obra -->
+            <a-text value="[ Fragmento da obra aquí ]" font="fonts/Nunito-SemiBold-msdf.json"
+              font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
+              color="#e7f0fb" negate="false" wrap-count="46"></a-text>
+          </a-entity>
+        </a-entity>
+
+        <!-- CADRO 2 — MORGANA -->
+        <a-entity position="0.4 3.9 0">
+          <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
+          <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
+          <a-text value="Morgana" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+            align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc" negate="false" wrap-count="16"></a-text>
+          <a-text value="Morgana en Esmelle" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1"
+            color="#acd4ee" negate="false" wrap-count="20"></a-text>
+          <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.6" position="0 -0.42 0.1"
+            color="#3f708c" negate="false" wrap-count="18"></a-text>
+          <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true"
+            onclick="toggle('infoAnaco2')"></a-plane>
+          <!-- Popup cadro 2 -->
+          <a-entity id="infoAnaco2" visible="false" position="0 0 0.6">
+            <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
+            <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
+            <a-text value="MORGANA EN ESMELLE" font="fonts/Outfit-Bold-msdf.json"
+              font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"
+              negate="false" wrap-count="28"></a-text>
+            <!-- EDITAR: substitúe este texto polo fragmento real da obra -->
+            <a-text value="[ Fragmento da obra aquí ]" font="fonts/Nunito-SemiBold-msdf.json"
+              font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
+              color="#e7f0fb" negate="false" wrap-count="46"></a-text>
+          </a-entity>
+        </a-entity>
+
+        <!-- CADRO 3 — BALEIRO -->
+        <a-entity position="2.6 3.9 0">
+          <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
+          <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
+          <!-- EDITAR: título da obra -->
+          <a-text value="Título obra" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+            align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc" negate="false" wrap-count="16"></a-text>
+          <a-text value="[ Subtítulo ]" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1"
+            color="#acd4ee" negate="false" wrap-count="20"></a-text>
+          <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.6" position="0 -0.42 0.1"
+            color="#3f708c" negate="false" wrap-count="18"></a-text>
+          <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true"
+            onclick="toggle('infoAnaco3')"></a-plane>
+          <a-entity id="infoAnaco3" visible="false" position="0 0 0.6">
+            <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
+            <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
+            <!-- EDITAR: título e fragmento -->
+            <a-text value="[ TÍTULO DA OBRA ]" font="fonts/Outfit-Bold-msdf.json"
+              font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"
+              negate="false" wrap-count="28"></a-text>
+            <a-text value="[ Fragmento da obra aquí ]" font="fonts/Nunito-SemiBold-msdf.json"
+              font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
+              color="#e7f0fb" negate="false" wrap-count="46"></a-text>
+          </a-entity>
+        </a-entity>
+
+        <!-- CADRO 4 — BALEIRO -->
+        <a-entity position="-2.2 2.2 0">
+          <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
+          <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
+          <a-text value="Título obra" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+            align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc" negate="false" wrap-count="16"></a-text>
+          <a-text value="[ Subtítulo ]" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1"
+            color="#acd4ee" negate="false" wrap-count="20"></a-text>
+          <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.6" position="0 -0.42 0.1"
+            color="#3f708c" negate="false" wrap-count="18"></a-text>
+          <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true"
+            onclick="toggle('infoAnaco4')"></a-plane>
+          <a-entity id="infoAnaco4" visible="false" position="0 0 0.6">
+            <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
+            <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
+            <a-text value="[ TÍTULO DA OBRA ]" font="fonts/Outfit-Bold-msdf.json"
+              font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"
+              negate="false" wrap-count="28"></a-text>
+            <a-text value="[ Fragmento da obra aquí ]" font="fonts/Nunito-SemiBold-msdf.json"
+              font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
+              color="#e7f0fb" negate="false" wrap-count="46"></a-text>
+          </a-entity>
+        </a-entity>
+
+        <!-- CADRO 5 — BALEIRO -->
+        <a-entity position="0.4 2.2 0">
+          <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
+          <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
+          <a-text value="Título obra" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+            align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc" negate="false" wrap-count="16"></a-text>
+          <a-text value="[ Subtítulo ]" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1"
+            color="#acd4ee" negate="false" wrap-count="20"></a-text>
+          <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.6" position="0 -0.42 0.1"
+            color="#3f708c" negate="false" wrap-count="18"></a-text>
+          <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true"
+            onclick="toggle('infoAnaco5')"></a-plane>
+          <a-entity id="infoAnaco5" visible="false" position="0 0 0.6">
+            <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
+            <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
+            <a-text value="[ TÍTULO DA OBRA ]" font="fonts/Outfit-Bold-msdf.json"
+              font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"
+              negate="false" wrap-count="28"></a-text>
+            <a-text value="[ Fragmento da obra aquí ]" font="fonts/Nunito-SemiBold-msdf.json"
+              font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
+              color="#e7f0fb" negate="false" wrap-count="46"></a-text>
+          </a-entity>
+        </a-entity>
+
+      </a-entity>
+      <!-- ============================================================
+           PAREDE DO FONDO — ESQUERDA (VÍDEO)
+           Panel na parede sur (Z negativo), desprazado á esquerda.
+           O usuario véo ao entrar. Rotation 0° (mira cara ao usuario).
+           Pódese editar: textos, src do vídeo, width/height do a-video.
+           ============================================================ -->
+      <!-- SALA PEQUENA:  position="-2.5 0 -5" rotation="0 0 0" -->
+      <!-- SALA MEDIANA:  position="-3 0 -7" rotation="0 0 0" -->
+      <!-- SALA GRANDE:   position="-4 0 -9" rotation="0 0 0" -->
+      <a-entity position="-3 0 -7" rotation="0 0 0">
+        <a-plane width="5.5" height="1.7" color="#08101d" opacity="0.98" position="0 4.24 0"></a-plane>
+        <a-plane width="5.5" height="0.05" color="#00e5ff" position="0 5.06 0.01"></a-plane>
+        <a-text value="XORNALISMO POLÍTICO" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+          align="center" width="5.2" position="0 4.59 0.1" color="#9af1ff" negate="false" wrap-count="26"></a-text>
+        <a-text value="Begoña Caamaño na Radio Galega" font="fonts/Nunito-SemiBold-msdf.json"
+          font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.8" position="0 4.03 0.1" color="#9dc5de"
+          negate="false" wrap-count="34"></a-text>
+        <a-video src="#video-file" width="4.68" height="2.62" position="0 2.40 0.05"></a-video>
+        <a-plane width="4.68" height="0.62" color="#030a18" opacity="0.95" position="0 0.86 0.1"></a-plane>
+        <a-text value="CLICA NO VÍDEO PARA REPRODUCIR" font="fonts/Outfit-Bold-msdf.json"
+          font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.9" position="0 0.86 0.15" color="#00e5ff"
+          negate="false" wrap-count="34"></a-text>
+        <a-plane class="area-clic" width="4.68" height="2.62" position="0 2.40 0.2"
+          material="opacity:0; transparent:true" onclick="toggleVideo()"></a-plane>
+      </a-entity>
+
+
+      <!-- ============================================================
+           PAREDE DO FONDO — DEREITA (QUIZ)
+           Panel na parede sur (Z negativo), desprazado á dereita.
+           Lixeiramente máis afastado do centro para dar sensación de
+           ser o último elemento. Rotation 0° (mira cara ao usuario).
+           Pódese editar: textos, cores, lóxica onclick do botón.
+           O interrogante animado é só decorativo; o botón é o único clic.
+           ============================================================ -->
+      <!-- SALA PEQUENA:  position="2.5 0 -5.5" rotation="0 0 0" -->
+      <!-- SALA MEDIANA:  position="3 0 -7.5" rotation="0 0 0" -->
+      <!-- SALA GRANDE:   position="4 0 -9.5" rotation="0 0 0" -->
+      <a-entity position="3 0 -7.5" rotation="0 0 0">
+
+        <!-- 1. O INTERROGANTE (SÓ VISUAL, MÁIS GRANDE) -->
+        <a-entity scale="30 30 1" position="0 3.8 0">
+          <a-text value="?" align="center" color="#FF0000" negate="false" font="fonts/Outfit-Bold-msdf.json"
+            font-image="fonts/Outfit-Bold-msdf.png"
+            animation="property: position; from: -0.01 0.01 -0.02; to: 0.01 -0.01 -0.02; dir: alternate; dur: 1200; loop: true">
+          </a-text>
+          <a-text value="?" align="center" color="#FFFFFF" negate="false" font="fonts/Outfit-Bold-msdf.json"
+            font-image="fonts/Outfit-Bold-msdf.png"
+            animation="property: opacity; from: 0.3; to: 1; dir: alternate; dur: 1000; loop: true">
+          </a-text>
+          <a-text value="?" align="center" color="#00E5FF" negate="false" font="fonts/Outfit-Bold-msdf.json"
+            font-image="fonts/Outfit-Bold-msdf.png"
+            animation="property: position; from: 0.01 -0.01 0.01; to: -0.01 0.01 0.01; dir: alternate; dur: 500; loop: true"
+            opacity="0.6">
+          </a-text>
+        </a-entity>
+
+        <!-- 2. O TÍTULO -->
+        <a-text value="Canto sabes?" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+          align="center" width="16" position="0 2.2 0" color="#000000" negate="true" wrap-count="30"></a-text>
+
+        <!-- 3. O BOTÓN (ÚNICO PUNTO DE CLIC) -->
+        <a-entity position="0 1.4 0">
+          <!-- Cadro do botón con brillo neón -->
+          <a-plane class="area-clic" width="7" height="1.6" color="#FF0000" onclick="abrirQuiz()"
+            material="shader: flat">
+            <a-text value="PREME para COMEZAR" align="center" width="14" color="#FFFFFF" negate="false"
+              font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png" position="0 0 0.1">
+            </a-text>
+          </a-plane>
+          <!-- Decoración: Liña de carga debaixo do botón -->
+          <a-plane width="7" height="0.15" color="#FFFFFF" position="0 -1 0" opacity="0.8"></a-plane>
+          <a-plane width="2" height="0.15" color="#00E5FF" position="-2.5 -1 0.01"
+            animation="property: position; from: -2.5 -1 0.01; to: 2.5 -1 0.01; dir: alternate; dur: 1500; loop: true; easing: easeInOutQuad">
+          </a-plane>
+        </a-entity>
+
+        <!-- Iluminación focal -->
+        <a-light type="point" color="#FF0000" intensity="1.5" distance="20" position="0 -0.2 2"></a-light>
+
       </a-entity>
 
     </a-entity>
-
-
-
-
-
   </a-scene>
 
   <script>
