@@ -34,8 +34,8 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       margin: 0;
       font-family: 'Nunito', sans-serif;
       overflow: hidden;
-      background: radial-gradient(circle at 50% 20%, rgba(0, 229, 255, .08), transparent 35%), linear-gradient(180deg, #07101e 0%, #050811 100%);
-    }
+<!--       background: radial-gradient(circle at 50% 20%, rgba(0, 229, 255, .08), transparent 35%), linear-gradient(180deg, #07101e 0%, #050811 100%);
+    } -->
 
     /* PORTADA */
     #portada {
@@ -647,17 +647,17 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
   <div id="portada">
     <div id="portada-bg"></div>
     <div class="portada-inner">
-      <div class="portada-kicker">Museo inmersivo</div>
+      <div class="portada-kicker">Mostra inmersiva</div>
       <div class="portada-divider"></div>
       <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high">
       <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
       <p class="portada-sub">Xornalista, escritora e voz esencial das Letras Galegas 2026.</p>
       <span class="portada-data">Letras Galegas · 2026</span><br>
-      <p class="portada-hint">Preme o botón [AR] (abaixo á dereita 2) para entrares na mostra.</p>
+      <p class="portada-hint">Preme o botón [AR] (abaixo á dereita) para entrares na mostra.</p>
     </div>
   </div>
 
-  <button id="btn-quiz-sala" onclick="abrirQuiz()">❖ Canto sabes?</button>
+<!--   <button id="btn-quiz-sala" onclick="abrirQuiz()">❖ Canto sabes?</button> -->
 
   <div id="overlay">
     <div class="portada-escolar">
@@ -741,7 +741,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <!-- SALA PEQUENA:  position="-4 0 -4" rotation="0 90 0" -->
       <!-- SALA MEDIANA:  position="-6 0 -5" rotation="0 90 0" -->
       <!-- SALA GRANDE:   position="-8 0 -6" rotation="0 90 0" -->
-      <a-entity position="-6 0 -5" rotation="0 90 0">
+      <a-entity position="-8 0 -6" rotation="0 90 0">
         <a-plane width="5.6" height="2.4" color="#08101d" opacity="0.98" position="0 3.7 0"></a-plane>
         <a-plane width="5.6" height="0.05" color="#FFFFFF" position="0 4.75 0.01"></a-plane>
         <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" font="fonts/Outfit-Bold-msdf.json"
@@ -787,8 +787,8 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
            ============================================================ -->
       <!-- SALA PEQUENA:  position="-3.5 1.8 -3" rotation="0 55 0" -->
       <!-- SALA MEDIANA:  position="-4.5 1.8 -4.5" rotation="0 45 0" -->
-      <!-- SALA GRANDE:   position="-6 1.8 -6" rotation="0 40 0" -->
-      <a-entity position="-4.5 1.8 -4.5" rotation="0 45 0">
+      <!-- SALA GRANDE:   position="-6 1.8 -8" rotation="0 40 0" -->
+      <a-entity  position="-6 1.8 -8" rotation="0 45 0">
         <a-plane width="3.8" height="1.5" color="#ff4d6d" opacity="0.08"></a-plane>
         <a-plane width="0.06" height="1.5" color="#ff4d6d" position="-1.87 0 0.01"></a-plane>
         <a-text value="« A muller dona do seu desexo\n e do seu propio corpo »" font="fonts/Nunito-SemiBold-msdf.json"
@@ -809,7 +809,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <!-- SALA PEQUENA:  position="-4 0 3" rotation="0 90 0" -->
       <!-- SALA MEDIANA:  position="-6 0 4" rotation="0 90 0" -->
       <!-- SALA GRANDE:   position="-8 0 5" rotation="0 90 0" -->
-      <a-entity position="-6 0 4" rotation="0 90 0">
+      <a-entity position="-8 0 5" rotation="0 90 0">
         <a-plane width="5" height="3" color="#08101d" opacity="0.9" position="0 2.5 0"></a-plane>
         <a-text value="A QUE SE DEDICOU?" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
           align="center" width="7" color="#00E5FF" negate="false" position="0 3.3 0.1"></a-text>
@@ -827,7 +827,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <!-- SALA PEQUENA:  position="4 0 -4" rotation="0 -90 0" -->
       <!-- SALA MEDIANA:  position="6 0 -5" rotation="0 -90 0" -->
       <!-- SALA GRANDE:   position="8 0 -6" rotation="0 -90 0" -->
-      <a-entity position="6 0 -5" rotation="0 -90 0">
+      <a-entity position="8 0 -6" rotation="0 -90 0">
         <a-plane width="5.6" height="2.4" color="#08101d" opacity="0.98" position="0 3.7 0"></a-plane>
         <a-plane width="5.6" height="0.05" color="#ffb6c1" position="0 4.86 0.01"></a-plane>
         <a-text value="OBRAS FUNDAMENTAIS" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
@@ -878,7 +878,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <!-- SALA PEQUENA:  position="3.5 1.8 3" rotation="0 -130 0" -->
       <!-- SALA MEDIANA:  position="4.5 1.8 4.5" rotation="0 -135 0" -->
       <!-- SALA GRANDE:   position="6 1.8 6" rotation="0 -140 0" -->
-      <a-entity position="4.5 1.8 4.5" rotation="0 -135 0">
+      <a-entity position="6 1.8 6" rotation="0 -135 0">
         <a-plane width="4.1" height="1.5" color="#00e5ff" opacity="0.08"></a-plane>
         <a-plane width="0.06" height="1.5" color="#00e5ff" position="-2 0 0.01"></a-plane>
         <a-text value="« A sororidade como a única arma\n para vencer a culpa »" font="fonts/Nunito-SemiBold-msdf.json"
@@ -899,7 +899,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <!-- SALA PEQUENA:  position="4 0 3" rotation="0 -90 0" -->
       <!-- SALA MEDIANA:  position="6 0 4" rotation="0 -90 0" -->
       <!-- SALA GRANDE:   position="8 0 5" rotation="0 -90 0" -->
-      <a-entity position="6 0 4" rotation="0 -90 0">
+      <a-entity position="8 0 5" rotation="0 -90 0">
         <a-plane width="5" height="3" color="#08101d" opacity="0.9" position="0 2.5 0"></a-plane>
         <a-text value="POR QUE MERECE AS LETRAS GALEGAS 2026" font="fonts/Outfit-Bold-msdf.json"
           font-image="fonts/Outfit-Bold-msdf.png" align="center" width="7" color="#FF0055" negate="false"
@@ -918,7 +918,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <!-- SALA PEQUENA:  position="0 0 5" rotation="0 180 0" -->
       <!-- SALA MEDIANA:  position="0 0 7" rotation="0 180 0" -->
       <!-- SALA GRANDE:   position="0 0 9" rotation="0 180 0" -->
-      <a-entity position="0 0 7" rotation="0 180 0">
+      <a-entity position="0 0 9" rotation="0 180 0">
         <a-plane width="4.7" height="4.7" color="#08101d" opacity="0.97" position="0 2.45 0"></a-plane>
         <a-plane width="4.7" height="0.05" color="#00e5ff" position="0 4.77 0.01"></a-plane>
         <a-ring radius-inner="1.12" radius-outer="1.26" color="#00e5ff" position="0 2.93 0.04"
@@ -948,7 +948,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <!-- SALA PEQUENA:  position="-3.5 0 5" rotation="0 180 0" -->
       <!-- SALA MEDIANA:  position="-4.5 0 7" rotation="0 180 0" -->
       <!-- SALA GRANDE:   position="-6 0 9" rotation="0 180 0" -->
-      <a-entity position="-4.5 0 7" rotation="0 180 0">
+      <a-entity position="-6 0 9" rotation="0 180 0">
 
         <!-- Cabeceira do panel -->
         <a-plane width="5.8" height="0.8" color="#08101d" opacity="0.98" position="0 5.1 0"></a-plane>
@@ -1102,7 +1102,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <!-- SALA PEQUENA:  position="-2.5 0 -5" rotation="0 0 0" -->
       <!-- SALA MEDIANA:  position="-3 0 -7" rotation="0 0 0" -->
       <!-- SALA GRANDE:   position="-4 0 -9" rotation="0 0 0" -->
-      <a-entity position="-3 0 -7" rotation="0 0 0">
+      <a-entity position="-4 0 -9" rotation="0 0 0">
         <a-plane width="5.5" height="1.7" color="#08101d" opacity="0.98" position="0 4.24 0"></a-plane>
         <a-plane width="5.5" height="0.05" color="#00e5ff" position="0 5.06 0.01"></a-plane>
         <a-text value="XORNALISMO POLÍTICO" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
@@ -1131,7 +1131,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <!-- SALA PEQUENA:  position="2.5 0 -5.5" rotation="0 0 0" -->
       <!-- SALA MEDIANA:  position="3 0 -7.5" rotation="0 0 0" -->
       <!-- SALA GRANDE:   position="4 0 -9.5" rotation="0 0 0" -->
-      <a-entity position="3 0 -7.5" rotation="0 0 0">
+      <a-entity position="4 0 -9.5" rotation="0 0 0">
 
         <!-- 1. O INTERROGANTE (SÓ VISUAL, MÁIS GRANDE) -->
         <a-entity scale="30 30 1" position="0 3.8 0">
