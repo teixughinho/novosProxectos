@@ -648,6 +648,50 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       display: flex;
       animation: panelEntrada 0.4s ease-out forwards;
     }
+
+    /* PANEL DEV: escala de distancias AR */
+    #escala-distancias-panel {
+      display: none;
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      z-index: 5000;
+      width: min(360px, calc(100% - 32px));
+      padding: 10px 14px 12px;
+      border: 1px solid rgba(0, 229, 255, .35);
+      border-radius: 14px;
+      background: rgba(4, 12, 30, .92);
+      color: #d8f7ff;
+      pointer-events: auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+      font-family: 'Outfit', sans-serif;
+    }
+
+    #escala-distancias-panel label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #8feeff;
+    }
+
+    #escala-distancias-valor {
+      color: #fff;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    #escala-distancias-slider {
+      width: 100%;
+      margin: 0;
+      accent-color: #00e5ff;
+    }
   </style>
 </head>
 
@@ -659,7 +703,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <div class="portada-kicker">Mostra inmersiva</div>
       <div class="portada-divider"></div>
       <img class="portada-foto" src="imax/begonha2.png" alt="BegoÃ±a CaamaÃ±o" fetchpriority="high">
-      <h1 class="portada-nome">Begoña<br><span>CaamaÃ±o</span></h1>
+      <h1 class="portada-nome">BegoÃ±                a<br><span>CaamaÃ±o</span></h1>
       <p class="portada-sub">Xornalista, escritora e voz esencial das Letras Galegas 2026.</p>
       <span class="portada-data">Letras Galegas Â· 2026</span><br>
       <p class="portada-hint">Preme o botÃ³n [AR] (abaixo Ã¡ dereita) para entrares na mostra.</p>
@@ -680,6 +724,10 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       </div>
     </div>
 <div id="quiz-backdrop"></div>
+    <div id="escala-distancias-panel">
+      <label for="escala-distancias-slider">Escala distancias <span id="escala-distancias-valor">1.00x</span></label>
+      <input id="escala-distancias-slider" type="range" min="0.25" max="1.5" step="0.05" value="1">
+    </div>
     <div id="quiz-panel">
       <button class="qx" onclick="pecharQuiz()">âœ•</button>
       <div id="q-xogo">
@@ -1067,7 +1115,44 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
     const portadaEl = document.getElementById('portada');
     const btnQuizSala = document.getElementById('btn-quiz-sala');
     const portadaBg = document.getElementById('portada-bg');
+    const escalaPanel = document.getElementById('escala-distancias-panel');
+    const escalaSlider = document.getElementById('escala-distancias-slider');
+    const escalaValor = document.getElementById('escala-distancias-valor');
+    const posicionesBaseMuseo = new Map();
+    let escalaDistancias = 1;
 
+
+    function prepararEscalaDistancias() {
+      posicionesBaseMuseo.clear();
+      Array.from(museo.children).forEach((panel) => {
+        posicionesBaseMuseo.set(panel, panel.object3D.position.clone());
+      });
+    }
+
+    function aplicarEscalaDistancias(escala) {
+      if (!scene.hasLoaded) return;
+      if (!posicionesBaseMuseo.size) prepararEscalaDistancias();
+      posicionesBaseMuseo.forEach((base, panel) => {
+        panel.object3D.position.set(base.x * escala, base.y, base.z * escala);
+      });
+      escalaValor.textContent = escala.toFixed(2) + 'x';
+    }
+
+    function inicializarEscalaDistancias() {
+      prepararEscalaDistancias();
+      aplicarEscalaDistancias(escalaDistancias);
+    }
+
+    if (scene.hasLoaded) {
+      inicializarEscalaDistancias();
+    } else {
+      scene.addEventListener('loaded', inicializarEscalaDistancias, { once: true });
+    }
+
+    escalaSlider.addEventListener('input', () => {
+      escalaDistancias = parseFloat(escalaSlider.value);
+      aplicarEscalaDistancias(escalaDistancias);
+    });
 //ANCORAR O MUSEO 
 
 
@@ -1102,7 +1187,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
 
     // LÃ³xica de colocaciÃ³n en AR
     window.addEventListener('click', (e) => {
-  if (e.target.closest('#quiz-panel') || document.getElementById('quiz-panel').classList.contains('activo')) return;
+  if (e.target.closest('#quiz-panel') || e.target.closest('#escala-distancias-panel') || document.getElementById('quiz-panel').classList.contains('activo')) return;
   if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
     // CAMBIO: usa posiciÃ³n real do mundo, non local
     const pos = new THREE.Vector3();
@@ -1117,7 +1202,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
   }
 });
 // window.addEventListener('click', (e) => {
-//   if (e.target.closest('#quiz-panel') || document.getElementById('quiz-panel').classList.contains('activo')) return;
+//   if (e.target.closest('#quiz-panel') || e.target.closest('#escala-distancias-panel') || document.getElementById('quiz-panel').classList.contains('activo')) return;
 
 //   if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
 //     museo.setAttribute('position', reticle.getAttribute('position'));
@@ -1139,6 +1224,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       } else {
         // Modo AR (MÃ³bil)
         document.querySelector('.portada-escolar').style.display = 'block';
+        escalaPanel.style.display = 'block';
       }
     });
 
@@ -1146,6 +1232,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       portadaEl.style.display = 'flex'; // Volver amosar a portada ao saÃ­r
       btnQuizSala.style.display = 'none';
       document.querySelector('.portada-escolar').style.display = 'none';
+      escalaPanel.style.display = 'none';
     });
 
     /* ================= LÃ“XICA DO QUIZ ================= */
