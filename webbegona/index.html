@@ -714,9 +714,10 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       </div>
     </div>
   </div>
-
-  <a-scene renderer="colorManagement:true; antialias:true"
-    webxr="optionalFeatures: hit-test, dom-overlay; overlayElement:#overlay">
+<a-scene
+  xr-mode-ui="enabled: true; XRMode: ar"
+  webxr="requiredFeatures: hit-test; optionalFeatures: dom-overlay"
+ renderer="colorManagement:true; antialias:true">
     <a-assets>
       <a-asset-item id="font-title" src="fonts/Outfit-Bold-msdf.json"></a-asset-item>
       <a-asset-item id="font-body" src="fonts/Nunito-SemiBold-msdf.json"></a-asset-item>
