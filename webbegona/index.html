@@ -1,12 +1,12 @@
 <!-- COORDENADAS
-SecciÃ³n,TÃ­tulo / Contido,PosiciÃ³n (X Y Z),RotaciÃ³n (Y),Distancia
-Punto 0,PosiciÃ³n Inicial do Usuario,0 1.6 0,-,-
-Esquerda 1 AtrÃ¡s,Quen foi? (BiografÃ­a),-8 2.5 8,135,11.3m
+Sección,Título / Contido,Posición (X Y Z),Rotación (Y),Distancia
+Punto 0,Posición Inicial do Usuario,0 1.6 0,-,-
+Esquerda 1 Atrás,Quen foi? (Biografía),-8 2.5 8,135,11.3m
 Esquerda 2 Diante,A que se dedicou? (Novo),-12 2.5 -6,60,13.4m
-Dereita 1 AtrÃ¡s,Obras (xa creada),8 2.5 8,225,11.3m
+Dereita 1 Atrás,Obras (xa creada),8 2.5 8,225,11.3m
 Dereita 2 Diante,Por que merece as letras? (Novo),12 2.5 -6,300,13.4m
-DetrÃ¡s do usuario,Anacos da sÃºa obra (Audio),0 2.2 10,180,10.0m
-Fronte (Fondo),Xornalismo PolÃ­tico (VÃ­deo),0 2.2 -15,0,15.0m
+Detrás do usuario,Anacos da súa obra (Audio),0 2.2 10,180,10.0m
+Fronte (Fondo),Xornalismo Político (Vídeo),0 2.2 -15,0,15.0m
 Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
 <!DOCTYPE html>
 <html lang="gl">
@@ -154,7 +154,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       line-height: 1.4;
     }
 
-    /* BOTÃ“N QUIZ E OVERLAY MÃ“BIL */
+    /* BOTÓN QUIZ E OVERLAY MÓBIL */
     #btn-quiz-sala {
       display: none;
       position: fixed;
@@ -245,7 +245,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       pointer-events: auto;
       box-shadow: 0 0 60px rgba(0, 229, 255, .15);
     }
-    /* Fondo semitransparente detrÃ¡s do quiz para enfocar a atenciÃ³n */
+    /* Fondo semitransparente detrás do quiz para enfocar a atención */
 #quiz-backdrop {
   display: none;
   position: absolute;
@@ -601,11 +601,11 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       font-family: 'Nunito', sans-serif;
     }
 
-    /* QUIZ PANEL LÃšDICO */
+    /* QUIZ PANEL LÚDICO */
     #quiz-panel {
       background: linear-gradient(180deg, #07101e 0%, #0a1a35 100%);
       border: 3px solid #00FF66;
-      /* Verde NeÃ³n para o Ã©xito */
+      /* Verde Neón para o éxito */
       box-shadow: 0 0 40px rgba(0, 255, 102, 0.3);
     }
 
@@ -613,7 +613,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       background: rgba(255, 255, 255, 0.05);
       border: 2px solid rgba(0, 229, 255, 0.3);
       border-radius: 18px;
-      /* MÃ¡is redondeado, mÃ¡is moderno */
+      /* Más redondeado, más moderno */
       font-size: 1rem;
       transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
@@ -702,34 +702,30 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
     <div class="portada-inner">
       <div class="portada-kicker">Mostra inmersiva</div>
       <div class="portada-divider"></div>
-      <img class="portada-foto" src="imax/begonha2.png" alt="BegoÃ±a CaamaÃ±o" fetchpriority="high">
-      <h1 class="portada-nome">BegoÃ±                a<br><span>CaamaÃ±o</span></h1>
+      <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high">
+      <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
       <p class="portada-sub">Xornalista, escritora e voz esencial das Letras Galegas 2026.</p>
-      <span class="portada-data">Letras Galegas Â· 2026</span><br>
-      <p class="portada-hint">Preme o botÃ³n [AR] (abaixo Ã¡ dereita) para entrares na mostra.</p>
+      <span class="portada-data">Letras Galegas · 2026</span><br>
+      <p class="portada-hint">Preme o botón [AR] (abaixo á dereita) para entrares na mostra.</p>
     </div>
   </div>
 
 
-  <div id="overlay">
+   <div id="overlay">
     <div class="portada-escolar">
       <img src="imax/begonha2.png"
         style="width:64px;height:64px;border-radius:50%;border:2px solid #00e5ff;object-fit:cover;margin-bottom:8px;"
-        alt="BegoÃ±a CaamaÃ±o">
-      <div class="nome">BEGOÃ‘A CAAMAÃ‘O</div>
+        alt="Begoña Caamaño">
+      <div class="nome">BEGOÑA CAAMAÑO</div>
       <span class="letras">Letras Galegas 2026</span>
       <div class="instrucions">
         Toca a pantalla para <b>colocar a sala</b>.<br>
-        Mira os paneis e <b>tÃ³caos para interactuar</b>.
+        Mira os paneis e <b>tócaos para interactuar</b>.
       </div>
     </div>
 <div id="quiz-backdrop"></div>
-    <div id="escala-distancias-panel">
-      <label for="escala-distancias-slider">Escala distancias <span id="escala-distancias-valor">1.00x</span></label>
-      <input id="escala-distancias-slider" type="range" min="0.25" max="1.5" step="0.05" value="1">
-    </div>
     <div id="quiz-panel">
-      <button class="qx" onclick="pecharQuiz()">âœ•</button>
+      <button class="qx" onclick="pecharQuiz()">✕</button>
       <div id="q-xogo">
         <div class="q-header">
           <div class="q-chip">Test interactivo</div>
@@ -739,7 +735,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
             <div class="q-logo-main">Canto <span>sabes</span>?</div>
           </div>
         </div>
-        <div class="q-sub">BegoÃ±a CaamaÃ±o Â· Letras Galegas 2026</div>
+        <div class="q-sub">Begoña Caamaño · Letras Galegas 2026</div>
         <div class="q-barra-c">
           <div class="q-barra" id="q-barra" style="width:0%"></div>
         </div>
@@ -747,21 +743,22 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
         <div class="q-preg" id="q-preg"></div>
         <div class="q-ops" id="q-ops"></div>
         <div class="q-fb" id="q-fb"></div>
-        <button class="q-btn-seg" id="q-btn-seg" onclick="qSeguinte()">Seguinte â†’</button>
+        <button class="q-btn-seg" id="q-btn-seg" onclick="qSeguinte()">Seguinte →</button>
       </div>
       <div id="q-resultado">
-        <div class="r-trofeo">ðŸ†</div>
+        <div class="r-trofeo">🏆</div>
         <div class="r-puntos" id="r-puntos"></div>
         <div class="r-label" id="r-label"></div>
         <div class="r-stars" id="r-stars"></div>
         <p class="r-msg" id="r-msg"></p>
         <div class="r-bots">
-          <button class="r-btn-rep" onclick="qReiniciar()">â†» Repetir</button>
+          <button class="r-btn-rep" onclick="qReiniciar()">↻ Repetir</button>
           <button class="r-btn-pec" onclick="pecharQuiz()">Pechar</button>
         </div>
       </div>
     </div>
   </div>
+ 
 <a-scene 
   xr-mode-ui="enabled: true; XRMode: ar"
   webxr="optionalFeatures: hit-test, dom-overlay; overlayElement: #overlay"
@@ -788,14 +785,15 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
     <a-entity id="reticle" ar-hit-test="target:#museo"></a-entity>
     <a-entity id="museo" visible="false">
 
-      <!-- 1. QUEN FOI? (Esquerda 1 AtrÃ¡s) -->
-      <!-- PosiciÃ³n: AtrÃ¡s Ã¡ esquerda, rotada cara ao centro -->
+  
+      <!-- 1. QUEN FOI? (Esquerda 1 Atrás) -->
+      <!-- Posición: Atrás á esquerda, rotada cara ao centro -->
       <a-entity position="-7 2.5 -8" rotation="0 40 0">
         <a-plane width="5.6" height="2.4" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
         <a-plane width="5.6" height="0.05" color="#FFFFFF" position="0 2.25 0.01"></a-plane>
-        <a-text value="QUEN FOI BEGOÃ‘A CAAMAÃ‘O?" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
+        <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
           position="0 1.90 0.1" color="#FF0055" negate="false" wrap-count="30"></a-text>
-        <a-text value="Xornalista Â· Escritora Â· Activista feminista" font="fonts/Nunito-SemiBold-msdf.json"
+        <a-text value="Xornalista · Escritora · Activista feminista" font="fonts/Nunito-SemiBold-msdf.json"
           align="center" width="4.8" position="0 1.40 0.1" color="#00E5FF" negate="false" wrap-count="42"></a-text>
         <a-text value="Redefiniu a narrativa galega dende o feminismo e a sororidade."
           font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.55" position="0 0.90 0.1" color="#FFFFFF"
@@ -811,14 +809,14 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
           <a-text value="VIGO, 1964 - SANTIAGO, 2014" font="fonts/Outfit-Bold-msdf.json" align="center" width="4.8"
             position="0 1.35 0.1" color="#ff8ca1" negate="false" wrap-count="26"></a-text>
           <a-text
-            value="Voz mÃ­tica da Radio Galega durante dÃ©cadas. Traballou como xornalista polÃ­tica e cultural, sempre comprometida coa lingua galega e cos dereitos das mulleres."
+            value="Voz mítica da Radio Galega durante décadas. Traballou como xornalista política e cultural, sempre comprometida coa lingua galega e cos dereitos das mulleres."
             font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.45" position="0 0.58 0.1" color="#e7f0fb"
             negate="false" wrap-count="46"></a-text>
           <a-text
-            value="Nas sÃºas novelas, Circe e Morgana deixan de ser vilÃ¡s para converterse en protagonistas donas do seu propio destino."
+            value="Nas súas novelas, Circe e Morgana deixan de ser vilás para converterse en protagonistas donas do seu propio destino."
             font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.45" position="0 -0.28 0.1" color="#acd4ee"
             negate="false" wrap-count="46"></a-text>
-          <a-text value="Premio da CrÃ­tica EspaÃ±ola Â· Finalista Blanco Amor" font="fonts/Outfit-Bold-msdf.json"
+          <a-text value="Premio da Crítica Española · Finalista Blanco Amor" font="fonts/Outfit-Bold-msdf.json"
             align="center" width="4.7" position="0 -1.16 0.1" color="#ffc978" negate="false" wrap-count="34"></a-text>
         </a-entity>
       </a-entity>
@@ -827,7 +825,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       <a-entity position="-9 1.8 -4" rotation="0 70 0">
         <a-plane width="3.8" height="1.5" color="#ff4d6d" opacity="0.08"></a-plane>
         <a-plane width="0.06" height="1.5" color="#ff4d6d" position="-1.87 0 0.01"></a-plane>
-        <a-text value="Â« A muller dona do seu desexo\n e do seu propio corpo Â»" font="fonts/Nunito-SemiBold-msdf.json"
+        <a-text value="« A muller dona do seu desexo\n e do seu propio corpo »" font="fonts/Nunito-SemiBold-msdf.json"
           align="center" width="3.35" position="0 0.24 0.05" color="#ffffff" negate="false" wrap-count="24"></a-text>
         <a-text value="- Circe ou o pracer do azul" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="2.55"
           position="0.5 -0.48 0.05" color="#ffc0cb" negate="false" wrap-count="30"></a-text>
@@ -839,24 +837,24 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
         <a-text value="A QUE SE DEDICOU?" font="fonts/Outfit-Bold-msdf.json" align="center" width="7" color="#00E5FF"
           negate="false" position="0 0.8 0.1"></a-text>
         <a-text
-          value="Xornalista polÃ­tica comprometida,\nactivista na Marcha Mundial das Mulleres\ne referente do feminismo galego."
+          value="Xornalista política comprometida,\nactivista na Marcha Mundial das Mulleres\ne referente do feminismo galego."
           font="fonts/Nunito-SemiBold-msdf.json" position="0 -0.4 0.1" align="center" width="4.5" color="#FFFFFF"
           negate="false"></a-text>
       </a-entity>
 
-      <!-- 3. OBRAS (Dereita 1 AtrÃ¡s) -->
+      <!-- 3. OBRAS (Dereita 1 Atrás) -->
       <a-entity position="7 2.5 -8" rotation="0 -40 0">
         <a-plane width="5.6" height="2.4" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
         <a-plane width="5.6" height="0.05" color="#ffb6c1" position="0 2.36 0.01"></a-plane>
         <a-text value="OBRAS FUNDAMENTAIS" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
           position="0 1.92 0.1" color="#ffd6de" negate="false" wrap-count="22"></a-text>
-        <a-text value="A reescritura feminista dos mitos clÃ¡sicos e artÃºricos" font="fonts/Nunito-SemiBold-msdf.json"
+        <a-text value="A reescritura feminista dos mitos clásicos e artúricos" font="fonts/Nunito-SemiBold-msdf.json"
           align="center" width="4.8" position="0 1.48 0.1" color="#79b9d8" negate="false" wrap-count="40"></a-text>
         <a-image src="#img-circe" width="1.85" height="2.7" position="-1.22 -0.96 0.05"></a-image>
         <a-image src="#img-esmelle" width="1.85" height="2.7" position="1.22 -0.96 0.05"></a-image>
-        <a-text value="Circe Â· 2009" font="fonts/Outfit-Bold-msdf.json" align="center" width="2.8"
+        <a-text value="Circe · 2009" font="fonts/Outfit-Bold-msdf.json" align="center" width="2.8"
           position="-1.22 -2.47 0.1" color="#ff9aaa" negate="false" wrap-count="18"></a-text>
-        <a-text value="Morgana Â· 2012" font="fonts/Outfit-Bold-msdf.json" align="center" width="2.8"
+        <a-text value="Morgana · 2012" font="fonts/Outfit-Bold-msdf.json" align="center" width="2.8"
           position="1.22 -2.47 0.1" color="#ff9aaa" negate="false" wrap-count="18"></a-text>
 
         <a-plane class="area-clic" width="5.6" height="6.1" position="0 -0.42 0.15"
@@ -864,9 +862,9 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
 
         <a-entity id="info3" visible="false" position="0 0.82 0.5">
           <a-plane width="5.25" height="3.7" color="#07101f" opacity="0.99"></a-plane>
-          <a-text value="Premio da CrÃ­tica EspaÃ±ola" font="fonts/Outfit-Bold-msdf.json" align="center" width="4.8"
+          <a-text value="Premio da Crítica Española" font="fonts/Outfit-Bold-msdf.json" align="center" width="4.8"
             position="0 1.42 0.1" color="#ffc1cc" negate="false"></a-text>
-          <a-text value="As sÃºas novelas reivindican a voz das mulleres silenciadas na historia."
+          <a-text value="As súas novelas reivindican a voz das mulleres silenciadas na historia."
             font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.45" position="0 0.5 0.1" color="#e7f0fb"
             negate="false"></a-text>
         </a-entity>
@@ -878,12 +876,12 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
         <a-text value="POR QUE MERECE AS LETRAS GALEGAS 2026" font="fonts/Outfit-Bold-msdf.json" align="center"
           width="5.5" color="#FF0055" negate="false" position="0 0.8 0.1"></a-text>
         <a-text
-          value="Pola sÃºa calidade literaria excepcional\ne por poÃ±er o feminismo no centro\nda nosa literatura contemporÃ¡nea."
+          value="Pola súa calidade literaria excepcional\ne por poñer o feminismo no centro\nda nosa literatura contemporánea."
           font="fonts/Nunito-SemiBold-msdf.json" position="0 -0.4 0.1" align="center" width="4.5" color="#FFFFFF"
           negate="false"></a-text>
       </a-entity>
 
-      <!-- 5. ANACOS DA SÃšA OBRA (DetrÃ¡s do usuario) -->
+      <!-- 5. ANACOS DA SÚA OBRA (Detrás do usuario) -->
       <a-entity position="0 2.2 8" rotation="0 180 0">
         <a-plane width="4.7" height="4.7" color="#08101d" opacity="0.97"></a-plane>
         <a-plane width="4.7" height="0.05" color="#00e5ff" position="0 2.32 0.01"></a-plane>
@@ -895,20 +893,20 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
         <a-entity id="sound-emitter" sound="src:#audio-file; volume:3"></a-entity>
       </a-entity>
 
-      <!-- 6. VIDEO (Xornalismo PolÃ­tico) (Fondo Esquerda) -->
+      <!-- 6. VIDEO (Xornalismo Político) (Fondo Esquerda) -->
       <a-entity position="-3 2.5 -12" rotation="0 10 0">
         <a-plane width="5.5" height="1.7" color="#08101d" opacity="0.98" position="0 1.74 0"></a-plane>
-        <a-text value="XORNALISMO POLÃTICO" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.2"
+        <a-text value="XORNALISMO POLÍTICO" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.2"
           position="0 2.09 0.1" color="#9af1ff" negate="false"></a-text>
         <a-video src="#video-file" width="4.68" height="2.62" position="0 -0.1 0.05"></a-video>
         <a-plane class="area-clic" width="4.68" height="2.62" position="0 -0.1 0.2"
           material="opacity:0; transparent:true" onclick="toggleVideo()"></a-plane>
       </a-entity>
 
-      <!-- 7. CANTO SABES? (Fondo Dereita - A mÃ¡is afastada) -->
+      <!-- 7. CANTO SABES? (Fondo Dereita - A máis afastada) -->
       <a-entity position="6 2.5 -14" rotation="0 -15 0">
 
-        <!-- 1. O INTERROGANTE (SÃ“ VISUAL, MÃIS GRANDE) -->
+        <!-- 1. O INTERROGANTE (SÓ VISUAL, MÁIS GRANDE) -->
         <a-entity scale="30 30 1" position="0 3.8 0">
           <a-text value="?" align="center" color="#FF0000" negate="false" font="fonts/Outfit-Bold-msdf.json"
             font-image="fonts/Outfit-Bold-msdf.png"
@@ -925,36 +923,36 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
           </a-text>
         </a-entity>
 
-        <!-- 2. O TÃTULO -->
+        <!-- 2. O TÍTULO -->
         <a-text value="Canto sabes?" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
           align="center" width="16" position="0 2.2 0" color="#000000" negate="true" wrap-count="30"></a-text>
 
-        <!-- 3. O BOTÃ“N (ÃšNICO PUNTO DE CLIC) -->
+        <!-- 3. O BOTÓN (ÚNICO PUNTO DE CLIC) -->
         <a-entity position="0 1.4 0">
-          <!-- Cadro do botÃ³n con brillo neÃ³n -->
+          <!-- Cadro do botón con brillo neón -->
           <a-plane class="area-clic" width="7" height="1.6" color="#FF0000" onclick="abrirQuiz()"
             material="shader: flat">
             <a-text value="PREME para COMEZAR" align="center" width="14" color="#FFFFFF" negate="false"
               font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png" position="0 0 0.1">
             </a-text>
           </a-plane>
-          <!-- DecoraciÃ³n: LiÃ±a de carga debaixo do botÃ³n -->
+          <!-- Decoración: Liña de carga debaixo do botón -->
           <a-plane width="7" height="0.15" color="#FFFFFF" position="0 -1 0" opacity="0.8"></a-plane>
           <a-plane width="2" height="0.15" color="#00E5FF" position="-2.5 -1 0.01"
             animation="property: position; from: -2.5 -1 0.01; to: 2.5 -1 0.01; dir: alternate; dur: 1500; loop: true; easing: easeInOutQuad">
           </a-plane>
         </a-entity>
 
-        <!-- IluminaciÃ³n focal -->
+        <!-- Iluminación focal -->
         <a-light type="point" color="#FF0000" intensity="1.5" distance="20" position="0 -0.2 2"></a-light>
 
       </a-entity>
       <!-- ============================================================
-     PAREDE TRASEIRA â€” ESQUERDA (ANACOS DE OBRAS)
+     PAREDE TRASEIRA — ESQUERDA (ANACOS DE OBRAS)
      Panel con cadros clicables que despregan fragmentos de texto.
-     Cada cadro Ã© independente e ten o seu propio popup (infoAnaco1..5).
-     PÃ³dese editar: tÃ­tulos dos cadros, textos dos popups, cores.
-     Os textos estÃ¡n baleiros agÃ¡s Circe e Morgana, listos para encher.
+     Cada cadro é independente e ten o seu propio popup (infoAnaco1..5).
+     Pódese editar: títulos dos cadros, textos dos popups, cores.
+     Os textos están baleiros agás Circe e Morgana, listos para encher.
      ============================================================ -->
       <!-- SALA PEQUENA:  position="-3.5 0 5" rotation="0 180 0" -->
       <!-- SALA MEDIANA:  position="-4.5 0 7" rotation="0 180 0" -->
@@ -967,7 +965,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
         <a-text value="ANACOS DE OBRAS" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
           align="center" width="5.4" position="0 5.08 0.1" color="#ffd6de" negate="false" wrap-count="22"></a-text>
 
-        <!-- CADRO 1 â€” CIRCE -->
+        <!-- CADRO 1 — CIRCE -->
         <a-entity position="-2.2 3.9 0">
           <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
           <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
@@ -988,14 +986,14 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
             <a-text value="CIRCE OU O PRACER DO AZUL" font="fonts/Outfit-Bold-msdf.json"
               font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"
               negate="false" wrap-count="28"></a-text>
-            <!-- EDITAR: substitÃºe este texto polo fragmento real da obra -->
-            <a-text value="[ Fragmento da obra aquÃ­ ]" font="fonts/Nunito-SemiBold-msdf.json"
+            <!-- EDITAR: substitúe este texto polo fragmento real da obra -->
+            <a-text value="[ Fragmento da obra aquí ]" font="fonts/Nunito-SemiBold-msdf.json"
               font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
               color="#e7f0fb" negate="false" wrap-count="46"></a-text>
           </a-entity>
         </a-entity>
 
-        <!-- CADRO 2 â€” MORGANA -->
+        <!-- CADRO 2 — MORGANA -->
         <a-entity position="0.4 3.9 0">
           <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
           <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
@@ -1016,21 +1014,21 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
             <a-text value="MORGANA EN ESMELLE" font="fonts/Outfit-Bold-msdf.json"
               font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"
               negate="false" wrap-count="28"></a-text>
-            <!-- EDITAR: substitÃºe este texto polo fragmento real da obra -->
-            <a-text value="[ Fragmento da obra aquÃ­ ]" font="fonts/Nunito-SemiBold-msdf.json"
+            <!-- EDITAR: substitúe este texto polo fragmento real da obra -->
+            <a-text value="[ Fragmento da obra aquí ]" font="fonts/Nunito-SemiBold-msdf.json"
               font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
               color="#e7f0fb" negate="false" wrap-count="46"></a-text>
           </a-entity>
         </a-entity>
 
-        <!-- CADRO 3 â€” BALEIRO -->
+        <!-- CADRO 3 — BALEIRO -->
         <a-entity position="2.6 3.9 0">
           <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
           <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
-          <!-- EDITAR: tÃ­tulo da obra -->
-          <a-text value="TÃ­tulo obra" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+          <!-- EDITAR: título da obra -->
+          <a-text value="Título obra" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
             align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc" negate="false" wrap-count="16"></a-text>
-          <a-text value="[ SubtÃ­tulo ]" font="fonts/Nunito-SemiBold-msdf.json"
+          <a-text value="[ Subtítulo ]" font="fonts/Nunito-SemiBold-msdf.json"
             font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1"
             color="#acd4ee" negate="false" wrap-count="20"></a-text>
           <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
@@ -1041,23 +1039,23 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
           <a-entity id="infoAnaco3" visible="false" position="0 0 0.6">
             <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
             <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
-            <!-- EDITAR: tÃ­tulo e fragmento -->
-            <a-text value="[ TÃTULO DA OBRA ]" font="fonts/Outfit-Bold-msdf.json"
+            <!-- EDITAR: título e fragmento -->
+            <a-text value="[ TÍTULO DA OBRA ]" font="fonts/Outfit-Bold-msdf.json"
               font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"
               negate="false" wrap-count="28"></a-text>
-            <a-text value="[ Fragmento da obra aquÃ­ ]" font="fonts/Nunito-SemiBold-msdf.json"
+            <a-text value="[ Fragmento da obra aquí ]" font="fonts/Nunito-SemiBold-msdf.json"
               font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
               color="#e7f0fb" negate="false" wrap-count="46"></a-text>
           </a-entity>
         </a-entity>
 
-        <!-- CADRO 4 â€” BALEIRO -->
+        <!-- CADRO 4 — BALEIRO -->
         <a-entity position="-2.2 2.2 0">
           <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
           <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
-          <a-text value="TÃ­tulo obra" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+          <a-text value="Título obra" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
             align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc" negate="false" wrap-count="16"></a-text>
-          <a-text value="[ SubtÃ­tulo ]" font="fonts/Nunito-SemiBold-msdf.json"
+          <a-text value="[ Subtítulo ]" font="fonts/Nunito-SemiBold-msdf.json"
             font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1"
             color="#acd4ee" negate="false" wrap-count="20"></a-text>
           <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
@@ -1068,22 +1066,22 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
           <a-entity id="infoAnaco4" visible="false" position="0 0 0.6">
             <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
             <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
-            <a-text value="[ TÃTULO DA OBRA ]" font="fonts/Outfit-Bold-msdf.json"
+            <a-text value="[ TÍTULO DA OBRA ]" font="fonts/Outfit-Bold-msdf.json"
               font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"
               negate="false" wrap-count="28"></a-text>
-            <a-text value="[ Fragmento da obra aquÃ­ ]" font="fonts/Nunito-SemiBold-msdf.json"
+            <a-text value="[ Fragmento da obra aquí ]" font="fonts/Nunito-SemiBold-msdf.json"
               font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
               color="#e7f0fb" negate="false" wrap-count="46"></a-text>
           </a-entity>
         </a-entity>
 
-        <!-- CADRO 5 â€” BALEIRO -->
+        <!-- CADRO 5 — BALEIRO -->
         <a-entity position="0.4 2.2 0">
           <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
           <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
-          <a-text value="TÃ­tulo obra" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+          <a-text value="Título obra" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
             align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc" negate="false" wrap-count="16"></a-text>
-          <a-text value="[ SubtÃ­tulo ]" font="fonts/Nunito-SemiBold-msdf.json"
+          <a-text value="[ Subtítulo ]" font="fonts/Nunito-SemiBold-msdf.json"
             font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1"
             color="#acd4ee" negate="false" wrap-count="20"></a-text>
           <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
@@ -1094,16 +1092,14 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
           <a-entity id="infoAnaco5" visible="false" position="0 0 0.6">
             <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
             <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
-            <a-text value="[ TÃTULO DA OBRA ]" font="fonts/Outfit-Bold-msdf.json"
+            <a-text value="[ TÍTULO DA OBRA ]" font="fonts/Outfit-Bold-msdf.json"
               font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"
               negate="false" wrap-count="28"></a-text>
-            <a-text value="[ Fragmento da obra aquÃ­ ]" font="fonts/Nunito-SemiBold-msdf.json"
+            <a-text value="[ Fragmento da obra aquí ]" font="fonts/Nunito-SemiBold-msdf.json"
               font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
               color="#e7f0fb" negate="false" wrap-count="46"></a-text>
           </a-entity>
         </a-entity>
-
-      </a-entity>
     </a-entity>
 
   </a-scene>
@@ -1163,7 +1159,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
     preloadImg.src = 'imax/begonha2.png';
     preloadImg.onload = () => portadaBg.classList.add('lista');
 
-    // FunciÃ³ns de interacciÃ³n cos paneis 3D
+    // Funcións de interacción cos paneis 3D
     function toggle(id) {
       const el = document.getElementById(id);
       el.setAttribute('visible', !el.getAttribute('visible'));
@@ -1185,11 +1181,17 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       v.paused ? v.play().catch(() => { }) : v.pause();
     }
 
-    // LÃ³xica de colocaciÃ³n en AR
+    function toggleVideo() {
+      const v = document.querySelector('#video-file');
+      if (!v) return;
+      v.paused ? v.play().catch(() => { }) : v.pause();
+    }
+
+    // Lóxica de colocación en AR
     window.addEventListener('click', (e) => {
   if (e.target.closest('#quiz-panel') || e.target.closest('#escala-distancias-panel') || document.getElementById('quiz-panel').classList.contains('activo')) return;
   if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
-    // CAMBIO: usa posiciÃ³n real do mundo, non local
+    // CAMBIO: usa posición real do mundo, non local
     const pos = new THREE.Vector3();
     reticle.object3D.getWorldPosition(pos);
     museo.object3D.position.copy(pos);
@@ -1218,32 +1220,32 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
     scene.addEventListener('enter-vr', () => {
       portadaEl.style.display = 'none';
       if (!scene.is('ar-mode')) {
-        // Modo VR estÃ¡ndar (Gafas ou PC)
+        // Modo VR estándar (Gafas ou PC)
         museo.setAttribute('visible', true);
         btnQuizSala.style.display = 'block';
       } else {
-        // Modo AR (MÃ³bil)
+        // Modo AR (Móbil)
         document.querySelector('.portada-escolar').style.display = 'block';
         escalaPanel.style.display = 'block';
       }
     });
 
     scene.addEventListener('exit-vr', () => {
-      portadaEl.style.display = 'flex'; // Volver amosar a portada ao saÃ­r
+      portadaEl.style.display = 'flex'; // Volver amosar a portada ao saír
       btnQuizSala.style.display = 'none';
       document.querySelector('.portada-escolar').style.display = 'none';
       escalaPanel.style.display = 'none';
     });
 
-    /* ================= LÃ“XICA DO QUIZ ================= */
+  /* ================= LÓXICA DO QUIZ ================= */
     const QP = [
-      { p: "En que cidade naceu BegoÃ±a CaamaÃ±o?", ops: ["Vigo", "Santiago de Compostela", "A CoruÃ±a", "Pontevedra"], ok: 0, exp: "Naceu en Vigo no ano 1964." },
+      { p: "En que cidade naceu Begoña Caamaño?", ops: ["Vigo", "Santiago de Compostela", "A Coruña", "Pontevedra"], ok: 0, exp: "Naceu en Vigo no ano 1964." },
       { p: "En que medio traballou como xornalista?", ops: ["TVG", "Radio Galega", "La Voz de Galicia", "El Correo Gallego"], ok: 1, exp: "Foi unha voz fundamental na Radio Galega." },
-      { p: "En que ano faleceu BegoÃ±a CaamaÃ±o?", ops: ["2010", "2012", "2014", "2016"], ok: 2, exp: "Faleceu en Santiago de Compostela en 2014." },
-      { p: "Cal Ã© o tÃ­tulo da sÃºa novela de 2009?", ops: ["Morgana en Esmelle", "Circe ou o pracer do azul", "A illa das mulleres", "O libro das fadas"], ok: 1, exp: "'Circe ou o pracer do azul' publicouse en 2009." },
+      { p: "En que ano faleceu Begoña Caamaño?", ops: ["2010", "2012", "2014", "2016"], ok: 2, exp: "Faleceu en Santiago de Compostela en 2014." },
+      { p: "Cal é o título da súa novela de 2009?", ops: ["Morgana en Esmelle", "Circe ou o pracer do azul", "A illa das mulleres", "O libro das fadas"], ok: 1, exp: "'Circe ou o pracer do azul' publicouse en 2009." },
       { p: "En que ano se publicou 'Morgana en Esmelle'?", ops: ["2008", "2010", "2012", "2014"], ok: 2, exp: "'Morgana en Esmelle' publicouse en 2012." },
-      { p: "Que temÃ¡tica atravesa a obra de BegoÃ±a CaamaÃ±o?", ops: ["A guerra civil espaÃ±ola", "O feminismo e a reescritura de mitos", "A emigraciÃ³n galega", "A vida rural no sÃ©culo XIX"], ok: 1, exp: "O feminismo e a revisiÃ³n dos mitos son o nÃºcleo da sÃºa obra." },
-      { p: "A que ano das Letras Galegas corresponde a sÃºa homenaxe?", ops: ["2024", "2025", "2026", "2027"], ok: 2, exp: "O DÃ­a das Letras Galegas 2026 estÃ¡ dedicado a BegoÃ±a CaamaÃ±o." }
+      { p: "Que temática atravesa a obra de Begoña Caamaño?", ops: ["A guerra civil española", "O feminismo e a reescritura de mitos", "A emigración galega", "A vida rural no século XIX"], ok: 1, exp: "O feminismo e a revisión dos mitos son o núcleo da súa obra." },
+      { p: "A que ano das Letras Galegas corresponde a súa homenaxe?", ops: ["2024", "2025", "2026", "2027"], ok: 2, exp: "O Día das Letras Galegas 2026 está dedicado a Begoña Caamaño." }
     ];
 
     let qIdx = 0, qPts = 0, qResp = false;
@@ -1320,7 +1322,7 @@ function qReiniciar() {
       document.getElementById('q-barra').style.width = ((qIdx + 1) / QP.length * 100) + '%';
     }
 
-    function qSeguinte() {
+   function qSeguinte() {
       qIdx++;
       qIdx >= QP.length ? qResultado() : qMostrar();
     }
@@ -1334,10 +1336,10 @@ function qReiniciar() {
       document.getElementById('r-puntos').textContent = qPts + '/' + tot;
 
       let lb, mg, st;
-      if (pct === 100) { lb = 'Excelente!'; st = 'â˜…â˜…â˜…â˜…â˜…'; mg = 'Dominas o legado de BegoÃ±a CaamaÃ±o. ParabÃ©ns!'; }
-      else if (pct >= 71) { lb = 'Moi ben!'; st = 'â˜…â˜…â˜…â˜…â˜†'; mg = 'CoÃ±eces ben a vida e a obra desta escritora fundamental.'; }
-      else if (pct >= 43) { lb = 'Vai ben!'; st = 'â˜…â˜…â˜…â˜†â˜†'; mg = 'Tes boa base. Explora os paneis do museo para completar.'; }
-      else { lb = 'Segue aprendendo!'; st = 'â˜…â˜…â˜†â˜†â˜†'; mg = 'Revisa os paneis da sala e volve tentar. BegoÃ±a merece mÃ¡is tempo.'; }
+      if (pct === 100) { lb = 'Excelente!'; st = '★★★★★'; mg = 'Dominas o legado de Begoña Caamaño. Parabéns!'; }
+      else if (pct >= 71) { lb = 'Moi ben!'; st = '★★★★☆'; mg = 'Coñeces ben a vida e a obra desta escritora fundamental.'; }
+      else if (pct >= 43) { lb = 'Vai ben!'; st = '★★★☆☆'; mg = 'Tes boa base. Explora os paneis do museo para completar.'; }
+      else { lb = 'Segue aprendendo!'; st = '★★☆☆☆'; mg = 'Revisa os paneis da sala e volve tentar. Begoña merece máis tempo.'; }
 
       document.getElementById('r-label').textContent = lb;
       document.getElementById('r-stars').textContent = st;
