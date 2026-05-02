@@ -247,49 +247,47 @@
       </a-entity>
 
       <!-- QUIZ TRIGGER -->
-<!-- SECCIÓN EXAME: CÍRCULOS E INTERROGANTE XIGANTE -->
-<a-entity position="12 2.5 -18" rotation="0 -35 0">
+<!-- SECCIÓN EXAME: O PROPIO INTERROGANTE É O CADRO -->
+<!-- Posición moi afastada para que sexa o destino final -->
+<a-entity position="12 3 -20" rotation="0 -35 0">
   
-  <!-- 1. DOBRE CÍRCULO (Agora máis finos para que o ? destaque) -->
-  <a-ring radius-inner="3.48" radius-outer="3.5" color="#FFFFFF" material="shader: flat; opacity: 0.6"></a-ring>
-  <a-ring radius-inner="3.7" radius-outer="3.72" color="#FF0000" material="shader: flat; opacity: 0.4"
-          animation="property: rotation; to: 0 0 -360; dur: 12000; easing: linear; loop: true"></a-ring>
-
-  <!-- 2. INTERROGANTE XIGANTE (Usando SCALE para que sobrepase todo) -->
-  <!-- O scale "15 15 1" faino enorme e o position axusta o centro -->
-  <a-entity position="0 0.5 0.2" scale="15 15 1">
+  <!-- GRUPO DO INTERROGANTE (O obxecto é o propio botón) -->
+  <a-entity class="area-clic" onclick="abrirQuiz()" scale="22 22 1" position="0 0 0">
     
-    <!-- Capa Vermella Glitch -->
+    <!-- Capa Glitch Vermella (Atrás) -->
     <a-text value="?" align="center" color="#FF0000" 
             font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
-            animation="property: position; from: -0.01 0.01 0; to: 0.01 -0.01 0; dir: alternate; dur: 70; loop: true">
+            animation="property: position; from: -0.015 0.01 -0.02; to: 0.015 -0.01 -0.02; dir: alternate; dur: 50; loop: true">
     </a-text>
 
-    <!-- Capa Branca Principal -->
+    <!-- Capa Branca (Centro - A máis brillante) -->
     <a-text value="?" align="center" color="#FFFFFF" 
             font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
-            animation="property: opacity; from: 0.5; to: 1; dir: alternate; dur: 40; loop: true">
+            animation="property: opacity; from: 0.4; to: 1; dir: alternate; dur: 30; loop: true">
     </a-text>
 
-    <!-- Capa Cian (Efecto lente) -->
+    <!-- Capa Glitch Cian (Diante) -->
     <a-text value="?" align="center" color="#00E5FF" 
             font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
-            animation="property: position; from: 0.01 -0.01 -0.01; to: -0.01 0.01 -0.01; dir: alternate; dur: 110; loop: true"
-            opacity="0.6">
+            animation="property: position; from: 0.015 -0.01 0.01; to: -0.015 0.01 0.01; dir: alternate; dur: 80; loop: true"
+            opacity="0.7">
     </a-text>
   </a-entity>
 
-  <!-- 3. BOTÓN DE INICIO (Limpo e moi visible) -->
-  <a-entity position="0 -5 0">
-    <a-plane class="area-clic" width="4.5" height="1.2" color="#FF0000" onclick="abrirQuiz()" material="shader: flat">
-        <a-text value="INICIAR PROBA" align="center" width="10" color="#FFFFFF" 
+  <!-- BOTÓN DE APOIO (Xusto debaixo, moi claro) -->
+  <a-entity position="0 -6 0">
+    <a-plane class="area-clic" width="6" height="1.4" color="#FF0000" onclick="abrirQuiz()" material="shader: flat">
+        <a-text value="INICIAR EXAME FINAL" align="center" width="12" color="#FFFFFF" 
                 font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png" position="0 0 0.1">
         </a-text>
     </a-plane>
-    <!-- Liña decorativa branca debaixo do botón -->
-    <a-plane width="4.5" height="0.05" color="#FFFFFF" position="0 -0.7 0"></a-plane>
+    <!-- Efecto de liña de escaneado debaixo do botón -->
+    <a-plane width="6" height="0.1" color="#00E5FF" position="0 -0.8 0"
+             animation="property: opacity; from: 0.2; to: 1; dir: alternate; dur: 500; loop: true"></a-plane>
   </a-entity>
 
+  <!-- Luz de ambiente vermella para dar dramatismo á zona -->
+  <a-light type="point" color="#FF0000" intensity="1" distance="15" position="0 0 2"></a-light>
 </a-entity>
       <!-- <a-entity position="6 2.2 -6" rotation="0 -45 0">
         <a-plane width="4.15" height="3.72" color="#00e5ff" opacity="0.06" position="0 0 -0.02"></a-plane>
@@ -303,7 +301,7 @@
         <a-text value="INICIAR QUIZ" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="3.9" position="0 -1.38 0.15" color="#fff" negate="false" wrap-count="16"></a-text>
         <a-plane class="area-clic" width="3.95" height="3.52" position="0 0 0.2" material="opacity:0; transparent:true" onclick="abrirQuiz()"></a-plane>
       </a-entity> -->
-    </a-entity>
+    <!-- </a-entity> -->
   </a-scene>
 
   <script>
