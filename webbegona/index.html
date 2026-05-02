@@ -700,7 +700,7 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
   <div id="portada">
     <div id="portada-bg"></div>
     <div class="portada-inner">
-      <div class="portada-kicker">Mostra inmersiva*</div>
+      <div class="portada-kicker">Mostra inmersiva</div>
       <div class="portada-divider"></div>
       <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high">
       <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
@@ -724,6 +724,10 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       </div>
     </div>
 <div id="quiz-backdrop"></div>
+    <div id="escala-distancias-panel">
+      <label for="escala-distancias-slider">Escala distancias <span id="escala-distancias-valor">1.00x</span></label>
+      <input id="escala-distancias-slider" type="range" min="0.25" max="1.5" step="0.05" value="1">
+    </div>
     <div id="quiz-panel">
       <button class="qx" onclick="pecharQuiz()">✕</button>
       <div id="q-xogo">
@@ -1101,6 +1105,8 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
           </a-entity>
         </a-entity>
     </a-entity>
+    </a-entity>
+
 
   </a-scene>
 
@@ -1173,12 +1179,6 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       } else {
         s.components.sound.playSound(); // En A-Frame 1.4 isto xa xestiona internamente o contexto de audio interactivo
       }
-    }
-
-    function toggleVideo() {
-      const v = document.querySelector('#video-file');
-      if (!v) return;
-      v.paused ? v.play().catch(() => { }) : v.pause();
     }
 
     function toggleVideo() {
