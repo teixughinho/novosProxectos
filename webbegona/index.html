@@ -247,96 +247,48 @@
       </a-entity>
 
       <!-- QUIZ TRIGGER -->
-<!-- QUIZ: INTERROGANTE XIGANTE LIMPO -->
-<a-entity position="12 2.2 -18" rotation="0 -35 0">
+<!-- SECCIÓN EXAME: CÍRCULOS E INTERROGANTE GLITCH -->
+<!-- Posición estratéxica: moi ao fondo e á dereita para evitar solapes -->
+<a-entity position="12 2.5 -18" rotation="0 -35 0">
+  
+  <!-- 1. DOBRE CÍRCULO DE LIÑAS (SEN FONDO) -->
+  <a-ring radius-inner="3.45" radius-outer="3.5" color="#FFFFFF" material="shader: flat; opacity: 0.8"></a-ring>
+  <a-ring radius-inner="3.7" radius-outer="3.75" color="#FF0000" material="shader: flat; opacity: 0.5"
+          animation="property: rotation; to: 0 0 360; dur: 10000; easing: linear; loop: true"></a-ring>
 
-  <!-- CÍRCULO / GLOW DE FONDO (NON PANTALLA, SOLO DECORACIÓN) -->
-  <a-ring
-    radius-inner="1.2"
-    radius-outer="1.8"
-    color="#00E5FF"
-    opacity="0.25"
-    material="shader: flat">
-  </a-ring>
-
-  <a-ring
-    radius-inner="1.8"
-    radius-outer="2.2"
-    color="#FF4D6D"
-    opacity="0.12"
-    rotation="0 0 20"
-    material="shader: flat">
-  </a-ring>
-
-  <!-- INTERROGANTE XIGANTE -->
-  <a-text
-    value="?"
-    align="center"
-    width="35"
-    color="#FFFFFF"
-    font="fonts/Outfit-Bold-msdf.json"
-    font-image="fonts/Outfit-Bold-msdf.png"
-    position="0 0.8 0">
-  </a-text>
-
-  <!-- GLITCH SUAVE (DESPRAZAMENTOS LEVES) -->
-  <a-text
-    value="?"
-    align="center"
-    width="35"
-    color="#00E5FF"
-    opacity="0.7"
-    font="fonts/Outfit-Bold-msdf.json"
-    font-image="fonts/Outfit-Bold-msdf.png"
-    position="0.03 0.8 0"
-    animation="property: position; from: 0.03 0.8 0; to: -0.03 0.8 0; dir: alternate; dur: 120; loop: true">
-  </a-text>
-
-  <a-text
-    value="?"
-    align="center"
-    width="35"
-    color="#FF4D6D"
-    opacity="0.6"
-    font="fonts/Outfit-Bold-msdf.json"
-    font-image="fonts/Outfit-Bold-msdf.png"
-    position="-0.03 0.8 0"
-    animation="property: position; from: -0.03 0.8 0; to: 0.03 0.8 0; dir: alternate; dur: 90; loop: true">
-  </a-text>
-
-  <!-- TEXTO EXAME -->
-  <a-text
-    value="EXAME FINAL"
-    align="center"
-    width="10"
-    color="#FF4D6D"
-    font="fonts/Outfit-Bold-msdf.json"
-    font-image="fonts/Outfit-Bold-msdf.png"
-    position="0 -0.6 0">
-  </a-text>
-
-  <!-- BOTÓN GRANDE -->
-  <a-entity position="0 -1.6 0">
-
-    <a-plane
-      class="area-clic"
-      width="3.5"
-      height="0.9"
-      color="#FF4D6D"
-      opacity="0.95"
-      onclick="abrirQuiz()">
-    </a-plane>
-
-    <a-text
-      value="COMEZAR PROBA"
-      align="center"
-      width="8"
-      color="#FFFFFF"
-      font="fonts/Outfit-Bold-msdf.json"
-      font-image="fonts/Outfit-Bold-msdf.png"
-      position="0 0 0.05">
+  <!-- 2. INTERROGANTE XIGANTE CON EFECTO GLITCH -->
+  <!-- O "width" en 35 fai que sobrepase os círculos -->
+  <a-entity position="0 0 0.1">
+    <!-- Capa Vermella Vibrante -->
+    <a-text value="?" align="center" width="35" color="#FF0000" 
+            font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+            animation="property: position; from: -0.1 0.05 0; to: 0.1 -0.05 0; dir: alternate; dur: 60; loop: true">
     </a-text>
 
+    <!-- Capa Branca Central -->
+    <a-text value="?" align="center" width="35" color="#FFFFFF" 
+            font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+            animation="property: opacity; from: 0.6; to: 1; dir: alternate; dur: 30; loop: true">
+    </a-text>
+
+    <!-- Capa Cian (Aberración cromática) -->
+    <a-text value="?" align="center" width="35" color="#00E5FF" 
+            font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+            animation="property: position; from: 0.1 -0.05 -0.01; to: -0.1 0.05 -0.01; dir: alternate; dur: 90; loop: true"
+            opacity="0.7">
+    </a-text>
+  </a-entity>
+
+  <!-- 3. BOTÓN CLARO DE INICIAR (DEBAIXO) -->
+  <a-entity position="0 -4.5 0">
+    <!-- Marco do botón -->
+    <a-plane class="area-clic" width="4" height="1" color="#FF0000" onclick="abrirQuiz()" material="shader: flat">
+        <a-text value="INICIAR PROBA" align="center" width="8" color="#FFFFFF" 
+                font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png" position="0 0 0.1">
+        </a-text>
+    </a-plane>
+    <!-- Brillo exterior do botón -->
+    <a-rect width="4.2" height="1.2" fill="none" stroke="#FFFFFF" stroke-width="0.1" position="0 0 -0.01"></a-rect>
   </a-entity>
 
 </a-entity>
