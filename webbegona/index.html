@@ -1507,6 +1507,18 @@ this.el.setAttribute('visible', !museoColocado);
       valLabel.textContent = escala.toFixed(2) + '×';
     });
   })();
+  document.addEventListener('DOMContentLoaded', () => {
+    const escena = document.querySelector('a-scene');
+    const museo = document.querySelector('#museo');
+
+    // Cando se fai clic ou se toca a pantalla para colocar o museo co hit-test
+    window.addEventListener('click', () => {
+      // Se estamos en modo AR e o museo segue oculto, facémolo visible
+      if (escena.is('ar-mode') && museo.getAttribute('visible') === false) {
+        museo.setAttribute('visible', 'true');
+      }
+    });
+  });
 </script>
 </body>
 </html>
