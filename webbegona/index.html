@@ -1308,11 +1308,8 @@ this.el.setAttribute('visible', !museoColocado);
 
     reticle.object3D.matrixWorld.decompose(pos, quat, scale);
 
-    museo.object3D.position.copy(pos);
-    museo.object3D.quaternion.copy(quat);
-
-    museo.object3D.rotation.x = 0;
-    museo.object3D.rotation.z = 0;
+   museo.object3D.position.copy(pos);
+museo.object3D.rotation.set(0, 0, 0);
 
     museo.setAttribute('visible', true);
     museoColocado = true;
