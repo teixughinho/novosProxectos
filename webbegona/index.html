@@ -1,12 +1,5 @@
-
-
-
 <!DOCTYPE html>
-
-
 <html lang="gl">
-
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -749,8 +742,8 @@
 <div id="quiz-backdrop"></div>
         <!-- ===== DEV: PANEL ESCALA AR ===== -->
     <div id="dev-escala-panel">
-      <label>⚙ DEV · Escala: <span id="dev-escala-val" class="val">1.00×</span></label>
-      <input id="dev-escala-slider" type="range" min="-3" max="3" step="0.05" value="0">
+      <label>⚙ DEV · Escala: <span id="dev-escala-val" class="val">0.25×</span></label>
+      <input id="dev-escala-slider" type="range" min="-3" max="3" step="0.05" value="-2">
       <div class="dev-marcas">
         <span class="negativo">-3</span><span class="negativo">-2</span><span class="negativo">-1</span><span class="centro">0</span><span class="positivo">1</span><span class="positivo">2</span><span class="positivo">3</span>
       </div>
@@ -1250,6 +1243,8 @@ this.el.setAttribute('visible', !museoColocado);
   const quizBackdrop = document.getElementById('quiz-backdrop');
 
   let museoColocado = false;
+  let escalaDistancias = 0.25;
+  const posicionesBase = new Map();
 
   const preloadImg = new Image();
   preloadImg.src = 'imax/begonha2.png';
@@ -1289,6 +1284,7 @@ this.el.setAttribute('visible', !museoColocado);
     museo.object3D.position.set(0, 0, 0);
     museo.object3D.rotation.set(0, 0, 0);
     museo.object3D.scale.set(1, 1, 1);
+    aplicarEscalaDistancias(escalaDistancias);
 
     reticle.setAttribute('visible', false);
     reticle.setAttribute('ar-hit-test', 'target: #museo; enabled: true');
@@ -1300,16 +1296,32 @@ this.el.setAttribute('visible', !museoColocado);
   function colocarMuseoDesdeReticle() {
     if (!scene.is('ar-mode')) return;
     if (museoColocado) return;
-    if (!reticle.getAttribute('visible')) return;
 
     const pos = new THREE.Vector3();
-    const quat = new THREE.Quaternion();
-    const scale = new THREE.Vector3();
 
-    reticle.object3D.matrixWorld.decompose(pos, quat, scale);
+    if (reticle.getAttribute('visible')) {
+      reticle.object3D.getWorldPosition(pos);
+    } else {
+      const cameraObj = document.querySelector('a-camera').object3D;
+      const camPos = new THREE.Vector3();
+      const camQuat = new THREE.Quaternion();
+      const dir = new THREE.Vector3(0, 0, -1);
 
-   museo.object3D.position.copy(pos);
-museo.object3D.rotation.set(0, 0, 0);
+      cameraObj.getWorldPosition(camPos);
+      cameraObj.getWorldQuaternion(camQuat);
+      dir.applyQuaternion(camQuat);
+      dir.y = 0;
+      if (dir.lengthSq() < 0.001) dir.set(0, 0, -1);
+      dir.normalize();
+
+      pos.copy(camPos).add(dir.multiplyScalar(2));
+      pos.y = Math.max(0, camPos.y - 1.6);
+    }
+
+    museo.object3D.position.copy(pos);
+    museo.object3D.rotation.set(0, 0, 0);
+    museo.object3D.scale.set(1, 1, 1);
+    aplicarEscalaDistancias(escalaDistancias);
 
     museo.setAttribute('visible', true);
     museoColocado = true;
@@ -1482,10 +1494,32 @@ museo.object3D.rotation.set(0, 0, 0);
     document.getElementById('r-msg').textContent = mg;
   }
 
+  function prepararPosicionesBase() {
+    posicionesBase.clear();
+    Array.from(museo.children).forEach((child) => {
+      posicionesBase.set(child, child.object3D.position.clone());
+    });
+  }
+
+  function aplicarEscalaDistancias(escala) {
+    if (!posicionesBase.size) prepararPosicionesBase();
+
+    posicionesBase.forEach((base, child) => {
+      child.object3D.position.set(
+        base.x * escala,
+        base.y * escala,
+        base.z * escala
+      );
+    });
+  }
+
   (function () {
     const devPanel = document.getElementById('dev-escala-panel');
     const slider = document.getElementById('dev-escala-slider');
     const valLabel = document.getElementById('dev-escala-val');
+
+    prepararPosicionesBase();
+    aplicarEscalaDistancias(escalaDistancias);
 
     scene.addEventListener('enter-vr', () => {
       if (scene.is('ar-mode')) devPanel.style.display = 'block';
@@ -1493,15 +1527,17 @@ museo.object3D.rotation.set(0, 0, 0);
 
     scene.addEventListener('exit-vr', () => {
       devPanel.style.display = 'none';
-      slider.value = 0;
-      valLabel.textContent = '1.00×';
+      slider.value = -2;
+      escalaDistancias = 0.25;
+      aplicarEscalaDistancias(escalaDistancias);
+      valLabel.textContent = '0.25×';
     });
 
     slider.addEventListener('input', () => {
       const value = parseFloat(slider.value);
-      const escala = Math.pow(2, value);
-      museo.object3D.scale.set(escala, escala, escala);
-      valLabel.textContent = escala.toFixed(2) + '×';
+      escalaDistancias = Math.pow(2, value);
+      aplicarEscalaDistancias(escalaDistancias);
+      valLabel.textContent = escalaDistancias.toFixed(2) + '×';
     });
   })();
 </script>
