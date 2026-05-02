@@ -714,10 +714,10 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
       </div>
     </div>
   </div>
-<a-scene
+<a-scene 
   xr-mode-ui="enabled: true; XRMode: ar"
-  webxr="optionalFeatures: hit-test; optionalFeatures: dom-overlay"
- renderer="colorManagement:true; antialias:true">
+  webxr="optionalFeatures: hit-test, dom-overlay; overlayElement: #overlay"
+  renderer="colorManagement:true; antialias:true">
     <a-assets>
       <a-asset-item id="font-title" src="fonts/Outfit-Bold-msdf.json"></a-asset-item>
       <a-asset-item id="font-body" src="fonts/Nunito-SemiBold-msdf.json"></a-asset-item>
@@ -1101,19 +1101,34 @@ Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m -->
     }
 
     // Lóxica de colocación en AR
-window.addEventListener('click', (e) => {
+    window.addEventListener('click', (e) => {
   if (e.target.closest('#quiz-panel') || document.getElementById('quiz-panel').classList.contains('activo')) return;
-
   if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
-    museo.setAttribute('position', reticle.getAttribute('position'));
+    // CAMBIO: usa posición real do mundo, non local
+    const pos = new THREE.Vector3();
+    reticle.object3D.getWorldPosition(pos);
+    museo.object3D.position.copy(pos);
+    
     museo.setAttribute('visible', true);
     reticle.setAttribute('visible', false);
     document.querySelector('.portada-escolar').style.display = 'none';
     btnQuizSala.style.display = 'block';
-    // ENGADIR 
     document.querySelector('#reticle').setAttribute('ar-hit-test', 'enabled: false');
   }
 });
+// window.addEventListener('click', (e) => {
+//   if (e.target.closest('#quiz-panel') || document.getElementById('quiz-panel').classList.contains('activo')) return;
+
+//   if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
+//     museo.setAttribute('position', reticle.getAttribute('position'));
+//     museo.setAttribute('visible', true);
+//     reticle.setAttribute('visible', false);
+//     document.querySelector('.portada-escolar').style.display = 'none';
+//     btnQuizSala.style.display = 'block';
+//     // ENGADIR 
+//     document.querySelector('#reticle').setAttribute('ar-hit-test', 'enabled: false');
+//   }
+// });
 
     scene.addEventListener('enter-vr', () => {
       portadaEl.style.display = 'none';
