@@ -782,7 +782,7 @@ Parede frontal 2,Canto sabes? / Quiz,4 2.6 -12,0
   <div id="portada">
     <div id="portada-bg"></div>
     <div class="portada-inner">
-      <div class="portada-kicker">Mostra inmersiva</div>
+      <div class="portada-kicker">Mostra*** inmersiva</div>
       <div class="portada-divider"></div>
       <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high">
       <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
@@ -1508,109 +1508,70 @@ Parede frontal 2,Canto sabes? / Quiz,4 2.6 -12,0
 
 
 
-    // ===== EFECTO INMERSIVO: PANEIS SE AMPÍAN AO ACHEGARSE =====
+
+// ===== ZOOM DINÁMICO POR DISTANCIA =====
 let cameraRef = null;
 let panelsData = [];
+let isDynamicScaling = false;
 
 function initDynamicScaling() {
   cameraRef = document.querySelector('a-camera');
-  if (!cameraRef || !cameraRef.object3D) {
-    console.warn('Cámara non atopada');
-    return;
-  }
+  if (!cameraRef || !cameraRef.object3D) return;
   
-  // Buscar todos os paneis (os que teñen area-clic)
   panelsData = [];
   const allPanels = document.querySelectorAll('.area-clic');
-  
   allPanels.forEach(panel => {
     const parent = panel.parentElement;
     if (parent && parent.object3D) {
       panelsData.push({
         element: parent,
-        panel: panel,
-        initialScale: 1.0,
-        // minDistance: 0.3,  // Cando está a 0.3m = MÁXIMO
-        // maxDistance: 4.0   // Cando está a 4m = NORMAL
-
-        //PROBA MEDIDA ESAXERADA PARA VER O EFECTO
-           minDistance: 0.5,   // 👈 CAMBIO: A 0.5m = MÁXIMO
-        maxDistance: 2.0    // 👈 CAMBIO: A 2m = NORMAL
+        minDistance: 1.5,  // Cando está a 1.5m comeza a ampliarse
+        maxDistance: 4.0   // A 4m está ao tamaño normal
       });
     }
   });
-  
-  console.log(`✅ Inicializado escalado dinámico para ${panelsData.length} paneis`);
+  console.log(`✅ Zoom dinámico inicializado para ${panelsData.length} paneis`);
 }
 
-function updatePanelScaling() {
+function updateDynamicZoom() {
   if (!cameraRef || panelsData.length === 0) return;
   
   const cameraPos = cameraRef.object3D.position;
-  
-  panelsData.forEach(data => {
-    const panelPos = data.element.object3D.position;
-    
-    // Calcular distancia (distancia euclidiana 3D)
-    const distance = cameraPos.distanceTo(panelPos);
-    
-    // Calcular escala con interpolación suave
-    let scale;
-    if (distance <= data.minDistance) {
-      // A máxima distancia cando estás moi preto
-      // scale = 2.5;
-
-
-// ESAXERADA PARA VER O EFECTO
-            scale = 4.0;  // 👈 CAMBIO: 4x (CUÁDRUPLE!) en lugar de 2.5x
-
-    } else if (distance >= data.maxDistance) {
-      // Tamaño normal lonxe
-      scale = 1.0;
-    } else {
-      // Interpolación linear entre minDistance e maxDistance
-      const ratio = (distance - data.minDistance) / (data.maxDistance - data.minDistance);
-      scale = 2.5 - (ratio * 1.5); // De 2.5x a 1.0x
-    }
-    
-//DEBUG: amosar distancia e escala no panel
-        console.log(`Painel: ${distance.toFixed(2)}m → Escala: ${scale.toFixed(2)}x`);
-
-    // Aplicar escala ao elemento completo (painel + contido)
-    data.element.object3D.scale.set(scale, scale, scale);
-  });
-}
-// DESACTIVAR slider cando te acercas
-scene.addEventListener('tick', () => {
-  if (!cameraRef || panelsData.length === 0) return;
-  
-  const cameraPos = cameraRef.object3D.position;
-  let minDistanceToPanels = Infinity;
+  let minDistance = Infinity;
   
   panelsData.forEach(data => {
     const distance = cameraPos.distanceTo(data.element.object3D.position);
-    minDistanceToPanels = Math.min(minDistanceToPanels, distance);
+    minDistance = Math.min(minDistance, distance);
   });
   
-  // Se algo está < 2m: o zoom dinámico domina
-  if (minDistanceToPanels < 2.0) {
-    escalaSlider.disabled = true;  // Desactiva slider
-    escalaDistancias = 1.0;         // Reset a escala base
-    aplicarEscalaDistancias(1.0);   // Volta ás posicións orixinais
-  } else {
-    escalaSlider.disabled = false;  // Slider activo de novo
+  // Calcula a escala baseada na distancia máis preto
+  let newScale = 1.0;
+  if (minDistance <= 1.5) {
+    newScale = 3.0;  // MÁXIMO ao estar moi preto
+  } else if (minDistance < 4.0) {
+    // Interpolación suave
+    const ratio = (minDistance - 1.5) / (4.0 - 1.5);
+    newScale = 3.0 - (ratio * 2.0);  // De 3.0x a 1.0x
   }
-});
-// Inicializar cando a escena cargue
+  
+  // **IMPORTANTE:** Aplica a escala sen tocar posicións
+  panelsData.forEach(data => {
+    data.element.object3D.scale.set(newScale, newScale, newScale);
+  });
+  
+  isDynamicScaling = newScale > 1.01;
+}
+
+// Inicializar
 if (scene.hasLoaded) {
   initDynamicScaling();
 } else {
   scene.addEventListener('loaded', initDynamicScaling);
 }
 
-// Actualizar cada frame (tick)
-scene.addEventListener('tick', updatePanelScaling);
-
+// Actualizar cada frame
+scene.addEventListener('tick', updateDynamicZoom);
+// ===== FIN ZOOM DINÁMICO =====
 // ===== FIN EFECTO INMERSIVO =====
   </script>
 </body>
