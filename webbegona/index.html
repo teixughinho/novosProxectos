@@ -1417,19 +1417,7 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
         document.querySelector('#reticle').setAttribute('ar-hit-test', 'enabled: false');
       }
     });
-    // window.addEventListener('click', (e) => {
-    //   if (e.target.closest('#quiz-panel') || e.target.closest('#escala-distancias-panel') || document.getElementById('quiz-panel').classList.contains('activo')) return;
-
-    //   if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
-    //     museo.setAttribute('position', reticle.getAttribute('position'));
-    //     museo.setAttribute('visible', true);
-    //     reticle.setAttribute('visible', false);
-    //     document.querySelector('.portada-escolar').style.display = 'none';
-    //     btnQuizSala.style.display = 'block';
-    //     // ENGADIR 
-    //     document.querySelector('#reticle').setAttribute('ar-hit-test', 'enabled: false');
-    //   }
-    // });
+  
 
     scene.addEventListener('enter-vr', () => {
       portadaEl.style.display = 'none';
