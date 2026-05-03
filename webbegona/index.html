@@ -237,55 +237,44 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
 
 
     .portada-escolar {
-      display: none;
-      /* Controlado por JS */
-      position: absolute;
-      top: 20px;
-      /* <--- CAMBIO: Agora arriba */
-      left: 50%;
-      transform: translateX(-50%);
-
-      /* Layout horizontal */
-      display: flex;
-      flex-direction: row;
-      /* <--- CAMBIO: Elementos en liña */
-      align-items: center;
-      gap: 15px;
-
-      padding: 12px 20px;
-      border-radius: 50px;
-      /* <--- Estilo máis "píldora" */
-      background: rgba(4, 12, 30, 0.9);
-      border: 2px solid #00e5ff;
-      color: white;
-      pointer-events: auto;
-      width: 90%;
-      /* <--- Máis ancho */
-      max-width: 600px;
-      box-shadow: 0 0 20px rgba(0, 229, 255, .2);
-    }
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 520px;
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: rgba(10, 20, 30, 0.88);
+  border: 1px solid rgba(136, 170, 204, 0.28);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+  color: #e8f1fb;
+  backdrop-filter: blur(6px);
+}
 
     /* Para que os textos non queden un debaixo doutro e ocupen menos alto */
     .portada-escolar .info-textos {
-      text-align: left;
-      flex-grow: 1;
+    display: flex;
+  flex-direction: column;
+  gap: 4px;
     }
 
     .portada-escolar .nome {
-      font-family: 'Outfit', sans-serif;
       font-size: 1rem;
-      /* <--- Un chisco máis pequeno para que caiba */
-      font-weight: 900;
-      margin: 0;
-      color: #00e5ff;
-      text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #ffffff;
     }
-
+.portada-escolar img {
+  width: 54px;
+  height: 54px;
+  flex: 0 0 54px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  object-fit: cover;
+}
     .instrucions {
-      font-size: .8rem;
-      line-height: 1.2;
-      color: #cce8ff;
-      margin-top: 2px;
+      font-size: 0.92rem;
+  line-height: 1.35;
+  color: #c7d4e2;
     }
 
 
@@ -775,11 +764,12 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
       <p class="portada-sub">Xornalista, escritora e voz esencial das Letras Galegas 2026.</p>
       <span class="portada-data">Letras Galegas · 2026</span><br>
       <p class="portada-hint">Preme o botón [AR] (abaixo á dereita) para entrares na mostra.</p>
+      <p class="portada-hint">Precisas empregar o navegador Chrome e Android.</p>
     </div>
   </div>
 
 
-  <div id="overlay">
+  <!-- <div id="overlay">
     <div class="portada-escolar">
       <img src="imax/begonha2.png"
         style="width:50px; height:50px; border-radius:50%; border:2px solid #00e5ff; object-fit:cover;"
@@ -793,7 +783,23 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
           Toca a pantalla para <b>colocar a sala</b> e os paneis para <b>interactuar</b>.
         </div>
       </div>
+    </div> -->
+  <div id="overlay">
+  <div class="portada-escolar">
+    <img src="imax/begonha2.png" alt="Begoña Caamaño">
+    <div class="info-textos">
+      <div class="nome">
+        BEGOÑA CAAMAÑO
+        <span style="font-size: 0.7rem; color: #88aacc; font-weight: 400; margin-left: 10px;">
+          Letras Galegas 2026
+        </span>
+      </div>
+      <div class="instrucions">
+        Toca a pantalla para <b>colocar a sala</b> e os paneis para <b>interactuar</b>.
+      </div>
     </div>
+  </div>
+</div>
     <div id="quiz-backdrop"></div>
     <div id="escala-distancias-panel">
       <label for="escala-distancias-slider">Escala distancias <span id="escala-distancias-valor">1.00x</span></label>
