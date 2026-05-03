@@ -993,16 +993,16 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
 
       <!-- 5. Audio (Detrás do usuario) -->
       <!-- 5. Audio (Sen fondo) -->
+     
       <a-entity position="-5.07 2.4 10.15" rotation="0 180 0">
         <!-- Eliminamos o plane de cor #08101d e a liña azul superior -->
 
         <!-- Icona de audio -->
-        <a-image src="#icon-audio" width="1.5" height="1.5" position="0 0.48 0.1"></a-image>
+        <a-image src="#icon-audio" width="1.5" height="1.5" position="0 0.48 0.1"  animation="property: scale; to: 1.1 1.1 1.1; dir: alternate; loop: true; dur: 800"></a-image>
 
         <!-- Texto -->
-        <a-text value="A VOZ DA AUTORA" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.2"
-          position="0 -0.82 0.1" color="#9af1ff" negate="false"></a-text>
-
+        <a-text value="A VOZ DA AUTORA" position="0 -0.4 0" align="center" width="3" color="#2c3e50"></a-text>
+    
         <!-- O CLIC: Mantemos un plano invisible para que sexa fácil de tocar co cursor -->
         <a-plane class="area-clic" width="2.5" height="2.5" position="0 0 0.05" material="opacity:0; transparent:true"
           onclick="toggleAudio()">
