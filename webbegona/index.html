@@ -1510,20 +1510,20 @@ da nosa literatura contemporánea."
       bts.forEach(b => b.disabled = true);
       const fb = document.getElementById('q-fb');
 
-      if (idx === q.ok) {
+       if (idx === q.ok) {
         qPts++;
         bts[idx].classList.add('correcta');
-        fb.textContent = 'âœ“ Correcto! ' + q.exp;
+        fb.textContent = '✓ Correcto! ' + q.exp;
       } else {
         bts[idx].classList.add('incorrecta');
         bts[q.ok].classList.add('correcta');
-        fb.textContent = 'âœ— Incorrecto. ' + q.exp;
+        fb.textContent = '✗ Incorrecto. ' + q.exp;
         fb.className = 'q-fb mal';
       }
 
       const bs = document.getElementById('q-btn-seg');
       bs.style.display = 'inline-block';
-      bs.textContent = qIdx >= QP.length - 1 ? 'Ver resultado âœ¦' : 'Seguinte â†’';
+      bs.textContent = qIdx >= QP.length - 1 ? 'Ver resultado ✦' : 'Seguinte →';
 
       // Avanzar a barra un pouco ao responder
       document.getElementById('q-barra').style.width = ((qIdx + 1) / QP.length * 100) + '%';
@@ -1546,7 +1546,7 @@ da nosa literatura contemporánea."
       if (pct === 100) { lb = 'Excelente!'; st = '★★★★★'; mg = 'Dominas o legado de Begoña Caamaño. Parabéns!'; }
       else if (pct >= 71) { lb = 'Moi ben!'; st = '★★★★☆'; mg = 'Coñeces ben a vida e a obra desta escritora fundamental.'; }
       else if (pct >= 43) { lb = 'Vai ben!'; st = '★★★☆☆'; mg = 'Tes boa base. Explora os paneis do museo para completar.'; }
-      else { lb = 'Segue aprendendo!'; st = '★★☆☆☆'; mg = 'Revisa os paneis da sala e volve tentar. Begoña merece máis tempo.'; }
+      else { lb = 'Sigue aprendendo!'; st = '★★☆☆☆'; mg = 'Revisa os paneis da sala e volve tentar. Begoña merece máis tempo.'; }
 
       document.getElementById('r-label').textContent = lb;
       document.getElementById('r-stars').textContent = st;
