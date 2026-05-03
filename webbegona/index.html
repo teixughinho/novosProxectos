@@ -1278,18 +1278,27 @@ AFRAME.registerComponent('proximity-zoom', {
       // ==========================================
       // VALORES ESAXERADOS PARA PROBAR
       // ==========================================
-      const minDistance = 1.2;  // Cando estás a 1.2 metros queda ao máximo. Evita o infinito ao achegarte a 0m.
-      const maxDistance = 6.0;  // A 6 metros ou máis, o panel vólvese ao seu tamaño base.
-      const maxScale = 5.0;     // O panel medra ata 5 veces o seu tamaño orixinal!
-      const minScale = 1.0;     // O panel nunca encollerá por debaixo do seu 100% orixinal.
+      // const minDistance = 1.2;  // Cando estás a 1.2 metros queda ao máximo. Evita o infinito ao achegarte a 0m.
+      // const maxDistance = 6.0;  // A 6 metros ou máis, o panel vólvese ao seu tamaño base.
+      // const maxScale = 5.0;     // O panel medra ata 5 veces o seu tamaño orixinal!
+      // const minScale = 1.0;     // O panel nunca encollerá por debaixo do seu 100% orixinal.
 
-      /* // ==========================================
+      // ==========================================
       // VALORES NORMAIS (Descomenta isto para a biblioteca ou cuarto)
       // ==========================================
-      // const minDistance = 1.0;  
-      // const maxDistance = 3.5;  
-      // const maxScale = 1.4;     // Medra un 40% máis como máximo
-      // const minScale = 1.0;    
+      const minDistance = 1.0;  
+      const maxDistance = 3.5;  
+      const maxScale = 1.4;     // Medra un 40% máis como máximo
+      const minScale = 1.0;    
+      
+      
+      // ==========================================
+// PARÁMETROS AXUSTADOS Á NOVA ESCALA 1.45x
+// ==========================================
+// const minDistance = 1.8;   // A menos de 1.8 metros queda ao máximo tamaño (non se pega á cara)
+// const maxDistance = 6.5;   // A 6.5 metros ou máis ten o seu tamaño normal
+// const maxScale = 1.45;     // O zoom máximo que querías (45% máis grande)
+// const minScale = 1.0;      // O tamaño base normal
       
       
       // ==========================================
