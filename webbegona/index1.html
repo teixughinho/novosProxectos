@@ -1,26 +1,32 @@
 <!-- COORDENADAS
-Sección,Título / Contido,Posición (X Y Z),Rotación (Y),Distancia
-Punto 0,Posición Inicial do Usuario,0 1.6 0,-,-
-Esquerda 1 Atrás,Quen foi? (Biografía),-8 2.5 8,135,11.3m
-Esquerda 2 Diante,A que se dedicou? (Novo),-12 2.5 -6,60,13.4m
-Dereita 1 Atrás,Obras (xa creada),8 2.5 8,225,11.3m
-Dereita 2 Diante,Por que merece as letras? (Novo),12 2.5 -6,300,13.4m
-Detrás do usuario,Anacos da súa obra (Audio),0 2.2 10,180,10.0m
-Fronte (Fondo),Xornalismo Político (Vídeo),0 2.2 -15,0,15.0m
-Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m 
 
 
-Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho 14m x Fondo 14m),OPCIÓN 2: Pequena (Teu cuarto)(Ancho 4.8m x Fondo 4.8m),OPCIÓN 3: Grande (Exterior)(Ancho 24m x Fondo 24m)
-1. Quen foi? (Esquerda 1),"position=""-7 2.5 -3.5""",   "position=""-2.4 2.5 -1.2""",    "position=""-12 2.5 -6"""
-2. A que se dedicou? (Esquerda 2),"position=""-7 2.5 3.5""",     "position=""-2.4 2.5 1.2""",   "position=""-12 2.5 6"""
-3. Obras (Dereita 1),"position=""7 2.5 -3.5""",     "position=""2.4 2.5 -1.2""",       "position=""12 2.5 -6"""
-4. Por que merece? (Dereita 2),             "position=""7 2.5 3.5""",        "position=""2.4 2.5 1.2""",        "position=""12 2.5 6"""
-5. Audio / Voz (Traseira 1),"position=""-3.5 2.4 7""",        "position=""-1.2 2.4 2.4""",          "position=""-6 2.4 12"""
-6. Anacos de obra (Traseira 2),"position=""3.5 2.4 7""",             "position=""1.2 2.4 2.4""",     "position=""6 2.4 12"""
-7. Vídeo / Xornalismo (Frontal 1),"position=""-3.5 2.4 -7""",    "position=""-1.2 2.4 -2.4""",     "position=""-6 2.4 -12"""
-8. Quiz (Frontal 2),"position=""3.5 2.6 -7""","position=""1.2 2.6 -2.4""","position=""6 2.6 -12"""
+•	0: É a túa posición inicial.
+•	Valores negativos (-Z): Móvense cara adiante (afástanse de ti cara ao fondo).
+•	Valores positivos (+Z): Móvense cara atrás (quedan ás túas costas).
+•	No teu exemplo (-12.15): O vídeo está a 12.15 metros por diante de ti.
+________________________________________
+2. Esquema de rotation="X Y Z"
+A rotación en A-Frame mídese en graos (de 0 a 360). Para colocar paneis arredor de ti nunha habitación, o eixo máis importante é o Y.
+Rotación no eixo Y (Xirar coma unha buxaina):
+Este eixo atravesa o panel de arriba a abaixo coma un mastro. Ao cambialo, fas que o panel mire cara a ti sen importar onde o coloques na sala.
+•	rotation="0 0 0": O panel mira cara ao fondo da sala (cara ao eixo $-Z$). Como ti estás no centro mirando ao mesmo sitio, ves a súa cara frontal perfectamente.
+•	rotation="0 90 0": O panel xira 90 graos. Úsase para a parede esquerda, para que o panel mire cara ao centro.
+•	rotation="0 -90 0" (ou 270): O panel xira cara ao outro lado. Úsase para a parede dereita.
+•	rotation="0 180 0": O panel xira por completo. Úsase para os obxectos que están na parede traseira (ás túas costas), para que miren cara ao centro e poidas velos ao dar a volta.
+________________________________________
+Como se aplica isto no teu código:
+Na túa entidade do vídeo tes isto:
 
 
+
+
+<a-entity position="-5.07 2.4 -12.15" rotation="0 0 0">
+
+•	-5.07 (X): Está á túa esquerda.
+•	2.4 (Y): Está elevado a dous metros e medio do chan.
+•	-12.15 (Z): Está bastante ao fondo da sala.
+•	rotation="0 0 0": Non ten rotación porque está na parede frontal e xa mira directamente cara a ti.
 
 
 Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2: Pequena (O teu cuarto)(Ancho ~7m x Fondo 7m),OPCIÓN 3: Grande (Exterior)(Ancho ~35m x Fondo 35m)
@@ -84,27 +90,29 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
       background: linear-gradient(180deg, rgba(2, 8, 20, .76), rgba(5, 8, 16, .9));
     }
 
- #portada-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* Usamos un degradado radial coas túas cores escuras */
-  background: radial-gradient(circle at center, #0a1a35 0%, #040c1e 100%);
-  z-index: -1;
-}
-#portada-bg::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 150%;
-  height: 150%;
-  background: radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, transparent 60%);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
+    #portada-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* Usamos un degradado radial coas túas cores escuras */
+      background: radial-gradient(circle at center, #0a1a35 0%, #040c1e 100%);
+      z-index: -1;
+    }
+
+    #portada-bg::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 150%;
+      height: 150%;
+      background: radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, transparent 60%);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
     #portada-bg.lista {
       opacity: 1;
     }
@@ -227,53 +235,48 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
       pointer-events: none;
     }
 
-  
-.portada-escolar {
-  display: none; /* Controlado por JS */
-  position: absolute;
-  top: 20px;            /* <--- CAMBIO: Agora arriba */
-  left: 50%;
-  transform: translateX(-50%);
-  
-  /* Layout horizontal */
+
+    .portada-escolar {
   display: flex;
-  flex-direction: row;  /* <--- CAMBIO: Elementos en liña */
   align-items: center;
-  gap: 15px;
-  
-  padding: 12px 20px;
-  border-radius: 50px;  /* <--- Estilo máis "píldora" */
-  background: rgba(4, 12, 30, 0.9);
-  border: 2px solid #00e5ff;
-  color: white;
-  pointer-events: auto;
-  width: 90%;           /* <--- Máis ancho */
-  max-width: 600px;
-  box-shadow: 0 0 20px rgba(0, 229, 255, .2);
+  gap: 14px;
+  max-width: 520px;
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: rgba(10, 20, 30, 0.88);
+  border: 1px solid rgba(136, 170, 204, 0.28);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+  color: #e8f1fb;
+  backdrop-filter: blur(6px);
 }
 
-/* Para que os textos non queden un debaixo doutro e ocupen menos alto */
-.portada-escolar .info-textos {
-  text-align: left;
-  flex-grow: 1;
-}
+    /* Para que os textos non queden un debaixo doutro e ocupen menos alto */
+    .portada-escolar .info-textos {
+    display: flex;
+  flex-direction: column;
+  gap: 4px;
+    }
 
-.portada-escolar .nome {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1rem;      /* <--- Un chisco máis pequeno para que caiba */
-  font-weight: 900;
-  margin: 0;
-  color: #00e5ff;
-  text-transform: uppercase;
+    .portada-escolar .nome {
+      font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+    }
+.portada-escolar img {
+  width: 54px;
+  height: 54px;
+  flex: 0 0 54px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  object-fit: cover;
 }
+    .instrucions {
+      font-size: 0.92rem;
+  line-height: 1.35;
+  color: #c7d4e2;
+    }
 
-.instrucions {
-  font-size: .8rem;
-  line-height: 1.2;
-  color: #cce8ff;
-  margin-top: 2px;
-}
-  
 
     .instrucions b {
       color: #00e5ff;
@@ -754,35 +757,53 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
   <div id="portada">
     <div id="portada-bg"></div>
     <div class="portada-inner">
-      <div class="portada-kicker">Mostra - inmersiva</div>
+      <div class="portada-kicker">Mostra inmersiva</div>
       <div class="portada-divider"></div>
       <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high">
       <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
       <p class="portada-sub">Xornalista, escritora e voz esencial das Letras Galegas 2026.</p>
       <span class="portada-data">Letras Galegas · 2026</span><br>
       <p class="portada-hint">Preme o botón [AR] (abaixo á dereita) para entrares na mostra.</p>
+      <p class="portada-hint">Precisas empregar o navegador Chrome e Android.</p>
     </div>
   </div>
 
 
+  <!-- <div id="overlay">
+    <div class="portada-escolar">
+      <img src="imax/begonha2.png"
+        style="width:50px; height:50px; border-radius:50%; border:2px solid #00e5ff; object-fit:cover;"
+        alt="Begoña Caamaño">
+
+      <div class="info-textos">
+        <div class="nome">BEGOÑA CAAMAÑO <span
+            style="font-size: 0.7rem; color: #88aacc; font-weight: 400; margin-left: 10px;">Letras Galegas 2026</span>
+        </div>
+        <div class="instrucions">
+          Toca a pantalla para <b>colocar a sala</b> e os paneis para <b>interactuar</b>.
+        </div>
+      </div>
+    </div> -->
   <div id="overlay">
-   <div class="portada-escolar">
-  <img src="imax/begonha2.png" 
-       style="width:50px; height:50px; border-radius:50%; border:2px solid #00e5ff; object-fit:cover;" 
-       alt="Begoña Caamaño">
-  
-  <div class="info-textos">
-    <div class="nome">BEGOÑA CAAMAÑO <span style="font-size: 0.7rem; color: #88aacc; font-weight: 400; margin-left: 10px;">Letras Galegas 2026</span></div>
-    <div class="instrucions">
-      Toca a pantalla para <b>colocar a sala</b> e os paneis para <b>interactuar</b>.
+  <div class="portada-escolar">
+    <img src="imax/begonha2.png" alt="Begoña Caamaño">
+    <div class="info-textos">
+      <div class="nome">
+        BEGOÑA CAAMAÑO
+        <span style="font-size: 0.7rem; color: #88aacc; font-weight: 400; margin-left: 10px;">
+          Letras Galegas 2026
+        </span>
+      </div>
+      <div class="instrucions">
+        Toca a pantalla para <b>colocar a sala</b> e os paneis para <b>interactuar</b>.
+      </div>
     </div>
   </div>
-    </div>
     <div id="quiz-backdrop"></div>
     <div id="escala-distancias-panel">
       <label for="escala-distancias-slider">Escala distancias <span id="escala-distancias-valor">1.00x</span></label>
       <!-- <input id="escala-distancias-slider" type="range" min="0.25" max="1.5" step="0.05" value="1"> -->
-             <input id="escala-distancias-slider" type="range" min="0.25" max="2" step="0.05" value="1">
+      <input id="escala-distancias-slider" type="range" min="0.25" max="2" step="0.05" value="1">
 
     </div>
     <div id="quiz-panel">
@@ -820,15 +841,15 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
     </div>
   </div>
 
+  
   <a-scene xr-mode-ui="enabled: true; XRMode: ar"
     webxr="optionalFeatures: hit-test, dom-overlay; overlayElement: #overlay"
-    renderer="colorManagement:true; antialias:true"
-    proximity-zoom>
+    renderer="colorManagement:true; antialias:true" proximity-zoom>
     <a-assets>
       <a-asset-item id="font-title" src="fonts/Outfit-Bold-msdf.json"></a-asset-item>
       <a-asset-item id="font-body" src="fonts/Nunito-SemiBold-msdf.json"></a-asset-item>
       <img id="img-bego" src="imax/Begonha1.jpg">
-            <img id="img-bego2" src="imax/begonha3.png">
+      <img id="img-bego2" src="imax/begonha3.png">
 
       <img id="img-circe" src="imax/circe.jpg">
       <img id="img-esmelle" src="imax/esmelle.jpg">
@@ -848,20 +869,21 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
     <a-entity id="reticle" ar-hit-test="target:#museo"></a-entity>
     <a-entity id="museo" visible="false">
 
+   
       <!-- 1. QUEN FOI? (Esquerda 1 Atrás) -->
       <!-- Posición: Atrás á esquerda, rotada cara ao centro -->
       <a-entity position="-10.15 2.5 -5.07" rotation="0 90 0">
         <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
         <a-plane width="5.6" height="0.05" color="#FFFFFF" position="0 2.25 0.01"></a-plane>
         <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
-          position="0 1.90 0.1" color="#FF0055" negate="false" wrap-count="30"></a-text>
+          position="0 2.1 0.1" color="#FF0055" negate="false" wrap-count="30"></a-text>
         <a-text value="Xornalista · Escritora · Activista feminista" font="fonts/Nunito-SemiBold-msdf.json"
-          align="center" width="4.8" position="0 1.40 0.1" color="#00E5FF" negate="false" wrap-count="42"></a-text>
+          align="center" width="4.8" position="0 2.5 0.1" color="#00E5FF" negate="false" wrap-count="42"></a-text>
         <a-text value="Redefiniu a narrativa galega dende o feminismo e a sororidade."
-          font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.55" position="0 0.90 0.1" color="#FFFFFF"
+          font="fonts/Nunito-SemiBold-msdf.json" align="center" width="5" position="0 1.7 0.1" color="#FFFFFF"
           negate="false" wrap-count="40"></a-text>
         <!-- <a-image src="#img-bego" width="2.2" height="3.8" position="0 -0.92 0.05"></a-image> -->
-  <a-image src="#img-bego2" width="4.15" height="2.33" position="0 -1.2 0.1"></a-image>
+        <a-image src="#img-bego2" width="4.15" height="2.33" position="0 0.2 0.1"></a-image>
 
         <a-plane class="area-clic" width="5.6" height="5.4" position="0 0.3 0.15" material="opacity:0; transparent:true"
           onclick="toggle('info1')"></a-plane>
@@ -885,7 +907,7 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
       </a-entity>
 
       <!-- CITA  (Asociada a Quen foi) -->
-     <a-entity position="-10 4.6 0" rotation="0 90 0">
+      <a-entity position="-10 4.6 0" rotation="0 90 0">
         <a-plane width="3.8" height="1.5" color="#ff4d6d" opacity="0.08"></a-plane>
         <a-plane width="0.06" height="1.5" color="#ff4d6d" position="-1.87 0 0.01"></a-plane>
         <a-text value="« A muller dona do seu desexo\n e do seu propio corpo »" font="fonts/Nunito-SemiBold-msdf.json"
@@ -921,12 +943,12 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
           position="0 1.92 0.1" color="#ffd6de" negate="false" wrap-count="22"></a-text>
         <a-text value="A reescritura feminista dos mitos clásicos e artúricos" font="fonts/Nunito-SemiBold-msdf.json"
           align="center" width="4.8" position="0 1.48 0.1" color="#79b9d8" negate="false" wrap-count="40"></a-text>
-        <a-image src="#img-circe" width="1.85" height="2.7" position="-1.22 -0.96 0.05"></a-image>
-        <a-image src="#img-esmelle" width="1.85" height="2.7" position="1.22 -0.96 0.05"></a-image>
+        <a-image src="#img-circe" width="1.85" height="2.7" position="-1.22 -0.56 0.05"></a-image>
+        <a-image src="#img-esmelle" width="1.85" height="2.7" position="1.22 -0.56 0.05"></a-image>
         <a-text value="Circe · 2009" font="fonts/Outfit-Bold-msdf.json" align="center" width="2.8"
-          position="-1.22 -2.47 0.1" color="#ff9aaa" negate="false" wrap-count="18"></a-text>
+          position="-1.22 -2.17 0.1" color="#ff9aaa" negate="false" wrap-count="18"></a-text>
         <a-text value="Morgana · 2012" font="fonts/Outfit-Bold-msdf.json" align="center" width="2.8"
-          position="1.22 -2.47 0.1" color="#ff9aaa" negate="false" wrap-count="18"></a-text>
+          position="1.22 -2.17 0.1" color="#ff9aaa" negate="false" wrap-count="18"></a-text>
 
         <a-plane class="area-clic" width="5.6" height="6.1" position="0 -0.42 0.15"
           material="opacity:0; transparent:true" onclick="toggle('info3')"></a-plane>
@@ -955,47 +977,50 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
           font="fonts/Nunito-SemiBold-msdf.json" position="0 -0.4 0.1" align="center" width="4.5" color="#FFFFFF"
           negate="false"></a-text>
       </a-entity> -->
-<!-- Por que merece as letras? -->
-<a-entity position="10.15 2.5 5.07" rotation="0 -90 0">
-  <a-plane width="5.6" height="5.5" color="#08101d" opacity="0.9" position="0 0 0"></a-plane>
-  
-  <a-text value="POR QUE MERECE AS LETRAS GALEGAS 2026" font="fonts/Outfit-Bold-msdf.json" align="center"
-    width="5.5" color="#FF0055" negate="false" position="0 2.2 0.1"></a-text>
-    
-  <a-text
-    value="Pola súa calidade literaria excepcional\ne por poñer o feminismo no centro\nda nosa literatura contemporánea."
-    font="fonts/Nunito-SemiBold-msdf.json" position="0 1.2 0.1" align="center" width="4.5" color="#FFFFFF"
-    negate="false"></a-text>
+      <!-- Por que merece as letras? -->
+      <a-entity position="10.15 2.5 5.07" rotation="0 -90 0">
+        <a-plane width="5.6" height="2.8" color="#08101d" opacity="0.9" position="0 1.2 0"></a-plane>
 
-  <!-- A imaxe de Begoña axustada -->
-          <a-image src="#img-bego" width="2.2" height="3.8" position="0 -0.92 0.05"></a-image>
+        <a-text value="POR QUE MERECE AS LETRAS GALEGAS 2026" font="fonts/Outfit-Bold-msdf.json" align="center"
+          width="5.5" color="#FF0055" negate="false" position="0 2.35 0.1"></a-text>
+ <a-text
+  value="Pola súa calidade literaria excepcional por poñer o feminismo no centro da nosa literatura contemporánea."
+  font="fonts/Nunito-SemiBold-msdf.json"
+  position="0 1.7 0.1"
+  align="center"
+  width="4.8"
+  color="#FFFFFF"
+  negate="false"
+  wrap-count="30">
+</a-text>
+               <!-- A imaxe de Begoña  -->
+        <a-image src="#img-bego" width="2.2" height="3.8" position="0 -0.92 0.05"></a-image>
 
-</a-entity>
+      </a-entity>
 
 
 
       <!-- 5. Audio (Detrás do usuario) -->
-    <!-- 5. Audio (Sen fondo) -->
-<a-entity position="-5.07 2.4 10.15" rotation="0 180 0">
-  <!-- Eliminamos o plane de cor #08101d e a liña azul superior -->
-  
-  <!-- Icona de audio -->
-  <a-image src="#icon-audio" width="0.92" height="0.92" position="0 0.48 0.1"></a-image>
-  
-  <!-- Texto -->
-  <a-text value="A VOZ DA AUTORA" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.2"
-    position="0 -0.82 0.1" color="#9af1ff" negate="false"></a-text>
+      <!-- 5. Audio (Sen fondo) -->
+     
+      <a-entity position="-5.07 2.4 10.15" rotation="0 180 0">
+        <!-- Eliminamos o plane de cor #08101d e a liña azul superior -->
 
-  <!-- O CLIC: Mantemos un plano invisible para que sexa fácil de tocar co cursor -->
-  <a-plane class="area-clic" width="2.5" height="2.5" position="0 0 0.05" 
-           material="opacity:0; transparent:true"
-           onclick="toggleAudio()">
-  </a-plane>
+        <!-- Icona de audio -->
+        <a-image src="#icon-audio" width="1.5" height="1.5" position="0 0.48 0.1"  animation="property: scale; to: 1.1 1.1 1.1; dir: alternate; loop: true; dur: 800"></a-image>
 
-  <a-entity id="sound-emitter" sound="src:#audio-file; volume:3"></a-entity>
-</a-entity>
+        <!-- Texto -->
+        <a-text value="A VOZ DA AUTORA" position="0 -0.4 0" align="center" width="3" color="#2c3e50"></a-text>
+    
+        <!-- O CLIC: Mantemos un plano invisible para que sexa fácil de tocar co cursor -->
+        <a-plane class="area-clic" width="2.5" height="2.5" position="0 0 0.05" material="opacity:0; transparent:true"
+          onclick="toggleAudio()">
+        </a-plane>
 
-<!--6  ============================================================
+        <a-entity id="sound-emitter" sound="src:#audio-file; volume:3"></a-entity>
+      </a-entity>
+
+      <!--6  ============================================================
      PAREDE TRASEIRA — ESQUERDA (ANACOS DE OBRAS)
      Panel con cadros clicables que despregan fragmentos de texto.
      Cada cadro é independente e ten o seu propio popup (infoAnaco1..5).
@@ -1005,7 +1030,7 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
       <!-- SALA PEQUENA:  position="-3.5 0 5" rotation="0 180 0" -->
       <!-- SALA MEDIANA:  position="-4.5 0 7" rotation="0 180 0" -->
       <!-- SALA GRANDE:   position="-6 0 9" rotation="0 180 0" -->
- <!--6      Anacos de obras -->
+      <!--6      Anacos de obras -->
       <a-entity position="5.07 2.4 10.15" rotation="0 180 0">
 
         <!-- Cabeceira do panel -->
@@ -1071,7 +1096,7 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
         </a-entity>
 
         <!-- CADRO 3 — BALEIRO -->
-        <a-entity position="2.6 3.9 0">
+        <a-entity position="3 3.9 0">
           <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
           <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
           <!-- EDITAR: título da obra -->
@@ -1150,25 +1175,36 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
           </a-entity>
         </a-entity>
       </a-entity>
-    </a-entity>
-
 
 
       <!-- 7. VIDEO (Xornalismo Político) (Fondo Esquerda) -->
-      <!-- Vídeo -->
+      <!-- Vídeo 
+      
+        <a-text value="▶" font="fonts/Outfit-Bold-msdf.json" align="center"
+    width="0.8" position="2.6 2.2 0.1" color="#00E5FF" negate="false">
+    <!-- Animación de pulso comoCTRue -->
+    <!-- <a-animation attribute="material.opacity" to="0.4" dir="alternate" dur="1000" loop="true"></a-animation>
+  </a-text> -->
+      
+   
       <a-entity position="-5.07 2.4 -12.15" rotation="0 0 0">
         <a-plane width="5.5" height="1.7" color="#08101d" opacity="0.98" position="0 1.74 0"></a-plane>
-        <a-text value="XORNALISMO POLÍTICO" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.2"
-          position="0 2.09 0.1" color="#9af1ff" negate="false"></a-text>
-        <a-video src="#video-file" width="4.68" height="2.62" position="0 -0.1 0.05"></a-video>
-        <a-plane class="area-clic" width="4.68" height="2.62" position="0 -0.1 0.2"
+        <a-text value="Vídeo: Circe e o pracer do azul" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.2"
+          position="0 2.3 0.1" color="#9af1ff" negate="false"></a-text>
+             <a-text value="▶ Begoña Caamaño fala sobre a obra" font="fonts/Nunito-SemiBold-msdf.json"
+              font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 2 0.1"
+              color="#e7f0fb" negate="false" wrap-count="46"><a-animation attribute="material.opacity" to="0.4" dir="alternate" dur="1000" loop="true"></a-animation>
+</a-text>
+        <a-video src="#video-file" width="4.68" height="2.62" position="0 0.5 0.05"></a-video>
+        <a-plane class="area-clic" width="4.68" height="2.62" position="0 1.5 0.2"
           material="opacity:0; transparent:true" onclick="toggleVideo()"></a-plane>
       </a-entity>
 
       <!-- 8. CANTO SABES? (Fondo Dereita - A máis afastada) -->
 
       <!-- Quiz -->
-      <a-entity position="5.07 2.4 -12.15" rotation="0 0 0">
+      <!-- <a-entity position="5.07 2 -12.15" rotation="0 0 0"> -->
+          <a-entity position="5.07 1.6 -20.15" rotation="0 0 0">
 
         <!-- 1. O INTERROGANTE (SÓ VISUAL, MÁIS GRANDE) -->
         <a-entity scale="30 30 1" position="0 3.8 0">
@@ -1211,7 +1247,7 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
         <a-light type="point" color="#FF0000" intensity="1.5" distance="20" position="0 -0.2 2"></a-light>
 
       </a-entity>
-      
+  
 
   </a-scene>
 
@@ -1222,71 +1258,71 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
 
 
 
-//EFECTO FACERSE GRANDE AO SE ACHEGAR 
-//--------------------------------
-// Rexistramos un novo compoñente de A-Frame para xestionar o zoom por proximidade
-AFRAME.registerComponent('proximity-zoom', {
-  init: function () {
-    this.camera = document.querySelector('a-camera').object3D;
-    // Seleccionamos todos os paneis da escena (.area-clic para atopar as entidades nai)
-    this.panels = Array.from(document.querySelectorAll('.area-clic')).map(el => el.parentElement);
-    this.camPos = new THREE.Vector3();
-    this.panelPos = new THREE.Vector3();
-  },
+    //EFECTO FACERSE GRANDE AO SE ACHEGAR 
+    //--------------------------------
+    // Rexistramos un novo compoñente de A-Frame para xestionar o zoom por proximidade
+    AFRAME.registerComponent('proximity-zoom', {
+      init: function () {
+        this.camera = document.querySelector('a-camera').object3D;
+        // Seleccionamos todos os paneis da escena (.area-clic para atopar as entidades nai)
+        this.panels = Array.from(document.querySelectorAll('.area-clic')).map(el => el.parentElement);
+        this.camPos = new THREE.Vector3();
+        this.panelPos = new THREE.Vector3();
+      },
 
-  tick: function () {
-    if (!this.camera || this.panels.length === 0) return;
+      tick: function () {
+        if (!this.camera || this.panels.length === 0) return;
 
-    this.camera.getWorldPosition(this.camPos);
+        this.camera.getWorldPosition(this.camPos);
 
-    this.panels.forEach(panel => {
-      if (!panel.object3D) return;
+        this.panels.forEach(panel => {
+          if (!panel.object3D) return;
 
-      panel.object3D.getWorldPosition(this.panelPos);
-      const distance = this.camPos.distanceTo(this.panelPos);
+          panel.object3D.getWorldPosition(this.panelPos);
+          const distance = this.camPos.distanceTo(this.panelPos);
 
-      // ==========================================
-      // VALORES ESAXERADOS PARA PROBAR
-      // ==========================================
-      // const minDistance = 1.2;  // Cando estás a 1.2 metros queda ao máximo. Evita o infinito ao achegarte a 0m.
-      // const maxDistance = 6.0;  // A 6 metros ou máis, o panel vólvese ao seu tamaño base.
-      // const maxScale = 5.0;     // O panel medra ata 5 veces o seu tamaño orixinal!
-      // const minScale = 1.0;     // O panel nunca encollerá por debaixo do seu 100% orixinal.
+          // ==========================================
+          // VALORES ESAXERADOS PARA PROBAR
+          // ==========================================
+          // const minDistance = 1.2;  // Cando estás a 1.2 metros queda ao máximo. Evita o infinito ao achegarte a 0m.
+          // const maxDistance = 6.0;  // A 6 metros ou máis, o panel vólvese ao seu tamaño base.
+          // const maxScale = 5.0;     // O panel medra ata 5 veces o seu tamaño orixinal!
+          // const minScale = 1.0;     // O panel nunca encollerá por debaixo do seu 100% orixinal.
 
-      // ==========================================
-      // VALORES NORMAIS (Descomenta isto para a biblioteca ou cuarto)
-      // ==========================================
-      // const minDistance = 1.0;  
-      // const maxDistance = 3.5;  
-      // const maxScale = 1.4;     // Medra un 40% máis como máximo
-      // const minScale = 1.0;    
-      
-      
-      // ==========================================
-// PARÁMETROS AXUSTADOS Á NOVA ESCALA 1.45x
-// ==========================================
-const minDistance = 1.8;   // A menos de 1.8 metros queda ao máximo tamaño (non se pega á cara)
-const maxDistance = 6.5;   // A 6.5 metros ou máis ten o seu tamaño normal
-const maxScale = 1.45;     // O zoom máximo que querías (45% máis grande)
-const minScale = 1.0;      // O tamaño base normal
-      
+          // ==========================================
+          // VALORES NORMAIS (Descomenta isto para a biblioteca ou cuarto)
+          // ==========================================
+          // const minDistance = 1.0;  
+          // const maxDistance = 3.5;  
+          // const maxScale = 1.4;     // Medra un 40% máis como máximo
+          // const minScale = 1.0;    
 
-      let targetScale = minScale;
 
-      if (distance <= minDistance) {
-        // Se estás pegado ou a menos de 1.2m, mantén a escala máxima
-        targetScale = maxScale;
-      } else if (distance < maxDistance) {
-        // Interpola o tamaño segundo a distancia para que medre suavemente
-        const ratio = (distance - minDistance) / (maxDistance - minDistance);
-        targetScale = maxScale - (ratio * (maxScale - minScale));
+          // ==========================================
+          // PARÁMETROS AXUSTADOS Á NOVA ESCALA 1.45x
+          // ==========================================
+          const minDistance = 1.8;   // A menos de 1.8 metros queda ao máximo tamaño (non se pega á cara)
+          const maxDistance = 6.5;   // A 6.5 metros ou máis ten o seu tamaño normal
+          const maxScale = 1.45;     // O zoom máximo que querías (45% máis grande)
+          const minScale = 1.0;      // O tamaño base normal
+
+
+          let targetScale = minScale;
+
+          if (distance <= minDistance) {
+            // Se estás pegado ou a menos de 1.2m, mantén a escala máxima
+            targetScale = maxScale;
+          } else if (distance < maxDistance) {
+            // Interpola o tamaño segundo a distancia para que medre suavemente
+            const ratio = (distance - minDistance) / (maxDistance - minDistance);
+            targetScale = maxScale - (ratio * (maxScale - minScale));
+          }
+
+          // Aplicamos o tamaño calculado
+          panel.object3D.scale.set(targetScale, targetScale, targetScale);
+        });
       }
-
-      // Aplicamos o tamaño calculado
-      panel.object3D.scale.set(targetScale, targetScale, targetScale);
     });
-  }
-});
 
 
     const scene = document.querySelector('a-scene');
@@ -1481,20 +1517,20 @@ const minScale = 1.0;      // O tamaño base normal
       bts.forEach(b => b.disabled = true);
       const fb = document.getElementById('q-fb');
 
-      if (idx === q.ok) {
+       if (idx === q.ok) {
         qPts++;
         bts[idx].classList.add('correcta');
-        fb.textContent = 'âœ“ Correcto! ' + q.exp;
+        fb.textContent = '✓ Correcto! ' + q.exp;
       } else {
         bts[idx].classList.add('incorrecta');
         bts[q.ok].classList.add('correcta');
-        fb.textContent = 'âœ— Incorrecto. ' + q.exp;
+        fb.textContent = '✗ Incorrecto. ' + q.exp;
         fb.className = 'q-fb mal';
       }
 
       const bs = document.getElementById('q-btn-seg');
       bs.style.display = 'inline-block';
-      bs.textContent = qIdx >= QP.length - 1 ? 'Ver resultado âœ¦' : 'Seguinte â†’';
+      bs.textContent = qIdx >= QP.length - 1 ? 'Ver resultado ✦' : 'Seguinte →';
 
       // Avanzar a barra un pouco ao responder
       document.getElementById('q-barra').style.width = ((qIdx + 1) / QP.length * 100) + '%';
@@ -1517,7 +1553,7 @@ const minScale = 1.0;      // O tamaño base normal
       if (pct === 100) { lb = 'Excelente!'; st = '★★★★★'; mg = 'Dominas o legado de Begoña Caamaño. Parabéns!'; }
       else if (pct >= 71) { lb = 'Moi ben!'; st = '★★★★☆'; mg = 'Coñeces ben a vida e a obra desta escritora fundamental.'; }
       else if (pct >= 43) { lb = 'Vai ben!'; st = '★★★☆☆'; mg = 'Tes boa base. Explora os paneis do museo para completar.'; }
-      else { lb = 'Segue aprendendo!'; st = '★★☆☆☆'; mg = 'Revisa os paneis da sala e volve tentar. Begoña merece máis tempo.'; }
+      else { lb = 'Sigue aprendendo!'; st = '★★☆☆☆'; mg = 'Revisa os paneis da sala e volve tentar. Begoña merece máis tempo.'; }
 
       document.getElementById('r-label').textContent = lb;
       document.getElementById('r-stars').textContent = st;
