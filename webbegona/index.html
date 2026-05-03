@@ -750,7 +750,7 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho 14m x Fondo 14m),OPCIÓN 2: 
   <div id="portada">
     <div id="portada-bg"></div>
     <div class="portada-inner">
-      <div class="portada-kicker">Mostra .-. inmersiva</div>
+      <div class="portada-kicker">Mostra inmersiva</div>
       <div class="portada-divider"></div>
       <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high">
       <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
@@ -1233,13 +1233,9 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho 14m x Fondo 14m),OPCIÓN 2: 
 // Rexistramos un novo compoñente de A-Frame para xestionar o zoom por proximidade
 AFRAME.registerComponent('proximity-zoom', {
   init: function () {
-    // Gardamos a referencia da cámara
     this.camera = document.querySelector('a-camera').object3D;
-    
-    // Seleccionamos todos os paneis (collemos o parent do .area-clic como no teu código)
+    // Seleccionamos todos os paneis da escena (.area-clic para atopar as entidades nai)
     this.panels = Array.from(document.querySelectorAll('.area-clic')).map(el => el.parentElement);
-    
-    // Vectores auxiliares para non crear novos obxectos en cada fotograma (optimización)
     this.camPos = new THREE.Vector3();
     this.panelPos = new THREE.Vector3();
   },
@@ -1247,63 +1243,47 @@ AFRAME.registerComponent('proximity-zoom', {
   tick: function () {
     if (!this.camera || this.panels.length === 0) return;
 
-    // Obtemos a posición real da cámara no mundo
     this.camera.getWorldPosition(this.camPos);
 
-    // Avaliamos CADA PANEL de forma independente
     this.panels.forEach(panel => {
       if (!panel.object3D) return;
 
-      // Obtemos a posición real do panel no mundo
       panel.object3D.getWorldPosition(this.panelPos);
-
-      // Calculamos a distancia entre a cámara e este panel específico
       const distance = this.camPos.distanceTo(this.panelPos);
 
       // ==========================================
-      // VALORES ESAXERADOS PARA PROBAR (Ata 8x)
+      // VALORES ESAXERADOS PARA PROBAR
       // ==========================================
-      // const minDistance = 2.0;  // A partir de 2 metros comeza a medrar moito
-      // const maxDistance = 8.0;  // A 8 metros ou máis, ten tamaño normal
-      // const maxScale = 8.0;     // Escala máxima: 8 veces o seu tamaño!
-      // const minScale = 1.0;     // Escala normal
+      const minDistance = 1.2;  // Cando estás a 1.2 metros queda ao máximo. Evita o infinito ao achegarte a 0m.
+      const maxDistance = 6.0;  // A 6 metros ou máis, o panel vólvese ao seu tamaño base.
+      const maxScale = 5.0;     // O panel medra ata 5 veces o seu tamaño orixinal!
+      const minScale = 1.0;     // O panel nunca encollerá por debaixo do seu 100% orixinal.
 
-
-
-      // ==========================================
-      // VALORES PARA A TÚA SALA XIGANTE
-      // ==========================================
-      const minDistance = 5.0;   // A 5 metros ou menos, estará ao MÁXIMO tamaño (8x)
-      const maxDistance = 20.0;  // A 20 metros, empezará a encoller ata o tamaño normal
-      const maxScale = 8.0;      // Escala máxima esaxerada para que o notes ben
-      const minScale = 1.0;      // Escala normal (o seu tamaño orixinal)
       /* // ==========================================
-      // VALORES NORMAIS (Descomenta isto para a versión final)
+      // VALORES NORMAIS (Descomenta isto para a biblioteca ou cuarto)
       // ==========================================
-      // const minDistance = 1.5;  
-      // const maxDistance = 4.0;  
-      // const maxScale = 1.3;     // Un 30% máis grande como máximo
+      // const minDistance = 1.0;  
+      // const maxDistance = 3.5;  
+      // const maxScale = 1.4;     // Medra un 40% máis como máximo
       // const minScale = 1.0;     
       */
 
       let targetScale = minScale;
 
-      // Lóxica de escalado
       if (distance <= minDistance) {
-        // Se estamos moi preto, aplicamos a escala máxima
+        // Se estás pegado ou a menos de 1.2m, mantén a escala máxima
         targetScale = maxScale;
       } else if (distance < maxDistance) {
-        // Se estamos en zona intermedia, calculamos a proporción
+        // Interpola o tamaño segundo a distancia para que medre suavemente
         const ratio = (distance - minDistance) / (maxDistance - minDistance);
         targetScale = maxScale - (ratio * (maxScale - minScale));
       }
 
-      // Aplicamos a escala aos tres eixes (X, Y, Z) dese panel concreto
+      // Aplicamos o tamaño calculado
       panel.object3D.scale.set(targetScale, targetScale, targetScale);
     });
   }
 });
-
 
 
     const scene = document.querySelector('a-scene');
