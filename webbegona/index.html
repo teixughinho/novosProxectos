@@ -782,7 +782,7 @@ Parede frontal 2,Canto sabes? / Quiz,4 2.6 -12,0
   <div id="portada">
     <div id="portada-bg"></div>
     <div class="portada-inner">
-      <div class="portada-kicker">Mostra inmersiva</div>
+      <div class="portada-kicker">Mostra * inmersiva</div>
       <div class="portada-divider"></div>
       <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high">
       <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
@@ -1530,8 +1530,12 @@ function initDynamicScaling() {
         element: parent,
         panel: panel,
         initialScale: 1.0,
-        minDistance: 0.3,  // Cando está a 0.3m = MÁXIMO
-        maxDistance: 4.0   // Cando está a 4m = NORMAL
+        // minDistance: 0.3,  // Cando está a 0.3m = MÁXIMO
+        // maxDistance: 4.0   // Cando está a 4m = NORMAL
+
+        //PROBA MEDIDA ESAXERADA PARA VER O EFECTO
+           minDistance: 0.5,   // 👈 CAMBIO: A 0.5m = MÁXIMO
+        maxDistance: 2.0    // 👈 CAMBIO: A 2m = NORMAL
       });
     }
   });
@@ -1554,7 +1558,12 @@ function updatePanelScaling() {
     let scale;
     if (distance <= data.minDistance) {
       // A máxima distancia cando estás moi preto
-      scale = 2.5;
+      // scale = 2.5;
+
+
+// ESAXERADA PARA VER O EFECTO
+            scale = 4.0;  // 👈 CAMBIO: 4x (CUÁDRUPLE!) en lugar de 2.5x
+
     } else if (distance >= data.maxDistance) {
       // Tamaño normal lonxe
       scale = 1.0;
@@ -1564,6 +1573,9 @@ function updatePanelScaling() {
       scale = 2.5 - (ratio * 1.5); // De 2.5x a 1.0x
     }
     
+//DEBUG: amosar distancia e escala no panel
+        console.log(`Painel: ${distance.toFixed(2)}m → Escala: ${scale.toFixed(2)}x`);
+
     // Aplicar escala ao elemento completo (painel + contido)
     data.element.object3D.scale.set(scale, scale, scale);
   });
