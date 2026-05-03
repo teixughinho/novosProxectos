@@ -782,7 +782,7 @@ Parede frontal 2,Canto sabes? / Quiz,4 2.6 -12,0
   <div id="portada">
     <div id="portada-bg"></div>
     <div class="portada-inner">
-      <div class="portada-kicker">Mostra - inmersiva</div>
+      <div class="portada-kicker">Mostra..... inmersiva</div>
       <div class="portada-divider"></div>
       <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high">
       <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
@@ -1282,11 +1282,20 @@ AFRAME.registerComponent('proximity-zoom', {
       // ==========================================
       // VALORES ESAXERADOS PARA PROBAR (Ata 8x)
       // ==========================================
-      const minDistance = 2.0;  // A partir de 2 metros comeza a medrar moito
-      const maxDistance = 8.0;  // A 8 metros ou máis, ten tamaño normal
-      const maxScale = 8.0;     // Escala máxima: 8 veces o seu tamaño!
-      const minScale = 1.0;     // Escala normal
+      // const minDistance = 2.0;  // A partir de 2 metros comeza a medrar moito
+      // const maxDistance = 8.0;  // A 8 metros ou máis, ten tamaño normal
+      // const maxScale = 8.0;     // Escala máxima: 8 veces o seu tamaño!
+      // const minScale = 1.0;     // Escala normal
 
+
+
+      // ==========================================
+      // VALORES PARA A TÚA SALA XIGANTE
+      // ==========================================
+      const minDistance = 5.0;   // A 5 metros ou menos, estará ao MÁXIMO tamaño (8x)
+      const maxDistance = 20.0;  // A 20 metros, empezará a encoller ata o tamaño normal
+      const maxScale = 8.0;      // Escala máxima esaxerada para que o notes ben
+      const minScale = 1.0;      // Escala normal (o seu tamaño orixinal)
       /* // ==========================================
       // VALORES NORMAIS (Descomenta isto para a versión final)
       // ==========================================
