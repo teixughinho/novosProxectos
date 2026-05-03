@@ -1,26 +1,32 @@
 <!-- COORDENADAS
-Sección,Título / Contido,Posición (X Y Z),Rotación (Y),Distancia
-Punto 0,Posición Inicial do Usuario,0 1.6 0,-,-
-Esquerda 1 Atrás,Quen foi? (Biografía),-8 2.5 8,135,11.3m
-Esquerda 2 Diante,A que se dedicou? (Novo),-12 2.5 -6,60,13.4m
-Dereita 1 Atrás,Obras (xa creada),8 2.5 8,225,11.3m
-Dereita 2 Diante,Por que merece as letras? (Novo),12 2.5 -6,300,13.4m
-Detrás do usuario,Anacos da súa obra (Audio),0 2.2 10,180,10.0m
-Fronte (Fondo),Xornalismo Político (Vídeo),0 2.2 -15,0,15.0m
-Fondo Dereita,Canto sabes? (Quiz),15 3 -22,320,26.6m 
 
 
-Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho 14m x Fondo 14m),OPCIÓN 2: Pequena (Teu cuarto)(Ancho 4.8m x Fondo 4.8m),OPCIÓN 3: Grande (Exterior)(Ancho 24m x Fondo 24m)
-1. Quen foi? (Esquerda 1),"position=""-7 2.5 -3.5""",   "position=""-2.4 2.5 -1.2""",    "position=""-12 2.5 -6"""
-2. A que se dedicou? (Esquerda 2),"position=""-7 2.5 3.5""",     "position=""-2.4 2.5 1.2""",   "position=""-12 2.5 6"""
-3. Obras (Dereita 1),"position=""7 2.5 -3.5""",     "position=""2.4 2.5 -1.2""",       "position=""12 2.5 -6"""
-4. Por que merece? (Dereita 2),             "position=""7 2.5 3.5""",        "position=""2.4 2.5 1.2""",        "position=""12 2.5 6"""
-5. Audio / Voz (Traseira 1),"position=""-3.5 2.4 7""",        "position=""-1.2 2.4 2.4""",          "position=""-6 2.4 12"""
-6. Anacos de obra (Traseira 2),"position=""3.5 2.4 7""",             "position=""1.2 2.4 2.4""",     "position=""6 2.4 12"""
-7. Vídeo / Xornalismo (Frontal 1),"position=""-3.5 2.4 -7""",    "position=""-1.2 2.4 -2.4""",     "position=""-6 2.4 -12"""
-8. Quiz (Frontal 2),"position=""3.5 2.6 -7""","position=""1.2 2.6 -2.4""","position=""6 2.6 -12"""
+•	0: É a túa posición inicial.
+•	Valores negativos (-Z): Móvense cara adiante (afástanse de ti cara ao fondo).
+•	Valores positivos (+Z): Móvense cara atrás (quedan ás túas costas).
+•	No teu exemplo (-12.15): O vídeo está a 12.15 metros por diante de ti.
+________________________________________
+2. Esquema de rotation="X Y Z"
+A rotación en A-Frame mídese en graos (de 0 a 360). Para colocar paneis arredor de ti nunha habitación, o eixo máis importante é o Y.
+Rotación no eixo Y (Xirar coma unha buxaina):
+Este eixo atravesa o panel de arriba a abaixo coma un mastro. Ao cambialo, fas que o panel mire cara a ti sen importar onde o coloques na sala.
+•	rotation="0 0 0": O panel mira cara ao fondo da sala (cara ao eixo $-Z$). Como ti estás no centro mirando ao mesmo sitio, ves a súa cara frontal perfectamente.
+•	rotation="0 90 0": O panel xira 90 graos. Úsase para a parede esquerda, para que o panel mire cara ao centro.
+•	rotation="0 -90 0" (ou 270): O panel xira cara ao outro lado. Úsase para a parede dereita.
+•	rotation="0 180 0": O panel xira por completo. Úsase para os obxectos que están na parede traseira (ás túas costas), para que miren cara ao centro e poidas velos ao dar a volta.
+________________________________________
+Como se aplica isto no teu código:
+Na túa entidade do vídeo tes isto:
 
 
+
+
+<a-entity position="-5.07 2.4 -12.15" rotation="0 0 0">
+
+•	-5.07 (X): Está á túa esquerda.
+•	2.4 (Y): Está elevado a dous metros e medio do chan.
+•	-12.15 (Z): Está bastante ao fondo da sala.
+•	rotation="0 0 0": Non ten rotación porque está na parede frontal e xa mira directamente cara a ti.
 
 
 Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2: Pequena (O teu cuarto)(Ancho ~7m x Fondo 7m),OPCIÓN 3: Grande (Exterior)(Ancho ~35m x Fondo 35m)
@@ -1164,10 +1170,13 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
       <!-- Vídeo -->
       <a-entity position="-5.07 2.4 -12.15" rotation="0 0 0">
         <a-plane width="5.5" height="1.7" color="#08101d" opacity="0.98" position="0 1.74 0"></a-plane>
-        <a-text value="XORNALISMO POLÍTICO" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.2"
-          position="0 2.09 0.1" color="#9af1ff" negate="false"></a-text>
-        <a-video src="#video-file" width="4.68" height="2.62" position="0 -0.1 0.05"></a-video>
-        <a-plane class="area-clic" width="4.68" height="2.62" position="0 -0.1 0.2"
+        <a-text value="Vídeo: Circe e o pracer do azul" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.2"
+          position="0 2 0.1" color="#9af1ff" negate="false"></a-text>
+             <a-text value="Begoña Caamaño fala sobre a obra" font="fonts/Nunito-SemiBold-msdf.json"
+              font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 2 0.1"
+              color="#e7f0fb" negate="false" wrap-count="46"></a-text>
+        <a-video src="#video-file" width="4.68" height="2.62" position="0 1.5 0.05"></a-video>
+        <a-plane class="area-clic" width="4.68" height="2.62" position="0 1.5 0.2"
           material="opacity:0; transparent:true" onclick="toggleVideo()"></a-plane>
       </a-entity>
 
