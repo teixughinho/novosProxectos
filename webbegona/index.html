@@ -782,7 +782,7 @@ Parede frontal 2,Canto sabes? / Quiz,4 2.6 -12,0
   <div id="portada">
     <div id="portada-bg"></div>
     <div class="portada-inner">
-      <div class="portada-kicker">Mostra * inmersiva</div>
+      <div class="portada-kicker">Mostra inmersiva</div>
       <div class="portada-divider"></div>
       <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high">
       <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
@@ -1580,7 +1580,27 @@ function updatePanelScaling() {
     data.element.object3D.scale.set(scale, scale, scale);
   });
 }
-
+// DESACTIVAR slider cando te acercas
+scene.addEventListener('tick', () => {
+  if (!cameraRef || panelsData.length === 0) return;
+  
+  const cameraPos = cameraRef.object3D.position;
+  let minDistanceToPanels = Infinity;
+  
+  panelsData.forEach(data => {
+    const distance = cameraPos.distanceTo(data.element.object3D.position);
+    minDistanceToPanels = Math.min(minDistanceToPanels, distance);
+  });
+  
+  // Se algo está < 2m: o zoom dinámico domina
+  if (minDistanceToPanels < 2.0) {
+    escalaSlider.disabled = true;  // Desactiva slider
+    escalaDistancias = 1.0;         // Reset a escala base
+    aplicarEscalaDistancias(1.0);   // Volta ás posicións orixinais
+  } else {
+    escalaSlider.disabled = false;  // Slider activo de novo
+  }
+});
 // Inicializar cando a escena cargue
 if (scene.hasLoaded) {
   initDynamicScaling();
