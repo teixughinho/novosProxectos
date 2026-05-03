@@ -1180,14 +1180,23 @@ da nosa literatura contemporánea."
 
 
       <!-- 7. VIDEO (Xornalismo Político) (Fondo Esquerda) -->
-      <!-- Vídeo -->
+      <!-- Vídeo 
+      
+        <a-text value="▶" font="fonts/Outfit-Bold-msdf.json" align="center"
+    width="0.8" position="2.6 2.2 0.1" color="#00E5FF" negate="false">
+    <!-- Animación de pulso comoCTRue -->
+    <!-- <a-animation attribute="material.opacity" to="0.4" dir="alternate" dur="1000" loop="true"></a-animation>
+  </a-text> -->
+      
+   
       <a-entity position="-5.07 2.4 -12.15" rotation="0 0 0">
         <a-plane width="5.5" height="1.7" color="#08101d" opacity="0.98" position="0 1.74 0"></a-plane>
         <a-text value="Vídeo: Circe e o pracer do azul" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.2"
           position="0 2.3 0.1" color="#9af1ff" negate="false"></a-text>
-             <a-text value="Begoña Caamaño fala sobre a obra" font="fonts/Nunito-SemiBold-msdf.json"
+             <a-text value="▶ Begoña Caamaño fala sobre a obra" font="fonts/Nunito-SemiBold-msdf.json"
               font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 2 0.1"
-              color="#e7f0fb" negate="false" wrap-count="46"></a-text>
+              color="#e7f0fb" negate="false" wrap-count="46"><a-animation attribute="material.opacity" to="0.4" dir="alternate" dur="1000" loop="true"></a-animation>
+</a-text>
         <a-video src="#video-file" width="4.68" height="2.62" position="0 0.5 0.05"></a-video>
         <a-plane class="area-clic" width="4.68" height="2.62" position="0 1.5 0.2"
           material="opacity:0; transparent:true" onclick="toggleVideo()"></a-plane>
