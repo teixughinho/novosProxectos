@@ -44,10 +44,6 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
 
 <!-- CITA 4: parede traseira, por riba/entre audio e anacos -->
 <!-- <a-entity position="0 4.8 10" rotation="0 180 0"> -->
-
-
-
-
 <!DOCTYPE html>
 <html lang="gl">
 
@@ -852,24 +848,6 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
     <a-entity id="reticle" ar-hit-test="target:#museo"></a-entity>
     <a-entity id="museo" visible="false">
 
-
-
-
-Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho 14m x Fondo 14m),OPCIÓN 2: Pequena (Teu cuarto)(Ancho 4.8m x Fondo 4.8m),OPCIÓN 3: Grande (Exterior)(Ancho 24m x Fondo 24m)
-1. Quen foi? (Esquerda 1),"position=""-7 2.5 -3.5""",   "position=""-2.4 2.5 -1.2""",    "position=""-12 2.5 -6"""
-2. A que se dedicou? (Esquerda 2),"position=""-7 2.5 3.5""",     "position=""-2.4 2.5 1.2""",   "position=""-12 2.5 6"""
-3. Obras (Dereita 1),"position=""7 2.5 -3.5""",     "position=""2.4 2.5 -1.2""",       "position=""12 2.5 -6"""
-4. Por que merece? (Dereita 2), "position=""7 2.5 3.5""",        "position=""2.4 2.5 1.2""",        "position=""12 2.5 6"""
-5. Audio / Voz (Traseira 1),"position=""-3.5 2.4 7""",        "position=""-1.2 2.4 2.4""",          "position=""-6 2.4 12"""
-6. Anacos de obra (Traseira 2),"position=""3.5 2.4 7""",             "position=""1.2 2.4 2.4""",     "position=""6 2.4 12"""
-7. Vídeo / Xornalismo (Frontal 1),"position=""-3.5 2.4 -7""",    "position=""-1.2 2.4 -2.4""",     "position=""-6 2.4 -12"""
-8. Quiz (Frontal 2),"position=""3.5 2.6 -7""","position=""1.2 2.6 -2.4""","position=""6 2.6 -12"""
-
-
-
-
-
-
       <!-- 1. QUEN FOI? (Esquerda 1 Atrás) -->
       <!-- Posición: Atrás á esquerda, rotada cara ao centro -->
       <a-entity position="-10.15 2.5 -5.07" rotation="0 90 0">
@@ -930,15 +908,7 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho 14m x Fondo 14m),OPCIÓN 2: 
       </a-entity>
 
 
-Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2: Pequena (O teu cuarto)(Ancho ~7m x Fondo 7m),OPCIÓN 3: Grande (Exterior)(Ancho ~35m x Fondo 35m)
-1. Quen foi? (Esquerda 1),"position=""-10.15 2.5 -5.07""","position=""-3.48 2.5 -1.74""","position=""-17.4 2.5 -8.7"""
-2. A que se dedicou? (Esquerda 2),"position=""-10.15 2.5 5.07""","position=""-3.48 2.5 1.74""","position=""-17.4 2.5 8.7"""
-3. Obras (Dereita 1),"position=""10.15 2.5 -5.07""","position=""3.48 2.5 -1.74""","position=""17.4 2.5 -8.7"""
-4. Por que merece? (Dereita 2),"position=""10.15 2.5 5.07""","position=""3.48 2.5 1.74""","position=""17.4 2.5 8.7"""
-5. Audio / Voz (Traseira 1),"position=""-5.07 2.4 10.15""","position=""-1.74 2.4 3.48""","position=""-8.7 2.4 17.4"""
-6. Anacos de obra (Traseira 2),"position=""5.07 2.4 10.15""","position=""1.74 2.4 3.48""","position=""8.7 2.4 17.4"""
-7. Vídeo / Xornalismo (Frontal 1),"position=""-5.07 2.4 -12.15""","position=""-1.74 2.4 -4.50""","position=""-8.7 2.4 -20.4"""
-8. Quiz (Frontal 2),"position=""5.07 2.6 -12.15""","position=""1.74 2.6 -4.50""","position=""8.7 2.6 -20.4"""
+
 
       <!-- 3. OBRAS (Dereita 1 Atrás) -->
 
@@ -1286,19 +1256,10 @@ AFRAME.registerComponent('proximity-zoom', {
       // ==========================================
       // VALORES NORMAIS (Descomenta isto para a biblioteca ou cuarto)
       // ==========================================
-      const minDistance = 1.0;  
-      const maxDistance = 3.5;  
-      const maxScale = 1.4;     // Medra un 40% máis como máximo
-      const minScale = 1.0;    
-      
-      
-      // ==========================================
-// PARÁMETROS AXUSTADOS Á NOVA ESCALA 1.45x
-// ==========================================
-// const minDistance = 1.8;   // A menos de 1.8 metros queda ao máximo tamaño (non se pega á cara)
-// const maxDistance = 6.5;   // A 6.5 metros ou máis ten o seu tamaño normal
-// const maxScale = 1.45;     // O zoom máximo que querías (45% máis grande)
-// const minScale = 1.0;      // O tamaño base normal
+      // const minDistance = 1.0;  
+      // const maxDistance = 3.5;  
+      // const maxScale = 1.4;     // Medra un 40% máis como máximo
+      // const minScale = 1.0;    
       
       
       // ==========================================
@@ -1308,7 +1269,7 @@ const minDistance = 1.8;   // A menos de 1.8 metros queda ao máximo tamaño (no
 const maxDistance = 6.5;   // A 6.5 metros ou máis ten o seu tamaño normal
 const maxScale = 1.45;     // O zoom máximo que querías (45% máis grande)
 const minScale = 1.0;      // O tamaño base normal
-      */
+      
 
       let targetScale = minScale;
 
