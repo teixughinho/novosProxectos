@@ -1,14 +1,13 @@
+<!DOCTYPE html>
+<html lang="gl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-  <!-- Preload da imaxe principal -->
   <link rel="preload" as="image" href="imax/begonha2.png">
-
-  <!-- FONTES CSS (portada e quiz) — estas dúas liñas son as que faltan -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Nunito:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
   <!--
     A-Frame SEN defer.
@@ -445,7 +444,7 @@
   <div id="portada">
     <div id="portada-bg"></div>
     <div class="portada-inner">
-      <div class="portada-kicker">Mostra inmersiva</div>
+      <div class="portada-kicker">Mostra ....inmersiva</div>
       <div class="portada-divider"></div>
       <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high">
       <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
@@ -554,18 +553,18 @@
         <a-entity class="zoom-wrapper">
           <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
           <a-plane width="5.6" height="0.05" color="#FFFFFF" position="0 2.25 0.01"></a-plane>
-          <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" font=“fonts/Outfit-Bold-msdf.json” align="center" width="5.3" position="0 2.1 0.1" color="#FF0055" wrap-count="30"></a-text>
-          <a-text value="Xornalista · Escritora · Activista feminista" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="4.8" position="0 2.5 0.1" color="#00E5FF" wrap-count="42"></a-text>
-          <a-text value="Redefiniu a narrativa galega dende o feminismo e a sororidade." font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="5" position="0 1.7 0.1" color="#FFFFFF" wrap-count="40"></a-text>
+          <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="5.3" position="0 2.1 0.1" color="#FF0055" wrap-count="30"></a-text>
+          <a-text value="Xornalista · Escritora · Activista feminista" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="4.8" position="0 2.5 0.1" color="#00E5FF" wrap-count="42"></a-text>
+          <a-text value="Redefiniu a narrativa galega dende o feminismo e a sororidade." font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="5" position="0 1.7 0.1" color="#FFFFFF" wrap-count="40"></a-text>
           <a-image src="#img-bego2" width="4.15" height="2.33" position="0 0.2 0.1"></a-image>
           <a-plane class="area-clic" width="5.6" height="5.4" position="0 0.3 0.15" material="opacity:0; transparent:true" onclick="toggle('info1')"></a-plane>
           <a-entity id="info1" visible="false" position="0 0.8 0.5">
             <a-plane width="5.25" height="3.55" color="#07101f" opacity="0.99"></a-plane>
             <a-plane width="5.25" height="0.05" color="#ff4d6d" position="0 1.74 0.01"></a-plane>
-            <a-text value="VIGO, 1964 - SANTIAGO, 2014" font=“fonts/Outfit-Bold-msdf.json” align="center" width="4.8" position="0 1.35 0.1" color="#ff8ca1" wrap-count="26"></a-text>
-            <a-text value="Voz mítica da Radio Galega durante décadas. Traballou como xornalista política e cultural, sempre comprometida coa lingua galega e cos dereitos das mulleres." font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="4.45" position="0 0.58 0.1" color="#e7f0fb" wrap-count="46"></a-text>
-            <a-text value="Nas súas novelas, Circe e Morgana deixan de ser vilás para converterse en protagonistas donas do seu propio destino." font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="4.45" position="0 -0.28 0.1" color="#acd4ee" wrap-count="46"></a-text>
-            <a-text value="Premio da Crítica Española · Finalista Blanco Amor" font=“fonts/Outfit-Bold-msdf.json” align="center" width="4.7" position="0 -1.16 0.1" color="#ffc978" wrap-count="34"></a-text>
+            <a-text value="VIGO, 1964 - SANTIAGO, 2014" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="4.8" position="0 1.35 0.1" color="#ff8ca1" wrap-count="26"></a-text>
+            <a-text value="Voz mítica da Radio Galega durante décadas. Traballou como xornalista política e cultural, sempre comprometida coa lingua galega e cos dereitos das mulleres." font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="4.45" position="0 0.58 0.1" color="#e7f0fb" wrap-count="46"></a-text>
+            <a-text value="Nas súas novelas, Circe e Morgana deixan de ser vilás para converterse en protagonistas donas do seu propio destino." font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="4.45" position="0 -0.28 0.1" color="#acd4ee" wrap-count="46"></a-text>
+            <a-text value="Premio da Crítica Española · Finalista Blanco Amor" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="4.7" position="0 -1.16 0.1" color="#ffc978" wrap-count="34"></a-text>
           </a-entity>
         </a-entity>
       </a-entity>
@@ -575,8 +574,8 @@
         <a-entity class="zoom-wrapper">
           <a-plane width="3.8" height="1.5" color="#ff4d6d" opacity="0.08"></a-plane>
           <a-plane width="0.06" height="1.5" color="#ff4d6d" position="-1.87 0 0.01"></a-plane>
-          <a-text value="« A muller dona do seu desexo&#10; e do seu propio corpo »" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="3.35" position="0 0.24 0.05" color="#ffffff" wrap-count="24"></a-text>
-          <a-text value="- Circe ou o pracer do azul" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="2.55" position="0.5 -0.48 0.05" color="#ffc0cb" wrap-count="30"></a-text>
+          <a-text value="« A muller dona do seu desexo&#10; e do seu propio corpo »" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="3.35" position="0 0.24 0.05" color="#ffffff" wrap-count="24"></a-text>
+          <a-text value="- Circe ou o pracer do azul" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="2.55" position="0.5 -0.48 0.05" color="#ffc0cb" wrap-count="30"></a-text>
         </a-entity>
       </a-entity>
 
@@ -584,8 +583,8 @@
       <a-entity position="-10.15 2.5 5.07" rotation="0 90 0">
         <a-entity class="zoom-wrapper">
           <a-plane width="5.6" height="3" color="#08101d" opacity="0.9"></a-plane>
-          <a-text value="A QUE SE DEDICOU?" font=“fonts/Outfit-Bold-msdf.json” align="center" width="7" color="#00E5FF" position="0 0.8 0.1"></a-text>
-          <a-text value="Xornalista política comprometida,&#10;activista na Marcha Mundial das Mulleres&#10;e referente do feminismo galego." font=“fonts/Nunito-SemiBold-msdf.json” position="0 -0.4 0.1" align="center" width="4.5" color="#FFFFFF"></a-text>
+          <a-text value="A QUE SE DEDICOU?" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="7" color="#00E5FF" position="0 0.8 0.1"></a-text>
+          <a-text value="Xornalista política comprometida,&#10;activista na Marcha Mundial das Mulleres&#10;e referente do feminismo galego." font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” position="0 -0.4 0.1" align="center" width="4.5" color="#FFFFFF"></a-text>
         </a-entity>
       </a-entity>
 
@@ -594,17 +593,17 @@
         <a-entity class="zoom-wrapper">
           <a-plane width="5.6" height="2.4" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
           <a-plane width="5.6" height="0.05" color="#ffb6c1" position="0 2.36 0.01"></a-plane>
-          <a-text value="OBRAS FUNDAMENTAIS" font=“fonts/Outfit-Bold-msdf.json” align="center" width="5.3" position="0 1.92 0.1" color="#ffd6de" wrap-count="22"></a-text>
-          <a-text value="A reescritura feminista dos mitos clásicos e artúricos" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="4.8" position="0 1.48 0.1" color="#79b9d8" wrap-count="40"></a-text>
+          <a-text value="OBRAS FUNDAMENTAIS" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="5.3" position="0 1.92 0.1" color="#ffd6de" wrap-count="22"></a-text>
+          <a-text value="A reescritura feminista dos mitos clásicos e artúricos" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="4.8" position="0 1.48 0.1" color="#79b9d8" wrap-count="40"></a-text>
           <a-image src="#img-circe"   width="1.85" height="2.7" position="-1.22 -0.56 0.05"></a-image>
           <a-image src="#img-esmelle" width="1.85" height="2.7" position=" 1.22 -0.56 0.05"></a-image>
-          <a-text value="Circe · 2009"   font=“fonts/Outfit-Bold-msdf.json” align="center" width="2.8" position="-1.22 -2.17 0.1" color="#ff9aaa" wrap-count="18"></a-text>
-          <a-text value="Morgana · 2012" font=“fonts/Outfit-Bold-msdf.json” align="center" width="2.8" position=" 1.22 -2.17 0.1" color="#ff9aaa" wrap-count="18"></a-text>
+          <a-text value="Circe · 2009"   font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="2.8" position="-1.22 -2.17 0.1" color="#ff9aaa" wrap-count="18"></a-text>
+          <a-text value="Morgana · 2012" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="2.8" position=" 1.22 -2.17 0.1" color="#ff9aaa" wrap-count="18"></a-text>
           <a-plane class="area-clic" width="5.6" height="6.1" position="0 -0.42 0.15" material="opacity:0; transparent:true" onclick="toggle('info3')"></a-plane>
           <a-entity id="info3" visible="false" position="0 0.82 0.5">
             <a-plane width="5.25" height="3.7" color="#07101f" opacity="0.99"></a-plane>
-            <a-text value="Premio da Crítica Española" font=“fonts/Outfit-Bold-msdf.json” align="center" width="4.8" position="0 1.42 0.1" color="#ffc1cc"></a-text>
-            <a-text value="As súas novelas reivindican a voz das mulleres silenciadas na historia." font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="4.45" position="0 0.5 0.1" color="#e7f0fb"></a-text>
+            <a-text value="Premio da Crítica Española" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="4.8" position="0 1.42 0.1" color="#ffc1cc"></a-text>
+            <a-text value="As súas novelas reivindican a voz das mulleres silenciadas na historia." font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="4.45" position="0 0.5 0.1" color="#e7f0fb"></a-text>
           </a-entity>
         </a-entity>
       </a-entity>
@@ -613,8 +612,8 @@
       <a-entity position="10.15 2.5 5.07" rotation="0 -90 0">
         <a-entity class="zoom-wrapper">
           <a-plane width="5.6" height="2.8" color="#08101d" opacity="0.9" position="0 1.2 0"></a-plane>
-          <a-text value="POR QUE MERECE AS LETRAS GALEGAS 2026" font=“fonts/Outfit-Bold-msdf.json” align="center" width="5.5" color="#FF0055" position="0 2.35 0.1"></a-text>
-          <a-text value="Pola súa calidade literaria excepcional por poñer o feminismo no centro da nosa literatura contemporánea." font=“fonts/Nunito-SemiBold-msdf.json” position="0 1.7 0.1" align="center" width="4.8" color="#FFFFFF" wrap-count="30"></a-text>
+          <a-text value="POR QUE MERECE AS LETRAS GALEGAS 2026" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="5.5" color="#FF0055" position="0 2.35 0.1"></a-text>
+          <a-text value="Pola súa calidade literaria excepcional por poñer o feminismo no centro da nosa literatura contemporánea." font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” position="0 1.7 0.1" align="center" width="4.8" color="#FFFFFF" wrap-count="30"></a-text>
           <a-image src="#img-bego" width="2.2" height="3.8" position="0 -0.92 0.05"></a-image>
         </a-entity>
       </a-entity>
@@ -626,9 +625,9 @@
           <a-torus radius="1.42" radius-tubular="0.025" color="#ff4d6d" opacity="0.55" position="0 0 0.01"
             animation="property: rotation; to: 0 0 360; loop: true; dur: 8000; easing: linear"></a-torus>
           <a-torus radius="1.08" radius-tubular="0.012" color="#00e5ff" opacity="0.30" position="0 0 0.02"></a-torus>
-          <a-text value="♪" font=“fonts/Outfit-Bold-msdf.json” align="center" width="2.5" position="0 0.38 0.08" color="#ff4d6d"></a-text>
-          <a-text value="A VOZ DA AUTORA" font=“fonts/Outfit-Bold-msdf.json” align="center" width="2.6" position="0 -0.18 0.08" color="#e8f4ff" wrap-count="16"></a-text>
-          <a-text value="toca para escoitar" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="2.2" position="0 -0.58 0.08" color="#5588aa" wrap-count="20"></a-text>
+          <a-text value="♪" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="2.5" position="0 0.38 0.08" color="#ff4d6d"></a-text>
+          <a-text value="A VOZ DA AUTORA" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="2.6" position="0 -0.18 0.08" color="#e8f4ff" wrap-count="16"></a-text>
+          <a-text value="toca para escoitar" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="2.2" position="0 -0.58 0.08" color="#5588aa" wrap-count="20"></a-text>
           <a-circle class="area-clic" radius="1.5" position="0 0 0.12" material="opacity:0; transparent:true" onclick="toggleAudio()"></a-circle>
           <a-entity id="sound-emitter" sound="src:#audio-file; volume:3"></a-entity>
         </a-entity>
@@ -639,21 +638,21 @@
         <a-entity class="zoom-wrapper">
           <a-plane width="5.8" height="0.8" color="#08101d" opacity="0.98" position="0 5.1 0"></a-plane>
           <a-plane width="5.8" height="0.05" color="#ff4d6d" position="0 5.48 0.01"></a-plane>
-          <a-text value="ANACOS DE OBRAS" font=“fonts/Outfit-Bold-msdf.json” align="center" width="5.4" position="0 5.08 0.1" color="#ffd6de" wrap-count="22"></a-text>
+          <a-text value="ANACOS DE OBRAS" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="5.4" position="0 5.08 0.1" color="#ffd6de" wrap-count="22"></a-text>
 
           <!-- Tarxeta 1: Circe -->
           <a-entity position="-2.2 3.9 0">
             <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
             <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
-            <a-text value="Circe" font=“fonts/Outfit-Bold-msdf.json” align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"></a-text>
-            <a-text value="Circe ou o pracer do azul" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee" wrap-count="20"></a-text>
-            <a-text value="toca para ler" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"></a-text>
+            <a-text value="Circe" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"></a-text>
+            <a-text value="Circe ou o pracer do azul" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee" wrap-count="20"></a-text>
+            <a-text value="toca para ler" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"></a-text>
             <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true" onclick="toggle('infoAnaco1')"></a-plane>
             <a-entity id="infoAnaco1" visible="false" position="0 0 0.6">
               <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
               <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
-              <a-text value="CIRCE OU O PRACER DO AZUL" font=“fonts/Outfit-Bold-msdf.json” align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc" wrap-count="28"></a-text>
-              <a-text value="[ Fragmento da obra aquí ]" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"></a-text>
+              <a-text value="CIRCE OU O PRACER DO AZUL" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc" wrap-count="28"></a-text>
+              <a-text value="[ Fragmento da obra aquí ]" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"></a-text>
             </a-entity>
           </a-entity>
 
@@ -661,15 +660,15 @@
           <a-entity position="0.4 3.9 0">
             <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
             <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
-            <a-text value="Morgana" font=“fonts/Outfit-Bold-msdf.json” align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"></a-text>
-            <a-text value="Morgana en Esmelle" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee" wrap-count="20"></a-text>
-            <a-text value="toca para ler" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"></a-text>
+            <a-text value="Morgana" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"></a-text>
+            <a-text value="Morgana en Esmelle" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee" wrap-count="20"></a-text>
+            <a-text value="toca para ler" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"></a-text>
             <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true" onclick="toggle('infoAnaco2')"></a-plane>
             <a-entity id="infoAnaco2" visible="false" position="0 0 0.6">
               <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
               <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
-              <a-text value="MORGANA EN ESMELLE" font=“fonts/Outfit-Bold-msdf.json” align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc" wrap-count="28"></a-text>
-              <a-text value="[ Fragmento da obra aquí ]" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"></a-text>
+              <a-text value="MORGANA EN ESMELLE" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc" wrap-count="28"></a-text>
+              <a-text value="[ Fragmento da obra aquí ]" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"></a-text>
             </a-entity>
           </a-entity>
 
@@ -677,15 +676,15 @@
           <a-entity position="-2.2 1.95 0">
             <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
             <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
-            <a-text value="Relato" font=“fonts/Outfit-Bold-msdf.json” align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"></a-text>
-            <a-text value="Voz e memoria" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee"></a-text>
-            <a-text value="toca para ler" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"></a-text>
+            <a-text value="Relato" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"></a-text>
+            <a-text value="Voz e memoria" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee"></a-text>
+            <a-text value="toca para ler" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"></a-text>
             <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true" onclick="toggle('infoAnaco3')"></a-plane>
             <a-entity id="infoAnaco3" visible="false" position="0 0 0.6">
               <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
               <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
-              <a-text value="VOZ E MEMORIA" font=“fonts/Outfit-Bold-msdf.json” align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"></a-text>
-              <a-text value="[ Engade aquí o terceiro fragmento ]" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"></a-text>
+              <a-text value="VOZ E MEMORIA" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"></a-text>
+              <a-text value="[ Engade aquí o terceiro fragmento ]" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"></a-text>
             </a-entity>
           </a-entity>
 
@@ -693,15 +692,15 @@
           <a-entity position="0.4 1.95 0">
             <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
             <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
-            <a-text value="Mito" font=“fonts/Outfit-Bold-msdf.json” align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"></a-text>
-            <a-text value="Relectura feminista" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee"></a-text>
-            <a-text value="toca para ler" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"></a-text>
+            <a-text value="Mito" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"></a-text>
+            <a-text value="Relectura feminista" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee"></a-text>
+            <a-text value="toca para ler" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"></a-text>
             <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true" onclick="toggle('infoAnaco4')"></a-plane>
             <a-entity id="infoAnaco4" visible="false" position="0 0 0.6">
               <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
               <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
-              <a-text value="RELECTURA FEMINISTA" font=“fonts/Outfit-Bold-msdf.json” align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"></a-text>
-              <a-text value="[ Engade aquí o cuarto fragmento ]" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"></a-text>
+              <a-text value="RELECTURA FEMINISTA" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"></a-text>
+              <a-text value="[ Engade aquí o cuarto fragmento ]" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"></a-text>
             </a-entity>
           </a-entity>
 
@@ -709,15 +708,15 @@
           <a-entity position="-0.9 0.0 0">
             <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
             <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
-            <a-text value="Lingua" font=“fonts/Outfit-Bold-msdf.json” align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"></a-text>
-            <a-text value="Compromiso galego" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee"></a-text>
-            <a-text value="toca para ler" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"></a-text>
+            <a-text value="Lingua" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"></a-text>
+            <a-text value="Compromiso galego" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee"></a-text>
+            <a-text value="toca para ler" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"></a-text>
             <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true" onclick="toggle('infoAnaco5')"></a-plane>
             <a-entity id="infoAnaco5" visible="false" position="0 0 0.6">
               <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
               <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
-              <a-text value="COMPROMISO COA LINGUA" font=“fonts/Outfit-Bold-msdf.json” align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"></a-text>
-              <a-text value="[ Engade aquí o quinto fragmento ]" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"></a-text>
+              <a-text value="COMPROMISO COA LINGUA" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"></a-text>
+              <a-text value="[ Engade aquí o quinto fragmento ]" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"></a-text>
             </a-entity>
           </a-entity>
         </a-entity>
@@ -727,8 +726,8 @@
       <a-entity position="-5.07 2.4 -12.15" rotation="0 0 0">
         <a-entity class="zoom-wrapper">
           <a-plane width="5.5" height="1.7" color="#08101d" opacity="0.96" position="0 2.55 0"></a-plane>
-          <a-text value="VÍDEO / XORNALISMO" font=“fonts/Outfit-Bold-msdf.json” align="center" width="5.2" position="0 2.92 0.1" color="#9af1ff"></a-text>
-          <a-text value="▶ Toca para reproducir ou pausar" font=“fonts/Nunito-SemiBold-msdf.json” align="center" width="4.6" position="0 2.42 0.1" color="#e7f0fb" wrap-count="40"
+          <a-text value="VÍDEO / XORNALISMO" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="5.2" position="0 2.92 0.1" color="#9af1ff"></a-text>
+          <a-text value="▶ Toca para reproducir ou pausar" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="4.6" position="0 2.42 0.1" color="#e7f0fb" wrap-count="40"
             animation="property: opacity; from: 1; to: 0.4; dir: alternate; dur: 1000; loop: true">
           </a-text>
           <a-video src="#video-file" width="5.2" height="2.92" position="0 0.82 0.05"></a-video>
@@ -739,17 +738,17 @@
       <!-- 8. QUIZ frontal-dereita — sen zoom-wrapper -->
       <a-entity position="5.07 1.6 -20.15" rotation="0 0 0">
         <a-entity scale="30 30 1" position="0 3.8 0">
-          <a-text value="?" align="center" color="#FF0000" font=“fonts/Outfit-Bold-msdf.json”
+          <a-text value="?" align="center" color="#FF0000" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png”
             animation="property: position; from: -0.01 0.01 -0.02; to: 0.01 -0.01 -0.02; dir: alternate; dur: 1200; loop: true"></a-text>
-          <a-text value="?" align="center" color="#FFFFFF" font=“fonts/Outfit-Bold-msdf.json”
+          <a-text value="?" align="center" color="#FFFFFF" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png”
             animation="property: opacity; from: 0.3; to: 1; dir: alternate; dur: 1000; loop: true"></a-text>
-          <a-text value="?" align="center" color="#00E5FF" font=“fonts/Outfit-Bold-msdf.json” opacity="0.6"
+          <a-text value="?" align="center" color="#00E5FF" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” opacity="0.6"
             animation="property: position; from: 0.01 -0.01 0.01; to: -0.01 0.01 0.01; dir: alternate; dur: 500; loop: true"></a-text>
         </a-entity>
-        <a-text value="Canto sabes?" font=“fonts/Outfit-Bold-msdf.json” align="center" width="16" position="0 2.2 0" color="#000000" negate="true" wrap-count="30"></a-text>
+        <a-text value="Canto sabes?" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="16" position="0 2.2 0" color="#000000" negate="true" wrap-count="30"></a-text>
         <a-entity position="0 1.4 0">
           <a-plane class="area-clic" width="7" height="1.6" color="#FF0000" onclick="abrirQuiz()" material="shader: flat">
-            <a-text value="PREME para COMEZAR" align="center" width="14" color="#FFFFFF" font=“fonts/Outfit-Bold-msdf.json” position="0 0 0.1"></a-text>
+            <a-text value="PREME para COMEZAR" align="center" width="14" color="#FFFFFF" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” position="0 0 0.1"></a-text>
           </a-plane>
           <a-plane width="7" height="0.15" color="#FFFFFF" position="0 -1 0" opacity="0.8"></a-plane>
           <a-plane width="2" height="0.15" color="#00E5FF" position="-2.5 -1 0.01"
