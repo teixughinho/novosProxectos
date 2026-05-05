@@ -1384,18 +1384,53 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
     }
 
     // Lóxica de colocación en AR
-window.addEventListener('click', e => {
-  if (e.target.closest('#quiz-panel') || e.target.closest('#escala-distancias-panel') || document.getElementById('quiz-panel').classList.contains('activo')) return;
-  if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
-    const pos = new THREE.Vector3();
-    reticle.object3D.getWorldPosition(pos);
-    museo.object3D.position.copy(pos);
+let arListoParaColocar = false;
+
+scene.addEventListener('enter-vr', () => {
+  portadaEl.style.display = 'none';
+
+  if (!scene.is('ar-mode')) {
     museo.setAttribute('visible', true);
-    reticle.setAttribute('visible', false);
-    document.querySelector('.portada-escolar').style.display = 'none';
     btnQuizSala.style.display = 'block';
-    document.querySelector('#reticle').setAttribute('ar-hit-test', 'enabled: false');
+    return;
   }
+
+  resetearMuseo();
+  document.querySelector('.portada-escolar').style.display = 'block';
+  if (escalaPanel) escalaPanel.style.display = 'block';
+
+  setTimeout(() => {
+    arListoParaColocar = true;
+  }, 600);
+});
+
+scene.addEventListener('exit-vr', () => {
+  arListoParaColocar = false;
+  resetearMuseo();
+  portadaEl.style.display = 'flex';
+  document.querySelector('.portada-escolar').style.display = 'none';
+  if (escalaPanel) escalaPanel.style.display = 'none';
+});
+
+scene.canvas?.addEventListener('click', e => {
+  if (!scene.is('ar-mode')) return;
+  if (!arListoParaColocar) return;
+  if (!reticle.getAttribute('visible')) return;
+  if (document.getElementById('quiz-panel').classList.contains('activo')) return;
+  if (e.target.closest?.('#quiz-panel') || e.target.closest?.('#escala-distancias-panel')) return;
+
+  const pos = new THREE.Vector3();
+  reticle.object3D.getWorldPosition(pos);
+
+  if (!isFinite(pos.x) || !isFinite(pos.y) || !isFinite(pos.z)) return;
+
+  museo.object3D.position.copy(pos);
+  museo.setAttribute('visible', true);
+  reticle.setAttribute('visible', false);
+  reticle.setAttribute('ar-hit-test', 'enabled: false');
+
+  document.querySelector('.portada-escolar').style.display = 'none';
+  btnQuizSala.style.display = 'block';
 });
   
 
