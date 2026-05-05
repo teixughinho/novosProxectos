@@ -444,7 +444,7 @@
   <div id="portada">
     <div id="portada-bg"></div>
     <div class="portada-inner">
-      <div class="portada-kicker">Mostra  inmersiva</div>
+      <div class="portada-kicker">Mostra - inmersiva</div>
       <div class="portada-divider"></div>
       <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high">
       <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
@@ -551,15 +551,16 @@
       <!-- 1. QUEN FOI? (Esquerda 1 Atrás) -->
       <!-- Posición: Atrás á esquerda, rotada cara ao centro -->
       <a-entity position="-10.15 2.5 -5.07" rotation="0 90 0">
+        <a-entity class="zoom-wrapper">
         <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
         <a-plane width="5.6" height="0.05" color="#FFFFFF" position="0 2.25 0.01"></a-plane>
         <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
-          position="0 2.1 0.1" color="#FF0055"  wrap-count="30"  negate="false" ></a-text>
+          position="0 2.1 0.1" color="#FF0055" wrap-count="30" negate="false"></a-text>
         <a-text value="Xornalista · Escritora · Activista feminista" font="fonts/Nunito-SemiBold-msdf.json"
-          align="center" width="4.8" position="0 2.5 0.1" color="#00E5FF"  wrap-count="42"  negate="false" ></a-text>
+          align="center" width="4.8" position="0 2.5 0.1" color="#00E5FF" wrap-count="42" negate="false"></a-text>
         <a-text value="Redefiniu a narrativa galega dende o feminismo e a sororidade."
           font="fonts/Nunito-SemiBold-msdf.json" align="center" width="5" position="0 1.7 0.1" color="#FFFFFF"
-           wrap-count="40"  negate="false" ></a-text>
+          wrap-count="40" negate="false"></a-text>
         <!-- <a-image src="#img-bego" width="2.2" height="3.8" position="0 -0.92 0.05"></a-image> -->
         <a-image src="#img-bego2" width="4.15" height="2.33" position="0 0.2 0.1"></a-image>
 
@@ -570,37 +571,44 @@
           <a-plane width="5.25" height="3.55" color="#07101f" opacity="0.99"></a-plane>
           <a-plane width="5.25" height="0.05" color="#ff4d6d" position="0 1.74 0.01"></a-plane>
           <a-text value="VIGO, 1964 - SANTIAGO, 2014" font="fonts/Outfit-Bold-msdf.json" align="center" width="4.8"
-            position="0 1.35 0.1" color="#ff8ca1"  wrap-count="26"  negate="false" ></a-text>
+            position="0 1.35 0.1" color="#ff8ca1" wrap-count="26" negate="false"></a-text>
           <a-text
             value="Voz mítica da Radio Galega durante décadas. Traballou como xornalista política e cultural, sempre comprometida coa lingua galega e cos dereitos das mulleres."
             font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.45" position="0 0.58 0.1" color="#e7f0fb"
-             wrap-count="46"  negate="false" ></a-text>
+            wrap-count="46" negate="false"></a-text>
           <a-text
             value="Nas súas novelas, Circe e Morgana deixan de ser vilás para converterse en protagonistas donas do seu propio destino."
             font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.45" position="0 -0.28 0.1" color="#acd4ee"
-             wrap-count="46"  negate="false" ></a-text>
+            wrap-count="46" negate="false"></a-text>
           <a-text value="Premio da Crítica Española · Finalista Blanco Amor" font="fonts/Outfit-Bold-msdf.json"
-            align="center" width="4.7" position="0 -1.16 0.1" color="#ffc978"  wrap-count="34"  negate="false" ></a-text>
+            align="center" width="4.7" position="0 -1.16 0.1" color="#ffc978" wrap-count="34" negate="false"></a-text>
         </a-entity>
       </a-entity>
-
+      </a-entity>
       <!-- CITA esquerda -->
       <a-entity position="-10 4.6 0" rotation="0 90 0">
         <a-entity class="zoom-wrapper">
+        <a-entity class="zoom-wrapper">
           <a-plane width="3.8" height="1.5" color="#ff4d6d" opacity="0.08"></a-plane>
           <a-plane width="0.06" height="1.5" color="#ff4d6d" position="-1.87 0 0.01"></a-plane>
-        <a-text value="« A muller dona do seu desexo\n e do seu propio corpo »" font="fonts/Nunito-SemiBold-msdf.json"
-          align="center" width="3.35" position="0 0.24 0.05" color="#ffffff"  wrap-count="24"  negate="false" ></a-text>
-          <a-text value="- Circe ou o pracer do azul" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="2.55" position="0.5 -0.48 0.05" color="#ffc0cb"  wrap-count="30"  negate="false" ></a-text>
+          <a-text value="« A muller dona do seu desexo\n e do seu propio corpo »" font="fonts/Nunito-SemiBold-msdf.json"
+            align="center" width="3.35" position="0 0.24 0.05" color="#ffffff" wrap-count="24" negate="false"></a-text>
+          <a-text value="- Circe ou o pracer do azul" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="2.55"
+            position="0.5 -0.48 0.05" color="#ffc0cb" wrap-count="30" negate="false"></a-text>
         </a-entity>
       </a-entity>
-
+      </a-entity>
       <!-- 2. A QUE SE DEDICOU? esquerda-diante -->
       <a-entity position="-10.15 2.5 5.07" rotation="0 90 0">
         <a-entity class="zoom-wrapper">
           <a-plane width="5.6" height="3" color="#08101d" opacity="0.9"></a-plane>
-          <a-text value="A QUE SE DEDICOU?" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png"  align="center" width="7" color="#00E5FF"   position="0 0.8 0.1"  negate="false" ></a-text>
-          <a-text value="Xornalista política comprometida,&#10;activista na Marcha Mundial das Mulleres&#10;e referente do feminismo galego." font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" position="0 -0.4 0.1" align="center" width="4.5" color="#FFFFFF"  negate="false" ></a-text>
+          <a-text value="A QUE SE DEDICOU?" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="7" color="#00E5FF" position="0 0.8 0.1"
+            negate="false"></a-text>
+          <a-text
+            value="Xornalista política comprometida,&#10;activista na Marcha Mundial das Mulleres&#10;e referente do feminismo galego."
+            font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" position="0 -0.4 0.1"
+            align="center" width="4.5" color="#FFFFFF" negate="false"></a-text>
         </a-entity>
       </a-entity>
 
@@ -609,17 +617,30 @@
         <a-entity class="zoom-wrapper">
           <a-plane width="5.6" height="2.4" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
           <a-plane width="5.6" height="0.05" color="#ffb6c1" position="0 2.36 0.01"></a-plane>
-          <a-text value="OBRAS FUNDAMENTAIS" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="5.3" position="0 1.92 0.1" color="#ffd6de" wrap-count="22"  negate="false" ></a-text>
-          <a-text value="A reescritura feminista dos mitos clásicos e artúricos" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.8" position="0 1.48 0.1" color="#79b9d8" wrap-count="40"  negate="false" ></a-text>
-          <a-image src="#img-circe"   width="1.85" height="2.7" position="-1.22 -0.56 0.05"></a-image>
+          <a-text value="OBRAS FUNDAMENTAIS" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center"
+            width="5.3" position="0 1.92 0.1" color="#ffd6de" wrap-count="22" negate="false"></a-text>
+          <a-text value="A reescritura feminista dos mitos clásicos e artúricos" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.8" position="0 1.48 0.1" color="#79b9d8"
+            wrap-count="40" negate="false"></a-text>
+          <a-image src="#img-circe" width="1.85" height="2.7" position="-1.22 -0.56 0.05"></a-image>
           <a-image src="#img-esmelle" width="1.85" height="2.7" position=" 1.22 -0.56 0.05"></a-image>
-          <a-text value="Circe · 2009"   font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="2.8" position="-1.22 -2.17 0.1" color="#ff9aaa" wrap-count="18"  negate="false" ></a-text>
-          <a-text value="Morgana · 2012" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="2.8" position=" 1.22 -2.17 0.1" color="#ff9aaa" wrap-count="18"  negate="false" ></a-text>
-          <a-plane class="area-clic" width="5.6" height="6.1" position="0 -0.42 0.15" material="opacity:0; transparent:true" onclick="toggle('info3')"></a-plane>
+          <a-text value="Circe · 2009" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center"
+            width="2.8" position="-1.22 -2.17 0.1" color="#ff9aaa" wrap-count="18" negate="false"></a-text>
+          <a-text value="Morgana · 2012" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center"
+            width="2.8" position=" 1.22 -2.17 0.1" color="#ff9aaa" wrap-count="18" negate="false"></a-text>
+          <a-plane class="area-clic" width="5.6" height="6.1" position="0 -0.42 0.15"
+            material="opacity:0; transparent:true" onclick="toggle('info3')"></a-plane>
           <a-entity id="info3" visible="false" position="0 0.82 0.5">
             <a-plane width="5.25" height="3.7" color="#07101f" opacity="0.99"></a-plane>
-            <a-text value="Premio da Crítica Española" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.8" position="0 1.42 0.1" color="#ffc1cc"  negate="false" ></a-text>
-            <a-text value="As súas novelas reivindican a voz das mulleres silenciadas na historia." font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.45" position="0 0.5 0.1" color="#e7f0fb"  negate="false" ></a-text>
+            <a-text value="Premio da Crítica Española" font="fonts/Nunito-SemiBold-msdf.json"
+              font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center"
+              width="4.8" position="0 1.42 0.1" color="#ffc1cc" negate="false"></a-text>
+            <a-text value="As súas novelas reivindican a voz das mulleres silenciadas na historia."
+              font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center"
+              width="4.45" position="0 0.5 0.1" color="#e7f0fb" negate="false"></a-text>
           </a-entity>
         </a-entity>
       </a-entity>
@@ -628,8 +649,13 @@
       <a-entity position="10.15 2.5 5.07" rotation="0 -90 0">
         <a-entity class="zoom-wrapper">
           <a-plane width="5.6" height="2.8" color="#08101d" opacity="0.9" position="0 1.2 0"></a-plane>
-          <a-text value="POR QUE MERECE AS LETRAS GALEGAS 2026" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="5.5" color="#FF0055" position="0 2.35 0.1"  negate="false" ></a-text>
-          <a-text value="Pola súa calidade literaria excepcional por poñer o feminismo no centro da nosa literatura contemporánea." font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" position="0 1.7 0.1" align="center" width="4.8" color="#FFFFFF" wrap-count="30"  negate="false" ></a-text>
+          <a-text value="POR QUE MERECE AS LETRAS GALEGAS 2026" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center"
+            width="5.5" color="#FF0055" position="0 2.35 0.1" negate="false"></a-text>
+          <a-text
+            value="Pola súa calidade literaria excepcional por poñer o feminismo no centro da nosa literatura contemporánea."
+            font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" position="0 1.7 0.1"
+            align="center" width="4.8" color="#FFFFFF" wrap-count="30" negate="false"></a-text>
           <a-image src="#img-bego" width="2.2" height="3.8" position="0 -0.92 0.05"></a-image>
         </a-entity>
       </a-entity>
@@ -641,18 +667,24 @@
           <a-torus radius="1.42" radius-tubular="0.025" color="#ff4d6d" opacity="0.55" position="0 0 0.01"
             animation="property: rotation; to: 0 0 360; loop: true; dur: 8000; easing: linear"></a-torus>
           <a-torus radius="1.08" radius-tubular="0.012" color="#00e5ff" opacity="0.30" position="0 0 0.02"></a-torus>
-          <a-text value="♪" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="2.5" position="0 0.38 0.08" color="#ff4d6d"  negate="false" ></a-text>
-          <a-text value="A VOZ DA AUTORA" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="2.6" position="0 -0.18 0.08" color="#e8f4ff" wrap-count="16"  negate="false" ></a-text>
-          <a-text value="toca para escoitar" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.2" position="0 -0.58 0.08" color="#5588aa" wrap-count="20"  negate="false" ></a-text>
-          <a-circle class="area-clic" radius="1.5" position="0 0 0.12" material="opacity:0; transparent:true" onclick="toggleAudio()"></a-circle>
+          <a-text value="♪" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png"
+            font-image="fonts/Outfit-Bold-msdf.png" align="center" width="2.5" position="0 0.38 0.08" color="#ff4d6d"
+            negate="false"></a-text>
+          <a-text value="A VOZ DA AUTORA" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center"
+            width="2.6" position="0 -0.18 0.08" color="#e8f4ff" wrap-count="16" negate="false"></a-text>
+          <a-text value="toca para escoitar" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.2" position="0 -0.58 0.08"
+            color="#5588aa" wrap-count="20" negate="false"></a-text>
+          <a-circle class="area-clic" radius="1.5" position="0 0 0.12" material="opacity:0; transparent:true"
+            onclick="toggleAudio()"></a-circle>
           <a-entity id="sound-emitter" sound="src:#audio-file; volume:3"></a-entity>
         </a-entity>
       </a-entity>
 
       <!-- 6. ANACOS DE OBRAS traseira-dereita -->
-   <!-- 6. ANACOS DE OBRAS traseira-dereita -->
       <a-entity position="5.07 -0.6 10.15" rotation="0 180 0">
-
+<a-entity class="zoom-wrapper">
         <!-- Cabeceira do panel -->
         <a-plane width="5.8" height="0.8" color="#08101d" opacity="0.98" position="0 5.1 0"></a-plane>
         <a-plane width="5.8" height="0.05" color="#ff4d6d" position="0 5.48 0.01"></a-plane>
@@ -903,35 +935,52 @@
               color="#e7f0fb" wrap-count="46" negate="false"></a-text>
           </a-entity>
         </a-entity>
+</a-entity>
       </a-entity>
+
 
       <!-- 7. VÍDEO frontal-esquerda -->
       <a-entity position="-5.07 2.4 -12.15" rotation="0 0 0">
         <a-entity class="zoom-wrapper">
           <a-plane width="5.5" height="1.7" color="#08101d" opacity="0.96" position="0 2.55 0"></a-plane>
-          <a-text value="VÍDEO / XORNALISMO" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="5.2" position="0 2.92 0.1" color="#9af1ff"  negate="false" ></a-text>
-          <a-text value="▶ Toca para reproducir ou pausar" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.6" position="0 2.42 0.1" color="#e7f0fb" wrap-count="40"
-            animation="property: opacity; from: 1; to: 0.4; dir: alternate; dur: 1000; loop: true">
+          <a-text value="VÍDEO / XORNALISMO" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center"
+            width="5.2" position="0 2.92 0.1" color="#9af1ff" negate="false"></a-text>
+          <a-text value="▶ Toca para reproducir ou pausar" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.6" position="0 2.42 0.1" color="#e7f0fb"
+            wrap-count="40" animation="property: opacity; from: 1; to: 0.4; dir: alternate; dur: 1000; loop: true">
           </a-text>
           <a-video src="#video-file" width="5.2" height="2.92" position="0 0.82 0.05"></a-video>
-          <a-plane class="area-clic" width="5.2" height="2.92" position="0 0.82 0.18" material="opacity:0; transparent:true" onclick="toggleVideo()"></a-plane>
+          <a-plane class="area-clic" width="5.2" height="2.92" position="0 0.82 0.18"
+            material="opacity:0; transparent:true" onclick="toggleVideo()"></a-plane>
         </a-entity>
       </a-entity>
 
       <!-- 8. QUIZ frontal-dereita — sen zoom-wrapper -->
       <a-entity position="5.07 1.6 -20.15" rotation="0 0 0">
         <a-entity scale="30 30 1" position="0 3.8 0">
-          <a-text value="?" align="center" color="#FF0000" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png"
-            animation="property: position; from: -0.01 0.01 -0.02; to: 0.01 -0.01 -0.02; dir: alternate; dur: 1200; loop: true"  negate="false" ></a-text>
-          <a-text value="?" align="center" color="#FFFFFF" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png"
-            animation="property: opacity; from: 0.3; to: 1; dir: alternate; dur: 1000; loop: true"  negate="false" ></a-text>
-          <a-text value="?" align="center" color="#00E5FF" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" opacity="0.6"
-            animation="property: position; from: 0.01 -0.01 0.01; to: -0.01 0.01 0.01; dir: alternate; dur: 500; loop: true"  negate="false" ></a-text>
+          <a-text value="?" align="center" color="#FF0000" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png"
+            animation="property: position; from: -0.01 0.01 -0.02; to: 0.01 -0.01 -0.02; dir: alternate; dur: 1200; loop: true"
+            negate="false"></a-text>
+          <a-text value="?" align="center" color="#FFFFFF" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png"
+            animation="property: opacity; from: 0.3; to: 1; dir: alternate; dur: 1000; loop: true"
+            negate="false"></a-text>
+          <a-text value="?" align="center" color="#00E5FF" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" opacity="0.6"
+            animation="property: position; from: 0.01 -0.01 0.01; to: -0.01 0.01 0.01; dir: alternate; dur: 500; loop: true"
+            negate="false"></a-text>
         </a-entity>
-        <a-text value="Canto sabes?" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="16" position="0 2.2 0" color="#000000" negate="true" wrap-count="30"  negate="false" ></a-text>
+        <a-text value="Canto sabes?" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png"
+          font-image="fonts/Outfit-Bold-msdf.png" align="center" width="16" position="0 2.2 0" color="#000000"
+          negate="true" wrap-count="30" negate="false"></a-text>
         <a-entity position="0 1.4 0">
-          <a-plane class="area-clic" width="7" height="1.6" color="#FF0000" onclick="abrirQuiz()" material="shader: flat">
-            <a-text value="PREME para COMEZAR" align="center" width="14" color="#FFFFFF" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" position="0 0 0.1"  negate="false" ></a-text>
+          <a-plane class="area-clic" width="7" height="1.6" color="#FF0000" onclick="abrirQuiz()"
+            material="shader: flat">
+            <a-text value="PREME para COMEZAR" align="center" width="14" color="#FFFFFF"
+              font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png"
+              font-image="fonts/Outfit-Bold-msdf.png" position="0 0 0.1" negate="false"></a-text>
           </a-plane>
           <a-plane width="7" height="0.15" color="#FFFFFF" position="0 -1 0" opacity="0.8"></a-plane>
           <a-plane width="2" height="0.15" color="#00E5FF" position="-2.5 -1 0.01"
@@ -946,22 +995,22 @@
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
-      const scene      = document.querySelector('a-scene');
-      const museo      = document.getElementById('museo');
-      const reticle    = document.getElementById('reticle');
-      const portadaEl  = document.getElementById('portada');
-      const portadaBg  = document.getElementById('portada-bg');
+      const scene = document.querySelector('a-scene');
+      const museo = document.getElementById('museo');
+      const reticle = document.getElementById('reticle');
+      const portadaEl = document.getElementById('portada');
+      const portadaBg = document.getElementById('portada-bg');
       const btnQuizSala = document.getElementById('btn-quiz-sala');
-      const escalaPanel  = document.getElementById('escala-distancias-panel');
+      const escalaPanel = document.getElementById('escala-distancias-panel');
       const escalaSlider = document.getElementById('escala-distancias-slider');
-      const escalaValor  = document.getElementById('escala-distancias-valor');
-      const audioEl    = document.getElementById('audio-file');
-      const videoEl    = document.getElementById('video-file');
+      const escalaValor = document.getElementById('escala-distancias-valor');
+      const audioEl = document.getElementById('audio-file');
+      const videoEl = document.getElementById('video-file');
 
       const posicionesBase = new Map();
       let escalaDistancias = 1;
 
-      const PANEIS = ['info1','info3','infoAnaco1','infoAnaco2','infoAnaco3','infoAnaco4','infoAnaco5'];
+      const PANEIS = ['info1', 'info3', 'infoAnaco1', 'infoAnaco2', 'infoAnaco3', 'infoAnaco4', 'infoAnaco5'];
 
       // Portada
       const preImg = new Image();
@@ -1003,17 +1052,17 @@
 
       window.toggleVideo = () => {
         if (!videoEl) return;
-        videoEl.paused ? videoEl.play().catch(()=>{}) : videoEl.pause();
+        videoEl.paused ? videoEl.play().catch(() => { }) : videoEl.pause();
       };
 
       // Reset completo ao saír de AR
       function pecharTodo() {
-        PANEIS.forEach(id => { const e = document.getElementById(id); if(e) e.setAttribute('visible', false); });
+        PANEIS.forEach(id => { const e = document.getElementById(id); if (e) e.setAttribute('visible', false); });
       }
 
       function resetearMuseo() {
         museo.setAttribute('visible', false);
-        museo.object3D.position.set(0,0,0);
+        museo.object3D.position.set(0, 0, 0);
         pecharTodo();
 
         const s = document.getElementById('sound-emitter');
@@ -1070,13 +1119,13 @@
 
       // QUIZ
       const QP = [
-        { p: 'En que cidade naceu Begoña Caamaño?', ops: ['Vigo','Santiago de Compostela','A Coruña','Pontevedra'], ok: 0, exp: 'Naceu en Vigo no ano 1964.' },
-        { p: 'En que medio traballou como xornalista?', ops: ['TVG','Radio Galega','La Voz de Galicia','El Correo Gallego'], ok: 1, exp: 'Foi unha voz fundamental na Radio Galega.' },
-        { p: 'En que ano faleceu Begoña Caamaño?', ops: ['2010','2012','2014','2016'], ok: 2, exp: 'Faleceu en Santiago de Compostela en 2014.' },
-        { p: 'Cal é o título da súa novela de 2009?', ops: ['Morgana en Esmelle','Circe ou o pracer do azul','A illa das mulleres','O libro das fadas'], ok: 1, exp: "'Circe ou o pracer do azul' publicouse en 2009." },
-        { p: "En que ano se publicou 'Morgana en Esmelle'?", ops: ['2008','2010','2012','2014'], ok: 2, exp: "'Morgana en Esmelle' publicouse en 2012." },
-        { p: 'Que temática atravesa a obra de Begoña Caamaño?', ops: ['A guerra civil española','O feminismo e a reescritura de mitos','A emigración galega','A vida rural no século XIX'], ok: 1, exp: 'O feminismo e a revisión dos mitos son o núcleo da súa obra.' },
-        { p: 'A que ano das Letras Galegas corresponde a súa homenaxe?', ops: ['2024','2025','2026','2027'], ok: 2, exp: 'O Día das Letras Galegas 2026 está dedicado a Begoña Caamaño.' }
+        { p: 'En que cidade naceu Begoña Caamaño?', ops: ['Vigo', 'Santiago de Compostela', 'A Coruña', 'Pontevedra'], ok: 0, exp: 'Naceu en Vigo no ano 1964.' },
+        { p: 'En que medio traballou como xornalista?', ops: ['TVG', 'Radio Galega', 'La Voz de Galicia', 'El Correo Gallego'], ok: 1, exp: 'Foi unha voz fundamental na Radio Galega.' },
+        { p: 'En que ano faleceu Begoña Caamaño?', ops: ['2010', '2012', '2014', '2016'], ok: 2, exp: 'Faleceu en Santiago de Compostela en 2014.' },
+        { p: 'Cal é o título da súa novela de 2009?', ops: ['Morgana en Esmelle', 'Circe ou o pracer do azul', 'A illa das mulleres', 'O libro das fadas'], ok: 1, exp: "'Circe ou o pracer do azul' publicouse en 2009." },
+        { p: "En que ano se publicou 'Morgana en Esmelle'?", ops: ['2008', '2010', '2012', '2014'], ok: 2, exp: "'Morgana en Esmelle' publicouse en 2012." },
+        { p: 'Que temática atravesa a obra de Begoña Caamaño?', ops: ['A guerra civil española', 'O feminismo e a reescritura de mitos', 'A emigración galega', 'A vida rural no século XIX'], ok: 1, exp: 'O feminismo e a revisión dos mitos son o núcleo da súa obra.' },
+        { p: 'A que ano das Letras Galegas corresponde a súa homenaxe?', ops: ['2024', '2025', '2026', '2027'], ok: 2, exp: 'O Día das Letras Galegas 2026 está dedicado a Begoña Caamaño.' }
       ];
 
       let qIdx = 0, qPts = 0, qResp = false;
@@ -1107,15 +1156,15 @@
       function qMostrar() {
         qResp = false;
         const q = QP[qIdx], tot = QP.length;
-        document.getElementById('q-barra').style.width = (qIdx/tot*100)+'%';
-        document.getElementById('q-num').textContent  = 'Pregunta '+(qIdx+1)+' de '+tot;
+        document.getElementById('q-barra').style.width = (qIdx / tot * 100) + '%';
+        document.getElementById('q-num').textContent = 'Pregunta ' + (qIdx + 1) + ' de ' + tot;
         document.getElementById('q-preg').textContent = q.p;
-        document.getElementById('q-fb').textContent   = '';
-        document.getElementById('q-fb').className     = 'q-fb';
+        document.getElementById('q-fb').textContent = '';
+        document.getElementById('q-fb').className = 'q-fb';
         document.getElementById('q-btn-seg').style.display = 'none';
         const ops = document.getElementById('q-ops');
         ops.innerHTML = '';
-        q.ops.forEach((o,i) => {
+        q.ops.forEach((o, i) => {
           const b = document.createElement('button');
           b.className = 'opcion'; b.textContent = o;
           b.onclick = () => qResponder(i);
@@ -1142,8 +1191,8 @@
         }
         const bs = document.getElementById('q-btn-seg');
         bs.style.display = 'inline-block';
-        bs.textContent = qIdx >= QP.length-1 ? 'Ver resultado ✦' : 'Seguinte →';
-        document.getElementById('q-barra').style.width = ((qIdx+1)/QP.length*100)+'%';
+        bs.textContent = qIdx >= QP.length - 1 ? 'Ver resultado ✦' : 'Seguinte →';
+        document.getElementById('q-barra').style.width = ((qIdx + 1) / QP.length * 100) + '%';
       }
 
       window.qSeguinte = () => {
@@ -1155,18 +1204,19 @@
         document.getElementById('q-xogo').style.display = 'none';
         document.getElementById('q-barra').style.width = '100%';
         document.getElementById('q-resultado').style.display = 'flex';
-        const pct = Math.round(qPts/QP.length*100);
-        document.getElementById('r-puntos').textContent = qPts+'/'+QP.length;
-        let lb,st,mg;
-        if (pct===100) { lb='Excelente!'; st='★★★★★'; mg='Dominas o legado de Begoña Caamaño. Parabéns!'; }
-        else if (pct>=71) { lb='Moi ben!'; st='★★★★☆'; mg='Coñeces ben a vida e a obra desta escritora fundamental.'; }
-        else if (pct>=43) { lb='Vai ben!'; st='★★★☆☆'; mg='Tes boa base. Explora os paneis do museo para completar.'; }
-        else { lb='Sigue aprendendo!'; st='★★☆☆☆'; mg='Revisa os paneis da sala e volve tentar. Begoña merece máis tempo.'; }
+        const pct = Math.round(qPts / QP.length * 100);
+        document.getElementById('r-puntos').textContent = qPts + '/' + QP.length;
+        let lb, st, mg;
+        if (pct === 100) { lb = 'Excelente!'; st = '★★★★★'; mg = 'Dominas o legado de Begoña Caamaño. Parabéns!'; }
+        else if (pct >= 71) { lb = 'Moi ben!'; st = '★★★★☆'; mg = 'Coñeces ben a vida e a obra desta escritora fundamental.'; }
+        else if (pct >= 43) { lb = 'Vai ben!'; st = '★★★☆☆'; mg = 'Tes boa base. Explora os paneis do museo para completar.'; }
+        else { lb = 'Sigue aprendendo!'; st = '★★☆☆☆'; mg = 'Revisa os paneis da sala e volve tentar. Begoña merece máis tempo.'; }
         document.getElementById('r-label').textContent = lb;
         document.getElementById('r-stars').textContent = st;
-        document.getElementById('r-msg').textContent   = mg;
+        document.getElementById('r-msg').textContent = mg;
       }
     });
   </script>
 </body>
+
 </html>
