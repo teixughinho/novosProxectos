@@ -876,7 +876,7 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
    
       <!-- 1. QUEN FOI? (Esquerda 1 Atrás) -->
       <!-- Posición: Atrás á esquerda, rotada cara ao centro -->
-      <a-entity position="-10.15 2.5 -5.07" rotation="0 90 0">
+      <a-entity data-zoom-panel position="-10.15 2.5 -5.07" rotation="0 90 0">
         <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
         <a-plane width="5.6" height="0.05" color="#FFFFFF" position="0 2.25 0.01"></a-plane>
         <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
@@ -911,7 +911,7 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
       </a-entity>
 
       <!-- CITA  (Asociada a Quen foi) -->
-      <a-entity position="-10 4.6 0" rotation="0 90 0">
+      <a-entity data-zoom-panel position="-10 4.6 0" rotation="0 90 0">
         <a-plane width="3.8" height="1.5" color="#ff4d6d" opacity="0.08"></a-plane>
         <a-plane width="0.06" height="1.5" color="#ff4d6d" position="-1.87 0 0.01"></a-plane>
         <a-text value="« A muller dona do seu desexo\n e do seu propio corpo »" font="fonts/Nunito-SemiBold-msdf.json"
@@ -923,7 +923,7 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
       <!-- 2. A QUE SE DEDICOU? (Esquerda 2 Diante) -->
 
       <!-- A que se dedicou? -->
-      <a-entity position="-10.15 2.5 5.07" rotation="0 90 0">
+      <a-entitydata-zoom-panel  data-zoom-panel position="-10.15 2.5 5.07" rotation="0 90 0">
         <a-plane width="5.6" height="3" color="#08101d" opacity="0.9"></a-plane>
         <a-text value="A QUE SE DEDICOU?" font="fonts/Outfit-Bold-msdf.json" align="center" width="7" color="#00E5FF"
           negate="false" position="0 0.8 0.1"></a-text>
@@ -940,7 +940,7 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
 
 
       <!-- Obras -->
-      <a-entity position="10.15 2.5 -5.07" rotation="0 -90 0">
+      <a-entity data-zoom-panel position="10.15 2.5 -5.07" rotation="0 -90 0">
         <a-plane width="5.6" height="2.4" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
         <a-plane width="5.6" height="0.05" color="#ffb6c1" position="0 2.36 0.01"></a-plane>
         <a-text value="OBRAS FUNDAMENTAIS" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
@@ -982,7 +982,7 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
           negate="false"></a-text>
       </a-entity> -->
       <!-- Por que merece as letras? -->
-      <a-entity position="10.15 2.5 5.07" rotation="0 -90 0">
+      <a-entity data-zoom-panel position="10.15 2.5 5.07" rotation="0 -90 0">
         <a-plane width="5.6" height="2.8" color="#08101d" opacity="0.9" position="0 1.2 0"></a-plane>
 
         <a-text value="POR QUE MERECE AS LETRAS GALEGAS 2026" font="fonts/Outfit-Bold-msdf.json" align="center"
@@ -1007,7 +1007,7 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
       <!-- 5. Audio (Detrás do usuario) -->
       <!-- 5. Audio (Sen fondo) -->
      
-      <a-entity position="-5.07 2.4 10.15" rotation="0 180 0">
+      <a-entity data-zoom-panel position="-5.07 2.4 10.15" rotation="0 180 0">
         <!-- Eliminamos o plane de cor #08101d e a liña azul superior -->
 
         <!-- Icona de audio -->
@@ -1035,7 +1035,7 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
       <!-- SALA MEDIANA:  position="-4.5 0 7" rotation="0 180 0" -->
       <!-- SALA GRANDE:   position="-6 0 9" rotation="0 180 0" -->
       <!--6      Anacos de obras -->
-      <a-entity position="5.07 -0.6 10.15" rotation="0 180 0">
+      <a-entity data-zoom-panel position="5.07 -0.6 10.15" rotation="0 180 0">
 
         <!-- Cabeceira do panel -->
         <a-plane width="5.8" height="0.8" color="#08101d" opacity="0.98" position="0 5.1 0"></a-plane>
@@ -1191,7 +1191,7 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
   </a-text> -->
       
    
-      <a-entity position="-5.07 2.4 -12.15" rotation="0 0 0">
+      <a-entity data-zoom-panel position="-5.07 2.4 -12.15" rotation="0 0 0">
         <a-plane width="5.5" height="1.7" color="#08101d" opacity="0.98" position="0 1.74 0"></a-plane>
         <a-text value="Vídeo: Circe e o pracer do azul" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.2"
           position="0 2.3 0.1" color="#9af1ff" negate="false"></a-text>
@@ -1265,68 +1265,46 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
     //EFECTO FACERSE GRANDE AO SE ACHEGAR 
     //--------------------------------
     // Rexistramos un novo compoñente de A-Frame para xestionar o zoom por proximidade
-    AFRAME.registerComponent('proximity-zoom', {
-      init: function () {
-        this.camera = document.querySelector('a-camera').object3D;
-        // Seleccionamos todos os paneis da escena (.area-clic para atopar as entidades nai)
-        this.panels = Array.from(document.querySelectorAll('.area-clic')).map(el => el.parentElement);
-        this.camPos = new THREE.Vector3();
-        this.panelPos = new THREE.Vector3();
-      },
+   AFRAME.registerComponent('proximity-zoom', {
+  init: function () {
+    this.camera = document.querySelector('a-camera')?.object3D;
+    this.panels = Array.from(document.querySelectorAll('[data-zoom-panel]'));
+    this.camPos = new THREE.Vector3();
+    this.panelPos = new THREE.Vector3();
+  },
 
-      tick: function () {
-        if (!this.camera || this.panels.length === 0) return;
+  tick: function () {
+    if (!this.camera || !this.panels.length) return;
 
-        this.camera.getWorldPosition(this.camPos);
+    this.camera.getWorldPosition(this.camPos);
 
-        this.panels.forEach(panel => {
-          if (!panel.object3D) return;
+    this.panels.forEach(panel => {
+      if (!panel.object3D) return;
 
-          panel.object3D.getWorldPosition(this.panelPos);
-          const distance = this.camPos.distanceTo(this.panelPos);
+      panel.object3D.getWorldPosition(this.panelPos);
+      const distance = this.camPos.distanceTo(this.panelPos);
 
-          // ==========================================
-          // VALORES ESAXERADOS PARA PROBAR
-          // ==========================================
-          // const minDistance = 1.2;  // Cando estás a 1.2 metros queda ao máximo. Evita o infinito ao achegarte a 0m.
-          // const maxDistance = 6.0;  // A 6 metros ou máis, o panel vólvese ao seu tamaño base.
-          // const maxScale = 5.0;     // O panel medra ata 5 veces o seu tamaño orixinal!
-          // const minScale = 1.0;     // O panel nunca encollerá por debaixo do seu 100% orixinal.
+      const minDistance = 0.8;
+      const maxDistance = 4.0;
+      const minScale = 1.0;
+      const maxScale = 2.2;
 
-          // ==========================================
-          // VALORES NORMAIS (Descomenta isto para a biblioteca ou cuarto)
-          // ==========================================
-          // const minDistance = 1.0;  
-          // const maxDistance = 3.5;  
-          // const maxScale = 1.4;     // Medra un 40% máis como máximo
-          // const minScale = 1.0;    
+      let targetScale = minScale;
 
-
-          // ==========================================
-          // PARÁMETROS AXUSTADOS Á NOVA ESCALA 1.45x
-          // ==========================================
-          const minDistance = 1.8;   // mudei a 1 pra comprobar A menos de 1.8 metros queda ao máximo tamaño (non se pega á cara)
-          const maxDistance = 6.5;   // A 6.5 metros ou máis ten o seu tamaño normal
-          const maxScale = 3;     // O zoom máximo que querías (45% máis grande)
-          const minScale = 1.0;      // O tamaño base normal
-
-
-          let targetScale = minScale;
-
-          if (distance <= minDistance) {
-            // Se estás pegado ou a menos de 1.2m, mantén a escala máxima
-            targetScale = maxScale;
-          } else if (distance < maxDistance) {
-            // Interpola o tamaño segundo a distancia para que medre suavemente
-            const ratio = (distance - minDistance) / (maxDistance - minDistance);
-            targetScale = maxScale - (ratio * (maxScale - minScale));
-          }
-
-          // Aplicamos o tamaño calculado
-          panel.object3D.scale.set(targetScale, targetScale, targetScale);
-        });
+      if (distance <= minDistance) {
+        targetScale = maxScale;
+      } else if (distance < maxDistance) {
+        const ratio = (distance - minDistance) / (maxDistance - minDistance);
+        targetScale = maxScale - ratio * (maxScale - minScale);
       }
+
+      const current = panel.object3D.scale.x;
+      const smoothed = current + (targetScale - current) * 0.12;
+
+      panel.object3D.scale.set(smoothed, smoothed, smoothed);
     });
+  }
+});
 
 
     const scene = document.querySelector('a-scene');
