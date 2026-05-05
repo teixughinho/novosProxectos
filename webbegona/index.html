@@ -1587,7 +1587,7 @@ function resetearMuseo() {
   museo.object3D.position.set(0, 0, 0);
 
   reticle.setAttribute('visible', true);
-  reticle.setAttribute('ar-hit-test', 'target: #museo');
+  reticle.setAttribute('ar-hit-test', 'target: #museo; enabled: true');
 
   const soundEmitter = document.getElementById('sound-emitter');
   if (soundEmitter?.components?.sound?.isPlaying) {
