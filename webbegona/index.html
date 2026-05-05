@@ -58,9 +58,13 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <!-- Preload da imaxe principal -->
   <link rel="preload" as="image" href="imax/begonha2.png">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Nunito:wght@400;600;700&display=swap"
-    rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Nunito:wght@400;600;700&display=swap"
+  rel="stylesheet"
+>
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <style>
     *,
@@ -853,8 +857,8 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
 
       <img id="img-circe" src="imax/circe.jpg">
       <img id="img-esmelle" src="imax/esmelle.jpg">
-      <audio id="audio-file" src="sons/begonhaaudio.mp3" preload="auto"></audio>
-      <video id="video-file" src="imax/begona.mp4" preload="auto" loop crossorigin="anonymous" playsinline></video>
+      <audio id="audio-file" src="sons/begonhaaudio.mp3" preload="none"></audio>
+      <video id="video-file" src="imax/begona.mp4" preload="none" loop crossorigin="anonymous" playsinline></video>
       <img id="icon-audio" src="https://cdn-icons-png.flaticon.com/512/727/727269.png">
     </a-assets>
 
