@@ -444,7 +444,7 @@
   <div id="portada">
     <div id="portada-bg"></div>
     <div class="portada-inner">
-      <div class="portada-kicker">Mostra ....inmersiva</div>
+      <div class="portada-kicker">Mostra  inmersiva</div>
       <div class="portada-divider"></div>
       <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high">
       <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
@@ -561,13 +561,32 @@
           <a-entity id="info1" visible="false" position="0 0.8 0.5">
             <a-plane width="5.25" height="3.55" color="#07101f" opacity="0.99"></a-plane>
             <a-plane width="5.25" height="0.05" color="#ff4d6d" position="0 1.74 0.01"></a-plane>
-            <a-text value="VIGO, 1964 - SANTIAGO, 2014" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="4.8" position="0 1.35 0.1" color="#ff8ca1" wrap-count="26"></a-text>
-            <a-text value="Voz mítica da Radio Galega durante décadas. Traballou como xornalista política e cultural, sempre comprometida coa lingua galega e cos dereitos das mulleres." font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="4.45" position="0 0.58 0.1" color="#e7f0fb" wrap-count="46"></a-text>
+             <!-- Usando o ID (#font-title) e engadindo negate="false" -->
+  <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" 
+          font="#font-title" 
+          negate="false"
+          align="center" 
+          width="5.3"
+          position="0 2.1 0.1" 
+          color="#FF0055" 
+          wrap-count="30"></a-text>
+
+  <a-text value="Xornalista · Escritora · Activista feminista" 
+          font="#font-body" 
+          negate="false"
+          align="center" 
+          width="4.8" 
+          position="0 2.5 0.1" 
+          color="#00E5FF" 
+          wrap-count="42"></a-text>
             <a-text value="Nas súas novelas, Circe e Morgana deixan de ser vilás para converterse en protagonistas donas do seu propio destino." font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” align="center" width="4.45" position="0 -0.28 0.1" color="#acd4ee" wrap-count="46"></a-text>
             <a-text value="Premio da Crítica Española · Finalista Blanco Amor" font=“fonts/Nunito-SemiBold-msdf.json” font-image=“fonts/Nunito-SemiBold-msdf.png” font-image=“fonts/Outfit-Bold-msdf.png” align="center" width="4.7" position="0 -1.16 0.1" color="#ffc978" wrap-count="34"></a-text>
           </a-entity>
         </a-entity>
       </a-entity>
+<a-entity position="-10.15 2.5 -5.07" rotation="0 90 0">
+  <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
+  
 
       <!-- CITA esquerda -->
       <a-entity position="-10 4.6 0" rotation="0 90 0">
