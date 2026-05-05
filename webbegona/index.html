@@ -685,7 +685,7 @@
   <div id="portada">
     <div id="portada-bg"></div>
     <div class="portada-inner">
-      <div class="portada-kicker">Mostra - inmersiva</div>
+      <div class="portada-kicker">Mostra -- inmersiva</div>
       <div class="portada-divider"></div>
       <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high">
       <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
@@ -754,12 +754,10 @@
     </div>
 
     <button id="btn-quiz-sala" onclick="abrirQuiz()">Quiz</button>
-
-    <a-scene
-      xr-mode-ui="enabled: true; XRMode: ar;"
-      webxr="optionalFeatures: hit-test; dom-overlay; overlayElement: #overlay"
-      renderer="colorManagement:true; antialias:true">
-
+ <a-scene xr-mode-ui="enabled: true; XRMode: ar"
+    webxr="optionalFeatures: hit-test, dom-overlay; overlayElement: #overlay"
+    renderer="colorManagement:true; antialias:true" proximity-zoom>
+ 
       <a-assets timeout="30000">
         <a-asset-item id="font-title" src="fonts/Outfit-Bold-msdf.json"></a-asset-item>
         <a-asset-item id="font-body" src="fonts/Nunito-SemiBold-msdf.json"></a-asset-item>
