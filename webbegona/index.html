@@ -4,24 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <!--
-    ============================================================
-    MUSEO AR DE BEGOÑA CAAMAÑO · VERSIÓN CORRIXIDA
-    ============================================================
-
-    ERROS CORRIXIDOS:
-    1) A escena non debe verse detrás da portada ao cargar.
-    2) O botón AR debe poder aparecer cando a escena remata de inicializar.
-    3) O museo non debe verse ata que se coloque na superficie.
-    4) Ao saír de AR todo debe resetearse.
-
-    ESTRATEXIA:
-    - A portada mantense enriba de todo con z-index alto.
-    - A escena arranca oculta visualmente cunha clase .scene-hidden.
-    - Cando A-Frame lanza "loaded", permitimos ver a escena/UI.
-    - O museo segue oculto ata que o usuario o coloca coa retícula.
-  -->
-
   <link rel="preload" as="image" href="imax/begonha2.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,7 +14,70 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   </noscript>
 
-  <script src="https://aframe.io/releases/1.5.0/aframe.min.js" defer></script>
+  <!--
+    A-Frame SEN defer.
+    O defer rompía a orde de rexistro dos compoñentes.
+    A-Frame debe estar cargado ANTES de que se parsee a escena
+    e ANTES de que o script rexistre os compoñentes.
+  -->
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+  <!--
+    proximity-zoom rexístrase aquí, ANTES da escena e FÓRA de calquera callback.
+    Isto é crítico: se se rexistra dentro de DOMContentLoaded ou despois
+    de que A-Frame parsee a escena, o compoñente ignórase.
+  -->
+  <script>
+    AFRAME.registerComponent('proximity-zoom', {
+      init: function () {
+        this.camera = null;
+        this.panels = [];
+        this.camPos = new THREE.Vector3();
+        this.panelPos = new THREE.Vector3();
+        this.lastRefresh = 0;
+
+        // Agardamos a que a escena cargue para buscar a cámara e os paneis
+        this.el.addEventListener('loaded', () => {
+          this.camera = document.querySelector('a-camera')?.object3D;
+          this.panels = Array.from(document.querySelectorAll('.zoom-wrapper'));
+        });
+      },
+      tick: function (time) {
+        if (!this.camera || !this.panels.length) return;
+
+        // Refrescamos cada 2s por se cambia o DOM
+        if (time - this.lastRefresh > 2000) {
+          this.panels = Array.from(document.querySelectorAll('.zoom-wrapper'));
+          this.lastRefresh = time;
+        }
+
+        this.camera.getWorldPosition(this.camPos);
+
+        this.panels.forEach(panel => {
+          if (!panel.object3D) return;
+          panel.object3D.getWorldPosition(this.panelPos);
+          const dist = this.camPos.distanceTo(this.panelPos);
+
+          const minDist  = 1.0;
+          const maxDist  = 4.0;
+          const maxScale = 2.2;
+          const minScale = 1.0;
+
+          let target = minScale;
+          if (dist <= minDist) {
+            target = maxScale;
+          } else if (dist < maxDist) {
+            const ratio = (dist - minDist) / (maxDist - minDist);
+            target = maxScale - ratio * (maxScale - minScale);
+          }
+
+          const cur = panel.object3D.scale.x;
+          const s = cur + (target - cur) * 0.12;
+          panel.object3D.scale.set(s, s, s);
+        });
+      }
+    });
+  </script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; }
@@ -46,47 +91,11 @@
       background:
         radial-gradient(circle at 50% 20%, rgba(0, 229, 255, .08), transparent 35%),
         linear-gradient(180deg, #07101e 0%, #050811 100%);
-    }
-
-    body {
       -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
       touch-action: manipulation;
     }
 
-    /* =========================
-       CAPA DA ESCENA
-       =========================
-       A escena ocupa toda a pantalla, pero podemos ocultala ata que cargue.
-    */
-    #scene-wrap {
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      background: transparent;
-    }
-
-    #scene-wrap.scene-hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    #scene-wrap.scene-ready {
-      opacity: 1;
-      pointer-events: auto;
-      transition: opacity .25s ease;
-    }
-
-    a-scene {
-      position: absolute !important;
-      inset: 0;
-      width: 100% !important;
-      height: 100% !important;
-    }
-
-    /* =========================
-       PORTADA
-       ========================= */
+    /* Portada por riba de todo */
     #portada {
       position: fixed;
       inset: 0;
@@ -94,7 +103,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(180deg, rgba(2, 8, 20, .78), rgba(5, 8, 16, .92));
+      background: linear-gradient(180deg, rgba(2,8,20,.78), rgba(5,8,16,.92));
     }
 
     #portada-bg {
@@ -109,12 +118,8 @@
     #portada-bg::after {
       content: "";
       position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 150%;
-      height: 150%;
-      background: radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, transparent 60%);
-      transform: translate(-50%, -50%);
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(0,229,255,.05) 0%, transparent 60%);
       pointer-events: none;
     }
 
@@ -128,14 +133,11 @@
       padding: 34px 28px 28px;
       text-align: center;
       color: #fff;
-      background: rgba(6, 13, 28, .78);
+      background: rgba(6,13,28,.78);
       backdrop-filter: blur(6px);
-      border: 1px solid rgba(120, 180, 255, .14);
+      border: 1px solid rgba(120,180,255,.14);
       border-radius: 30px;
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,.03) inset,
-        0 18px 60px rgba(0,0,0,.45),
-        0 0 40px rgba(0,229,255,.07);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.03) inset, 0 18px 60px rgba(0,0,0,.45), 0 0 40px rgba(0,229,255,.07);
     }
 
     .portada-kicker {
@@ -208,13 +210,11 @@
     .portada-hint {
       margin-top: 12px;
       font-size: .74rem;
-      color: rgba(230,240,255,.6);
+      color: rgba(230,240,255,.5);
       line-height: 1.4;
     }
 
-    /* =========================
-       OVERLAY DOM
-       ========================= */
+    /* Overlay de AR */
     #overlay {
       position: absolute;
       inset: 0;
@@ -230,9 +230,9 @@
       margin: 16px;
       padding: 14px 18px;
       border-radius: 18px;
-      background: rgba(10, 20, 30, 0.88);
-      border: 1px solid rgba(136, 170, 204, 0.28);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+      background: rgba(10,20,30,0.88);
+      border: 1px solid rgba(136,170,204,0.28);
+      box-shadow: 0 10px 30px rgba(0,0,0,.28);
       color: #e8f1fb;
       backdrop-filter: blur(6px);
     }
@@ -242,34 +242,15 @@
       height: 54px;
       flex: 0 0 54px;
       border-radius: 50%;
-      border: 1px solid rgba(0, 229, 255, 0.35);
+      border: 1px solid rgba(0,229,255,.35);
       object-fit: cover;
     }
 
-    .portada-escolar .info-textos {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .portada-escolar .nome {
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      color: #ffffff;
-    }
-
-    .instrucions {
-      font-size: 0.92rem;
-      line-height: 1.35;
-      color: #c7d4e2;
-    }
-
+    .portada-escolar .info-textos { display: flex; flex-direction: column; gap: 4px; }
+    .portada-escolar .nome { font-size: 1rem; font-weight: 700; letter-spacing: .04em; color: #fff; }
+    .instrucions { font-size: .92rem; line-height: 1.35; color: #c7d4e2; }
     .instrucions b { color: #00e5ff; }
 
-    /* =========================
-       ESCALA
-       ========================= */
     #escala-distancias-panel {
       display: none;
       position: absolute;
@@ -281,10 +262,9 @@
       padding: 10px 14px 12px;
       border: 1px solid rgba(0,229,255,.35);
       border-radius: 14px;
-      background: rgba(4, 12, 30, .92);
+      background: rgba(4,12,30,.92);
       color: #d8f7ff;
       pointer-events: auto;
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
       font-family: 'Outfit', sans-serif;
     }
 
@@ -301,21 +281,9 @@
       color: #8feeff;
     }
 
-    #escala-distancias-valor {
-      color: #fff;
-      letter-spacing: 0;
-      white-space: nowrap;
-    }
+    #escala-distancias-valor { color: #fff; white-space: nowrap; }
+    #escala-distancias-slider { width: 100%; accent-color: #00e5ff; }
 
-    #escala-distancias-slider {
-      width: 100%;
-      margin: 0;
-      accent-color: #00e5ff;
-    }
-
-    /* =========================
-       BOTÓN QUIZ
-       ========================= */
     #btn-quiz-sala {
       display: none;
       position: fixed;
@@ -331,14 +299,12 @@
       font-size: .85rem;
       font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 4px 20px rgba(255, 77, 109, .5);
+      box-shadow: 0 4px 20px rgba(255,77,109,.5);
       pointer-events: auto;
       touch-action: manipulation;
     }
 
-    /* =========================
-       QUIZ
-       ========================= */
+    /* Quiz */
     #quiz-backdrop {
       display: none;
       position: absolute;
@@ -353,7 +319,7 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%,-50%);
       z-index: 9999;
       background: linear-gradient(180deg, #07101e 0%, #0a1a35 100%);
       border: 3px solid #00FF66;
@@ -361,7 +327,7 @@
       padding: 28px 22px 22px;
       width: 92%;
       max-width: 460px;
-      color: white;
+      color: #fff;
       pointer-events: auto;
       box-shadow: 0 0 40px rgba(0,255,102,.3);
     }
@@ -369,551 +335,532 @@
     #quiz-panel.activo {
       display: flex;
       flex-direction: column;
-      animation: panelEntrada 0.4s ease-out forwards;
+      animation: panelEntrada .4s ease-out forwards;
     }
 
     @keyframes panelEntrada {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -40%) scale(0.9);
-      }
-      to {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-      }
+      from { opacity: 0; transform: translate(-50%,-40%) scale(.9); }
+      to   { opacity: 1; transform: translate(-50%,-50%) scale(1); }
     }
 
     .qx {
       position: absolute;
-      top: 12px;
-      right: 16px;
-      width: 30px;
-      height: 30px;
-      border: none;
-      border-radius: 50%;
+      top: 12px; right: 16px;
+      width: 30px; height: 30px;
+      border: none; border-radius: 50%;
       background: rgba(255,255,255,.06);
-      color: #888;
-      font-size: 1.1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      color: #888; font-size: 1.1rem;
+      cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
       touch-action: manipulation;
     }
+    .qx:hover { background: rgba(255,255,255,.12); color: #fff; }
 
-    .qx:hover {
-      background: rgba(255,255,255,.12);
-      color: #fff;
-    }
-
-    .q-header {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      margin-bottom: 6px;
-    }
+    .q-header { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-bottom: 6px; }
 
     .q-chip {
       display: inline-block;
-      padding: 5px 10px;
-      border-radius: 999px;
+      padding: 5px 10px; border-radius: 999px;
       background: rgba(0,229,255,.08);
       border: 1px solid rgba(0,229,255,.18);
-      color: #8db8d8;
-      font-size: .65rem;
-      letter-spacing: .18em;
-      text-transform: uppercase;
+      color: #8db8d8; font-size: .65rem;
+      letter-spacing: .18em; text-transform: uppercase;
       font-family: 'Outfit', sans-serif;
     }
 
     .q-logo-wrap {
-      position: relative;
-      height: 58px;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: relative; height: 58px; width: 100%;
+      display: flex; align-items: center; justify-content: center;
     }
 
-    .q-logo-main,
-    .q-logo-g1,
-    .q-logo-g2 {
+    .q-logo-main, .q-logo-g1, .q-logo-g2 {
       position: absolute;
       font-family: 'Outfit', sans-serif;
-      font-size: 1.55rem;
-      font-weight: 900;
-      letter-spacing: .03em;
-      text-transform: uppercase;
-      line-height: 1;
+      font-size: 1.55rem; font-weight: 900;
+      letter-spacing: .03em; text-transform: uppercase; line-height: 1;
     }
-
     .q-logo-main { color: #fff; z-index: 3; }
     .q-logo-main span { color: #ff4d6d; }
-
-    .q-logo-g1 {
-      color: rgba(0,229,255,.8);
-      transform: translate(-1px, 0);
-      animation: glitch1 1.8s infinite steps(2);
-      z-index: 1;
-    }
-
-    .q-logo-g2 {
-      color: rgba(255,77,109,.75);
-      transform: translate(1px, 0);
-      animation: glitch2 2.1s infinite steps(2);
-      z-index: 2;
-    }
+    .q-logo-g1 { color: rgba(0,229,255,.8); animation: glitch1 1.8s infinite steps(2); z-index: 1; }
+    .q-logo-g2 { color: rgba(255,77,109,.75); animation: glitch2 2.1s infinite steps(2); z-index: 2; }
 
     @keyframes glitch1 {
-      0%, 88%, 100% { opacity: 0; transform: translate(0,0); }
-      89% { opacity: .9; transform: translate(-3px,1px); }
-      91% { opacity: .2; transform: translate(2px,-1px); }
-      93% { opacity: .75; transform: translate(-2px,0); }
+      0%,88%,100% { opacity:0; transform:translate(0,0); }
+      89% { opacity:.9; transform:translate(-3px,1px); }
+      91% { opacity:.2; transform:translate(2px,-1px); }
+      93% { opacity:.75; transform:translate(-2px,0); }
     }
-
     @keyframes glitch2 {
-      0%, 86%, 100% { opacity: 0; transform: translate(0,0); }
-      87% { opacity: .8; transform: translate(3px,0); }
-      90% { opacity: .25; transform: translate(-2px,1px); }
-      92% { opacity: .8; transform: translate(1px,-1px); }
+      0%,86%,100% { opacity:0; transform:translate(0,0); }
+      87% { opacity:.8; transform:translate(3px,0); }
+      90% { opacity:.25; transform:translate(-2px,1px); }
+      92% { opacity:.8; transform:translate(1px,-1px); }
     }
 
-    .q-sub {
-      font-size: .74rem;
-      color: #6688aa;
-      text-align: center;
-      margin-bottom: 18px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .q-barra-c {
-      width: 100%;
-      height: 6px;
-      background: rgba(255,255,255,.07);
-      border-radius: 3px;
-      margin-bottom: 20px;
-      overflow: hidden;
-    }
-
-    .q-barra {
-      height: 100%;
-      background: linear-gradient(90deg, #00FF66, #00E5FF);
-      border-radius: 3px;
-      box-shadow: 0 0 10px #00FF66;
-      transition: width .45s ease;
-    }
-
-    .q-num {
-      font-size: .72rem;
-      color: #4488aa;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-    }
-
-    .q-preg {
-      font-family: 'Outfit', sans-serif;
-      color: #fff;
-      font-size: 1.08rem;
-      font-weight: 800;
-      text-align: center;
-      line-height: 1.45;
-      margin-bottom: 18px;
-    }
-
-    .q-ops {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
+    .q-sub { font-size:.74rem; color:#6688aa; text-align:center; margin-bottom:18px; letter-spacing:.08em; text-transform:uppercase; }
+    .q-barra-c { width:100%; height:6px; background:rgba(255,255,255,.07); border-radius:3px; margin-bottom:20px; overflow:hidden; }
+    .q-barra { height:100%; background:linear-gradient(90deg,#00FF66,#00E5FF); border-radius:3px; box-shadow:0 0 10px #00FF66; transition:width .45s ease; }
+    .q-num { font-size:.72rem; color:#4488aa; font-weight:700; text-align:center; margin-bottom:10px; text-transform:uppercase; letter-spacing:.1em; }
+    .q-preg { font-family:'Outfit',sans-serif; color:#fff; font-size:1.08rem; font-weight:800; text-align:center; line-height:1.45; margin-bottom:18px; }
+    .q-ops { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 
     .opcion {
-      padding: 14px 12px;
-      border-radius: 18px;
+      padding: 14px 12px; border-radius: 18px;
       border: 2px solid rgba(0,229,255,.3);
-      background: rgba(255,255,255,0.05);
-      color: #cce0f0;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      background: rgba(255,255,255,.05);
+      color: #cce0f0; font-size: 1rem; font-weight: 700;
+      cursor: pointer; text-align: center;
+      transition: all .2s cubic-bezier(.175,.885,.32,1.275);
       font-family: 'Nunito', sans-serif;
       touch-action: manipulation;
     }
+    .opcion:hover:not(:disabled) { background:#00E5FF; color:#050811; border-color:#fff; transform:scale(1.05); }
+    .opcion:disabled { cursor:default; transform:none; }
+    .opcion.correcta { background:rgba(0,230,100,.15)!important; border-color:#00e664!important; color:#00e664!important; }
+    .opcion.incorrecta { background:rgba(255,77,109,.15)!important; border-color:#ff4d6d!important; color:#ff7a8a!important; }
 
-    .opcion:hover:not(:disabled) {
-      background: #00E5FF;
-      color: #050811;
-      border-color: #fff;
-      transform: scale(1.05);
-    }
-
-    .opcion:disabled {
-      cursor: default;
-      transform: none;
-    }
-
-    .opcion.correcta {
-      background: rgba(0,230,100,.15) !important;
-      border-color: #00e664 !important;
-      color: #00e664 !important;
-    }
-
-    .opcion.incorrecta {
-      background: rgba(255,77,109,.15) !important;
-      border-color: #ff4d6d !important;
-      color: #ff7a8a !important;
-    }
-
-    .q-fb {
-      min-height: 40px;
-      margin-top: 14px;
-      font-size: .88rem;
-      text-align: center;
-      font-weight: 700;
-      color: #00e664;
-      line-height: 1.5;
-    }
-
-    .q-fb.mal { color: #ff7a8a; }
+    .q-fb { min-height:40px; margin-top:14px; font-size:.88rem; text-align:center; font-weight:700; color:#00e664; line-height:1.5; }
+    .q-fb.mal { color:#ff7a8a; }
 
     .q-btn-seg {
-      margin-top: 16px;
-      display: none;
-      padding: 12px 36px;
-      border-radius: 26px;
-      background: linear-gradient(135deg, #00e5ff, #00b8d9);
-      color: #07090f;
-      border: none;
-      font-size: .92rem;
-      font-weight: 800;
-      cursor: pointer;
-      font-family: 'Outfit', sans-serif;
-      align-self: center;
-      touch-action: manipulation;
+      margin-top:16px; display:none; padding:12px 36px; border-radius:26px;
+      background:linear-gradient(135deg,#00e5ff,#00b8d9); color:#07090f; border:none;
+      font-size:.92rem; font-weight:800; cursor:pointer;
+      font-family:'Outfit',sans-serif; align-self:center;
+      touch-action:manipulation;
     }
 
-    #q-resultado {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 8px;
-    }
-
-    .r-trofeo {
-      font-size: 3rem;
-      animation: pulso 1.5s infinite;
-    }
-
-    @keyframes pulso {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-    }
-
-    .r-puntos {
-      font-family: 'Outfit', sans-serif;
-      font-size: 4.5rem;
-      font-weight: 900;
-      color: #00e5ff;
-      line-height: 1;
-    }
-
-    .r-label {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .r-stars {
-      font-size: 1.6rem;
-      letter-spacing: 2px;
-    }
-
-    .r-msg {
-      font-size: .88rem;
-      color: #99bbcc;
-      max-width: 340px;
-      line-height: 1.55;
-      margin: 0;
-    }
-
-    .r-bots {
-      display: flex;
-      gap: 10px;
-      margin-top: 14px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .r-btn-rep,
-    .r-btn-pec {
-      padding: 11px 28px;
-      border-radius: 22px;
-      cursor: pointer;
-      touch-action: manipulation;
-    }
-
-    .r-btn-rep {
-      background: linear-gradient(135deg, #ff4d6d, #c0392b);
-      color: #fff;
-      border: none;
-      font-family: 'Outfit', sans-serif;
-      font-size: .9rem;
-      font-weight: 700;
-    }
-
-    .r-btn-pec {
-      background: transparent;
-      color: #6688aa;
-      border: 2px solid rgba(255,255,255,.12);
-      font-size: .9rem;
-      font-family: 'Nunito', sans-serif;
-    }
+    #q-resultado { display:none; flex-direction:column; align-items:center; text-align:center; gap:8px; }
+    .r-trofeo { font-size:3rem; animation:pulso 1.5s infinite; }
+    @keyframes pulso { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+    .r-puntos { font-family:'Outfit',sans-serif; font-size:4.5rem; font-weight:900; color:#00e5ff; line-height:1; }
+    .r-label { font-family:'Outfit',sans-serif; font-size:1.1rem; font-weight:700; color:#fff; }
+    .r-stars { font-size:1.6rem; letter-spacing:2px; }
+    .r-msg { font-size:.88rem; color:#99bbcc; max-width:340px; line-height:1.55; margin:0; }
+    .r-bots { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; justify-content:center; }
+    .r-btn-rep, .r-btn-pec { padding:11px 28px; border-radius:22px; cursor:pointer; touch-action:manipulation; }
+    .r-btn-rep { background:linear-gradient(135deg,#ff4d6d,#c0392b); color:#fff; border:none; font-family:'Outfit',sans-serif; font-size:.9rem; font-weight:700; }
+    .r-btn-pec { background:transparent; color:#6688aa; border:2px solid rgba(255,255,255,.12); font-size:.9rem; font-family:'Nunito',sans-serif; }
   </style>
 </head>
 <body>
 
+  <!-- PORTADA: z-index máximo, tapa todo ata que entras en AR -->
   <div id="portada">
     <div id="portada-bg"></div>
     <div class="portada-inner">
-      <div class="portada-kicker">Mostra -- inmersiva</div>
+      <div class="portada-kicker">Mostra inmersiva</div>
       <div class="portada-divider"></div>
       <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high">
       <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
       <p class="portada-sub">Xornalista, escritora e voz esencial das Letras Galegas 2026.</p>
       <span class="portada-data">Letras Galegas · 2026</span>
-      <p class="portada-hint">Agarda un intre a que cargue a experiencia. O botón AR aparecerá abaixo á dereita cando estea lista.</p>
+      <p class="portada-hint">Preme o botón [AR] para entrares na mostra.</p>
+      <p class="portada-hint">Precisas Chrome en Android para a mellor compatibilidade.</p>
     </div>
   </div>
 
-  <div id="scene-wrap" class="scene-hidden">
-    <div id="overlay">
-      <div class="portada-escolar">
-        <img src="imax/begonha2.png" alt="Begoña Caamaño">
-        <div class="info-textos">
-          <div class="nome">
-            BEGOÑA CAAMAÑO
-            <span style="font-size:0.7rem; color:#88aacc; font-weight:400; margin-left:10px;">Letras Galegas 2026</span>
-          </div>
-          <div class="instrucions">
-            Toca a pantalla para <b>colocar a sala</b> e os paneis para <b>interactuar</b>.
-          </div>
+  <!-- OVERLAY dentro da escena para dom-overlay -->
+  <div id="overlay">
+    <div class="portada-escolar">
+      <img src="imax/begonha2.png" alt="Begoña Caamaño">
+      <div class="info-textos">
+        <div class="nome">
+          BEGOÑA CAAMAÑO
+          <span style="font-size:.7rem;color:#88aacc;font-weight:400;margin-left:10px;">Letras Galegas 2026</span>
         </div>
-      </div>
-
-      <div id="quiz-backdrop"></div>
-
-      <div id="escala-distancias-panel">
-        <label for="escala-distancias-slider">
-          Escala distancias
-          <span id="escala-distancias-valor">1.00x</span>
-        </label>
-        <input id="escala-distancias-slider" type="range" min="0.25" max="2" step="0.05" value="1">
-      </div>
-
-      <div id="quiz-panel">
-        <button class="qx" onclick="pecharQuiz()" aria-label="Pechar quiz">✕</button>
-        <div id="q-xogo">
-          <div class="q-header">
-            <div class="q-chip">Test interactivo</div>
-            <div class="q-logo-wrap">
-              <div class="q-logo-g1">Canto <span>sabes</span>?</div>
-              <div class="q-logo-g2">Canto <span>sabes</span>?</div>
-              <div class="q-logo-main">Canto <span>sabes</span>?</div>
-            </div>
-          </div>
-          <div class="q-sub">Begoña Caamaño · Letras Galegas 2026</div>
-          <div class="q-barra-c"><div class="q-barra" id="q-barra" style="width:0%"></div></div>
-          <div class="q-num" id="q-num"></div>
-          <div class="q-preg" id="q-preg"></div>
-          <div class="q-ops" id="q-ops"></div>
-          <div class="q-fb" id="q-fb"></div>
-          <button class="q-btn-seg" id="q-btn-seg" onclick="qSeguinte()">Seguinte →</button>
-        </div>
-        <div id="q-resultado">
-          <div class="r-trofeo">🏆</div>
-          <div class="r-puntos" id="r-puntos"></div>
-          <div class="r-label" id="r-label"></div>
-          <div class="r-stars" id="r-stars"></div>
-          <p class="r-msg" id="r-msg"></p>
-          <div class="r-bots">
-            <button class="r-btn-rep" onclick="qReiniciar()">↻ Repetir</button>
-            <button class="r-btn-pec" onclick="pecharQuiz()">Pechar</button>
-          </div>
-        </div>
+        <div class="instrucions">Toca a pantalla para <b>colocar a sala</b> e os paneis para <b>interactuar</b>.</div>
       </div>
     </div>
 
-    <button id="btn-quiz-sala" onclick="abrirQuiz()">Quiz</button>
- <a-scene xr-mode-ui="enabled: true; XRMode: ar"
+    <div id="quiz-backdrop"></div>
+
+    <div id="escala-distancias-panel">
+      <label for="escala-distancias-slider">
+        Escala distancias
+        <span id="escala-distancias-valor">1.00x</span>
+      </label>
+      <input id="escala-distancias-slider" type="range" min="0.25" max="2" step="0.05" value="1">
+    </div>
+
+    <div id="quiz-panel">
+      <button class="qx" onclick="pecharQuiz()" aria-label="Pechar quiz">✕</button>
+      <div id="q-xogo">
+        <div class="q-header">
+          <div class="q-chip">Test interactivo</div>
+          <div class="q-logo-wrap">
+            <div class="q-logo-g1">Canto <span>sabes</span>?</div>
+            <div class="q-logo-g2">Canto <span>sabes</span>?</div>
+            <div class="q-logo-main">Canto <span>sabes</span>?</div>
+          </div>
+        </div>
+        <div class="q-sub">Begoña Caamaño · Letras Galegas 2026</div>
+        <div class="q-barra-c"><div class="q-barra" id="q-barra" style="width:0%"></div></div>
+        <div class="q-num" id="q-num"></div>
+        <div class="q-preg" id="q-preg"></div>
+        <div class="q-ops" id="q-ops"></div>
+        <div class="q-fb" id="q-fb"></div>
+        <button class="q-btn-seg" id="q-btn-seg" onclick="qSeguinte()">Seguinte →</button>
+      </div>
+      <div id="q-resultado">
+        <div class="r-trofeo">🏆</div>
+        <div class="r-puntos" id="r-puntos"></div>
+        <div class="r-label" id="r-label"></div>
+        <div class="r-stars" id="r-stars"></div>
+        <p class="r-msg" id="r-msg"></p>
+        <div class="r-bots">
+          <button class="r-btn-rep" onclick="qReiniciar()">↻ Repetir</button>
+          <button class="r-btn-pec" onclick="pecharQuiz()">Pechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button id="btn-quiz-sala" onclick="abrirQuiz()">Quiz</button>
+
+  <!--
+    ESCENA: exactamente os atributos do teu orixinal que funcionaban.
+    Sen ningún cambio nesta liña.
+  -->
+  <a-scene
+    xr-mode-ui="enabled: true; XRMode: ar"
     webxr="optionalFeatures: hit-test, dom-overlay; overlayElement: #overlay"
-    renderer="colorManagement:true; antialias:true" proximity-zoom>
- 
-      <a-assets timeout="30000">
-        <a-asset-item id="font-title" src="fonts/Outfit-Bold-msdf.json"></a-asset-item>
-        <a-asset-item id="font-body" src="fonts/Nunito-SemiBold-msdf.json"></a-asset-item>
+    renderer="colorManagement:true; antialias:true"
+    proximity-zoom>
 
-        <img id="img-bego" src="imax/Begonha1.jpg">
-        <img id="img-bego2" src="imax/begonha3.png">
-        <img id="img-circe" src="imax/circe.jpg">
-        <img id="img-esmelle" src="imax/esmelle.jpg">
+    <a-assets timeout="30000">
+      <a-asset-item id="font-title" src="fonts/Outfit-Bold-msdf.json"></a-asset-item>
+      <a-asset-item id="font-body" src="fonts/Nunito-SemiBold-msdf.json"></a-asset-item>
+      <img id="img-bego"   src="imax/Begonha1.jpg">
+      <img id="img-bego2"  src="imax/begonha3.png">
+      <img id="img-circe"  src="imax/circe.jpg">
+      <img id="img-esmelle" src="imax/esmelle.jpg">
+      <audio id="audio-file" src="sons/begonhaaudio.mp3" preload="none"></audio>
+      <video id="video-file" src="imax/begona.mp4" preload="metadata" loop crossorigin="anonymous" playsinline></video>
+    </a-assets>
 
-        <audio id="audio-file" src="sons/begonhaaudio.mp3" preload="none"></audio>
-        <video id="video-file" src="imax/begona.mp4" preload="metadata" loop crossorigin="anonymous" playsinline></video>
-      </a-assets>
+    <a-camera position="0 1.6 0">
+      <a-entity
+        cursor="fuse:false; rayOrigin:entity;"
+        raycaster="objects:.area-clic; far: 40;"
+        position="0 0 -1"
+        geometry="primitive:ring; radiusInner:0.015; radiusOuter:0.02"
+        material="color:#00e5ff; shader:flat; opacity:0.8; transparent:true">
+      </a-entity>
+    </a-camera>
 
-      <a-camera position="0 1.6 0">
-        <a-entity
-          cursor="fuse:false; rayOrigin:entity;"
-          raycaster="objects:.area-clic; far: 40;"
-          position="0 0 -1"
-          geometry="primitive:ring; radiusInner:0.015; radiusOuter:0.02"
-          material="color:#00e5ff; shader:flat; opacity:0.8; transparent:true">
-        </a-entity>
-      </a-camera>
+    <a-entity id="reticle" ar-hit-test="target:#museo"></a-entity>
 
-      <a-entity id="reticle" visible="false" ar-hit-test="target:#museo"></a-entity>
+    <a-entity id="museo" visible="false">
 
-      <!--
-        Museo oculto ao cargar.
-        Só aparece cando se coloca na superficie.
-      -->
-      <a-entity id="museo" visible="false">
-        <a-entity position="-10.15 2.5 -5.07" rotation="0 90 0">
-          <a-entity class="zoom-wrapper">
-            <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
-            <a-plane width="5.6" height="0.05" color="#FFFFFF" position="0 2.25 0.01"></a-plane>
-            <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" font="#font-title" align="center" width="5.3" position="0 2.1 0.1" color="#FF0055" wrap-count="30"></a-text>
-            <a-text value="Xornalista · Escritora · Activista feminista" font="#font-body" align="center" width="4.8" position="0 2.5 0.1" color="#00E5FF" wrap-count="42"></a-text>
-            <a-text value="Redefiniu a narrativa galega dende o feminismo e a sororidade." font="#font-body" align="center" width="5" position="0 1.7 0.1" color="#FFFFFF" wrap-count="40"></a-text>
-            <a-image src="#img-bego2" width="4.15" height="2.33" position="0 0.2 0.1"></a-image>
+      <!-- 1. QUEN FOI? esquerda-atrás -->
+      <a-entity position="-10.15 2.5 -5.07" rotation="0 90 0">
+        <a-entity class="zoom-wrapper">
+          <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
+          <a-plane width="5.6" height="0.05" color="#FFFFFF" position="0 2.25 0.01"></a-plane>
+          <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" font="#font-title" align="center" width="5.3" position="0 2.1 0.1" color="#FF0055" wrap-count="30"></a-text>
+          <a-text value="Xornalista · Escritora · Activista feminista" font="#font-body" align="center" width="4.8" position="0 2.5 0.1" color="#00E5FF" wrap-count="42"></a-text>
+          <a-text value="Redefiniu a narrativa galega dende o feminismo e a sororidade." font="#font-body" align="center" width="5" position="0 1.7 0.1" color="#FFFFFF" wrap-count="40"></a-text>
+          <a-image src="#img-bego2" width="4.15" height="2.33" position="0 0.2 0.1"></a-image>
+          <a-plane class="area-clic" width="5.6" height="5.4" position="0 0.3 0.15" material="opacity:0; transparent:true" onclick="toggle('info1')"></a-plane>
+          <a-entity id="info1" visible="false" position="0 0.8 0.5">
+            <a-plane width="5.25" height="3.55" color="#07101f" opacity="0.99"></a-plane>
+            <a-plane width="5.25" height="0.05" color="#ff4d6d" position="0 1.74 0.01"></a-plane>
+            <a-text value="VIGO, 1964 - SANTIAGO, 2014" font="#font-title" align="center" width="4.8" position="0 1.35 0.1" color="#ff8ca1" wrap-count="26"></a-text>
+            <a-text value="Voz mítica da Radio Galega durante décadas. Traballou como xornalista política e cultural, sempre comprometida coa lingua galega e cos dereitos das mulleres." font="#font-body" align="center" width="4.45" position="0 0.58 0.1" color="#e7f0fb" wrap-count="46"></a-text>
+            <a-text value="Nas súas novelas, Circe e Morgana deixan de ser vilás para converterse en protagonistas donas do seu propio destino." font="#font-body" align="center" width="4.45" position="0 -0.28 0.1" color="#acd4ee" wrap-count="46"></a-text>
+            <a-text value="Premio da Crítica Española · Finalista Blanco Amor" font="#font-title" align="center" width="4.7" position="0 -1.16 0.1" color="#ffc978" wrap-count="34"></a-text>
           </a-entity>
         </a-entity>
       </a-entity>
-    </a-scene>
-  </div>
+
+      <!-- CITA esquerda -->
+      <a-entity position="-10 4.6 0" rotation="0 90 0">
+        <a-entity class="zoom-wrapper">
+          <a-plane width="3.8" height="1.5" color="#ff4d6d" opacity="0.08"></a-plane>
+          <a-plane width="0.06" height="1.5" color="#ff4d6d" position="-1.87 0 0.01"></a-plane>
+          <a-text value="« A muller dona do seu desexo&#10; e do seu propio corpo »" font="#font-body" align="center" width="3.35" position="0 0.24 0.05" color="#ffffff" wrap-count="24"></a-text>
+          <a-text value="- Circe ou o pracer do azul" font="#font-body" align="center" width="2.55" position="0.5 -0.48 0.05" color="#ffc0cb" wrap-count="30"></a-text>
+        </a-entity>
+      </a-entity>
+
+      <!-- 2. A QUE SE DEDICOU? esquerda-diante -->
+      <a-entity position="-10.15 2.5 5.07" rotation="0 90 0">
+        <a-entity class="zoom-wrapper">
+          <a-plane width="5.6" height="3" color="#08101d" opacity="0.9"></a-plane>
+          <a-text value="A QUE SE DEDICOU?" font="#font-title" align="center" width="7" color="#00E5FF" position="0 0.8 0.1"></a-text>
+          <a-text value="Xornalista política comprometida,&#10;activista na Marcha Mundial das Mulleres&#10;e referente do feminismo galego." font="#font-body" position="0 -0.4 0.1" align="center" width="4.5" color="#FFFFFF"></a-text>
+        </a-entity>
+      </a-entity>
+
+      <!-- 3. OBRAS dereita-atrás -->
+      <a-entity position="10.15 2.5 -5.07" rotation="0 -90 0">
+        <a-entity class="zoom-wrapper">
+          <a-plane width="5.6" height="2.4" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
+          <a-plane width="5.6" height="0.05" color="#ffb6c1" position="0 2.36 0.01"></a-plane>
+          <a-text value="OBRAS FUNDAMENTAIS" font="#font-title" align="center" width="5.3" position="0 1.92 0.1" color="#ffd6de" wrap-count="22"></a-text>
+          <a-text value="A reescritura feminista dos mitos clásicos e artúricos" font="#font-body" align="center" width="4.8" position="0 1.48 0.1" color="#79b9d8" wrap-count="40"></a-text>
+          <a-image src="#img-circe"   width="1.85" height="2.7" position="-1.22 -0.56 0.05"></a-image>
+          <a-image src="#img-esmelle" width="1.85" height="2.7" position=" 1.22 -0.56 0.05"></a-image>
+          <a-text value="Circe · 2009"   font="#font-title" align="center" width="2.8" position="-1.22 -2.17 0.1" color="#ff9aaa" wrap-count="18"></a-text>
+          <a-text value="Morgana · 2012" font="#font-title" align="center" width="2.8" position=" 1.22 -2.17 0.1" color="#ff9aaa" wrap-count="18"></a-text>
+          <a-plane class="area-clic" width="5.6" height="6.1" position="0 -0.42 0.15" material="opacity:0; transparent:true" onclick="toggle('info3')"></a-plane>
+          <a-entity id="info3" visible="false" position="0 0.82 0.5">
+            <a-plane width="5.25" height="3.7" color="#07101f" opacity="0.99"></a-plane>
+            <a-text value="Premio da Crítica Española" font="#font-title" align="center" width="4.8" position="0 1.42 0.1" color="#ffc1cc"></a-text>
+            <a-text value="As súas novelas reivindican a voz das mulleres silenciadas na historia." font="#font-body" align="center" width="4.45" position="0 0.5 0.1" color="#e7f0fb"></a-text>
+          </a-entity>
+        </a-entity>
+      </a-entity>
+
+      <!-- 4. POR QUE MERECE? dereita-diante -->
+      <a-entity position="10.15 2.5 5.07" rotation="0 -90 0">
+        <a-entity class="zoom-wrapper">
+          <a-plane width="5.6" height="2.8" color="#08101d" opacity="0.9" position="0 1.2 0"></a-plane>
+          <a-text value="POR QUE MERECE AS LETRAS GALEGAS 2026" font="#font-title" align="center" width="5.5" color="#FF0055" position="0 2.35 0.1"></a-text>
+          <a-text value="Pola súa calidade literaria excepcional por poñer o feminismo no centro da nosa literatura contemporánea." font="#font-body" position="0 1.7 0.1" align="center" width="4.8" color="#FFFFFF" wrap-count="30"></a-text>
+          <a-image src="#img-bego" width="2.2" height="3.8" position="0 -0.92 0.05"></a-image>
+        </a-entity>
+      </a-entity>
+
+      <!-- 5. AUDIO traseira-esquerda -->
+      <a-entity position="-5.07 2.4 10.15" rotation="0 180 0">
+        <a-entity class="zoom-wrapper">
+          <a-circle radius="1.42" color="#0b1626" opacity="0.96"></a-circle>
+          <a-torus radius="1.42" radius-tubular="0.025" color="#ff4d6d" opacity="0.55" position="0 0 0.01"
+            animation="property: rotation; to: 0 0 360; loop: true; dur: 8000; easing: linear"></a-torus>
+          <a-torus radius="1.08" radius-tubular="0.012" color="#00e5ff" opacity="0.30" position="0 0 0.02"></a-torus>
+          <a-text value="♪" font="#font-title" align="center" width="2.5" position="0 0.38 0.08" color="#ff4d6d"></a-text>
+          <a-text value="A VOZ DA AUTORA" font="#font-title" align="center" width="2.6" position="0 -0.18 0.08" color="#e8f4ff" wrap-count="16"></a-text>
+          <a-text value="toca para escoitar" font="#font-body" align="center" width="2.2" position="0 -0.58 0.08" color="#5588aa" wrap-count="20"></a-text>
+          <a-circle class="area-clic" radius="1.5" position="0 0 0.12" material="opacity:0; transparent:true" onclick="toggleAudio()"></a-circle>
+          <a-entity id="sound-emitter" sound="src:#audio-file; volume:3"></a-entity>
+        </a-entity>
+      </a-entity>
+
+      <!-- 6. ANACOS DE OBRAS traseira-dereita -->
+      <a-entity position="5.07 2.4 10.15" rotation="0 180 0">
+        <a-entity class="zoom-wrapper">
+          <a-plane width="5.8" height="0.8" color="#08101d" opacity="0.98" position="0 5.1 0"></a-plane>
+          <a-plane width="5.8" height="0.05" color="#ff4d6d" position="0 5.48 0.01"></a-plane>
+          <a-text value="ANACOS DE OBRAS" font="#font-title" align="center" width="5.4" position="0 5.08 0.1" color="#ffd6de" wrap-count="22"></a-text>
+
+          <!-- Tarxeta 1: Circe -->
+          <a-entity position="-2.2 3.9 0">
+            <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
+            <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
+            <a-text value="Circe" font="#font-title" align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"></a-text>
+            <a-text value="Circe ou o pracer do azul" font="#font-body" align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee" wrap-count="20"></a-text>
+            <a-text value="toca para ler" font="#font-body" align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"></a-text>
+            <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true" onclick="toggle('infoAnaco1')"></a-plane>
+            <a-entity id="infoAnaco1" visible="false" position="0 0 0.6">
+              <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
+              <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
+              <a-text value="CIRCE OU O PRACER DO AZUL" font="#font-title" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc" wrap-count="28"></a-text>
+              <a-text value="[ Fragmento da obra aquí ]" font="#font-body" align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"></a-text>
+            </a-entity>
+          </a-entity>
+
+          <!-- Tarxeta 2: Morgana -->
+          <a-entity position="0.4 3.9 0">
+            <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
+            <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
+            <a-text value="Morgana" font="#font-title" align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"></a-text>
+            <a-text value="Morgana en Esmelle" font="#font-body" align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee" wrap-count="20"></a-text>
+            <a-text value="toca para ler" font="#font-body" align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"></a-text>
+            <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true" onclick="toggle('infoAnaco2')"></a-plane>
+            <a-entity id="infoAnaco2" visible="false" position="0 0 0.6">
+              <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
+              <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
+              <a-text value="MORGANA EN ESMELLE" font="#font-title" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc" wrap-count="28"></a-text>
+              <a-text value="[ Fragmento da obra aquí ]" font="#font-body" align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"></a-text>
+            </a-entity>
+          </a-entity>
+
+          <!-- Tarxeta 3 -->
+          <a-entity position="-2.2 1.95 0">
+            <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
+            <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
+            <a-text value="Relato" font="#font-title" align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"></a-text>
+            <a-text value="Voz e memoria" font="#font-body" align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee"></a-text>
+            <a-text value="toca para ler" font="#font-body" align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"></a-text>
+            <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true" onclick="toggle('infoAnaco3')"></a-plane>
+            <a-entity id="infoAnaco3" visible="false" position="0 0 0.6">
+              <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
+              <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
+              <a-text value="VOZ E MEMORIA" font="#font-title" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"></a-text>
+              <a-text value="[ Engade aquí o terceiro fragmento ]" font="#font-body" align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"></a-text>
+            </a-entity>
+          </a-entity>
+
+          <!-- Tarxeta 4 -->
+          <a-entity position="0.4 1.95 0">
+            <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
+            <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
+            <a-text value="Mito" font="#font-title" align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"></a-text>
+            <a-text value="Relectura feminista" font="#font-body" align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee"></a-text>
+            <a-text value="toca para ler" font="#font-body" align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"></a-text>
+            <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true" onclick="toggle('infoAnaco4')"></a-plane>
+            <a-entity id="infoAnaco4" visible="false" position="0 0 0.6">
+              <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
+              <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
+              <a-text value="RELECTURA FEMINISTA" font="#font-title" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"></a-text>
+              <a-text value="[ Engade aquí o cuarto fragmento ]" font="#font-body" align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"></a-text>
+            </a-entity>
+          </a-entity>
+
+          <!-- Tarxeta 5 -->
+          <a-entity position="-0.9 0.0 0">
+            <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
+            <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
+            <a-text value="Lingua" font="#font-title" align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"></a-text>
+            <a-text value="Compromiso galego" font="#font-body" align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee"></a-text>
+            <a-text value="toca para ler" font="#font-body" align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"></a-text>
+            <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true" onclick="toggle('infoAnaco5')"></a-plane>
+            <a-entity id="infoAnaco5" visible="false" position="0 0 0.6">
+              <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
+              <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
+              <a-text value="COMPROMISO COA LINGUA" font="#font-title" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"></a-text>
+              <a-text value="[ Engade aquí o quinto fragmento ]" font="#font-body" align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"></a-text>
+            </a-entity>
+          </a-entity>
+        </a-entity>
+      </a-entity>
+
+      <!-- 7. VÍDEO frontal-esquerda -->
+      <a-entity position="-5.07 2.4 -12.15" rotation="0 0 0">
+        <a-entity class="zoom-wrapper">
+          <a-plane width="5.5" height="1.7" color="#08101d" opacity="0.96" position="0 2.55 0"></a-plane>
+          <a-text value="VÍDEO / XORNALISMO" font="#font-title" align="center" width="5.2" position="0 2.92 0.1" color="#9af1ff"></a-text>
+          <a-text value="▶ Toca para reproducir ou pausar" font="#font-body" align="center" width="4.6" position="0 2.42 0.1" color="#e7f0fb" wrap-count="40"
+            animation="property: opacity; from: 1; to: 0.4; dir: alternate; dur: 1000; loop: true">
+          </a-text>
+          <a-video src="#video-file" width="5.2" height="2.92" position="0 0.82 0.05"></a-video>
+          <a-plane class="area-clic" width="5.2" height="2.92" position="0 0.82 0.18" material="opacity:0; transparent:true" onclick="toggleVideo()"></a-plane>
+        </a-entity>
+      </a-entity>
+
+      <!-- 8. QUIZ frontal-dereita — sen zoom-wrapper -->
+      <a-entity position="5.07 1.6 -20.15" rotation="0 0 0">
+        <a-entity scale="30 30 1" position="0 3.8 0">
+          <a-text value="?" align="center" color="#FF0000" font="#font-title"
+            animation="property: position; from: -0.01 0.01 -0.02; to: 0.01 -0.01 -0.02; dir: alternate; dur: 1200; loop: true"></a-text>
+          <a-text value="?" align="center" color="#FFFFFF" font="#font-title"
+            animation="property: opacity; from: 0.3; to: 1; dir: alternate; dur: 1000; loop: true"></a-text>
+          <a-text value="?" align="center" color="#00E5FF" font="#font-title" opacity="0.6"
+            animation="property: position; from: 0.01 -0.01 0.01; to: -0.01 0.01 0.01; dir: alternate; dur: 500; loop: true"></a-text>
+        </a-entity>
+        <a-text value="Canto sabes?" font="#font-title" align="center" width="16" position="0 2.2 0" color="#000000" negate="true" wrap-count="30"></a-text>
+        <a-entity position="0 1.4 0">
+          <a-plane class="area-clic" width="7" height="1.6" color="#FF0000" onclick="abrirQuiz()" material="shader: flat">
+            <a-text value="PREME para COMEZAR" align="center" width="14" color="#FFFFFF" font="#font-title" position="0 0 0.1"></a-text>
+          </a-plane>
+          <a-plane width="7" height="0.15" color="#FFFFFF" position="0 -1 0" opacity="0.8"></a-plane>
+          <a-plane width="2" height="0.15" color="#00E5FF" position="-2.5 -1 0.01"
+            animation="property: position; from: -2.5 -1 0.01; to: 2.5 -1 0.01; dir: alternate; dur: 1500; loop: true; easing: easeInOutQuad">
+          </a-plane>
+        </a-entity>
+        <a-light type="point" color="#FF0000" intensity="1.5" distance="20" position="0 -0.2 2"></a-light>
+      </a-entity>
+
+    </a-entity>
+  </a-scene>
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
-      const sceneWrap = document.getElementById('scene-wrap');
-      const scene = document.querySelector('a-scene');
-      const museo = document.getElementById('museo');
-      const reticle = document.getElementById('reticle');
-      const portadaEl = document.getElementById('portada');
-      const portadaBg = document.getElementById('portada-bg');
+      const scene      = document.querySelector('a-scene');
+      const museo      = document.getElementById('museo');
+      const reticle    = document.getElementById('reticle');
+      const portadaEl  = document.getElementById('portada');
+      const portadaBg  = document.getElementById('portada-bg');
       const btnQuizSala = document.getElementById('btn-quiz-sala');
-      const escalaPanel = document.getElementById('escala-distancias-panel');
+      const escalaPanel  = document.getElementById('escala-distancias-panel');
       const escalaSlider = document.getElementById('escala-distancias-slider');
-      const escalaValor = document.getElementById('escala-distancias-valor');
-      const audioEl = document.getElementById('audio-file');
-      const videoEl = document.getElementById('video-file');
+      const escalaValor  = document.getElementById('escala-distancias-valor');
+      const audioEl    = document.getElementById('audio-file');
+      const videoEl    = document.getElementById('video-file');
 
+      const posicionesBase = new Map();
       let escalaDistancias = 1;
 
-      const preloadImg = new Image();
-      preloadImg.src = 'imax/begonha2.png';
-      preloadImg.onload = () => portadaBg.classList.add('lista');
+      const PANEIS = ['info1','info3','infoAnaco1','infoAnaco2','infoAnaco3','infoAnaco4','infoAnaco5'];
 
-      if (!navigator.xr) {
-        const hint = document.createElement('p');
-        hint.className = 'portada-hint';
-        hint.style.color = '#ff8fa0';
-        hint.textContent = 'Este dispositivo ou navegador pode non soportar WebXR AR. Chrome en Android é a opción recomendada.';
-        document.querySelector('.portada-inner')?.appendChild(hint);
+      // Portada
+      const preImg = new Image();
+      preImg.src = 'imax/begonha2.png';
+      preImg.onload = () => portadaBg.classList.add('lista');
+
+      // Escala de distancias
+      function prepararBase() {
+        posicionesBase.clear();
+        Array.from(museo.children).forEach(p => {
+          if (p.object3D) posicionesBase.set(p, p.object3D.position.clone());
+        });
       }
 
-      /*
-        Ata que a escena cargue, queda invisible.
-        Isto evita ver a cámara e a escena detrás da portada.
-      */
-      scene.addEventListener('loaded', () => {
-        sceneWrap.classList.remove('scene-hidden');
-        sceneWrap.classList.add('scene-ready');
-      }, { once: true });
+      function aplicarEscala(e) {
+        if (!posicionesBase.size) prepararBase();
+        posicionesBase.forEach((b, p) => p.object3D.position.set(b.x * e, b.y, b.z * e));
+        escalaValor.textContent = e.toFixed(2) + 'x';
+      }
 
-      /*
-        O reticle queda visible só cando entras en AR.
-      */
-      scene.addEventListener('enter-vr', () => {
-        if (scene.is('ar-mode')) {
-          portadaEl.style.display = 'none';
-          document.querySelector('.portada-escolar').style.display = 'flex';
-          escalaPanel.style.display = 'block';
-          reticle.setAttribute('visible', true);
-          reticle.setAttribute('ar-hit-test', 'enabled: true; target: #museo');
-        }
+      scene.addEventListener('loaded', () => { prepararBase(); aplicarEscala(1); }, { once: true });
+
+      escalaSlider.addEventListener('input', () => {
+        escalaDistancias = parseFloat(escalaSlider.value);
+        aplicarEscala(escalaDistancias);
       });
 
-      function resetearAudio() {
-        const soundEntity = document.getElementById('sound-emitter');
-        if (soundEntity?.components?.sound?.isPlaying) {
-          soundEntity.components.sound.stopSound();
-        }
-        if (audioEl) {
-          audioEl.pause?.();
-          audioEl.currentTime = 0;
-        }
-      }
-
-      function resetearVideo() {
-        if (videoEl) {
-          videoEl.pause();
-          videoEl.currentTime = 0;
-        }
-      }
-
-      function resetearEscala() {
-        escalaDistancias = 1;
-        if (escalaSlider) escalaSlider.value = 1;
-        if (escalaValor) escalaValor.textContent = '1.00x';
-      }
-
-      window.pecharQuiz = function() {
-        document.getElementById('quiz-panel').classList.remove('activo');
-        document.getElementById('quiz-backdrop').style.display = 'none';
+      // Funcións globais de interacción
+      window.toggle = id => {
+        const el = document.getElementById(id);
+        if (el) el.setAttribute('visible', !el.getAttribute('visible'));
       };
 
-      function resetearMuseoCompleto() {
+      window.toggleAudio = () => {
+        const s = document.getElementById('sound-emitter');
+        if (!s?.components?.sound) return;
+        s.components.sound.isPlaying ? s.components.sound.stopSound() : s.components.sound.playSound();
+      };
+
+      window.toggleVideo = () => {
+        if (!videoEl) return;
+        videoEl.paused ? videoEl.play().catch(()=>{}) : videoEl.pause();
+      };
+
+      // Reset completo ao saír de AR
+      function pecharTodo() {
+        PANEIS.forEach(id => { const e = document.getElementById(id); if(e) e.setAttribute('visible', false); });
+      }
+
+      function resetearMuseo() {
         museo.setAttribute('visible', false);
-        museo.object3D.position.set(0, 0, 0);
-        resetearAudio();
-        resetearVideo();
-        resetearEscala();
+        museo.object3D.position.set(0,0,0);
+        pecharTodo();
+
+        const s = document.getElementById('sound-emitter');
+        if (s?.components?.sound?.isPlaying) s.components.sound.stopSound();
+        if (audioEl) { audioEl.pause?.(); audioEl.currentTime = 0; }
+        if (videoEl) { videoEl.pause(); videoEl.currentTime = 0; }
+
+        escalaDistancias = 1;
+        escalaSlider.value = 1;
+        aplicarEscala(1);
+
         pecharQuiz();
-
         btnQuizSala.style.display = 'none';
-        document.querySelector('.portada-escolar').style.display = 'none';
-        escalaPanel.style.display = 'none';
-
-        reticle.setAttribute('visible', false);
         reticle.setAttribute('ar-hit-test', 'enabled: true; target: #museo');
       }
 
-      scene.addEventListener('exit-vr', () => {
-        resetearMuseoCompleto();
-        portadaEl.style.display = 'flex';
-      });
-
-      /*
-        Colocación do museo ao tocar a pantalla cando a retícula está activa.
-      */
-      window.addEventListener('click', (e) => {
+      // Colocación do museo ao tocar
+      window.addEventListener('click', e => {
         if (!scene.is('ar-mode')) return;
         if (!reticle.getAttribute('visible')) return;
         if (e.target.closest('#quiz-panel') || e.target.closest('#escala-distancias-panel')) return;
+        if (document.getElementById('quiz-panel').classList.contains('activo')) return;
 
         const pos = new THREE.Vector3();
         reticle.object3D.getWorldPosition(pos);
-
         museo.object3D.position.copy(pos);
         museo.setAttribute('visible', true);
 
@@ -924,15 +871,123 @@
         btnQuizSala.style.display = 'block';
       });
 
-      /*
-        Quiz mínimo para evitar erros se premes o botón.
-      */
-      window.abrirQuiz = function() {
-        document.getElementById('quiz-panel').classList.add('activo');
+      // Enter / Exit VR
+      scene.addEventListener('enter-vr', () => {
+        portadaEl.style.display = 'none';
+        if (scene.is('ar-mode')) {
+          document.querySelector('.portada-escolar').style.display = 'flex';
+          escalaPanel.style.display = 'block';
+        } else {
+          museo.setAttribute('visible', true);
+          btnQuizSala.style.display = 'block';
+        }
+      });
+
+      scene.addEventListener('exit-vr', () => {
+        resetearMuseo();
+        portadaEl.style.display = 'flex';
+        document.querySelector('.portada-escolar').style.display = 'none';
+        escalaPanel.style.display = 'none';
+      });
+
+      // QUIZ
+      const QP = [
+        { p: 'En que cidade naceu Begoña Caamaño?', ops: ['Vigo','Santiago de Compostela','A Coruña','Pontevedra'], ok: 0, exp: 'Naceu en Vigo no ano 1964.' },
+        { p: 'En que medio traballou como xornalista?', ops: ['TVG','Radio Galega','La Voz de Galicia','El Correo Gallego'], ok: 1, exp: 'Foi unha voz fundamental na Radio Galega.' },
+        { p: 'En que ano faleceu Begoña Caamaño?', ops: ['2010','2012','2014','2016'], ok: 2, exp: 'Faleceu en Santiago de Compostela en 2014.' },
+        { p: 'Cal é o título da súa novela de 2009?', ops: ['Morgana en Esmelle','Circe ou o pracer do azul','A illa das mulleres','O libro das fadas'], ok: 1, exp: "'Circe ou o pracer do azul' publicouse en 2009." },
+        { p: "En que ano se publicou 'Morgana en Esmelle'?", ops: ['2008','2010','2012','2014'], ok: 2, exp: "'Morgana en Esmelle' publicouse en 2012." },
+        { p: 'Que temática atravesa a obra de Begoña Caamaño?', ops: ['A guerra civil española','O feminismo e a reescritura de mitos','A emigración galega','A vida rural no século XIX'], ok: 1, exp: 'O feminismo e a revisión dos mitos son o núcleo da súa obra.' },
+        { p: 'A que ano das Letras Galegas corresponde a súa homenaxe?', ops: ['2024','2025','2026','2027'], ok: 2, exp: 'O Día das Letras Galegas 2026 está dedicado a Begoña Caamaño.' }
+      ];
+
+      let qIdx = 0, qPts = 0, qResp = false;
+
+      window.abrirQuiz = () => {
+        const p = document.getElementById('quiz-panel');
+        if (p.classList.contains('activo')) return;
+        qIdx = 0; qPts = 0;
+        p.classList.add('activo');
         document.getElementById('quiz-backdrop').style.display = 'block';
+        document.getElementById('q-resultado').style.display = 'none';
+        document.getElementById('q-xogo').style.display = 'block';
+        qMostrar();
       };
-      window.qReiniciar = function() {};
-      window.qSeguinte = function() {};
+
+      window.pecharQuiz = () => {
+        document.getElementById('quiz-panel').classList.remove('activo');
+        document.getElementById('quiz-backdrop').style.display = 'none';
+      };
+
+      window.qReiniciar = () => {
+        qIdx = 0; qPts = 0;
+        document.getElementById('q-resultado').style.display = 'none';
+        document.getElementById('q-xogo').style.display = 'block';
+        qMostrar();
+      };
+
+      function qMostrar() {
+        qResp = false;
+        const q = QP[qIdx], tot = QP.length;
+        document.getElementById('q-barra').style.width = (qIdx/tot*100)+'%';
+        document.getElementById('q-num').textContent  = 'Pregunta '+(qIdx+1)+' de '+tot;
+        document.getElementById('q-preg').textContent = q.p;
+        document.getElementById('q-fb').textContent   = '';
+        document.getElementById('q-fb').className     = 'q-fb';
+        document.getElementById('q-btn-seg').style.display = 'none';
+        const ops = document.getElementById('q-ops');
+        ops.innerHTML = '';
+        q.ops.forEach((o,i) => {
+          const b = document.createElement('button');
+          b.className = 'opcion'; b.textContent = o;
+          b.onclick = () => qResponder(i);
+          ops.appendChild(b);
+        });
+      }
+
+      function qResponder(idx) {
+        if (qResp) return;
+        qResp = true;
+        const q = QP[qIdx];
+        const bts = document.querySelectorAll('.opcion');
+        bts.forEach(b => b.disabled = true);
+        const fb = document.getElementById('q-fb');
+        if (idx === q.ok) {
+          qPts++;
+          bts[idx].classList.add('correcta');
+          fb.textContent = '✓ Correcto! ' + q.exp;
+        } else {
+          bts[idx].classList.add('incorrecta');
+          bts[q.ok].classList.add('correcta');
+          fb.textContent = '✗ Incorrecto. ' + q.exp;
+          fb.className = 'q-fb mal';
+        }
+        const bs = document.getElementById('q-btn-seg');
+        bs.style.display = 'inline-block';
+        bs.textContent = qIdx >= QP.length-1 ? 'Ver resultado ✦' : 'Seguinte →';
+        document.getElementById('q-barra').style.width = ((qIdx+1)/QP.length*100)+'%';
+      }
+
+      window.qSeguinte = () => {
+        qIdx++;
+        qIdx >= QP.length ? qResultado() : qMostrar();
+      };
+
+      function qResultado() {
+        document.getElementById('q-xogo').style.display = 'none';
+        document.getElementById('q-barra').style.width = '100%';
+        document.getElementById('q-resultado').style.display = 'flex';
+        const pct = Math.round(qPts/QP.length*100);
+        document.getElementById('r-puntos').textContent = qPts+'/'+QP.length;
+        let lb,st,mg;
+        if (pct===100) { lb='Excelente!'; st='★★★★★'; mg='Dominas o legado de Begoña Caamaño. Parabéns!'; }
+        else if (pct>=71) { lb='Moi ben!'; st='★★★★☆'; mg='Coñeces ben a vida e a obra desta escritora fundamental.'; }
+        else if (pct>=43) { lb='Vai ben!'; st='★★★☆☆'; mg='Tes boa base. Explora os paneis do museo para completar.'; }
+        else { lb='Sigue aprendendo!'; st='★★☆☆☆'; mg='Revisa os paneis da sala e volve tentar. Begoña merece máis tempo.'; }
+        document.getElementById('r-label').textContent = lb;
+        document.getElementById('r-stars').textContent = st;
+        document.getElementById('r-msg').textContent   = mg;
+      }
     });
   </script>
 </body>
