@@ -1265,68 +1265,46 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
     //EFECTO FACERSE GRANDE AO SE ACHEGAR 
     //--------------------------------
     // Rexistramos un novo compoñente de A-Frame para xestionar o zoom por proximidade
-    AFRAME.registerComponent('proximity-zoom', {
-      init: function () {
-        this.camera = document.querySelector('a-camera').object3D;
-        // Seleccionamos todos os paneis da escena (.area-clic para atopar as entidades nai)
-        this.panels = Array.from(document.querySelectorAll('.area-clic')).map(el => el.parentElement);
-        this.camPos = new THREE.Vector3();
-        this.panelPos = new THREE.Vector3();
-      },
+ AFRAME.registerComponent('proximity-zoom', {
+  init: function () {
+    this.camera = document.querySelector('a-camera').object3D;
+    this.panels = Array.from(document.querySelectorAll('.area-clic')).map(el => el.parentElement);
+    this.camPos = new THREE.Vector3();
+    this.panelPos = new THREE.Vector3();
+  },
 
-      tick: function () {
-        if (!this.camera || this.panels.length === 0) return;
+  tick: function () {
+    if (!this.camera || this.panels.length === 0) return;
 
-        this.camera.getWorldPosition(this.camPos);
+    this.camera.getWorldPosition(this.camPos);
 
-        this.panels.forEach(panel => {
-          if (!panel.object3D) return;
+    this.panels.forEach(panel => {
+      if (!panel.object3D) return;
+      panel.object3D.getWorldPosition(this.panelPos);
 
-          panel.object3D.getWorldPosition(this.panelPos);
-          const distance = this.camPos.distanceTo(this.panelPos);
+      const distance = this.camPos.distanceTo(this.panelPos);
 
-          // ==========================================
-          // VALORES ESAXERADOS PARA PROBAR
-          // ==========================================
-          // const minDistance = 1.2;  // Cando estás a 1.2 metros queda ao máximo. Evita o infinito ao achegarte a 0m.
-          // const maxDistance = 6.0;  // A 6 metros ou máis, o panel vólvese ao seu tamaño base.
-          // const maxScale = 5.0;     // O panel medra ata 5 veces o seu tamaño orixinal!
-          // const minScale = 1.0;     // O panel nunca encollerá por debaixo do seu 100% orixinal.
+      const minDistance = 1.4;
+      const maxDistance = 4.2;
+      const maxScale = 1.85;
+      const minScale = 1.0;
 
-          // ==========================================
-          // VALORES NORMAIS (Descomenta isto para a biblioteca ou cuarto)
-          // ==========================================
-          // const minDistance = 1.0;  
-          // const maxDistance = 3.5;  
-          // const maxScale = 1.4;     // Medra un 40% máis como máximo
-          // const minScale = 1.0;    
+      let targetScale = minScale;
 
-
-          // ==========================================
-          // PARÁMETROS AXUSTADOS Á NOVA ESCALA 1.45x
-          // ==========================================
-          const minDistance = 1.8;   // mudei a 1 pra comprobar A menos de 1.8 metros queda ao máximo tamaño (non se pega á cara)
-          const maxDistance = 6.5;   // A 6.5 metros ou máis ten o seu tamaño normal
-          const maxScale = 3;     // O zoom máximo que querías (45% máis grande)
-          const minScale = 1.0;      // O tamaño base normal
-
-
-          let targetScale = minScale;
-
-          if (distance <= minDistance) {
-            // Se estás pegado ou a menos de 1.2m, mantén a escala máxima
-            targetScale = maxScale;
-          } else if (distance < maxDistance) {
-            // Interpola o tamaño segundo a distancia para que medre suavemente
-            const ratio = (distance - minDistance) / (maxDistance - minDistance);
-            targetScale = maxScale - (ratio * (maxScale - minScale));
-          }
-
-          // Aplicamos o tamaño calculado
-          panel.object3D.scale.set(targetScale, targetScale, targetScale);
-        });
+      if (distance <= minDistance) {
+        targetScale = maxScale;
+      } else if (distance < maxDistance) {
+        const ratio = (distance - minDistance) / (maxDistance - minDistance);
+        targetScale = maxScale - ratio * (maxScale - minScale);
       }
+
+      const current = panel.object3D.scale.x;
+      const next = current + (targetScale - current) * 0.08;
+
+      panel.object3D.scale.set(next, next, next);
     });
+  }
+});
 
 
     const scene = document.querySelector('a-scene');
