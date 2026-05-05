@@ -1576,18 +1576,14 @@ function resetearMuseo() {
   museo.object3D.position.set(0, 0, 0);
 
   reticle.setAttribute('visible', true);
-  reticle.setAttribute('ar-hit-test', 'target:#museo');
-
-  if (audioEl) {
-    audioEl.pause?.();
-    audioEl.currentTime = 0;
-  }
+  reticle.setAttribute('ar-hit-test', 'target: #museo');
 
   const soundEmitter = document.getElementById('sound-emitter');
   if (soundEmitter?.components?.sound?.isPlaying) {
     soundEmitter.components.sound.stopSound();
   }
 
+  const videoEl = document.getElementById('video-file');
   if (videoEl) {
     videoEl.pause();
     videoEl.currentTime = 0;
@@ -1595,10 +1591,10 @@ function resetearMuseo() {
 
   pecharQuiz();
 
-  if (typeof aplicarEscala === 'function') {
-    escalaDistancias = 1;
-    if (escalaSlider) escalaSlider.value = '1';
-    aplicarEscala(1);
+  escalaDistancias = 1;
+  if (escalaSlider) escalaSlider.value = '1';
+  if (typeof aplicarEscalaDistancias === 'function') {
+    aplicarEscalaDistancias(1);
   }
 
   if (btnQuizSala) btnQuizSala.style.display = 'none';
