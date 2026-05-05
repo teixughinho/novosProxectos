@@ -650,7 +650,8 @@
       </a-entity>
 
       <!-- 6. ANACOS DE OBRAS traseira-dereita -->
-  <a-entity position="5.07 -0.6 10.15" rotation="0 180 0">
+   <!-- 6. ANACOS DE OBRAS traseira-dereita -->
+      <a-entity position="5.07 -0.6 10.15" rotation="0 180 0">
 
         <!-- Cabeceira do panel -->
         <a-plane width="5.8" height="0.8" color="#08101d" opacity="0.98" position="0 5.1 0"></a-plane>
@@ -793,72 +794,116 @@
               color="#e7f0fb" negate="false" wrap-count="46"></a-text>
           </a-entity>
         </a-entity>
-      </a-entity>
 
-          <!-- Tarxeta 2: Morgana -->
-          <a-entity position="0.4 3.9 0">
-            <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
-            <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
-            <a-text value="Morgana" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"  negate="false" ></a-text>
-            <a-text value="Morgana en Esmelle" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee" wrap-count="20"  negate="false" ></a-text>
-            <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"  negate="false" ></a-text>
-            <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true" onclick="toggle('infoAnaco2')"></a-plane>
-            <a-entity id="infoAnaco2" visible="false" position="0 0 0.6">
-              <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
-              <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
-              <a-text value="MORGANA EN ESMELLE" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc" wrap-count="28"  negate="false" ></a-text>
-              <a-text value="[ Fragmento da obra aquí ]" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"  negate="false" ></a-text>
-            </a-entity>
-          </a-entity>
 
-          <!-- Tarxeta 3 -->
-          <a-entity position="-2.2 1.95 0">
-            <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
-            <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
-            <a-text value="Relato" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"  negate="false" ></a-text>
-            <a-text value="Voz e memoria" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee"  negate="false" ></a-text>
-            <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"  negate="false" ></a-text>
-            <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true" onclick="toggle('infoAnaco3')"></a-plane>
-            <a-entity id="infoAnaco3" visible="false" position="0 0 0.6">
-              <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
-              <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
-              <a-text value="VOZ E MEMORIA" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"  negate="false" ></a-text>
-              <a-text value="[ Engade aquí o terceiro fragmento ]" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"  negate="false" ></a-text>
-            </a-entity>
-          </a-entity>
-
-          <!-- Tarxeta 4 -->
-          <a-entity position="0.4 1.95 0">
-            <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
-            <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
-            <a-text value="Mito" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"  negate="false" ></a-text>
-            <a-text value="Relectura feminista" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee"  negate="false" ></a-text>
-            <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"  negate="false" ></a-text>
-            <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true" onclick="toggle('infoAnaco4')"></a-plane>
-            <a-entity id="infoAnaco4" visible="false" position="0 0 0.6">
-              <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
-              <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
-              <a-text value="RELECTURA FEMINISTA" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"  negate="false" ></a-text>
-              <a-text value="[ Engade aquí o cuarto fragmento ]" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"  negate="false" ></a-text>
-            </a-entity>
-          </a-entity>
-
-          <!-- Tarxeta 5 -->
-          <a-entity position="-0.9 0.0 0">
-            <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
-            <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
-            <a-text value="Lingua" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"  negate="false" ></a-text>
-            <a-text value="Compromiso galego" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1" color="#acd4ee"  negate="false" ></a-text>
-            <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.6" position="0 -0.42 0.1" color="#3f708c"  negate="false" ></a-text>
-            <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true" onclick="toggle('infoAnaco5')"></a-plane>
-            <a-entity id="infoAnaco5" visible="false" position="0 0 0.6">
-              <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
-              <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
-              <a-text value="COMPROMISO COA LINGUA" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"  negate="false" ></a-text>
-              <a-text value="[ Engade aquí o quinto fragmento ]" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1" color="#e7f0fb" wrap-count="46"  negate="false" ></a-text>
-            </a-entity>
+        <!-- Tarxeta 2: Morgana -->
+        <a-entity position="0.4 3.9 0">
+          <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
+          <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
+          <a-text value="Morgana" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png"
+            font-image="fonts/Outfit-Bold-msdf.png" align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"
+            negate="false"></a-text>
+          <a-text value="Morgana en Esmelle" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1"
+            color="#acd4ee" wrap-count="20" negate="false"></a-text>
+          <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.6" position="0 -0.42 0.1"
+            color="#3f708c" negate="false"></a-text>
+          <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true"
+            onclick="toggle('infoAnaco2')"></a-plane>
+          <a-entity id="infoAnaco2" visible="false" position="0 0 0.6">
+            <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
+            <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
+            <a-text value="MORGANA EN ESMELLE" font="fonts/Nunito-SemiBold-msdf.json"
+              font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center"
+              width="4.7" position="0 1.22 0.1" color="#ffc1cc" wrap-count="28" negate="false"></a-text>
+            <a-text value="[ Fragmento da obra aquí ]" font="fonts/Nunito-SemiBold-msdf.json"
+              font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
+              color="#e7f0fb" wrap-count="46" negate="false"></a-text>
           </a-entity>
         </a-entity>
+
+        <!-- Tarxeta 3 -->
+        <a-entity position="-2.2 1.95 0">
+          <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
+          <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
+          <a-text value="Relato" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png"
+            font-image="fonts/Outfit-Bold-msdf.png" align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"
+            negate="false"></a-text>
+          <a-text value="Voz e memoria" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1"
+            color="#acd4ee" negate="false"></a-text>
+          <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.6" position="0 -0.42 0.1"
+            color="#3f708c" negate="false"></a-text>
+          <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true"
+            onclick="toggle('infoAnaco3')"></a-plane>
+          <a-entity id="infoAnaco3" visible="false" position="0 0 0.6">
+            <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
+            <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
+            <a-text value="VOZ E MEMORIA" font="fonts/Nunito-SemiBold-msdf.json"
+              font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center"
+              width="4.7" position="0 1.22 0.1" color="#ffc1cc" negate="false"></a-text>
+            <a-text value="[ Engade aquí o terceiro fragmento ]" font="fonts/Nunito-SemiBold-msdf.json"
+              font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
+              color="#e7f0fb" wrap-count="46" negate="false"></a-text>
+          </a-entity>
+        </a-entity>
+
+        <!-- Tarxeta 4 -->
+        <a-entity position="0.4 1.95 0">
+          <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
+          <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
+          <a-text value="Mito" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png"
+            font-image="fonts/Outfit-Bold-msdf.png" align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"
+            negate="false"></a-text>
+          <a-text value="Relectura feminista" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1"
+            color="#acd4ee" negate="false"></a-text>
+          <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.6" position="0 -0.42 0.1"
+            color="#3f708c" negate="false"></a-text>
+          <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true"
+            onclick="toggle('infoAnaco4')"></a-plane>
+          <a-entity id="infoAnaco4" visible="false" position="0 0 0.6">
+            <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
+            <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
+            <a-text value="RELECTURA FEMINISTA" font="fonts/Nunito-SemiBold-msdf.json"
+              font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center"
+              width="4.7" position="0 1.22 0.1" color="#ffc1cc" negate="false"></a-text>
+            <a-text value="[ Engade aquí o cuarto fragmento ]" font="fonts/Nunito-SemiBold-msdf.json"
+              font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
+              color="#e7f0fb" wrap-count="46" negate="false"></a-text>
+          </a-entity>
+        </a-entity>
+
+        <!-- Tarxeta 5 -->
+        <a-entity position="-0.9 0.0 0">
+          <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
+          <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
+          <a-text value="Lingua" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png"
+            font-image="fonts/Outfit-Bold-msdf.png" align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc"
+            negate="false"></a-text>
+          <a-text value="Compromiso galego" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1"
+            color="#acd4ee" negate="false"></a-text>
+          <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
+            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.6" position="0 -0.42 0.1"
+            color="#3f708c" negate="false"></a-text>
+          <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true"
+            onclick="toggle('infoAnaco5')"></a-plane>
+          <a-entity id="infoAnaco5" visible="false" position="0 0 0.6">
+            <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
+            <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
+            <a-text value="COMPROMISO COA LINGUA" font="fonts/Nunito-SemiBold-msdf.json"
+              font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png" align="center"
+              width="4.7" position="0 1.22 0.1" color="#ffc1cc" negate="false"></a-text>
+            <a-text value="[ Engade aquí o quinto fragmento ]" font="fonts/Nunito-SemiBold-msdf.json"
+              font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
+              color="#e7f0fb" wrap-count="46" negate="false"></a-text>
+          </a-entity>
+        </a-entity>
+      </a-entity>
 
       <!-- 7. VÍDEO frontal-esquerda -->
       <a-entity position="-5.07 2.4 -12.15" rotation="0 0 0">
