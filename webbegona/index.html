@@ -1436,12 +1436,12 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
       }
     });
 
-    scene.addEventListener('exit-vr', () => {
-      portadaEl.style.display = 'flex'; // Volver amosar a portada ao saír
-      btnQuizSala.style.display = 'none';
-      document.querySelector('.portada-escolar').style.display = 'none';
-      escalaPanel.style.display = 'none';
-    });
+  scene.addEventListener('exit-vr', () => {
+  resetearMuseo();
+  portadaEl.style.display = 'flex';
+  document.querySelector('.portada-escolar').style.display = 'none';
+  if (escalaPanel) escalaPanel.style.display = 'none';
+});
 
     /* ================= LÓXICA DO QUIZ ================= */
     const QP = [
@@ -1552,6 +1552,57 @@ Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2:
       document.getElementById('r-msg').textContent = mg;
     }
 
+    const PANEIS = [
+  'info1',
+  'info3',
+  'infoAnaco1',
+  'infoAnaco2',
+  'infoAnaco3',
+  'infoAnaco4',
+  'infoAnaco5'
+];
+
+function pecharPaneisAbertos() {
+  PANEIS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('visible', false);
+  });
+}
+
+function resetearMuseo() {
+  pecharPaneisAbertos();
+
+  museo.setAttribute('visible', false);
+  museo.object3D.position.set(0, 0, 0);
+
+  reticle.setAttribute('visible', true);
+  reticle.setAttribute('ar-hit-test', 'target:#museo');
+
+  if (audioEl) {
+    audioEl.pause?.();
+    audioEl.currentTime = 0;
+  }
+
+  const soundEmitter = document.getElementById('sound-emitter');
+  if (soundEmitter?.components?.sound?.isPlaying) {
+    soundEmitter.components.sound.stopSound();
+  }
+
+  if (videoEl) {
+    videoEl.pause();
+    videoEl.currentTime = 0;
+  }
+
+  pecharQuiz();
+
+  if (typeof aplicarEscala === 'function') {
+    escalaDistancias = 1;
+    if (escalaSlider) escalaSlider.value = '1';
+    aplicarEscala(1);
+  }
+
+  if (btnQuizSala) btnQuizSala.style.display = 'none';
+}
   </script>
 </body>
 
