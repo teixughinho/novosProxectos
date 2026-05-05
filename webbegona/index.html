@@ -441,7 +441,7 @@
 <body>
 
   <!-- PORTADA: z-index máximo, tapa todo ata que entras en AR -->
-  <!-- <div id="portada">
+  <div id="portada">
     <div id="portada-bg"></div>
     <div class="portada-inner">
       <div class="portada-kicker">Mostra  inmersiva</div>
@@ -453,7 +453,7 @@
       <p class="portada-hint">Preme o botón [AR] para entrares na mostra.</p>
       <p class="portada-hint">Precisas Chrome en Android para a mellor compatibilidade.</p>
     </div>
-  </div> -->
+  </div>
 
   <!-- OVERLAY dentro da escena para dom-overlay -->
   <div id="overlay">
@@ -546,7 +546,7 @@
 
     <a-entity id="reticle" ar-hit-test="target:#museo"></a-entity>
 
-    <a-entity id="museo" visible="true">
+    <a-entity id="museo" visible="false">
 
       <!-- 1. QUEN FOI? (Esquerda 1 Atrás) -->
       <!-- Posición: Atrás á esquerda, rotada cara ao centro -->
@@ -591,18 +591,10 @@
           <a-plane width="0.06" height="1.5" color="#ff4d6d" position="-1.87 0 0.01"></a-plane>
         <a-text value="« A muller dona do seu desexo\n e do seu propio corpo »" font="fonts/Nunito-SemiBold-msdf.json"
           align="center" width="3.35" position="0 0.24 0.05" color="#ffffff"  wrap-count="24"  negate="false" ></a-text>
-          <!-- <a-text value="- Circe ou o pracer do azul" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="2.55" position="0.5 -0.48 0.05" color="#ffc0cb" wrap-count="30"  negate="false" ></a-text> -->
           <a-text value="- Circe ou o pracer do azul" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="2.55" position="0.5 -0.48 0.05" color="#ffc0cb"  wrap-count="30"  negate="false" ></a-text>
         </a-entity>
       </a-entity>
-    <!-- <a-entity position="-10 4.6 0" rotation="0 90 0">
-        <a-plane width="3.8" height="1.5" color="#ff4d6d" opacity="0.08"></a-plane>
-        <a-plane width="0.06" height="1.5" color="#ff4d6d" position="-1.87 0 0.01"></a-plane>
-        <a-text value="« A muller dona do seu desexo\n e do seu propio corpo »" font="fonts/Nunito-SemiBold-msdf.json"
-          align="center" width="3.35" position="0 0.24 0.05" color="#ffffff"  wrap-count="24"  negate="false" ></a-text>
-        <a-text value="- Circe ou o pracer do azul" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="2.55"
-          position="0.5 -0.48 0.05" color="#ffc0cb"  wrap-count="30"  negate="false" ></a-text>
-      </a-entity> -->
+
       <!-- 2. A QUE SE DEDICOU? esquerda-diante -->
       <a-entity position="-10.15 2.5 5.07" rotation="0 90 0">
         <a-entity class="zoom-wrapper">
