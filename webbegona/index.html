@@ -734,138 +734,148 @@
 
 
         /* ══ PANEL INFORMATIVO OVERLAY 2D ══ */
-#panel-overlay {
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9998;
+        #panel-overlay {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9998;
 
-    /* Fondo con gradiente máis rico */
-    background: linear-gradient(160deg, #08122a 0%, #0a1a3a 60%, #0d0f1e 100%);
+            /* Fondo con gradiente máis rico */
+            background: linear-gradient(160deg, #08122a 0%, #0a1a3a 60%, #0d0f1e 100%);
 
-    /* Borde con gradiente simulado via box-shadow en capas */
-    border: 1.5px solid rgba(0, 229, 255, 0.35);
-    border-radius: 20px;
+            /* Borde con gradiente simulado via box-shadow en capas */
+            border: 1.5px solid rgba(0, 229, 255, 0.35);
+            border-radius: 20px;
 
-    /* Sombra exterior con brillo de cor */
-    box-shadow:
-        0 0 0 1px rgba(255, 77, 109, 0.12),
-        0 0 40px rgba(0, 229, 255, 0.12),
-        0 20px 60px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            /* Sombra exterior con brillo de cor */
+            box-shadow:
+                0 0 0 1px rgba(255, 77, 109, 0.12),
+                0 0 40px rgba(0, 229, 255, 0.12),
+                0 20px 60px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
 
-    padding: 0;
-    width: 92%;
-    max-width: 480px;
-    color: white;
-    pointer-events: auto;
-    max-height: 82vh;
-    overflow: hidden;
-    animation: panelSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
+            padding: 0;
+            width: 92%;
+            max-width: 480px;
+            color: white;
+            pointer-events: auto;
+            max-height: 82vh;
+            overflow: hidden;
+            animation: panelSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
 
-@keyframes panelSlideIn {
-    from { opacity: 0; transform: translate(-50%, -46%) scale(0.96); }
-    to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-}
+        @keyframes panelSlideIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -46%) scale(0.96);
+            }
 
-/* Cabeceira do panel con acento de cor */
-#panel-overlay::before {
-    content: '';
-    display: block;
-    height: 3px;
-    background: linear-gradient(90deg, #ff4d6d, #00e5ff, #ff4d6d);
-    border-radius: 20px 20px 0 0;
-}
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
 
-/* Título do panel */
-#panel-overlay-titulo {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.0rem;
-    font-weight: 900;
-    color: #ffc1cc;
-    text-align: center;
-    padding: 18px 42px 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    /* Liña separadora baixo o título */
-    border-bottom: 1px solid rgba(0, 229, 255, 0.15);
-    margin-bottom: 0;
-    position: relative;
-}
+        /* Cabeceira do panel con acento de cor */
+        #panel-overlay::before {
+            content: '';
+            display: block;
+            height: 3px;
+            background: linear-gradient(90deg, #ff4d6d, #00e5ff, #ff4d6d);
+            border-radius: 20px 20px 0 0;
+        }
 
-/* Punto decorativo no título */
-#panel-overlay-titulo::after {
-    content: '';
-    display: block;
-    width: 36px;
-    height: 2px;
-    background: linear-gradient(90deg, #ff4d6d, #00e5ff);
-    border-radius: 2px;
-    margin: 8px auto 0;
-}
+        /* Título do panel */
+        #panel-overlay-titulo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.0rem;
+            font-weight: 900;
+            color: #ffc1cc;
+            text-align: center;
+            padding: 18px 42px 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            /* Liña separadora baixo o título */
+            border-bottom: 1px solid rgba(0, 229, 255, 0.15);
+            margin-bottom: 0;
+            position: relative;
+        }
 
-/* Corpo do panel con scroll interno */
-#panel-overlay-corpo {
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.93rem;
-    line-height: 1.65;
-    color: #e7f0fb;
-    text-align: left;
-    padding: 16px 22px 22px;
-    overflow-y: auto;
-    max-height: calc(82vh - 90px);
-}
+        /* Punto decorativo no título */
+        #panel-overlay-titulo::after {
+            content: '';
+            display: block;
+            width: 36px;
+            height: 2px;
+            background: linear-gradient(90deg, #ff4d6d, #00e5ff);
+            border-radius: 2px;
+            margin: 8px auto 0;
+        }
 
-/* Scrollbar estilizada */
-#panel-overlay-corpo::-webkit-scrollbar {
-    width: 4px;
-}
-#panel-overlay-corpo::-webkit-scrollbar-track {
-    background: rgba(255,255,255,0.04);
-    border-radius: 4px;
-}
-#panel-overlay-corpo::-webkit-scrollbar-thumb {
-    background: rgba(0, 229, 255, 0.3);
-    border-radius: 4px;
-}
+        /* Corpo do panel con scroll interno */
+        #panel-overlay-corpo {
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.93rem;
+            line-height: 1.65;
+            color: #e7f0fb;
+            text-align: left;
+            padding: 16px 22px 22px;
+            overflow-y: auto;
+            max-height: calc(82vh - 90px);
+        }
 
-/* Botón pechar */
-#panel-overlay .p-pechar {
-    position: absolute;
-    top: 12px;
-    right: 14px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: #88a0b0;
-    font-size: 1rem;
-    cursor: pointer;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-}
-#panel-overlay .p-pechar:hover {
-    background: rgba(255, 77, 109, 0.2);
-    color: #ff4d6d;
-    border-color: rgba(255, 77, 109, 0.4);
-}
+        /* Scrollbar estilizada */
+        #panel-overlay-corpo::-webkit-scrollbar {
+            width: 4px;
+        }
 
-/* Fondo escuro do panel */
-#panel-backdrop {
-    display: none;
-    position: absolute;
-    inset: 0;
-    z-index: 9997;
-    background: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(2px);
-    pointer-events: auto;
-}
+        #panel-overlay-corpo::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 4px;
+        }
+
+        #panel-overlay-corpo::-webkit-scrollbar-thumb {
+            background: rgba(0, 229, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        /* Botón pechar */
+        #panel-overlay .p-pechar {
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #88a0b0;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        #panel-overlay .p-pechar:hover {
+            background: rgba(255, 77, 109, 0.2);
+            color: #ff4d6d;
+            border-color: rgba(255, 77, 109, 0.4);
+        }
+
+        /* Fondo escuro do panel */
+        #panel-backdrop {
+            display: none;
+            position: absolute;
+            inset: 0;
+            z-index: 9997;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(2px);
+            pointer-events: auto;
+        }
     </style>
 </head>
 
@@ -977,14 +987,23 @@
         <a-assets>
             <a-asset-item id="font-title" src="fonts/Outfit-Bold-msdf.json"></a-asset-item>
             <a-asset-item id="font-body" src="fonts/Nunito-SemiBold-msdf.json"></a-asset-item>
-            <img id="img-bego" src="imax/Begonha1.jpg">
+            <img id="img-bego" src="imax/cartelrag.jpg">
             <img id="img-bego2" src="imax/begonha3.png">
             <img id="img-circe" src="imax/circe.jpg">
+            <img id="imx-radio" src="imax/debuxo_radio.jpeg">
             <img id="img-esmelle" src="imax/esmelle.jpg">
+            <img id="img-circe2" src="imax/Gustav_Klimt_021.jpg">
+            <img id="img-esmelle2" src="imax/Beguiling_of_Merlin.jpg">
             <audio id="audio-file" src="sons/begonhaaudio.mp3" preload="auto"></audio>
             <video id="video-file" src="imax/begona.mp4" preload="metadata" loop crossorigin="anonymous"
                 playsinline></video>
             <img id="icon-audio" src="https://cdn-icons-png.flaticon.com/512/727/727269.png">
+            <a-assets>
+                <img id="icon-micro" src="iconas/micro.svg">
+                <img id="icon-triloxia" src="iconas/sparkle.svg">
+                <img id="icon-legado" src="iconas/certificate.svg">
+            </a-assets>
+
         </a-assets>
 
         <!-- Cámara con cursor raycaster -->
@@ -1002,18 +1021,18 @@
         <a-entity id="museo" visible="false">
 
             <!-- ══ 1. QUEN FOI? · Esquerda atrás ══ -->
-            <a-entity position="-10.15 2.5 -5.07" rotation="0 90 0">
-                <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
-                <a-plane width="5.6" height="0.05" color="#FFFFFF" position="0 2.25 0.01"></a-plane>
+            <a-entity position="-10.15 3 -5.07" rotation="0 90 0">
+                <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.98"></a-plane>
+                <a-plane width="5.6" height="0.06" color="#FFFFFF" position="0 1.45 0.01"></a-plane>
                 <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
-                    position="0 2.1 0.1" color="#FF0055" negate="false" wrap-count="30"></a-text>
-                <a-text value="Xornalista · Escritora · Activista feminista" font="fonts/Nunito-SemiBold-msdf.json"
-                    align="center" width="4.8" position="0 2.5 0.1" color="#00E5FF" negate="false"
-                    wrap-count="42"></a-text>
-                <a-text value="Redefiniu a narrativa galega dende o feminismo e a sororidade."
-                    font="fonts/Nunito-SemiBold-msdf.json" align="center" width="5" position="0 1.7 0.1" color="#FFFFFF"
-                    negate="false" wrap-count="40"></a-text>
-                <a-image src="#img-bego2" width="4.15" height="2.33" position="0 0.2 0.1"></a-image>
+                    position="0 1.2 0.1" color="#FF0055" negate="false" wrap-count="30"></a-text>
+                <!-- <a-text value="Xornalista · Escritora · Activista feminista" font="fonts/Nunito-SemiBold-msdf.json"
+                    align="center" width="4.8" position="0 0.5 0.1" color="#00E5FF" negate="false"
+                    wrap-count="42"></a-text> -->
+                <a-text value="Narrativa galega dende o feminismo e a sororidade."
+                    font="fonts/Nunito-SemiBold-msdf.json" align="center" width="5" position="0 0.75 0.1"
+                    color="#FFFFFF" negate="false" wrap-count="40"></a-text>
+                <a-image src="#img-bego2" width="4.15" height="2.33" position="0 -0.8 0.1"></a-image>
                 <!-- Zona de clic → abre overlay 2D -->
                 <a-plane class="area-clic" width="5.6" height="5.4" position="0 0.3 0.15"
                     material="opacity:0; transparent:true" onclick="abrirPanel('info1')"></a-plane>
@@ -1031,352 +1050,277 @@
             </a-entity>
 
             <!-- 2. XORNALISMO E ACTIVISMO — Esquerda diante -->
-            <a-entity position="-10.15 2.5 5.07" rotation="0 90 0">
-                <a-plane width="5.6" height="3" color="#08101d" opacity="0.9"></a-plane>
-                <a-plane width="5.6" height="0.05" color="#00E5FF" position="0 1.48 0.01"></a-plane>
+            <a-entity position="-10.15 3 5.07" rotation="0 90 0">
+                <!-- A BARRIÑA DE COR (Agora visible e no seu sitio) -->
+                <a-plane width="5.6" height="0.06" material="shader: flat; color: #00E5FF; opacity: 1"
+                    position="0 1.45 0.02">
+                </a-plane> <a-plane width="5.6" height="3" color="#08101d" opacity="0.9"></a-plane>
                 <a-text value="XORNALISMO E ACTIVISMO" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
-                    position="0 1.35 0.1" color="#00E5FF" negate="false" wrap-count="26"></a-text>
-                <a-text value="Radio Galega · 1989–2014&#10;Andando a Terra · Club Cultura&#10;Expreso de Medianoite"
-                    font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.8" position="0 0.55 0.1"
-                    color="#FFFFFF" negate="false" wrap-count="32"></a-text>
-                <a-text
+                    position="0 1.2 0.1" color="#00E5FF" negate="false" wrap-count="26"></a-text>
+
+                <a-image src="#imx-radio" width="4.15" height="2.44" position="0 -0.8 0.05"></a-image>
+
+                <a-text value="O camiño de Begoña" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.8"
+                    position="0 0.75 0.1" color="#FFFFFF" negate="false" wrap-count="32"></a-text>
+                <!-- <a-text
                     value="Marcha Mundial das Mulleres · Bruxelas · Montreal&#10;Antimilitarismo · Soberanismo · Lingua galega"
                     font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.8" position="0 -0.35 0.1"
-                    color="#acd4ee" negate="false" wrap-count="36"></a-text>
+                    color="#acd4ee" negate="false" wrap-count="36"></a-text> -->
                 <a-plane class="area-clic" width="5.6" height="5.4" position="0 0 0.15" material="opacity:0"
                     transparent="true" onclick="abrirPanel('info2')"></a-plane>
             </a-entity>
-            <!-- ══ 2. A QUE SE DEDICOU? · Esquerda diante ══ -->
-            <!-- <a-entity position="-10.15 2.5 5.07" rotation="0 90 0">
-        <a-plane width="5.6" height="3" color="#08101d" opacity="0.9"></a-plane>
-        <a-text value="A QUE SE DEDICOU?" font="fonts/Outfit-Bold-msdf.json"
-          align="center" width="7" color="#00E5FF" negate="false" position="0 0.8 0.1"></a-text>
-        <a-text value="Xornalista política comprometida,\nactivista na Marcha Mundial das Mulleres\ne referente do feminismo galego."
-          font="fonts/Nunito-SemiBold-msdf.json" position="0 -0.4 0.1"
-          align="center" width="4.5" color="#FFFFFF" negate="false"></a-text>
-      </a-entity> -->
 
             <!-- ══ 3. OBRAS · Dereita atrás ══ -->
-            <!-- <a-entity position="10.15 2.5 -5.07" rotation="0 -90 0">
-                <a-plane width="5.6" height="2.4" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
-                <a-plane width="5.6" height="0.05" color="#ffb6c1" position="0 2.36 0.01"></a-plane>
+            <a-entity position="10.15 3 -5.07" rotation="0 -90 0">
+                <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.98"></a-plane>
+                <a-plane width="5.6" height="0.05" color="#ffb6c1" position="0 1.45 0.01"></a-plane>
                 <a-text value="OBRAS FUNDAMENTAIS" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
-                    position="0 1.92 0.1" color="#ffd6de" negate="false" wrap-count="22"></a-text>
+                    position="0 1.2 0.1" color="#ffd6de" negate="false" wrap-count="22"></a-text>
                 <a-text value="A reescritura feminista dos mitos clásicos e artúricos"
-                    font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.8" position="0 1.48 0.1"
+                    font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.8" position="0 0.8 0.1"
                     color="#79b9d8" negate="false" wrap-count="40"></a-text>
-                <a-image src="#img-circe" width="1.85" height="2.7" position="-1.22 -0.56 0.05"></a-image>
-                <a-image src="#img-esmelle" width="1.85" height="2.7" position="1.22 -0.56 0.05"></a-image>
+
+                <!-- Imaxe Circe + clic propio -->
+                <a-image src="#img-circe" width="1.6" height="2.52" position="-1.22 -0.7 0.05">
+                </a-image>
                 <a-text value="Circe · 2009" font="fonts/Outfit-Bold-msdf.json" align="center" width="2.8"
-                    position="-1.22 -2.17 0.1" color="#ff9aaa" negate="false" wrap-count="18"></a-text>
+                    position="-1.22 -2.2 0.1" color="#ff9aaa" negate="false" wrap-count="18"></a-text>
+                <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="1.6"
+                    position="-1.22 -2.5 0.1" color="#3f708c" negate="false" wrap-count="18"></a-text>
+                <a-plane class="area-clic" width="1.85" height="3.1" position="-1.22 -0.7 0.15"
+                    material="opacity:0; transparent:true" onclick="abrirPanel('infoCirce')"></a-plane>
+
+                <!-- Imaxe Morgana + clic propio -->
+                <a-image src="#img-esmelle" width="1.6" height="2.45" position="1.22 -0.7 0.05"></a-image>
                 <a-text value="Morgana · 2012" font="fonts/Outfit-Bold-msdf.json" align="center" width="2.8"
-                    position="1.22 -2.17 0.1" color="#ff9aaa" negate="false" wrap-count="18"></a-text>
-                <a-plane class="area-clic" width="5.6" height="6.1" position="0 -0.42 0.15"
-                    material="opacity:0; transparent:true" onclick="abrirPanel('info3')"></a-plane>
-            </a-entity> -->
-<!-- ══ 3. OBRAS · Dereita atrás ══ -->
-<a-entity position="10.15 2.5 -5.07" rotation="0 -90 0">
-    <a-plane width="5.6" height="2.4" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
-    <a-plane width="5.6" height="0.05" color="#ffb6c1" position="0 2.36 0.01"></a-plane>
-    <a-text value="OBRAS FUNDAMENTAIS" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
-        position="0 1.92 0.1" color="#ffd6de" negate="false" wrap-count="22"></a-text>
-    <a-text value="A reescritura feminista dos mitos clásicos e artúricos"
-        font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.8" position="0 1.48 0.1"
-        color="#79b9d8" negate="false" wrap-count="40"></a-text>
-
-    <!-- Imaxe Circe + clic propio -->
-    <a-image src="#img-circe" width="1.85" height="2.7" position="-1.22 -0.56 0.05"></a-image>
-    <a-text value="Circe · 2009" font="fonts/Outfit-Bold-msdf.json" align="center" width="2.8"
-        position="-1.22 -2.17 0.1" color="#ff9aaa" negate="false" wrap-count="18"></a-text>
-    <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="1.6"
-        position="-1.22 -2.48 0.1" color="#3f708c" negate="false" wrap-count="18"></a-text>
-    <a-plane class="area-clic" width="1.85" height="3.1" position="-1.22 -0.7 0.15"
-        material="opacity:0; transparent:true" onclick="abrirPanel('infoCirce')"></a-plane>
-
-    <!-- Imaxe Morgana + clic propio -->
-    <a-image src="#img-esmelle" width="1.85" height="2.7" position="1.22 -0.56 0.05"></a-image>
-    <a-text value="Morgana · 2012" font="fonts/Outfit-Bold-msdf.json" align="center" width="2.8"
-        position="1.22 -2.17 0.1" color="#ff9aaa" negate="false" wrap-count="18"></a-text>
-    <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="1.6"
-        position="1.22 -2.48 0.1" color="#3f708c" negate="false" wrap-count="18"></a-text>
-    <a-plane class="area-clic" width="1.85" height="3.1" position="1.22 -0.7 0.15"
-        material="opacity:0; transparent:true" onclick="abrirPanel('infoMorgana')"></a-plane>
-</a-entity>
+                    position="1.22 -2.2 0.1" color="#ff9aaa" negate="false" wrap-count="18"></a-text>
+                <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="1.6"
+                    position="1.22 -2.5 0.1" color="#3f708c" negate="false" wrap-count="18"></a-text>
+                <a-plane class="area-clic" width="1.85" height="3.1" position="1.22 -0.7 0.15"
+                    material="opacity:0; transparent:true" onclick="abrirPanel('infoMorgana')"></a-plane>
+            </a-entity>
             <!-- 4. LETRAS GALEGAS: CRONOLOXÍA E MULLERES — Dereita diante -->
-            <a-entity position="10.15 2.5 5.07" rotation="0 -90 0">
-                <a-plane width="5.6" height="2.8" color="#08101d" opacity="0.9" position="0 1.2 0"></a-plane>
-                <a-plane width="5.6" height="0.05" color="#FF0055" position="0 2.66 0.01"></a-plane>
-                <a-text value="LETRAS GALEGAS&#10;CRONOLOXÍA E MULLERES" font="fonts/Outfit-Bold-msdf.json"
-                    align="center" width="5.3" color="#FF0055" negate="false" position="0 2.35 0.1"
-                    wrap-count="22"></a-text>
-                <a-text value="1963 · Desde Rosalía ata hoxe&#10;8 mulleres homenaxeadas en 64 anos"
-                    font="fonts/Nunito-SemiBold-msdf.json" position="0 1.68 0.1" align="center" width="4.6"
-                    color="#ffc1cc" negate="false" wrap-count="30"></a-text>
-                <a-text
-                    value="Rosalía · Herrera Garrido · Mariño&#10;Moreno · Arias · Villalta&#10;Cantareiras · Caamaño"
-                    font="fonts/Nunito-SemiBold-msdf.json" position="0 0.85 0.1" align="center" width="4.8"
-                    color="#FFFFFF" negate="false" wrap-count="30"></a-text>
-                <a-image src="#img-bego" width="2.2" height="2.2" position="0 -1.1 0.05"></a-image>
+
+
+            <a-entity position="10.15 3 5.07" rotation="0 -90 0">
+                <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.9"></a-plane>
+                <a-plane width="5.6" height="0.06" material="shader: flat; color: #00E5FF; opacity: 1" color="#FF0055"
+                    position="0 1.45 0.01"></a-plane>
+
+                <a-text value="As nosas letras" font="fonts/Outfit-Bold-msdf.json" align="center" color="#FF0055"
+                    negate="false" position="0 1.2 0.1" wrap-count="30"></a-text>
+
+                <a-image src="#img-bego" width="4.15" height="2.71" position="0 -1.1 0.05"></a-image>
                 <a-plane class="area-clic" width="5.6" height="6" position="0 -0.2 0.15" material="opacity:0"
                     transparent="true" onclick="abrirPanel('info4')"></a-plane>
             </a-entity>
-            <!-- ══ 4. POR QUE MERECE? · Dereita diante ══ -->
-            <!-- <a-entity position="10.15 2.5 5.07" rotation="0 -90 0">
-        <a-plane width="5.6" height="2.8" color="#08101d" opacity="0.9" position="0 1.2 0"></a-plane>
-        <a-text value="POR QUE MERECE AS LETRAS GALEGAS 2026" font="fonts/Outfit-Bold-msdf.json"
-          align="center" width="5.5" color="#FF0055" negate="false" position="0 2.35 0.1"></a-text>
-        <a-text value="Pola súa calidade literaria excepcional por poñer o feminismo no centro da nosa literatura contemporánea."
-          font="fonts/Nunito-SemiBold-msdf.json" position="0 1.7 0.1"
-          align="center" width="4.8" color="#FFFFFF" negate="false" wrap-count="30"></a-text>
-        <a-image src="#img-bego" width="2.2" height="3.8" position="0 -0.92 0.05"></a-image>
-      </a-entity> -->
 
-            <!-- ══ 5. AUDIO · Traseira esquerda ══ -->
+
+
+            <!-- 5. AUDIO traseira-esquerda -->
             <a-entity position="-5.07 2.4 10.15" rotation="0 180 0">
-                <a-image src="#icon-audio" width="1.5" height="1.5" position="0 0.48 0.1"
-                    animation="property:scale; to:1.1 1.1 1.1; dir:alternate; loop:true; dur:800"></a-image>
-                <a-text value="A VOZ DA AUTORA" position="0 -0.4 0" align="center" width="3" color="#2c3e50"></a-text>
-                <a-plane class="area-clic" width="2.5" height="2.5" position="0 0 0.05"
-                    material="opacity:0; transparent:true" onclick="toggleAudio()"></a-plane>
-                <a-entity id="sound-emitter" sound="src:#audio-file; volume:3"></a-entity>
+                <a-entity class="zoom-wrapper">
+                    <!-- <a-circle radius="1.42" color="#0b1626" opacity="0.96"></a-circle> -->
+                    <a-torus radius="1.42" radius-tubular="0.025" color="#ff4d6d" opacity="0.55" position="0 0 0.01"
+                        animation="property: rotation; to: 0 0 360; loop: true; dur: 8000; easing: linear"></a-torus>
+                    <a-torus radius="1.08" radius-tubular="0.012" color="#00e5ff" opacity="0.30"
+                        position="0 0 0.02"></a-torus>
+                    <a-text value="♪" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png"
+                        font-image="fonts/Outfit-Bold-msdf.png" align="center" width="2.5" position="0 0.38 0.08"
+                        color="#ff4d6d" negate="false"></a-text>
+                    <a-image src="#icon-audio" width="1.5" height="1.5" position="0 0.48 0.1"
+                        animation="property:scale; to:1.1 1.1 1.1; dir:alternate; loop:true; dur:800"></a-image>
+
+                    <a-text value="A VOZ DA AUTORA" font="fonts/Nunito-SemiBold-msdf.json"
+                        font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png"
+                        align="center" width="2.6" position="0 -0.83 0.08" color="#e8f4ff" wrap-count="16"
+                        negate="false"></a-text>
+                    <a-text value="toca para escoitar" font="fonts/Nunito-SemiBold-msdf.json"
+                        font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.2" position="0 -0.58 0.08"
+                        color="#5588aa" wrap-count="20" negate="false"></a-text>
+                    <a-circle class="area-clic" radius="1.5" position="0 0 0.12" material="opacity:0; transparent:true"
+                        onclick="toggleAudio()"></a-circle>
+                    <a-entity id="sound-emitter" sound="src:#audio-file; volume:3"></a-entity>
+                </a-entity>
             </a-entity>
 
-            <!-- ══ 6. ANACOS DE OBRAS · Traseira dereita ══
-           Cada cadro abre un overlay 2D ao facer clic.
-           Para editar: cambia título/corpo en PANEL_CONTIDOS no JS.
-      ══ -->
-      <!-- ══ 6. ANACOS DE OBRAS · Traseira dereita ══ -->
-<a-entity position="5.07 -0.6 10.15" rotation="0 180 0">
+            <a-entity position="5.07 -0.6 10.15" rotation="0 180 0">
 
-    <!-- ══ CABECEIRA ══ -->
-    <!-- Fondo cabeceira -->
-    <a-plane width="6.2" height="1.1" color="#04080f" opacity="0.96" position="0 5.12 0"></a-plane>
-    <!-- Liña arco iris animada no topo -->
-    <a-plane width="6.2" height="0.12" color="#ff4d6d" position="0 5.65 0.01"></a-plane>
-    <a-plane width="3.1" height="0.12" color="#a78bfa" position="-1.55 5.65 0.02"
-        animation="property:position; from:-3.1 5.65 0.02; to:3.1 5.65 0.02; dur:4000; loop:true; dir:alternate; easing:easeInOutSine"></a-plane>
-    <a-plane width="1.5" height="0.12" color="#00e5ff" opacity="0.8" position="0 5.65 0.03"
-        animation="property:position; from:3.1 5.65 0.03; to:-3.1 5.65 0.03; dur:3200; loop:true; dir:alternate; easing:easeInOutSine"></a-plane>
-    <!-- Título -->
-    <a-text value="ANACOS DE OBRAS" font="fonts/Outfit-Bold-msdf.json"
-        font-image="fonts/Outfit-Bold-msdf.png"
-        align="center" width="5.8" position="0 5.17 0.08"
-        color="#ffffff" negate="false" wrap-count="22"></a-text>
-    <!-- Subtítulo -->
-    <a-text value="toca cada cadro para descubrir"
-        font="fonts/Nunito-SemiBold-msdf.json"
-        font-image="fonts/Nunito-SemiBold-msdf.png"
-        align="center" width="5.0" position="0 4.73 0.08"
-        color="#4a6a8a" negate="false" wrap-count="40"></a-text>
-    <!-- Liña inferior cabeceira -->
-    <a-plane width="6.2" height="0.025" color="#ffffff" opacity="0.06" position="0 4.57 0.01"></a-plane>
+                <!-- ══ CABECEIRA ══ -->
+                <a-plane width="6.2" height="1.1" color="#04080f" opacity="0.96" position="0 5.12 0"
+                    material="shader: flat"></a-plane>
+                <a-plane width="6.2" height="0.12" color="#ff4d6d" position="0 5.65 0.01" material="shader: flat"
+                    ;></a-plane>
+                <a-plane width="3.1" height="0.12" color="#a78bfa" position="-1.55 5.65 0.02" material="shader: flat" ;
+                    animation="property:position; from:-3.1 5.65 0.02; to:3.1 5.65 0.02; dur:4000; loop:true; dir:alternate; easing:easeInOutSine"></a-plane>
+                <a-plane width="1.5" height="0.12" color="#00e5ff" opacity="0.8" position="0 5.65 0.03"
+                    material="shader: flat" ;
+                    animation="property:position;  from:3.1 5.65 0.03; to:-3.1 5.65 0.03; dur:3200; loop:true; dir:alternate; easing:easeInOutSine"></a-plane>
+                <a-text value="ANACOS DE BEGOÑA" font="fonts/Outfit-Bold-msdf.json"
+                    font-image="fonts/Outfit-Bold-msdf.png" align="center" width="5.8" position="0 5.17 0.08"
+                    color="#ffffff" negate="false" wrap-count="22" material="shader: flat;"></a-text>
+                <a-text value="toca cada cadro para descubrir" font="fonts/Nunito-SemiBold-msdf.json"
+                    font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="5.0" position="0 4.73 0.08"
+                    color="#4a6a8a" negate="false" wrap-count="40"></a-text>
+                <a-plane width="6.2" height="0.025" color="#ffffff" opacity="0.06" position="0 4.57 0.01"
+                    material="shader: flat"></a-plane>
 
 
-    <!-- ══ FILA 1: CIRCE — cartel de cine ══ -->
-    <a-entity position="-1.45 3.42 0">
-        <!-- Imaxe portada como fondo -->
-        <a-image src="#img-circe" width="2.6" height="1.9" position="0 0 0"></a-image>
-        <!-- Overlay gradiente escurecedor abaixo -->
-        <a-plane width="2.6" height="1.9" color="#000000" opacity="0.52" position="0 0 0.01"
-            material="shader:flat; opacity:0.52; transparent:true"></a-plane>
-        <!-- Gradiente negro forte na parte baixa (simúlase con plano estreito) -->
-        <a-plane width="2.6" height="0.9" color="#000000" opacity="0.75" position="0 -0.52 0.02"
-            material="shader:flat; opacity:0.75; transparent:true"></a-plane>
-        <!-- Borde superior cor accent -->
-        <a-plane width="2.6" height="0.09" color="#ff4d6d" position="0 0.905 0.04"></a-plane>
-        <!-- Borde esquerdo sutil -->
-        <a-plane width="0.04" height="1.9" color="#ff4d6d" opacity="0.6" position="-1.28 0 0.04"></a-plane>
-        <!-- Borde dereito moi sutil -->
-        <a-plane width="0.04" height="1.9" color="#ff4d6d" opacity="0.2" position="1.28 0 0.04"></a-plane>
-        <!-- BADGE ano arriba dereita -->
-        <a-plane width="0.52" height="0.26" color="#ff4d6d" opacity="0.92" position="0.98 0.72 0.05"></a-plane>
-        <a-text value="2009" font="fonts/Outfit-Bold-msdf.json"
-            align="center" width="0.55" position="0.98 0.72 0.07"
-            color="#ffffff" negate="false" wrap-count="6"></a-text>
-        <!-- Título grande sobre o gradiente -->
-        <a-text value="CIRCE" font="fonts/Outfit-Bold-msdf.json"
-            font-image="fonts/Outfit-Bold-msdf.png"
-            align="left" width="2.8" position="-1.15 -0.28 0.06"
-            color="#ffffff" negate="false" wrap-count="12"></a-text>
-        <!-- Subtítulo obra -->
-        <a-text value="Circe ou o pracer do azul" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="left" width="2.4" position="-1.15 -0.56 0.06"
-            color="#ffb3c1" negate="false" wrap-count="26"></a-text>
-        <!-- Icona toca -->
-        <a-text value="👆 toca" font="fonts/Nunito-SemiBold-msdf.json"
-            align="right" width="1.4" position="1.15 -0.80 0.06"
-            color="#ffffff" negate="false" wrap-count="10"
-            animation="property:opacity; from:0.3; to:1; dur:900; loop:true; dir:alternate"></a-text>
-        <!-- Zona clic -->
-        <a-plane class="area-clic" width="2.6" height="1.9" position="0 0 0.12"
-            material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco1')"></a-plane>
-    </a-entity>
+                <!-- ══ FILA 1: CIRCE ══ -->
+                <a-entity position="-1.45 3.42 0">
+                    <a-image src="#img-circe" width="2.6" height="1.9" position="0 0 0"></a-image>
+                    <a-plane width="2.6" height="1.9" color="#000000" opacity="0.52" position="0 0 0.01"
+                        material="shader:flat; opacity:0.52; transparent:true"></a-plane>
+                    <a-plane width="2.6" height="0.9" color="#000000" opacity="0.75" position="0 -0.52 0.02"
+                        material="shader:flat; opacity:0.75; transparent:true"></a-plane>
+                    <a-plane width="2.6" height="0.09" color="#ff4d6d" position="0 0.905 0.04"></a-plane>
+                    <a-plane width="0.04" height="1.9" color="#ff4d6d" opacity="0.6" position="-1.28 0 0.04"></a-plane>
+                    <a-plane width="0.04" height="1.9" color="#ff4d6d" opacity="0.2" position="1.28 0 0.04"></a-plane>
+                    <!-- BADGE ano -->
+                    <a-plane width="0.52" height="0.26" color="#ff4d6d" opacity="0.92"
+                        position="0.98 0.72 0.05"></a-plane>
+                    <a-text value="2009" font="fonts/Outfit-Bold-msdf.json" align="center" width="0.55"
+                        position="0.98 0.72 0.07" color="#ffffff" negate="false" wrap-count="6"></a-text>
+
+                    <!-- Título -->
+                    <a-text value="CIRCE" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+                        align="left" width="1.2 height=" 1.22" position="-1.15 -0.28 0.06" color="#ffffff"
+                        negate="false" wrap-count="12"></a-text>
+                    <a-text value="Circe ou o pracer do azul" font="fonts/Nunito-SemiBold-msdf.json"
+                        font-image="fonts/Nunito-SemiBold-msdf.png" align="left" width="2.4" position="-1.15 -0.56 0.06"
+                        color="#ffb3c1" negate="false" wrap-count="26"></a-text>
+                    <a-text value="toca" font="fonts/Nunito-SemiBold-msdf.json" align="right" width="1.0"
+                        position="1.15 -0.80 0.06" color="#ffffff" negate="false" wrap-count="10"
+                        animation="property:opacity; from:0.3; to:1; dur:900; loop:true; dir:alternate"></a-text>
+                    <a-plane class="area-clic" width="2.6" height="1.9" position="0 0 0.12"
+                        material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco1')"></a-plane>
+                </a-entity>
 
 
-    <!-- ══ FILA 1: MORGANA — cartel de cine ══ -->
-    <a-entity position="1.45 3.42 0">
-        <!-- Imaxe portada como fondo -->
-        <a-image src="#img-esmelle" width="2.6" height="1.9" position="0 0 0"></a-image>
-        <!-- Overlay -->
-        <a-plane width="2.6" height="1.9" color="#000000" opacity="0.48" position="0 0 0.01"
-            material="shader:flat; opacity:0.48; transparent:true"></a-plane>
-        <!-- Gradiente baixo -->
-        <a-plane width="2.6" height="0.9" color="#000000" opacity="0.78" position="0 -0.52 0.02"
-            material="shader:flat; opacity:0.78; transparent:true"></a-plane>
-        <!-- Bordes -->
-        <a-plane width="2.6" height="0.09" color="#a78bfa" position="0 0.905 0.04"></a-plane>
-        <a-plane width="0.04" height="1.9" color="#a78bfa" opacity="0.6" position="-1.28 0 0.04"></a-plane>
-        <a-plane width="0.04" height="1.9" color="#a78bfa" opacity="0.2" position="1.28 0 0.04"></a-plane>
-        <!-- BADGE ano -->
-        <a-plane width="0.52" height="0.26" color="#a78bfa" opacity="0.92" position="0.98 0.72 0.05"></a-plane>
-        <a-text value="2012" font="fonts/Outfit-Bold-msdf.json"
-            align="center" width="0.55" position="0.98 0.72 0.07"
-            color="#ffffff" negate="false" wrap-count="6"></a-text>
-        <!-- Título -->
-        <a-text value="MORGANA" font="fonts/Outfit-Bold-msdf.json"
-            font-image="fonts/Outfit-Bold-msdf.png"
-            align="left" width="2.8" position="-1.15 -0.28 0.06"
-            color="#ffffff" negate="false" wrap-count="12"></a-text>
-        <!-- Subtítulo -->
-        <a-text value="Morgana en Esmelle" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="left" width="2.4" position="-1.15 -0.56 0.06"
-            color="#d4b5fd" negate="false" wrap-count="26"></a-text>
-        <!-- Premios badge -->
-        <a-plane width="1.0" height="0.24" color="#fbbf24" opacity="0.88" position="-0.75 0.72 0.05"></a-plane>
-        <a-text value="🏆 4 premios" font="fonts/Nunito-SemiBold-msdf.json"
-            align="center" width="1.1" position="-0.75 0.72 0.07"
-            color="#1a0a00" negate="false" wrap-count="14"></a-text>
-        <!-- Icona toca -->
-        <a-text value="👆 toca" font="fonts/Nunito-SemiBold-msdf.json"
-            align="right" width="1.4" position="1.15 -0.80 0.06"
-            color="#ffffff" negate="false" wrap-count="10"
-            animation="property:opacity; from:0.3; to:1; dur:900; loop:true; dir:alternate"></a-text>
-        <!-- Zona clic -->
-        <a-plane class="area-clic" width="2.6" height="1.9" position="0 0 0.12"
-            material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco2')"></a-plane>
-    </a-entity>
+                <!-- ══ FILA 1: MORGANA ══ -->
+                <a-entity position="1.45 3.42 0">
+                    <a-image src="#img-esmelle" width="1" height="1.75" position="0 0 0"></a-image>
+                    <a-plane width="2.6" height="1.9" color="#000000" opacity="0.48" position="0 0 0.01"
+                        material="shader:flat; opacity:0.48; transparent:true"></a-plane>
+                    <a-plane width="2.6" height="0.9" color="#000000" opacity="0.78" position="0 -0.52 0.02"
+                        material="shader:flat; opacity:0.78; transparent:true"></a-plane>
+                    <a-plane width="2.6" height="0.09" color="#a78bfa" position="0 0.905 0.04"></a-plane>
+                    <a-plane width="0.04" height="1.9" color="#a78bfa" opacity="0.6" position="-1.28 0 0.04"></a-plane>
+                    <a-plane width="0.04" height="1.9" color="#a78bfa" opacity="0.2" position="1.28 0 0.04"></a-plane>
+                    <!-- BADGE ano -->
+                    <a-plane width="0.52" height="0.26" color="#a78bfa" opacity="0.92"
+                        position="0.98 0.72 0.05"></a-plane>
+                    <a-text value="2012" font="fonts/Outfit-Bold-msdf.json" align="center" width="0.55"
+                        position="0.98 0.72 0.07" color="#ffffff" negate="false" wrap-count="6"></a-text>
+                    <!-- BADGE premios -->
+                    <a-plane width="1.0" height="0.24" color="#fbbf24" opacity="0.88"
+                        position="-0.75 0.72 0.05"></a-plane>
+                    <a-text value="4 premios" font="fonts/Outfit-Bold-msdf.json" align="center" width="1.1"
+                        position="-0.75 0.72 0.07" color="#1a0a00" negate="false" wrap-count="14"></a-text>
+
+                    <!-- Título -->
+                    <a-text value="MORGANA" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+                        align="left" width="2.8" position="-1.15 -0.28 0.06" color="#ffffff" negate="false"
+                        wrap-count="12"></a-text>
+                    <a-text value="Morgana en Esmelle" font="fonts/Nunito-SemiBold-msdf.json"
+                        font-image="fonts/Nunito-SemiBold-msdf.png" align="left" width="2.4" position="-1.15 -0.56 0.06"
+                        color="#d4b5fd" negate="false" wrap-count="26"></a-text>
+                    <a-text value="toca" font="fonts/Nunito-SemiBold-msdf.json" align="right" width="1.0"
+                        position="1.15 -0.80 0.06" color="#ffffff" negate="false" wrap-count="10"
+                        animation="property:opacity; from:0.3; to:1; dur:900; loop:true; dir:alternate"></a-text>
+                    <a-plane class="area-clic" width="2.6" height="1.9" position="0 0 0.12"
+                        material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco2')"></a-plane>
+                </a-entity>
 
 
-    <!-- ══ FILA 2: XORNALISMO — tarxeta cor vibrante ══ -->
-    <a-entity position="-2.05 1.45 0">
-        <!-- Fondo cor sólida vibrante -->
-        <a-plane width="1.72" height="1.38" color="#003a4a" opacity="1.0" position="0 0 0"></a-plane>
-        <!-- Faixa lateral de cor forte -->
-        <a-plane width="0.18" height="1.38" color="#00e5ff" opacity="1.0" position="-0.77 0 0.01"></a-plane>
-        <!-- Borde superior -->
-        <a-plane width="1.72" height="0.08" color="#00e5ff" position="0 0.65 0.01"></a-plane>
-        <!-- Punto decorativo pulsante -->
-        <a-plane width="0.10" height="0.10" color="#00e5ff" opacity="0.9" position="0.72 0.58 0.03"
-            animation="property:scale; from:1 1 1; to:1.4 1.4 1; dur:700; loop:true; dir:alternate"></a-plane>
-        <!-- Icona grande -->
-        <a-text value="🎙️" font="fonts/Nunito-SemiBold-msdf.json"
-            align="center" width="1.1" position="-0.28 0.28 0.05"
-            color="#ffffff" negate="false" wrap-count="4"></a-text>
-        <!-- Título -->
-        <a-text value="XORNA-&#10;LISMO" font="fonts/Outfit-Bold-msdf.json"
-            font-image="fonts/Outfit-Bold-msdf.png"
-            align="left" width="1.4" position="-0.28 -0.12 0.05"
-            color="#00e5ff" negate="false" wrap-count="10"></a-text>
-        <!-- Dato clave -->
-        <a-text value="25 anos en Radio Galega" font="fonts/Nunito-SemiBold-msdf.json"
-            align="left" width="1.35" position="-0.28 -0.50 0.05"
-            color="#acd4ee" negate="false" wrap-count="18"></a-text>
-        <!-- Toca -->
-        <a-text value="👆" font="fonts/Nunito-SemiBold-msdf.json"
-            align="center" width="0.5" position="0.62 -0.56 0.05"
-            color="#ffffff" negate="false" wrap-count="4"
-            animation="property:opacity; from:0.2; to:1; dur:800; loop:true; dir:alternate"></a-text>
-        <a-plane class="area-clic" width="1.72" height="1.38" position="0 0 0.12"
-            material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco3')"></a-plane>
-    </a-entity>
+                <!-- ══ FILA 2: XORNALISMO ══ -->
+                <a-entity position="-2.05 1.45 0">
+                    <a-plane width="1.72" height="1.38" color="#003a4a" opacity="1.0" position="0 0 0"></a-plane>
+                    <a-plane width="0.18" height="1.38" color="#00e5ff" opacity="1.0" position="-0.77 0 0.01"></a-plane>
+                    <a-plane width="1.72" height="0.08" color="#00e5ff" position="0 0.65 0.01"></a-plane>
+                    <!-- ICONA micro: círculo + base + pé -->
+                    <!-- ICONA MICRO -->
+                    <a-image src="#icon-micro" width="0.35" height="0.35" position="0 0.36 0.06"
+                        material="shader:flat; transparent:true">
+                    </a-image>
+                    <a-text value="XORNALISMO" font="fonts/Outfit-Bold-msdf.json"
+                        font-image="fonts/Outfit-Bold-msdf.png" align="center" width="1.58" position="0 -0.13 0.05"
+                        color="#00e5ff" negate="false" wrap-count="12"></a-text>
+                    <a-text value="Radio Galega 1989-2014" font="fonts/Nunito-SemiBold-msdf.json"
+                        font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.52" position="0 -0.40 0.05"
+                        color="#acd4ee" negate="false" wrap-count="20"></a-text>
+                    <a-text value="toca" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="0.9"
+                        position="0 -0.58 0.05" color="#00e5ff" negate="false" wrap-count="8"
+                        animation="property:opacity; from:0.2; to:0.7; dur:900; loop:true; dir:alternate"></a-text>
+                    <a-plane class="area-clic" width="1.72" height="1.38" position="0 0 0.12"
+                        material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco3')"></a-plane>
+                </a-entity>
 
 
-    <!-- ══ FILA 2: TRILOXÍA — tarxeta cor vibrante ══ -->
-    <a-entity position="0 1.45 0">
-        <a-plane width="1.72" height="1.38" color="#1a0a35" opacity="1.0" position="0 0 0"></a-plane>
-        <!-- Faixa lateral -->
-        <a-plane width="0.18" height="1.38" color="#a78bfa" opacity="1.0" position="-0.77 0 0.01"></a-plane>
-        <!-- Borde superior -->
-        <a-plane width="1.72" height="0.08" color="#a78bfa" position="0 0.65 0.01"></a-plane>
-        <!-- Estrelas decorativas animadas -->
-        <a-plane width="0.06" height="0.06" color="#a78bfa" opacity="0.9" position="0.65 0.52 0.03"
-            animation="property:opacity; from:0.2; to:1; dur:600; loop:true; dir:alternate"></a-plane>
-        <a-plane width="0.04" height="0.04" color="#ffffff" opacity="0.7" position="0.50 0.38 0.03"
-            animation="property:opacity; from:0.1; to:0.9; dur:900; loop:true; dir:alternate"></a-plane>
-        <a-plane width="0.05" height="0.05" color="#c4b5fd" opacity="0.8" position="0.72 0.28 0.03"
-            animation="property:opacity; from:0.3; to:1; dur:750; loop:true; dir:alternate"></a-plane>
-        <!-- Icona grande -->
-        <a-text value="🔮" font="fonts/Nunito-SemiBold-msdf.json"
-            align="center" width="1.1" position="-0.28 0.28 0.05"
-            color="#ffffff" negate="false" wrap-count="4"></a-text>
-        <!-- Título -->
-        <a-text value="TRILO-&#10;XÍA" font="fonts/Outfit-Bold-msdf.json"
-            font-image="fonts/Outfit-Bold-msdf.png"
-            align="left" width="1.4" position="-0.28 -0.12 0.05"
-            color="#c4b5fd" negate="false" wrap-count="10"></a-text>
-        <!-- Dato -->
-        <a-text value="Mitoloxías disidentes" font="fonts/Nunito-SemiBold-msdf.json"
-            align="left" width="1.35" position="-0.28 -0.50 0.05"
-            color="#acd4ee" negate="false" wrap-count="18"></a-text>
-        <!-- Toca -->
-        <a-text value="👆" font="fonts/Nunito-SemiBold-msdf.json"
-            align="center" width="0.5" position="0.62 -0.56 0.05"
-            color="#ffffff" negate="false" wrap-count="4"
-            animation="property:opacity; from:0.2; to:1; dur:1000; loop:true; dir:alternate"></a-text>
-        <a-plane class="area-clic" width="1.72" height="1.38" position="0 0 0.12"
-            material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco4')"></a-plane>
-    </a-entity>
+                <!-- ══ FILA 2: TRILOXÍA ══ -->
+                <a-entity position="0 1.45 0">
+                    <a-plane width="1.72" height="1.38" color="#1a0a35" opacity="1.0" position="0 0 0"></a-plane>
+                    <a-plane width="0.18" height="1.38" color="#a78bfa" opacity="1.0" position="-0.77 0 0.01"></a-plane>
+                    <a-plane width="1.72" height="0.08" color="#a78bfa" position="0 0.65 0.01"></a-plane>
+                    <!-- ICONA: tres diamantes animados -->
+                    <a-image src="#icon-triloxia" width="0.35" height="0.35" position="0 0.36 0.06"
+                        material="shader:flat; transparent:true">
+                    </a-image>
+                    <a-text value="TRILOXIA" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+                        align="center" width="1.58" position="0 -0.13 0.05" color="#c4b5fd" negate="false"
+                        wrap-count="12"></a-text>
+                    <a-text value="Mitoloxias disidentes" font="fonts/Nunito-SemiBold-msdf.json"
+                        font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.52" position="0 -0.40 0.05"
+                        color="#acd4ee" negate="false" wrap-count="20"></a-text>
+                    <a-text value="toca" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="0.9"
+                        position="0 -0.58 0.05" color="#a78bfa" negate="false" wrap-count="8"
+                        animation="property:opacity; from:0.2; to:0.7; dur:1000; loop:true; dir:alternate"></a-text>
+                    <a-plane class="area-clic" width="1.72" height="1.38" position="0 0 0.12"
+                        material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco4')"></a-plane>
+                </a-entity>
 
 
-    <!-- ══ FILA 2: LEGADO — tarxeta cor vibrante ══ -->
-    <a-entity position="2.05 1.45 0">
-        <a-plane width="1.72" height="1.38" color="#2a1800" opacity="1.0" position="0 0 0"></a-plane>
-        <!-- Faixa lateral dourada -->
-        <a-plane width="0.18" height="1.38" color="#fbbf24" opacity="1.0" position="-0.77 0 0.01"></a-plane>
-        <!-- Borde superior -->
-        <a-plane width="1.72" height="0.08" color="#fbbf24" position="0 0.65 0.01"></a-plane>
-        <!-- Estrela pulsante -->
-        <a-plane width="0.08" height="0.08" color="#fbbf24" opacity="0.9" position="0.65 0.52 0.03"
-            animation="property:scale; from:1 1 1; to:1.5 1.5 1; dur:1100; loop:true; dir:alternate"></a-plane>
-        <!-- Icona grande -->
-        <a-text value="★" font="fonts/Outfit-Bold-msdf.json"
-            font-image="fonts/Outfit-Bold-msdf.png"
-            align="center" width="1.2" position="-0.28 0.30 0.05"
-            color="#fbbf24" negate="false" wrap-count="4"
-            animation="property:scale; from:1 1 1; to:1.06 1.06 1; dur:1200; loop:true; dir:alternate"></a-text>
-        <!-- Título -->
-        <a-text value="LEGADO" font="fonts/Outfit-Bold-msdf.json"
-            font-image="fonts/Outfit-Bold-msdf.png"
-            align="left" width="1.4" position="-0.28 -0.12 0.05"
-            color="#fde68a" negate="false" wrap-count="10"></a-text>
-        <!-- Dato -->
-        <a-text value="2014 — 2026" font="fonts/Nunito-SemiBold-msdf.json"
-            align="left" width="1.35" position="-0.28 -0.50 0.05"
-            color="#acd4ee" negate="false" wrap-count="18"></a-text>
-        <!-- Toca -->
-        <a-text value="👆" font="fonts/Nunito-SemiBold-msdf.json"
-            align="center" width="0.5" position="0.62 -0.56 0.05"
-            color="#ffffff" negate="false" wrap-count="4"
-            animation="property:opacity; from:0.2; to:1; dur:850; loop:true; dir:alternate"></a-text>
-        <a-plane class="area-clic" width="1.72" height="1.38" position="0 0 0.12"
-            material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco5')"></a-plane>
-    </a-entity>
+                <!-- ══ FILA 2: LEGADO ══ -->
+                <a-entity position="2.05 1.45 0">
+                    <a-plane width="1.72" height="1.38" color="#2a1800" opacity="1.0" position="0 0 0"></a-plane>
+                    <a-plane width="0.18" height="1.38" color="#fbbf24" opacity="1.0" position="-0.77 0 0.01"></a-plane>
+                    <a-plane width="1.72" height="0.08" color="#fbbf24" position="0 0.65 0.01"></a-plane>
 
-</a-entity><!-- fin anacos de obras -->
+
+                    <!-- ICONA LEGADO -->
+                    <a-image src="#icon-legado" width="0.35" height="0.35" position="0 0.36 0.06"
+                        material="shader:flat; transparent:true">
+                    </a-image>
+
+
+                    <a-text value="LEGADO" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+                        align="center" width="1.58" position="0 -0.13 0.05" color="#fde68a" negate="false"
+                        wrap-count="12"></a-text>
+                    <a-text value="2014 - 2026" font="fonts/Nunito-SemiBold-msdf.json"
+                        font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.52" position="0 -0.40 0.05"
+                        color="#acd4ee" negate="false" wrap-count="20"></a-text>
+                    <a-text value="toca" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="0.9"
+                        position="0 -0.58 0.05" color="#fbbf24" negate="false" wrap-count="8"
+                        animation="property:opacity; from:0.2; to:0.7; dur:850; loop:true; dir:alternate"></a-text>
+                    <a-plane class="area-clic" width="1.72" height="1.38" position="0 0 0.12"
+                        material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco5')"></a-plane>
+                </a-entity>
+
+            </a-entity><!-- fin anacos de obras -->
             <!-- ══ 7. VÍDEO · Frontal esquerda ══ -->
-            <a-entity position="-5.07 2.4 -12.15" rotation="0 0 0">
-                <a-plane width="5.5" height="1.7" color="#08101d" opacity="0.98" position="0 1.74 0"></a-plane>
+            <a-entity position="-5.07 3 -12.15" rotation="0 0 0">
+                <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.98"></a-plane>
+                <a-plane width="5.6" height="0.06" material="shader: flat; color: #00E5FF; opacity: 1" color="#FF0055"
+                    position="0 1.45 0.01"></a-plane>
                 <a-text value="Vídeo: Circe e o pracer do azul" font="fonts/Outfit-Bold-msdf.json" align="center"
-                    width="5.2" position="0 2.3 0.1" color="#9af1ff" negate="false"></a-text>
+                    width="5.2" position="0 1.2 0.1" color="#9af1ff" negate="false"></a-text>
                 <a-text value="▶ Begoña Caamaño fala sobre a obra" font="fonts/Nunito-SemiBold-msdf.json"
-                    font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 2 0.1"
+                    font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.9 0.1"
                     color="#e7f0fb" negate="false" wrap-count="46">
                     <a-animation attribute="material.opacity" to="0.4" dir="alternate" dur="1000"
                         loop="true"></a-animation>
                 </a-text>
-                <a-video src="#video-file" width="4.68" height="2.62" position="0 0.5 0.05"></a-video>
+                <a-video src="#video-file" width="4.68" height="2.62" position="0 -0.8 0.05"></a-video>
                 <a-plane class="area-clic" width="4.68" height="2.62" position="0 1.5 0.2"
                     material="opacity:0; transparent:true" onclick="toggleVideo()"></a-plane>
             </a-entity>
@@ -1771,7 +1715,8 @@
       <p style="margin-top:10px"><b style="color:#acd4ee">🌍 Outros compromisos</b></p>
       <p>Antimilitarismo (revista <i>Ar!</i>), defensa da lingua galega, loita contra o <b>Prestige</b> (2002), soberanismo (BNG), plurilingüismo. Viaxou a Cuba, Senegal, Nicaragua e Chiapas: <i>"Viaxar é ler o mundo sen intermediarios"</i>.</p>
       <p style="margin-top:8px">Presidenta do <b>Comité Interempresas da CRTVG</b> (2000-2003) contra a manipulación informativa nos medios públicos.</p>
-    `
+        <p>Imaxe: Ilustración de Nuria Díaz para o álbum ilustrado 'Os fíos de Begoña', editado por Xerais © Nuria Díaz</p>`
+
             },
 
             // SECCIÓN 3 — OBRAS FUNDAMENTAIS
@@ -1825,44 +1770,44 @@
             },
 
             // ANACOS DE OBRAS
-    //         infoAnaco1: {
-    //             titulo: 'CIRCE OU O PRACER DO AZUL (2009)',
-    //             corpo: `
-    //   <p style="color:#acd4ee; font-style:italic; font-size:0.92rem; line-height:1.6; margin-bottom:12px">"A muller dona do seu desexo e do seu propio corpo."</p>
-    //   <p>Nesta novela, <b>Penélope escríbelle cartas a Circe</b> rompendo o relato homérico que as presenta como rivais. Entre elas nace un vínculo de sororidade, amizade e complicidade que subverte a tradición.</p>
-    //   <p style="margin-top:10px">Caamaño pregúntase: <i>"E se o que conta Homero non foi verdade?"</i> Deste xeito converte a mitoloxía nunha ferramenta de <b>crítica feminista e emancipación</b>.</p>
-    //   <p style="margin-top:10px; color:#ffc978">📚 Editorial Galaxia, 2009. Primeira novela publicada aos 45 anos.</p>
-    // `
-    //         },
+            //         infoAnaco1: {
+            //             titulo: 'CIRCE OU O PRACER DO AZUL (2009)',
+            //             corpo: `
+            //   <p style="color:#acd4ee; font-style:italic; font-size:0.92rem; line-height:1.6; margin-bottom:12px">"A muller dona do seu desexo e do seu propio corpo."</p>
+            //   <p>Nesta novela, <b>Penélope escríbelle cartas a Circe</b> rompendo o relato homérico que as presenta como rivais. Entre elas nace un vínculo de sororidade, amizade e complicidade que subverte a tradición.</p>
+            //   <p style="margin-top:10px">Caamaño pregúntase: <i>"E se o que conta Homero non foi verdade?"</i> Deste xeito converte a mitoloxía nunha ferramenta de <b>crítica feminista e emancipación</b>.</p>
+            //   <p style="margin-top:10px; color:#ffc978">📚 Editorial Galaxia, 2009. Primeira novela publicada aos 45 anos.</p>
+            // `
+            //         },
 
-    //         infoAnaco2: {
-    //             titulo: 'MORGANA EN ESMELLE (2012)',
-    //             corpo: `
-    //   <p style="color:#acd4ee; font-style:italic; font-size:0.92rem; line-height:1.6; margin-bottom:12px">"A utopía non é un luxo, é unha necesidade."</p>
-    //   <p><b>Morgana</b>, a feiticeira artúrica que a tradición pintou como villá, convértese aquí en protagonista complexa. A novela sitúase en <b>Esmelle</b> (Ferrol) e explora as tensións entre <b>poder e ética, idealismo e pragmatismo</b>.</p>
-    //   <p style="margin-top:10px">A Materia de Bretaña reinterpretada para falar do presente: a comunidade como espazo de resistencia, as mulleres como suxeitos políticos.</p>
-    //   <p style="margin-top:10px; color:#00e664">
-    //     🏆 Premio Ánxel Casal · Premio AELG · Premio da Crítica · Premio Losada Diéguez
-    //   </p>
-    // `
-    //         },
-    infoAnaco1: {
-    titulo: 'CIRCE · FRAGMENTO E CONTEXTO',
-    corpo: `
+            //         infoAnaco2: {
+            //             titulo: 'MORGANA EN ESMELLE (2012)',
+            //             corpo: `
+            //   <p style="color:#acd4ee; font-style:italic; font-size:0.92rem; line-height:1.6; margin-bottom:12px">"A utopía non é un luxo, é unha necesidade."</p>
+            //   <p><b>Morgana</b>, a feiticeira artúrica que a tradición pintou como villá, convértese aquí en protagonista complexa. A novela sitúase en <b>Esmelle</b> (Ferrol) e explora as tensións entre <b>poder e ética, idealismo e pragmatismo</b>.</p>
+            //   <p style="margin-top:10px">A Materia de Bretaña reinterpretada para falar do presente: a comunidade como espazo de resistencia, as mulleres como suxeitos políticos.</p>
+            //   <p style="margin-top:10px; color:#00e664">
+            //     🏆 Premio Ánxel Casal · Premio AELG · Premio da Crítica · Premio Losada Diéguez
+            //   </p>
+            // `
+            //         },
+            infoAnaco1: {
+                titulo: 'CIRCE · FRAGMENTO E CONTEXTO',
+                corpo: `
         <p style="font-style:italic; color:#acd4ee; font-size:0.92rem; line-height:1.65; margin-bottom:12px">"Querida Penélope: non entendo por que seguimos sendo inimigas nos relatos dos homes. Ti agardas, eu encanto. Pero as dúas, ao final, facemos o mesmo: sobrevivir."</p>
         <p style="font-size:0.88rem; color:#e7f0fb">Caamaño imaxina a correspondencia que nunca existiu entre dúas das grandes figuras femininas da <i>Odisea</i>. A través das cartas, as dúas mulleres descóbrense como aliadas, non como rivais.</p>
         <p style="margin-top:10px; font-size:0.85rem; color:#ffc978">O libro propón que os mitos non son verdades inmutables: son relatos que alguén escribiu, e que outras poden reescribir.</p>
     `
-},
+            },
 
-infoAnaco2: {
-    titulo: 'MORGANA · FRAGMENTO E CONTEXTO',
-    corpo: `
+            infoAnaco2: {
+                titulo: 'MORGANA · FRAGMENTO E CONTEXTO',
+                corpo: `
         <p style="font-style:italic; color:#acd4ee; font-size:0.92rem; line-height:1.65; margin-bottom:12px">"Sempre me chamaron breixa, fada, traidora. Pero eu só fixen o que fixo Artur: querer un mundo xusto. A diferenza é que a min non me puxeron nunha lenda de heroe."</p>
         <p style="font-size:0.88rem; color:#e7f0fb">Morgana en Esmelle sitúa a feiticeira artúrica nun lugar real de Galicia. Alí, entre mulleres dunha comunidade, constrúe un espazo de reflexión sobre o poder, a traizón e a esperanza.</p>
         <p style="margin-top:10px; font-size:0.85rem; color:#ffc978">A novela máis premiada de Caamaño demostra que a épica tamén pode ser feminista, local e profundamente contemporánea.</p>
     `
-},
+            },
 
             infoAnaco3: {
                 titulo: 'O XORNALISMO COMO COMPROMISO',
@@ -1902,8 +1847,8 @@ infoAnaco2: {
     `
             },
             infoCirce: {
-    titulo: 'CIRCE OU O PRACER DO AZUL (2009)',
-    corpo: `
+                titulo: 'CIRCE OU O PRACER DO AZUL (2009)',
+                corpo: `
         <p style="color:#acd4ee; font-size:0.88rem; margin-bottom:10px">Editorial Galaxia · Primeira novela · 2009</p>
         <p style="font-style:italic; color:#ffc1cc; font-size:0.95rem; line-height:1.6; margin-bottom:12px">"A muller dona do seu desexo e do seu propio corpo."</p>
         <p>Begoña Caamaño pregúntase: <b>"E se o que conta Homero non foi verdade?"</b> Dende esa dúbida constrúe un diálogo epistolar entre <b>Penélope e Circe</b>, dúas mulleres que a tradición sitúa como rivais.</p>
@@ -1911,11 +1856,11 @@ infoAnaco2: {
         <p style="margin-top:10px">Caamaño publica esta novela aos <b>45 anos</b>, cunha voz plenamente formada que fusiona tradición clásica con sensibilidade feminista contemporánea.</p>
         <p style="margin-top:12px; color:#ffc978; font-size:0.88rem">📚 Premio da Crítica Galicia · Finalista Premio Blanco Amor</p>
     `
-},
+            },
 
-infoMorgana: {
-    titulo: 'MORGANA EN ESMELLE (2012)',
-    corpo: `
+            infoMorgana: {
+                titulo: 'MORGANA EN ESMELLE (2012)',
+                corpo: `
         <p style="color:#acd4ee; font-size:0.88rem; margin-bottom:10px">Editorial Galaxia · Segunda novela · 2012</p>
         <p style="font-style:italic; color:#ffc1cc; font-size:0.95rem; line-height:1.6; margin-bottom:12px">"A utopía non é un luxo: é a única forma honesta de vivir o presente."</p>
         <p><b>Morgana</b>, a feiticeira do ciclo artúrico que a tradición pintou como villá, convértese en protagonista complexa e libre. A novela sitúase en <b>Esmelle</b> (Ferrol), un lugar concreto e galego que acolla a lenda artúrica.</p>
@@ -1927,7 +1872,7 @@ infoMorgana: {
             🏆 Premio Losada Diéguez 2013
         </p>
     `
-},
+            },
         };
         // const PANEL_CONTIDOS = {
         //   info1: {
