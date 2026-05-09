@@ -631,7 +631,7 @@
             pointer-events: auto;
         }
 
-        #panel-overlay {
+        /* #panel-overlay {
             display: none;
             position: absolute;
             top: 50%;
@@ -649,6 +649,27 @@
             box-shadow: 0 0 60px rgba(0, 229, 255, .15);
             max-height: 80vh;
             overflow-y: auto;
+        } */
+        /* Só unha definición de #panel-overlay */
+        #panel-overlay {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9998;
+            background: linear-gradient(160deg, #08122a 0%, #0a1a3a 60%, #0d0f1e 100%);
+            border: 1.5px solid rgba(0, 229, 255, 0.35);
+            border-radius: 20px;
+            box-shadow: 0 0 60px rgba(0, 229, 255, .15);
+            padding: 0;
+            width: 92%;
+            max-width: 480px;
+            color: white;
+            pointer-events: auto;
+            max-height: 82vh;
+            overflow: visible;
+            /* ← CAMBIA hidden por visible */
         }
 
         #panel-overlay .p-pechar {
@@ -668,6 +689,8 @@
             justify-content: center;
         }
 
+
+
         #panel-overlay-titulo {
             font-family: 'Outfit', sans-serif;
             font-size: 1.1rem;
@@ -685,6 +708,8 @@
             line-height: 1.6;
             color: #e7f0fb;
             text-align: left;
+            overflow-y: auto;
+            max-height: calc(82vh - 90px);
         }
 
         /* ── ESCALA DISTANCIAS (panel de desenvolvemento AR) ── */
@@ -876,27 +901,121 @@
             backdrop-filter: blur(2px);
             pointer-events: auto;
         }
+
+        #q-nivel-selector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 8px 0 4px;
+        }
+
+        .q-nivel-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 20px;
+            border-radius: 16px;
+            border: 2px solid rgba(0, 229, 255, 0.2);
+            background: rgba(0, 229, 255, 0.04);
+            color: #cce0f0;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+
+        .q-nivel-btn span {
+            flex: 1;
+            text-align: left;
+            margin-left: 6px;
+        }
+
+        .q-nivel-btn small {
+            font-size: 0.72rem;
+            color: #4a6a8a;
+            font-weight: 400;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .q-nivel-btn:hover {
+            border-color: #00e5ff;
+            background: rgba(0, 229, 255, 0.1);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        #loader-wrapper {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 9999;
+            background: rgba(8, 16, 29, 0.8);
+            padding: 12px 20px;
+            border-radius: 50px;
+            border: 1px solid #00e5ff;
+            transition: opacity 0.5s ease;
+        }
+
+        #loader-wrapper p {
+            color: #00e5ff;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .loader {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 229, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #00e5ff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Clase para ocultalo suavemente */
+        .loader-hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
     </style>
 </head>
 
 <body>
-
+    <div id="loader-wrapper">
+        <div class="loader"></div>
+        <p>Cargando experiencia...</p>
+    </div>
     <!-- ═══════════════════════════════════════════════════
        PORTADA (visible antes de entrar en AR)
        ═══════════════════════════════════════════════════ -->
     <div id="portada">
-    <div id="portada-bg"></div>
-    <div class="portada-inner">
-      <div class="portada-kicker">Mostra - inmersiva</div>
-      <div class="portada-divider"></div>
-      <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high" width="104" height="104">
-      <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
-      <p class="portada-sub">Xornalista, escritora e voz esencial das Letras Galegas 2026.</p>
-      <span class="portada-data">Letras Galegas · 2026</span><br>
-      <p class="portada-hint">Preme o botón [AR] (abaixo á dereita) para entrares na mostra.</p>
-      <p class="portada-hint">Precisas empregar o navegador Chrome e Android.</p>
+        <div id="portada-bg"></div>
+        <div class="portada-inner">
+            <div class="portada-kicker">Mostra - inmersiva</div>
+            <div class="portada-divider"></div>
+            <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high" width="104"
+                height="104">
+            <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
+            <p class="portada-sub">Xornalista, escritora e voz esencial das Letras Galegas 2026.</p>
+            <span class="portada-data">Letras Galegas · 2026</span><br>
+            <p class="portada-hint">Preme o botón [AR] (abaixo á dereita) para entrares na mostra.</p>
+            <p class="portada-hint">Precisas empregar o navegador Chrome e Android.</p>
+        </div>
     </div>
-  </div>
 
     <!-- ═══════════════════════════════════════════════════
        DOM-OVERLAY WebXR (#overlay)
@@ -925,8 +1044,12 @@
         <div id="panel-backdrop"></div>
 
         <!-- Panel informativo 2D (substitúe os popups 3D) -->
-        <div id="panel-overlay">
-            <button class="p-pechar" onclick="pecharPanel()">✕</button>
+        <div id="panel-overlay"
+            style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:9998; background:linear-gradient(180deg,#07101e 0,#0a1a35 100%); border:2px solid #00e5ff; border-radius:22px; padding:28px 22px 22px; width:92%; max-width:480px; color:white; pointer-events:auto; box-shadow:0 0 60px rgba(0,229,255,.15); max-height:80vh; overflow-y:auto;">
+            <button onclick="pecharPanel()"
+                style="position:absolute;top:12px;right:16px;background:rgba(93, 23, 23, 0.849);border:none;
+                color:#888;font-size:1.1rem;cursor:pointer;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;">✕</button>
+
             <div id="panel-overlay-titulo"></div>
             <div id="panel-overlay-corpo"></div>
         </div>
@@ -938,8 +1061,6 @@
             </label>
             <input id="escala-distancias-slider" type="range" min="0.25" max="2" step="0.05" value="1">
         </div>
-
-        <!-- Quiz panel -->
         <div id="quiz-panel">
             <button class="qx" onclick="pecharQuiz()">✕</button>
             <div id="q-xogo">
@@ -952,14 +1073,34 @@
                     </div>
                 </div>
                 <div class="q-sub">Begoña Caamaño · Letras Galegas 2026</div>
-                <div class="q-barra-c">
-                    <div class="q-barra" id="q-barra" style="width:0%"></div>
+
+                <!-- ── SELECTOR DE NIVEL (novo) ── -->
+                <div id="q-nivel-selector">
+                    <div class="q-chip" style="margin-bottom:14px;">Escolle a dificultade</div>
+                    <div style="display:flex; flex-direction:column; gap:10px; width:100%;">
+                        <button class="q-nivel-btn" onclick="qComezar(10)">
+                            🟢 <span>Iniciación</span><small>10 preguntas</small>
+                        </button>
+                        <button class="q-nivel-btn" onclick="qComezar(15)">
+                            🟡 <span>Intermedio</span><small>15 preguntas</small>
+                        </button>
+                        <button class="q-nivel-btn" onclick="qComezar(20)">
+                            🔴 <span>Experto</span><small>20 preguntas</small>
+                        </button>
+                    </div>
                 </div>
-                <div class="q-num" id="q-num"></div>
-                <div class="q-preg" id="q-preg"></div>
-                <div class="q-ops" id="q-ops"></div>
-                <div class="q-fb" id="q-fb"></div>
-                <button class="q-btn-seg" id="q-btn-seg" onclick="qSeguinte()">Seguinte →</button>
+
+                <!-- ── XOGO (agochado ata elixir nivel) ── -->
+                <div id="q-xogo-contido" style="display:none; width:100%;">
+                    <div class="q-barra-c">
+                        <div class="q-barra" id="q-barra" style="width:0%"></div>
+                    </div>
+                    <div class="q-num" id="q-num"></div>
+                    <div class="q-preg" id="q-preg"></div>
+                    <div class="q-ops" id="q-ops"></div>
+                    <div class="q-fb" id="q-fb"></div>
+                    <button class="q-btn-seg" id="q-btn-seg" onclick="qSeguinte()">Seguinte →</button>
+                </div>
             </div>
             <div id="q-resultado">
                 <div class="r-trofeo">🏆</div>
@@ -973,6 +1114,7 @@
                 </div>
             </div>
         </div>
+      
 
     </div><!-- fin #overlay -->
 
@@ -1038,16 +1180,6 @@
                     material="opacity:0; transparent:true" onclick="abrirPanel('info1')"></a-plane>
             </a-entity>
 
-            <!-- Cita asociada a "Quen foi" -->
-            <a-entity position="-10 4.6 0" rotation="0 90 0">
-                <a-plane width="3.8" height="1.5" color="#ff4d6d" opacity="0.08"></a-plane>
-                <a-plane width="0.06" height="1.5" color="#ff4d6d" position="-1.87 0 0.01"></a-plane>
-                <a-text value="« A muller dona do seu desexo\n e do seu propio corpo »"
-                    font="fonts/Nunito-SemiBold-msdf.json" align="center" width="3.35" position="0 0.24 0.05"
-                    color="#ffffff" negate="false" wrap-count="24"></a-text>
-                <a-text value="- Circe ou o pracer do azul" font="fonts/Nunito-SemiBold-msdf.json" align="center"
-                    width="2.55" position="0.5 -0.48 0.05" color="#ffc0cb" negate="false" wrap-count="30"></a-text>
-            </a-entity>
 
             <!-- 2. XORNALISMO E ACTIVISMO — Esquerda diante -->
             <a-entity position="-10.15 3 5.07" rotation="0 90 0">
@@ -1101,12 +1233,13 @@
             </a-entity>
             <!-- 4. LETRAS GALEGAS: CRONOLOXÍA E MULLERES — Dereita diante -->
 
-
             <a-entity position="10.15 3 5.07" rotation="0 -90 0">
                 <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.9"></a-plane>
                 <a-plane width="5.6" height="0.06" material="shader: flat; color: #00E5FF; opacity: 1" color="#FF0055"
                     position="0 1.45 0.01"></a-plane>
-
+                <a-text value="As outras mulleres das letras galegas" font="fonts/Nunito-SemiBold-msdf.json"
+                    align="center" width="4.8" position="0 0.8 0.1" color="#79b9d8" negate="false"
+                    wrap-count="40"></a-text>
                 <a-text value="As nosas letras" font="fonts/Outfit-Bold-msdf.json" align="center" color="#FF0055"
                     negate="false" position="0 1.2 0.1" wrap-count="30"></a-text>
 
@@ -1144,18 +1277,34 @@
                 </a-entity>
             </a-entity>
 
+
+
+            <!--6  ============================================================
+     PAREDE TRASEIRA — ESQUERDA (ANACOS DE OBRAS)
+     Panel con cadros clicables que despregan fragmentos de texto.
+     Cada cadro é independente e ten o seu propio popup (infoAnaco1..5).
+     Pódese editar: títulos dos cadros, textos dos popups, cores.
+     Os textos están baleiros agás Circe e Morgana, listos para encher.
+     ============================================================ -->
+
             <a-entity position="5.07 -0.6 10.15" rotation="0 180 0">
 
                 <!-- ══ CABECEIRA ══ -->
                 <a-plane width="6.2" height="1.1" color="#04080f" opacity="0.96" position="0 5.12 0"
                     material="shader: flat"></a-plane>
-                <a-plane width="6.2" height="0.12" color="#ff4d6d" position="0 5.65 0.01" material="shader: flat"
-                    ;></a-plane>
-                <a-plane width="3.1" height="0.12" color="#a78bfa" position="-1.55 5.65 0.02" material="shader: flat" ;
-                    animation="property:position; from:-3.1 5.65 0.02; to:3.1 5.65 0.02; dur:4000; loop:true; dir:alternate; easing:easeInOutSine"></a-plane>
-                <a-plane width="1.5" height="0.12" color="#00e5ff" opacity="0.8" position="0 5.65 0.03"
-                    material="shader: flat" ;
-                    animation="property:position;  from:3.1 5.65 0.03; to:-3.1 5.65 0.03; dur:3200; loop:true; dir:alternate; easing:easeInOutSine"></a-plane>
+                <!-- Barra base -->
+                <a-plane width="6.2" height="0.06" color="#1a2a3a" opacity="0.8" position="0 5.65 0.01"
+                    material="shader: flat"></a-plane>
+
+                <!-- Luz que se desliza — discreta, non sobresae -->
+                <a-plane width="2.0" height="0.06" color="#a78bfa" opacity="0.5" position="0 5.65 0.02"
+                    material="shader: flat"
+                    animation="property:position; from:-2.1 5.65 0.02; to:2.1 5.65 0.02; dur:5000; loop:true; dir:alternate; easing:easeInOutSine"></a-plane>
+
+                <!-- Destello pequeno en sentido contrario -->
+                <a-plane width="0.8" height="0.06" color="#00e5ff" opacity="0.6" position="0 5.65 0.03"
+                    material="shader: flat"
+                    animation="property:position; from:2.1 5.65 0.03; to:-2.1 5.65 0.03; dur:3800; loop:true; dir:alternate; easing:easeInOutSine"></a-plane>
                 <a-text value="ANACOS DE BEGOÑA" font="fonts/Outfit-Bold-msdf.json"
                     font-image="fonts/Outfit-Bold-msdf.png" align="center" width="5.8" position="0 5.17 0.08"
                     color="#ffffff" negate="false" wrap-count="22" material="shader: flat;"></a-text>
@@ -1321,7 +1470,7 @@
                         loop="true"></a-animation>
                 </a-text>
                 <a-video src="#video-file" width="4.68" height="2.62" position="0 -0.8 0.05"></a-video>
-                <a-plane class="area-clic" width="4.68" height="2.62" position="0 1.5 0.2"
+                <a-plane class="area-clic" width="4.68" height="2.62" position="0 -0.8 0.05"
                     material="opacity:0; transparent:true" onclick="toggleVideo()"></a-plane>
             </a-entity>
 
@@ -1356,6 +1505,65 @@
                 <a-light type="point" color="#FF0000" intensity="1.5" distance="20" position="0 -0.2 2"></a-light>
             </a-entity>
 
+
+
+            <!-- CITAS-->
+
+
+            <!-- Cita asociada a "Quen foi" -->
+            <a-entity position="8 5.5 6" rotation="0 -135 0">
+                <a-plane width="3.8" height="1.5" color="#ff4d6d" opacity="0.05"></a-plane>
+                <a-plane width="0.06" height="1.5" color="#ff4d6d" position="-1.87 0 0.01"></a-plane>
+                <a-text value="« A muller dona do seu desexo\n e do seu propio corpo »"
+                    font="fonts/Nunito-SemiBold-msdf.json" align="center" width="3.35" position="0 0.24 0.05"
+                    color="#ffffff" negate="false" wrap-count="24"></a-text>
+                <a-text value="- Circe ou o pracer do azul" font="fonts/Nunito-SemiBold-msdf.json" align="center"
+                    width="2.55" position="0.5 -0.48 0.05" color="#ffc0cb" negate="false" wrap-count="30"></a-text>
+            </a-entity>
+
+            <!-- 1. Cita sobre a Utopía (Fronte - Dereita)
+Ideal para colocar preto da sección de Legado ou Activismo. -->
+
+
+            <a-entity position="5 5.5 -8" rotation="0 -20 0">
+                <a-plane width="4" height="1.2" color="#00e5ff" opacity="0.05"></a-plane>
+                <a-plane width="0.04" height="1.2" color="#00e5ff" position="-1.98 0 0.01"></a-plane>
+                <a-text value="« A utopía non é un luxo:\né a única forma honesta de vivir o presente »"
+                    font="fonts/Nunito-SemiBold-msdf.json" align="center" width="3.5" color="#ffffff" negate="false"
+                    wrap-count="28"></a-text>
+            </a-entity>
+            <!-- 2. Cita sobre o Xornalismo (Esquerda - Diante)
+Colocada alta sobre a zona de Xornalismo. -->
+
+
+            <a-entity position="-10 5.5 5" rotation="0 90 0">
+                <a-plane width="4" height="1.2" color="#00e5ff" opacity="0.05"></a-plane>
+                <a-plane width="0.04" height="1.2" color="#00e5ff" position="-1.98 0 0.01"></a-plane>
+                <a-text value="« O xornalismo ten que servir\npara cambiar as cousas »"
+                    font="fonts/Nunito-SemiBold-msdf.json" align="center" width="3.8" color="#ffffff" negate="false"
+                    wrap-count="25"></a-text>
+            </a-entity>
+            <!-- 3. Cita sobre Viaxar (Fronte - Esquerda)
+Unha frase moi persoal dela sobre o coñecemento. -->
+
+
+            <a-entity position="-6 5.8 -7" rotation="0 15 0">
+                <a-plane width="3.5" height="1" color="#ff4d6d" opacity="0.05"></a-plane>
+                <a-plane width="0.04" height="1" color="#ff4d6d" position="-1.73 0 0.01"></a-plane>
+                <a-text value="« Viaxar é ler o mundo\nsen intermediarios »" font="fonts/Nunito-SemiBold-msdf.json"
+                    align="center" width="3.2" color="#ffffff" negate="false" wrap-count="22"></a-text>
+            </a-entity>
+            <!-- 4. Cita de Morgana en Esmelle (Dereita - Fondo)
+Sobre a resistencia e a ética. -->
+
+
+            <a-entity position="10 5.5 0" rotation="0 -90 0">
+                <a-plane width="4.2" height="1.4" color="#fbbf24" opacity="0.05"></a-plane>
+                <a-plane width="0.04" height="1.4" color="#fbbf24" position="-2.08 0 0.01"></a-plane>
+                <a-text value="« Non hai vitoria posible sen ética,\n nin derrota se se mantén a dignidade »"
+                    font="fonts/Nunito-SemiBold-msdf.json" align="center" width="3.6" color="#ffffff" negate="false"
+                    wrap-count="30"></a-text>
+            </a-entity>
         </a-entity><!-- fin #museo -->
 
     </a-scene>
@@ -1532,6 +1740,25 @@
             if (btnQuizSala) btnQuizSala.style.display = 'none';
         }
 
+
+
+
+        window.addEventListener('load', () => {
+            const scene = document.querySelector('a-scene');
+            if (scene.hasLoaded) {
+                hideLoader();
+            } else {
+                scene.addEventListener('loaded', hideLoader);
+            }
+        });
+
+        function hideLoader() {
+            const loader = document.getElementById('loader-wrapper');
+            // Damos un pequeno marxe de medio segundo para que a transición sexa elegante
+            setTimeout(() => {
+                loader.classList.add('loader-hidden');
+            }, 500);
+        }
         /* ═══════════════════════════════════════════════════
            QUIZ
            ═══════════════════════════════════════════════════ */
@@ -1544,94 +1771,55 @@
         //     { p: "Que temática atravesa a obra de Begoña Caamaño?", ops: ["A guerra civil española", "O feminismo e a reescritura de mitos", "A emigración galega", "A vida rural no século XIX"], ok: 1, exp: "O feminismo e a revisión dos mitos son o núcleo da súa obra." },
         //     { p: "A que ano das Letras Galegas corresponde a súa homenaxe?", ops: ["2024", "2025", "2026", "2027"], ok: 2, exp: "O Día das Letras Galegas 2026 está dedicado a Begoña Caamaño." }
         // ];
-        const QP = [
-            {
-                p: "En que barrio de Vigo naceu Begoña Caamaño en 1964?",
-                ops: ["O Calvario", "Coia", "Bouzas", "O Castro"],
-                ok: 0,
-                exp: "Naceu no barrio do Calvario, en Vigo, o 14 de outubro de 1964."
-            },
-            {
-                p: "En que medio traballou como xornalista durante máis de 25 anos?",
-                ops: ["TVG", "Radio Galega", "La Voz de Galicia", "El Correo Gallego"],
-                ok: 1,
-                exp: "Foi unha voz fundamental na Radio Galega desde 1989 ata 2014."
-            },
-            {
-                p: "Cal foi a súa primeira novela e en que ano se publicou?",
-                ops: ["Morgana en Esmelle (2010)", "Circe ou o pracer do azul (2009)", "A illa das mulleres (2008)", "O libro das fadas (2011)"],
-                ok: 1,
-                exp: "Circe ou o pracer do azul publicouse en 2009, cando Begoña tiña 45 anos."
-            },
-            {
-                p: "Con que tradición literaria dialoga 'Morgana en Esmelle'?",
-                ops: ["A Odisea de Homero", "A Ilíada", "A Materia de Bretaña (ciclo artúrico)", "A mitoloxía nórdica"],
-                ok: 2,
-                exp: "Morgana en Esmelle revisita a Materia de Bretaña e as lendas do Rei Artur."
-            },
-            {
-                p: "En que cidade internacional representou ás mulleres galegas no ano 2000?",
-                ops: ["Porto Alegre", "Bruxelas", "Montreal", "Xénova"],
-                ok: 1,
-                exp: "Representou a Galicia na Marcha Mundial das Mulleres en Bruxelas (2000) e Montreal (2001)."
-            },
-            {
-                p: "Cantas mulleres foron homenaxeadas nas Letras Galegas antes de Begoña Caamaño (2026)?",
-                ops: ["3", "5", "7", "10"],
-                ok: 2,
-                exp: "Rosalía, Herrera Garrido, María Mariño, Mª Victoria Moreno, Xela Arias, Luísa Villalta e As Cantareiras: 7 mulleres antes de Begoña."
-            },
-            {
-                p: "Cal foi a primeira muller homenaxeada nas Letras Galegas (1963)?",
-                ops: ["Francisca Herrera Garrido", "María Mariño", "Rosalía de Castro", "Xela Arias"],
-                ok: 2,
-                exp: "Rosalía de Castro foi a primeira homenaxeada en 1963, o mesmo ano que comezou o Día das Letras Galegas."
-            },
-            {
-                p: "Que organización cofundou Begoña Caamaño en 1997?",
-                ops: ["Mulheres Nacionalistas Galegas", "MUGACOM", "Rede Feminista", "Causa Galiza"],
-                ok: 1,
-                exp: "Foi cofundadora de MUGACOM (Mulleres Galegas na Comunicación) en 1997."
-            },
-            {
-                p: "Con que escritora tivo as súas primeiras clases de francés de nena?",
-                ops: ["Xela Arias", "María Mariño", "María Xosé Queizán", "Luísa Villalta"],
-                ok: 2,
-                exp: "As súas primeiras clases de francés foron con María Xosé Queizán, escritora e activista galega."
-            },
-            {
-                p: "Que premios recibiu 'Morgana en Esmelle' en 2012?",
-                ops: ["Premio Blanco Amor e Premio da Crítica", "Premio Ánxel Casal, AELG e Premio da Crítica", "Premio Nacional de Literatura", "Premio Otero Pedrayo"],
-                ok: 1,
-                exp: "Morgana en Esmelle recibiu o Premio Ánxel Casal, o da AELG á mellor narrativa, o Premio da Crítica (2012) e o Losada Diéguez (2013)."
+
+
+
+        let QP_ACTIVO = [];
+
+        function shuffleArray(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
             }
-        ];
-        let qIdx = 0, qPts = 0, qResp = false;
+            return a;
+        }
 
         function abrirQuiz() {
             if (document.getElementById('quiz-panel').classList.contains('activo')) return;
-            qIdx = 0; qPts = 0;
+            document.getElementById('q-nivel-selector').style.display = 'flex';
+            document.getElementById('q-xogo-contido').style.display = 'none';
+            document.getElementById('q-resultado').style.display = 'none';
+            document.getElementById('q-xogo').style.display = 'block';
             document.getElementById('quiz-panel').classList.add('activo');
             document.getElementById('quiz-backdrop').style.display = 'block';
             document.getElementById('quiz-backdrop').style.pointerEvents = 'auto';
-            document.getElementById('q-resultado').style.display = 'none';
-            document.getElementById('q-xogo').style.display = 'block';
+        }
+
+        function qComezar(num) {
+            qIdx = 0; qPts = 0;
+            QP_ACTIVO = shuffleArray(QP).slice(0, num);
+            document.getElementById('q-nivel-selector').style.display = 'none';
+            document.getElementById('q-xogo-contido').style.display = 'block';
             qMostrar();
         }
+
         function pecharQuiz() {
             document.getElementById('quiz-panel').classList.remove('activo');
             document.getElementById('quiz-backdrop').style.display = 'none';
             document.getElementById('quiz-backdrop').style.pointerEvents = 'none';
         }
+
         function qReiniciar() {
-            qIdx = 0; qPts = 0;
             document.getElementById('q-resultado').style.display = 'none';
+            document.getElementById('q-nivel-selector').style.display = 'flex';
+            document.getElementById('q-xogo-contido').style.display = 'none';
             document.getElementById('q-xogo').style.display = 'block';
-            qMostrar();
         }
+
         function qMostrar() {
             qResp = false;
-            const q = QP[qIdx], tot = QP.length;
+            const q = QP_ACTIVO[qIdx], tot = QP_ACTIVO.length;
             document.getElementById('q-barra').style.width = (qIdx / tot * 100) + '%';
             document.getElementById('q-num').textContent = 'Pregunta ' + (qIdx + 1) + ' de ' + tot;
             document.getElementById('q-preg').textContent = q.p;
@@ -1640,51 +1828,338 @@
             document.getElementById('q-btn-seg').style.display = 'none';
             const ops = document.getElementById('q-ops');
             ops.innerHTML = '';
-            q.ops.forEach((o, i) => {
+            const opsMix = shuffleArray(q.ops.map((o, i) => ({ texto: o, orixinal: i })));
+            const novoOk = opsMix.findIndex(o => o.orixinal === q.ok);
+            opsMix.forEach((o, i) => {
                 const b = document.createElement('button');
-                b.className = 'opcion'; b.textContent = o;
-                b.onclick = () => qResponder(i);
+                b.className = 'opcion'; b.textContent = o.texto;
+                b.onclick = () => qResponder(i, novoOk);
                 ops.appendChild(b);
             });
         }
-        function qResponder(idx) {
+
+        function qResponder(idx, ok) {
             if (qResp) return;
             qResp = true;
-            const q = QP[qIdx];
+            const q = QP_ACTIVO[qIdx];
             const bts = document.querySelectorAll('.opcion');
             bts.forEach(b => b.disabled = true);
             const fb = document.getElementById('q-fb');
-            if (idx === q.ok) {
+            if (idx === ok) {
                 qPts++;
                 bts[idx].classList.add('correcta');
                 fb.textContent = '✓ Correcto! ' + q.exp;
             } else {
                 bts[idx].classList.add('incorrecta');
-                bts[q.ok].classList.add('correcta');
+                bts[ok].classList.add('correcta');
                 fb.textContent = '✗ Incorrecto. ' + q.exp;
                 fb.className = 'q-fb mal';
             }
             const bs = document.getElementById('q-btn-seg');
             bs.style.display = 'inline-block';
-            bs.textContent = qIdx >= QP.length - 1 ? 'Ver resultado ✦' : 'Seguinte →';
-            document.getElementById('q-barra').style.width = ((qIdx + 1) / QP.length * 100) + '%';
+            bs.textContent = qIdx >= QP_ACTIVO.length - 1 ? 'Ver resultado ✦' : 'Seguinte →';
+            document.getElementById('q-barra').style.width = ((qIdx + 1) / QP_ACTIVO.length * 100) + '%';
         }
-        function qSeguinte() { qIdx++; qIdx >= QP.length ? qResultado() : qMostrar(); }
+
+        function qSeguinte() { qIdx++; qIdx >= QP_ACTIVO.length ? qResultado() : qMostrar(); }
+
         function qResultado() {
             document.getElementById('q-xogo').style.display = 'none';
             document.getElementById('q-barra').style.width = '100%';
             document.getElementById('q-resultado').style.display = 'flex';
-            const tot = QP.length, pct = Math.round(qPts / tot * 100);
+            const tot = QP_ACTIVO.length, pct = Math.round(qPts / tot * 100);
             document.getElementById('r-puntos').textContent = qPts + '/' + tot;
             let lb, mg, st;
-            if (pct === 100) { lb = 'Excelente!'; st = '★★★★★'; mg = 'Dominas o legado de Begoña Caamaño. Parabéns!'; }
-            else if (pct >= 71) { lb = 'Moi ben!'; st = '★★★★☆'; mg = 'Coñeces ben a vida e a obra desta escritora fundamental.'; }
-            else if (pct >= 43) { lb = 'Vai ben!'; st = '★★★☆☆'; mg = 'Tes boa base. Explora os paneis do museo para completar.'; }
-            else { lb = 'Sigue aprendendo!'; st = '★★☆☆☆'; mg = 'Revisa os paneis da sala e volve tentar. Begoña merece máis tempo.'; }
+            if (pct === 100) { lb = 'Perfecto!'; st = '★★★★★'; mg = 'Dominas o legado de Begoña Caamaño!'; }
+            else if (pct >= 71) { lb = 'Moi ben!'; st = '★★★★☆'; mg = 'Coñeces ben a vida e a obra desta escritora.'; }
+            else if (pct >= 43) { lb = 'Vai ben!'; st = '★★★☆☆'; mg = 'Explora os paneis do museo para completar.'; }
+            else { lb = 'Sigue aprendendo!'; st = '★★☆☆☆'; mg = 'Revisa os paneis e volve tentar.'; }
             document.getElementById('r-label').textContent = lb;
             document.getElementById('r-stars').textContent = st;
             document.getElementById('r-msg').textContent = mg;
         }
+        const QP = [
+            // ── BIOGRAFÍA E PENSAMENTO ──
+            {
+                p: "En que barrio de Vigo naceu Begoña Caamaño en 1964?",
+                ops: ["O Calvario", "Coia", "Bouzas", "O Castro"],
+                ok: 0,
+                exp: "Naceu no barrio do Calvario, en Vigo. Nos anos 70 trasladouse a Coia."
+            },
+            {
+                p: "Con que coñecida escritora tivo as súas primeiras clases de francés de nena?",
+                ops: ["Xela Arias", "María Mariño", "María Xosé Queizán", "Luísa Villalta"],
+                ok: 2,
+                exp: "As súas primeiras clases de francés foron con María Xosé Queizán, escritora e activista feminista."
+            },
+            {
+                p: "Que autor clásico lía de nena, no cal botaba en falta referentes femininos activos?",
+                ops: ["Virxilio", "Homero", "Ovidio", "Sófocles"],
+                ok: 1,
+                exp: "Descubriu a Homero de pequena, e a ausencia de roles femininos independentes foi o motor da súa futura escrita."
+            },
+            {
+                p: "Para Begoña Caamaño, que significaba a acción de «viaxar»?",
+                ops: ["Fuxir da realidade", "Ler o mundo sen intermediarios", "Atopar inspiración para a ficción", "Descansar do xornalismo"],
+                ok: 1,
+                exp: "Cita textual da autora: «Viaxar é ler o mundo sen intermediarios»."
+            },
+
+            // ── XORNALISMO E ACTIVISMO ──
+            {
+                p: "En que medio traballou como xornalista durante máis de 25 anos?",
+                ops: ["TVG", "Radio Galega", "La Voz de Galicia", "El Correo Gallego"],
+                ok: 1,
+                exp: "Foi unha voz fundamental na Radio Galega desde 1989 ata 2014."
+            },
+            {
+                p: "Cal destes programas da Radio Galega NON foi dirixido por Begoña Caamaño?",
+                ops: ["Diario Cultural", "Andando a Terra", "Expreso de Medianoite", "Lume na Palleira"],
+                ok: 3,
+                exp: "Dirixiu 'Diario Cultural', 'Andando a Terra', 'Club Cultura' e 'Expreso de Medianoite'."
+            },
+            {
+                p: "Que cargo de defensa dos traballadores ocupou na CRTVG entre 2000 e 2003?",
+                ops: ["Directora de informativos", "Presidenta do Comité Interempresas", "Voceira do Sindicato de Xornalistas", "Xefa de redacción"],
+                ok: 1,
+                exp: "Foi Presidenta do Comité Interempresas da CRTVG, loitando contra a manipulación informativa nos medios públicos."
+            },
+            {
+                p: "Segundo a propia Begoña, para que ten que servir o xornalismo?",
+                ops: ["Para informar con obxectividade neutral", "Para cambiar as cousas", "Para entreter ás masas", "Para dar voz aos políticos"],
+                ok: 1,
+                exp: "«O xornalismo ten que servir para cambiar as cousas, non para contalas só»."
+            },
+            {
+                p: "Que organización clave para as mulleres nos medios cofundou en 1997?",
+                ops: ["Mulheres Nacionalistas", "Rede Feminista Galega", "MUGACOM", "Feministas Independentes"],
+                ok: 2,
+                exp: "Foi cofundadora de MUGACOM (Mulleres Galegas na Comunicación) no ano 1997."
+            },
+            {
+                p: "En que cidades representou ás mulleres galegas na Marcha Mundial das Mulleres?",
+                ops: ["París e Xenebra", "Nova York e Londres", "Bruxelas e Montreal", "Berlín e Roma"],
+                ok: 2,
+                exp: "Representou a Galicia na Marcha Mundial en Bruxelas (2000) e Montreal (2001)."
+            },
+
+            // ── LITERATURA: CIRCE E MORGANA ──
+            {
+                p: "A que idade publicou a súa primeira novela, 'Circe ou o pracer do azul'?",
+                ops: ["Aos 25 anos", "Aos 35 anos", "Aos 45 anos", "Aos 50 anos"],
+                ok: 2,
+                exp: "Publicouna no ano 2009, cando Begoña tiña 45 anos, cunha voz xa plenamente madura."
+            },
+            {
+                p: "Que dúas mulleres establecen un diálogo epistolar na novela 'Circe'?",
+                ops: ["Ariadna e Helena", "Medea e Antígona", "Penélope e Circe", "Nausícaa e Calipso"],
+                ok: 2,
+                exp: "Penélope e Circe, tradicionalmente rivais na Odisea, inician unha correspondencia chea de sororidade."
+            },
+            {
+                p: "«A muller dona do seu desexo e do seu propio corpo» é o lema central de que obra?",
+                ops: ["Morgana en Esmelle", "O Libro das Amigas", "Circe ou o pracer do azul", "Mitoloxías disidentes"],
+                ok: 2,
+                exp: "É a idea central que atravesa a súa primeira novela, 'Circe ou o pracer do azul'."
+            },
+            {
+                p: "Con que tradición literaria europea dialoga a súa novela 'Morgana en Esmelle'?",
+                ops: ["Mitoloxía celta", "Materia de Bretaña (ciclo artúrico)", "Mitoloxía grega", "Contos populares galegos"],
+                ok: 1,
+                exp: "Revisita a Materia de Bretaña e as lendas do Rei Artur poñendo o foco na fada Morgana."
+            },
+            {
+                p: "Que grandes tensións humanas e políticas explora 'Morgana en Esmelle'?",
+                ops: ["Relixión e ciencia", "Poder, ética, utopía e pragmatismo", "Amor romántico e desamor", "Pobreza e loita de clases"],
+                ok: 1,
+                exp: "Explora as tensións entre o poder, a ética e a necesidade da utopía no presente."
+            },
+            {
+                p: "Que prestixiosos premios recibiu 'Morgana en Esmelle' tras a súa publicación en 2012?",
+                ops: ["Premio Xerais e Jules Verne", "Premio Ánxel Casal, AELG e Premio da Crítica", "Premio Nacional de Literatura", "Premio Otero Pedrayo"],
+                ok: 1,
+                exp: "Recibiu o Ánxel Casal, o da AELG á mellor narrativa, o Premio da Crítica e o Losada Diéguez."
+            },
+            {
+                p: "Como completa Caamaño a frase: «A utopía non é un luxo...»?",
+                ops: ["é un soño inalcanzable", "é a única forma honesta de vivir o presente", "é o destino da humanidade", "é unha perda de tempo"],
+                ok: 1,
+                exp: "Na súa visión, a utopía non é un luxo: «é a única forma honesta de vivir o presente»."
+            },
+
+            // ── LITERATURA: OBRAS INÉDITAS E LEGADO ──
+            {
+                p: "Que concepto engloba o núcleo central da obra narrativa de Begoña?",
+                ops: ["A novela histórica", "A reescritura feminista dos mitos", "O costumismo galego contemporáneo", "A ciencia ficción distópica"],
+                ok: 1,
+                exp: "A súa obra caracterízase por reescribir os grandes mitos (gregos, artúricos) dende a óptica das mulleres."
+            },
+            {
+                p: "Como se ía titular a triloxía que a súa morte prematura lle impediu rematar?",
+                ops: ["Lendas de Mulleres", "Mitoloxías disidentes", "Contos de Esmelle", "As voces silenciadas"],
+                ok: 1,
+                exp: "A súa ambiciosa obra proxectada íase chamar 'Triloxía das Mitoloxías disidentes'."
+            },
+            {
+                p: "Sobre que famosa personaxe tiña proxectado escribir unha das súas seguintes novelas?",
+                ops: ["Medea", "Helena de Troia", "Sherezade", "Xoana de Arco"],
+                ok: 2,
+                exp: "Os seus proxectos inéditos incluían historias sobre a contadora de contos Sherezade e sobre a súa propia bisavoa."
+            },
+            {
+                p: "A que idade faleceu Begoña Caamaño o 27 de outubro de 2014?",
+                ops: ["Aos 45 anos", "Aos 50 anos", "Aos 55 anos", "Aos 60 anos"],
+                ok: 1,
+                exp: "Faleceu debido a un cancro de páncreas en Santiago de Compostela, con só 50 anos."
+            },
+            {
+                p: "Que libro colectivo se publicou en 2015 para honrar a súa memoria?",
+                ops: ["O Libro das Amigas", "Mulleres con Begoña", "Cartas a Esmelle", "Begoñísima"],
+                ok: 0,
+                exp: "Publicouse 'O Libro das Amigas', xunto coa celebración da homenaxe 'Begoñísima'."
+            },
+            {
+                p: "A académica Ana Romaní definiu a Begoña Caamaño como: «Definitivamente utópica...»",
+                ops: ["terriblemente soñadora", "profundamente galega", "radicalmente vital", "eternamente xornalista"],
+                ok: 2,
+                exp: "«Definitivamente utópica, radicalmente vital», unha das citas que mellor a resume."
+            },
+            {
+                p: "Con que coñecida cantante galega colaborou para a canción 'Rosalía pequeniña'?",
+                ops: ["Guadi Galego", "Uxía", "Mercedes Peón", "Sés"],
+                ok: 1,
+                exp: "Colaborou con Uxía na canción 'Rosalía pequeniña', ademais de participar no proxecto 'María Fumaça'."
+            },
+
+            // ── LETRAS GALEGAS E OUTRAS MULLERES ──
+            {
+                p: "Que número fai Begoña na lista de mulleres homenaxeadas nas Letras Galegas?",
+                ops: ["A quinta", "A sexta", "A oitava", "A décima"],
+                ok: 2,
+                exp: "É a oitava muller homenaxeada na historia do certame dende a súa creación en 1963."
+            },
+            {
+                p: "Cantas mulleres en total foron homenaxeadas antes do ano de Begoña (2026)?",
+                ops: ["5", "7", "9", "12"],
+                ok: 1,
+                exp: "Foron 7: Rosalía, Herrera Garrido, María Mariño, Mª Victoria Moreno, Xela Arias, Luísa Villalta e As Cantareiras."
+            },
+            {
+                p: "Quen foi a primeira muller en ser homenaxeada no Día das Letras Galegas (1963)?",
+                ops: ["Francisca Herrera Garrido", "Rosalía de Castro", "María Mariño", "Xela Arias"],
+                ok: 1,
+                exp: "O certame inaugurouse en 1963 dedicándollo a Rosalía de Castro e á publicación de Cantares Gallegos."
+            },
+            {
+                p: "Quen foi a primeira muller académica da RAG, homenaxeada no ano 1987?",
+                ops: ["Luísa Villalta", "Mª Victoria Moreno", "María Mariño", "Francisca Herrera Garrido"],
+                ok: 3,
+                exp: "Francisca Herrera Garrido foi narradora, poeta e a primeira muller na Real Academia Galega."
+            },
+            {
+                p: "Que poeta de vangarda, autora de 'Palabra no Tempo', foi homenaxeada en 2007?",
+                ops: ["Xela Arias", "María Mariño", "Luísa Villalta", "Mª Victoria Moreno"],
+                ok: 1,
+                exp: "María Mariño, poeta marcada polo exilio interior en Galicia, foi a protagonista no 2007."
+            },
+            {
+                p: "Que escritora cacereña, pioneira na literatura infantil galega, tivo o seu Día en 2018?",
+                ops: ["Mª Victoria Moreno", "Xela Arias", "Francisca Herrera", "Luísa Villalta"],
+                ok: 0,
+                exp: "Mª Victoria Moreno, nada en Estremadura pero galega de adopción, foi a elixida en 2018."
+            },
+            {
+                p: "A que poeta e tradutora luguesa, de escrita rupturista, se lle dedicou o ano 2021?",
+                ops: ["María Mariño", "Luísa Villalta", "Xela Arias", "Begoña Caamaño"],
+                ok: 2,
+                exp: "Xela Arias foi a protagonista das Letras Galegas 2021."
+            },
+            {
+                p: "A quen correspondeu a primeira homenaxe colectiva feminina da historia do certame en 2025?",
+                ops: ["As Redeiras", "As Cantareiras", "As Batareiras", "As Pandereteiras"],
+                ok: 1,
+                exp: "En 2025 homenaxeouse á figura d'As Cantareiras, gardiás da tradición oral e musical de Galicia."
+            }
+        ];
+        // let qIdx = 0, qPts = 0, qResp = false;
+
+        // function abrirQuiz() {
+        //     if (document.getElementById('quiz-panel').classList.contains('activo')) return;
+        //     qIdx = 0; qPts = 0;
+        //     document.getElementById('quiz-panel').classList.add('activo');
+        //     document.getElementById('quiz-backdrop').style.display = 'block';
+        //     document.getElementById('quiz-backdrop').style.pointerEvents = 'auto';
+        //     document.getElementById('q-resultado').style.display = 'none';
+        //     document.getElementById('q-xogo').style.display = 'block';
+        //     qMostrar();
+        // }
+        // function pecharQuiz() {
+        //     document.getElementById('quiz-panel').classList.remove('activo');
+        //     document.getElementById('quiz-backdrop').style.display = 'none';
+        //     document.getElementById('quiz-backdrop').style.pointerEvents = 'none';
+        // }
+        // function qReiniciar() {
+        //     qIdx = 0; qPts = 0;
+        //     document.getElementById('q-resultado').style.display = 'none';
+        //     document.getElementById('q-xogo').style.display = 'block';
+        //     qMostrar();
+        // }
+        // function qMostrar() {
+        //     qResp = false;
+        //     const q = QP[qIdx], tot = QP.length;
+        //     document.getElementById('q-barra').style.width = (qIdx / tot * 100) + '%';
+        //     document.getElementById('q-num').textContent = 'Pregunta ' + (qIdx + 1) + ' de ' + tot;
+        //     document.getElementById('q-preg').textContent = q.p;
+        //     document.getElementById('q-fb').textContent = '';
+        //     document.getElementById('q-fb').className = 'q-fb';
+        //     document.getElementById('q-btn-seg').style.display = 'none';
+        //     const ops = document.getElementById('q-ops');
+        //     ops.innerHTML = '';
+        //     q.ops.forEach((o, i) => {
+        //         const b = document.createElement('button');
+        //         b.className = 'opcion'; b.textContent = o;
+        //         b.onclick = () => qResponder(i);
+        //         ops.appendChild(b);
+        //     });
+        // }
+        // function qResponder(idx) {
+        //     if (qResp) return;
+        //     qResp = true;
+        //     const q = QP[qIdx];
+        //     const bts = document.querySelectorAll('.opcion');
+        //     bts.forEach(b => b.disabled = true);
+        //     const fb = document.getElementById('q-fb');
+        //     if (idx === q.ok) {
+        //         qPts++;
+        //         bts[idx].classList.add('correcta');
+        //         fb.textContent = '✓ Correcto! ' + q.exp;
+        //     } else {
+        //         bts[idx].classList.add('incorrecta');
+        //         bts[q.ok].classList.add('correcta');
+        //         fb.textContent = '✗ Incorrecto. ' + q.exp;
+        //         fb.className = 'q-fb mal';
+        //     }
+        //     const bs = document.getElementById('q-btn-seg');
+        //     bs.style.display = 'inline-block';
+        //     bs.textContent = qIdx >= QP.length - 1 ? 'Ver resultado ✦' : 'Seguinte →';
+        //     document.getElementById('q-barra').style.width = ((qIdx + 1) / QP.length * 100) + '%';
+        // }
+        // function qSeguinte() { qIdx++; qIdx >= QP.length ? qResultado() : qMostrar(); }
+        // function qResultado() {
+        //     document.getElementById('q-xogo').style.display = 'none';
+        //     document.getElementById('q-barra').style.width = '100%';
+        //     document.getElementById('q-resultado').style.display = 'flex';
+        //     const tot = QP.length, pct = Math.round(qPts / tot * 100);
+        //     document.getElementById('r-puntos').textContent = qPts + '/' + tot;
+        //     let lb, mg, st;
+        //     if (pct === 100) { lb = 'Excelente!'; st = '★★★★★'; mg = 'Dominas o legado de Begoña Caamaño. Parabéns!'; }
+        //     else if (pct >= 71) { lb = 'Moi ben!'; st = '★★★★☆'; mg = 'Coñeces ben a vida e a obra desta escritora fundamental.'; }
+        //     else if (pct >= 43) { lb = 'Vai ben!'; st = '★★★☆☆'; mg = 'Tes boa base. Explora os paneis do museo para completar.'; }
+        //     else { lb = 'Sigue aprendendo!'; st = '★★☆☆☆'; mg = 'Revisa os paneis da sala e volve tentar. Begoña merece máis tempo.'; }
+        //     document.getElementById('r-label').textContent = lb;
+        //     document.getElementById('r-stars').textContent = st;
+        //     document.getElementById('r-msg').textContent = mg;
+        // }
 
         /* ═══════════════════════════════════════════════════
            PANEIS INFORMATIVOS 2D
@@ -1724,7 +2199,7 @@
                 titulo: 'OBRAS: A REESCRITURA FEMINISTA DOS MITOS',
                 corpo: `
       <p><b style="color:#ffc1cc">📖 Circe ou o pracer do azul</b> <span style="color:#acd4ee">(Galaxia, 2009)</span></p>
-      <p>Primeira novela, publicada aos 45 anos. Reinterpretación feminista da <b>Odisea</b> de Homero: Penélope e Circe —dúas rivais segundo a tradición— establécen un <b>diálogo epistolar de sororidade</b>. Cuestiona os relatos heroicos masculinos e reivindica o desexo e a autonomía das mulleres.</p>
+      <p>Primeira novela, publicada aos 45 anos. Reinterpretación feminista da <b>Odisea</b> de Homero: Penélope e Circe —dúas rivais segundo a tradición— establecen un <b>diálogo epistolar de sororidade</b>. Cuestiona os relatos heroicos masculinos e reivindica o desexo e a autonomía das mulleres.</p>
       <p style="margin-top:10px"><b style="color:#ffc1cc">📖 Morgana en Esmelle</b> <span style="color:#acd4ee">(Galaxia, 2012)</span></p>
       <p>Revisita a <b>Materia de Bretaña</b> centrándose en Morgana. Explora as tensións entre poder e ética, utopía e pragmatismo. <b>Gran éxito de crítica e público.</b></p>
       <p style="margin-top:8px; color:#00e664">
@@ -1747,19 +2222,19 @@
       <span style="font-size:0.88rem">A primeira. Poeta universal, voz da Galicia do XIX. <i>Cantares Gallegos</i> (1863) deu orixe ao propio Día das Letras.</span></p>
 
       <p style="margin-top:8px"><span style="color:#ff4d6d; font-weight:700">1987 — Francisca Herrera Garrido</span><br>
-      <span style="font-size:0.88rem">Primeira muller académica da RAG. Narradora e poetisa de principios do século XX.</span></p>
+      <span style="font-size:0.88rem">Primeira muller académica da RAG. Narradora e poeta nos comezos do século XX.</span></p>
 
       <p style="margin-top:8px"><span style="color:#ff4d6d; font-weight:700">2007 — María Mariño</span><br>
-      <span style="font-size:0.88rem">Poetisa de vanguarda, autora de <i>Palabra no Tempo</i>. Vida marcada pola escuridade e o exilio interior.</span></p>
+      <span style="font-size:0.88rem">Poetisa de vangarda, autora de <i>Palabra no Tempo</i>. Vida marcada pola escuridade e o exilio interior.</span></p>
 
       <p style="margin-top:8px"><span style="color:#ff4d6d; font-weight:700">2018 — María Victoria Moreno</span><br>
       <span style="font-size:0.88rem">Mestra e escritora cacereña que fixo de Galicia a súa patria. Pioneira na literatura infantil e xuvenil en galego.</span></p>
 
       <p style="margin-top:8px"><span style="color:#ff4d6d; font-weight:700">2021 — Xela Arias</span><br>
-      <span style="font-size:0.88rem">Poetisa luguesa de escrita rupturista e voz reivindicativa. Faleceu con só 41 anos en 2003.</span></p>
+      <span style="font-size:0.88rem">Poeta luguesa de escrita rupturista e voz reivindicativa. Faleceu con só 41 anos en 2003.</span></p>
 
       <p style="margin-top:8px"><span style="color:#ff4d6d; font-weight:700">2024 — Luísa Villalta</span><br>
-      <span style="font-size:0.88rem">Violinista e poetisa coruñesa. Profesora de Lingua Galega, faleceu de meninxite en 2004 con 46 anos.</span></p>
+      <span style="font-size:0.88rem">Violinista e poeta coruñesa. Profesora de Lingua Galega, faleceu en 2004 con 46 anos.</span></p>
 
       <p style="margin-top:8px"><span style="color:#ff4d6d; font-weight:700">2025 — As Cantareiras</span><br>
       <span style="font-size:0.88rem">Primeira homenaxe colectiva a mulleres. Representantes da tradición oral e musical galega.</span></p>
@@ -1805,7 +2280,7 @@
                 corpo: `
         <p style="font-style:italic; color:#acd4ee; font-size:0.92rem; line-height:1.65; margin-bottom:12px">"Sempre me chamaron breixa, fada, traidora. Pero eu só fixen o que fixo Artur: querer un mundo xusto. A diferenza é que a min non me puxeron nunha lenda de heroe."</p>
         <p style="font-size:0.88rem; color:#e7f0fb">Morgana en Esmelle sitúa a feiticeira artúrica nun lugar real de Galicia. Alí, entre mulleres dunha comunidade, constrúe un espazo de reflexión sobre o poder, a traizón e a esperanza.</p>
-        <p style="margin-top:10px; font-size:0.85rem; color:#ffc978">A novela máis premiada de Caamaño demostra que a épica tamén pode ser feminista, local e profundamente contemporánea.</p>
+        <p style="margin-top:10px; font-size:0.85rem; color:#ffc978">A novela máis premiada de Caamaño demostra que a épica tamén pode ser feminista, local e fondamente contemporánea.</p>
     `
             },
 
@@ -1840,7 +2315,7 @@
             infoAnaco5: {
                 titulo: 'HOMENAXE E LEGADO (2014–2026)',
                 corpo: `
-      <p>Begoña Caamaño faleceu o <b>27 de outubro de 2014</b> en Santiago de Compostela, víctima dun cancro de páncreas, con só <b>50 anos</b>.</p>
+      <p>Begoña Caamaño faleceu o <b>27 de outubro de 2014</b> en Santiago de Compostela, con só <b>50 anos</b>.</p>
       <p style="margin-top:10px">A súa perda foi sentida colectivamente. En <b>2015</b> celebrouse a homenaxe <i>"Begoñísima"</i> e publicouse <b>O Libro das Amigas</b>, un volume colectivo con testemuños e textos en honra á súa memoria.</p>
       <p style="margin-top:10px">A <b>Real Academia Galega</b> designouna homenaxeada do <b>Día das Letras Galegas 2026</b>, recoñecendo que a súa voz —na literatura, no xornalismo e no activismo— foi e segue sendo imprescindible.</p>
       <p style="margin-top:10px; color:#acd4ee; font-style:italic">"Definitivamente utópica, radicalmente vital." — Ana Romaní, RAG</p>
@@ -1863,8 +2338,8 @@
                 corpo: `
         <p style="color:#acd4ee; font-size:0.88rem; margin-bottom:10px">Editorial Galaxia · Segunda novela · 2012</p>
         <p style="font-style:italic; color:#ffc1cc; font-size:0.95rem; line-height:1.6; margin-bottom:12px">"A utopía non é un luxo: é a única forma honesta de vivir o presente."</p>
-        <p><b>Morgana</b>, a feiticeira do ciclo artúrico que a tradición pintou como villá, convértese en protagonista complexa e libre. A novela sitúase en <b>Esmelle</b> (Ferrol), un lugar concreto e galego que acolla a lenda artúrica.</p>
-        <p style="margin-top:10px">Explora as tensións entre <b>poder e ética</b>, utopía e pragmatismo. Caamaño usa a Materia de Bretaña para falar de comunidade, resistencia e xustiza no presente.</p>
+        <p><b>Morgana</b>, a feiticeira do ciclo artúrico que a tradición pintou como vilá, convértese en protagonista complexa e libre. A novela sitúase en <b>Esmelle</b> (Ferrol), un lugar concreto e galego que acolla a lenda artúrica.</p>
+        <p style="margin-top:10px">Explora as tensións entre <b>poder e ética</b>, utopía e pragmatismo. Caamaño emprega a Materia de Bretaña para falar de comunidade, resistencia e xustiza no presente.</p>
         <p style="margin-top:12px; color:#00e664; font-size:0.9rem; line-height:1.8">
             🏆 Premio Ánxel Casal 2012<br>
             🏆 Premio AELG mellor narrativa 2012<br>
@@ -1874,29 +2349,7 @@
     `
             },
         };
-        // const PANEL_CONTIDOS = {
-        //   info1: {
-        //     titulo: "VIGO, 1964 – SANTIAGO, 2014",
-        //     corpo: `<p>Voz mítica da Radio Galega durante décadas. Traballou como xornalista política e cultural, sempre comprometida coa lingua galega e cos dereitos das mulleres.</p>
-        //             <p style="margin-top:10px;color:#acd4ee">Nas súas novelas, Circe e Morgana deixan de ser vilás para converterse en protagonistas donas do seu propio destino.</p>
-        //             <p style="margin-top:10px;color:#ffc978;font-weight:700">Premio da Crítica Española · Finalista Blanco Amor</p>`
-        //   },
-        //   info3: {
-        //     titulo: "PREMIO DA CRÍTICA ESPAÑOLA",
-        //     corpo: `<p>As súas novelas reivindican a voz das mulleres silenciadas na historia.</p>`
-        //   },
-        //   infoAnaco1: {
-        //     titulo: "CIRCE OU O PRACER DO AZUL",
-        //     corpo: `<p style="font-style:italic;color:#acd4ee">[Fragmento da obra aquí]</p>`
-        //   },
-        //   infoAnaco2: {
-        //     titulo: "MORGANA EN ESMELLE",
-        //     corpo: `<p style="font-style:italic;color:#acd4ee">[Fragmento da obra aquí]</p>`
-        //   },
-        //   infoAnaco3: { titulo: "TÍTULO DA OBRA 3", corpo: `<p>[Fragmento aquí]</p>` },
-        //   infoAnaco4: { titulo: "TÍTULO DA OBRA 4", corpo: `<p>[Fragmento aquí]</p>` },
-        //   infoAnaco5: { titulo: "TÍTULO DA OBRA 5", corpo: `<p>[Fragmento aquí]</p>` }
-        // };
+
 
         function abrirPanel(id) {
             const datos = PANEL_CONTIDOS[id];
