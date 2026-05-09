@@ -730,6 +730,142 @@
             margin: 0;
             accent-color: #00e5ff;
         }
+
+
+
+        /* ══ PANEL INFORMATIVO OVERLAY 2D ══ */
+#panel-overlay {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9998;
+
+    /* Fondo con gradiente máis rico */
+    background: linear-gradient(160deg, #08122a 0%, #0a1a3a 60%, #0d0f1e 100%);
+
+    /* Borde con gradiente simulado via box-shadow en capas */
+    border: 1.5px solid rgba(0, 229, 255, 0.35);
+    border-radius: 20px;
+
+    /* Sombra exterior con brillo de cor */
+    box-shadow:
+        0 0 0 1px rgba(255, 77, 109, 0.12),
+        0 0 40px rgba(0, 229, 255, 0.12),
+        0 20px 60px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+    padding: 0;
+    width: 92%;
+    max-width: 480px;
+    color: white;
+    pointer-events: auto;
+    max-height: 82vh;
+    overflow: hidden;
+    animation: panelSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes panelSlideIn {
+    from { opacity: 0; transform: translate(-50%, -46%) scale(0.96); }
+    to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Cabeceira do panel con acento de cor */
+#panel-overlay::before {
+    content: '';
+    display: block;
+    height: 3px;
+    background: linear-gradient(90deg, #ff4d6d, #00e5ff, #ff4d6d);
+    border-radius: 20px 20px 0 0;
+}
+
+/* Título do panel */
+#panel-overlay-titulo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.0rem;
+    font-weight: 900;
+    color: #ffc1cc;
+    text-align: center;
+    padding: 18px 42px 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    /* Liña separadora baixo o título */
+    border-bottom: 1px solid rgba(0, 229, 255, 0.15);
+    margin-bottom: 0;
+    position: relative;
+}
+
+/* Punto decorativo no título */
+#panel-overlay-titulo::after {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 2px;
+    background: linear-gradient(90deg, #ff4d6d, #00e5ff);
+    border-radius: 2px;
+    margin: 8px auto 0;
+}
+
+/* Corpo do panel con scroll interno */
+#panel-overlay-corpo {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.93rem;
+    line-height: 1.65;
+    color: #e7f0fb;
+    text-align: left;
+    padding: 16px 22px 22px;
+    overflow-y: auto;
+    max-height: calc(82vh - 90px);
+}
+
+/* Scrollbar estilizada */
+#panel-overlay-corpo::-webkit-scrollbar {
+    width: 4px;
+}
+#panel-overlay-corpo::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.04);
+    border-radius: 4px;
+}
+#panel-overlay-corpo::-webkit-scrollbar-thumb {
+    background: rgba(0, 229, 255, 0.3);
+    border-radius: 4px;
+}
+
+/* Botón pechar */
+#panel-overlay .p-pechar {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #88a0b0;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+#panel-overlay .p-pechar:hover {
+    background: rgba(255, 77, 109, 0.2);
+    color: #ff4d6d;
+    border-color: rgba(255, 77, 109, 0.4);
+}
+
+/* Fondo escuro do panel */
+#panel-backdrop {
+    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 9997;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(2px);
+    pointer-events: auto;
+}
     </style>
 </head>
 
@@ -1009,156 +1145,222 @@
            Cada cadro abre un overlay 2D ao facer clic.
            Para editar: cambia título/corpo en PANEL_CONTIDOS no JS.
       ══ -->
-    <!-- ══ 6. ANACOS DE OBRAS · Traseira dereita ══ -->
+      <!-- ══ 6. ANACOS DE OBRAS · Traseira dereita ══ -->
 <a-entity position="5.07 -0.6 10.15" rotation="0 180 0">
 
-    <!-- Cabeceira -->
-    <a-plane width="5.8" height="0.8" color="#08101d" opacity="0.98" position="0 5.1 0"></a-plane>
-    <a-plane width="5.8" height="0.05" color="#ff4d6d" position="0 5.48 0.01"></a-plane>
+    <!-- ══ CABECEIRA ══ -->
+    <!-- Fondo cabeceira -->
+    <a-plane width="6.2" height="1.1" color="#04080f" opacity="0.96" position="0 5.12 0"></a-plane>
+    <!-- Liña arco iris animada no topo -->
+    <a-plane width="6.2" height="0.12" color="#ff4d6d" position="0 5.65 0.01"></a-plane>
+    <a-plane width="3.1" height="0.12" color="#a78bfa" position="-1.55 5.65 0.02"
+        animation="property:position; from:-3.1 5.65 0.02; to:3.1 5.65 0.02; dur:4000; loop:true; dir:alternate; easing:easeInOutSine"></a-plane>
+    <a-plane width="1.5" height="0.12" color="#00e5ff" opacity="0.8" position="0 5.65 0.03"
+        animation="property:position; from:3.1 5.65 0.03; to:-3.1 5.65 0.03; dur:3200; loop:true; dir:alternate; easing:easeInOutSine"></a-plane>
+    <!-- Título -->
     <a-text value="ANACOS DE OBRAS" font="fonts/Outfit-Bold-msdf.json"
-        font-image="fonts/Outfit-Bold-msdf.png" align="center" width="5.4"
-        position="0 5.08 0.1" color="#ffd6de" negate="false" wrap-count="22"></a-text>
+        font-image="fonts/Outfit-Bold-msdf.png"
+        align="center" width="5.8" position="0 5.17 0.08"
+        color="#ffffff" negate="false" wrap-count="22"></a-text>
+    <!-- Subtítulo -->
+    <a-text value="toca cada cadro para descubrir"
+        font="fonts/Nunito-SemiBold-msdf.json"
+        font-image="fonts/Nunito-SemiBold-msdf.png"
+        align="center" width="5.0" position="0 4.73 0.08"
+        color="#4a6a8a" negate="false" wrap-count="40"></a-text>
+    <!-- Liña inferior cabeceira -->
+    <a-plane width="6.2" height="0.025" color="#ffffff" opacity="0.06" position="0 4.57 0.01"></a-plane>
 
-    <!-- ══ FILA 1: Circe e Morgana (cadros grandes) ══ -->
 
-    <!-- Cadro 1 — Circe -->
-    <a-entity position="-1.45 3.9 0">
-        <a-plane width="2.6" height="1.8" color="#0d1a2e" opacity="0.97"></a-plane>
-        <a-plane width="2.6" height="0.05" color="#ff4d6d" position="0 0.87 0.01"></a-plane>
-        <!-- Liña accent lateral esquerda -->
-        <a-plane width="0.05" height="1.8" color="#ff4d6d" opacity="0.5" position="-1.27 0 0.01"></a-plane>
-        <a-text value="📖" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="center" width="1.0" position="-0.85 0.5 0.1"
-            color="#ffffff" negate="false" wrap-count="4"></a-text>
+    <!-- ══ FILA 1: CIRCE — cartel de cine ══ -->
+    <a-entity position="-1.45 3.42 0">
+        <!-- Imaxe portada como fondo -->
+        <a-image src="#img-circe" width="2.6" height="1.9" position="0 0 0"></a-image>
+        <!-- Overlay gradiente escurecedor abaixo -->
+        <a-plane width="2.6" height="1.9" color="#000000" opacity="0.52" position="0 0 0.01"
+            material="shader:flat; opacity:0.52; transparent:true"></a-plane>
+        <!-- Gradiente negro forte na parte baixa (simúlase con plano estreito) -->
+        <a-plane width="2.6" height="0.9" color="#000000" opacity="0.75" position="0 -0.52 0.02"
+            material="shader:flat; opacity:0.75; transparent:true"></a-plane>
+        <!-- Borde superior cor accent -->
+        <a-plane width="2.6" height="0.09" color="#ff4d6d" position="0 0.905 0.04"></a-plane>
+        <!-- Borde esquerdo sutil -->
+        <a-plane width="0.04" height="1.9" color="#ff4d6d" opacity="0.6" position="-1.28 0 0.04"></a-plane>
+        <!-- Borde dereito moi sutil -->
+        <a-plane width="0.04" height="1.9" color="#ff4d6d" opacity="0.2" position="1.28 0 0.04"></a-plane>
+        <!-- BADGE ano arriba dereita -->
+        <a-plane width="0.52" height="0.26" color="#ff4d6d" opacity="0.92" position="0.98 0.72 0.05"></a-plane>
+        <a-text value="2009" font="fonts/Outfit-Bold-msdf.json"
+            align="center" width="0.55" position="0.98 0.72 0.07"
+            color="#ffffff" negate="false" wrap-count="6"></a-text>
+        <!-- Título grande sobre o gradiente -->
         <a-text value="CIRCE" font="fonts/Outfit-Bold-msdf.json"
             font-image="fonts/Outfit-Bold-msdf.png"
-            align="left" width="2.2" position="-0.55 0.6 0.1"
-            color="#ffc1cc" negate="false" wrap-count="14"></a-text>
+            align="left" width="2.8" position="-1.15 -0.28 0.06"
+            color="#ffffff" negate="false" wrap-count="12"></a-text>
+        <!-- Subtítulo obra -->
         <a-text value="Circe ou o pracer do azul" font="fonts/Nunito-SemiBold-msdf.json"
             font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="left" width="2.2" position="-0.55 0.22 0.1"
-            color="#acd4ee" negate="false" wrap-count="22"></a-text>
-        <a-text value="2009 · Galaxia" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="left" width="2.0" position="-0.55 -0.08 0.1"
-            color="#5a7a8a" negate="false" wrap-count="20"></a-text>
-        <a-text value="Penélope e Circe. Sororidade contra o mito." font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="center" width="2.3" position="0 -0.52 0.1"
-            color="#c8dff0" negate="false" wrap-count="30"></a-text>
-        <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="center" width="1.4" position="0 -0.78 0.1"
-            color="#3f708c" negate="false" wrap-count="18"></a-text>
-        <a-plane class="area-clic" width="2.6" height="1.8" position="0 0 0.12"
+            align="left" width="2.4" position="-1.15 -0.56 0.06"
+            color="#ffb3c1" negate="false" wrap-count="26"></a-text>
+        <!-- Icona toca -->
+        <a-text value="👆 toca" font="fonts/Nunito-SemiBold-msdf.json"
+            align="right" width="1.4" position="1.15 -0.80 0.06"
+            color="#ffffff" negate="false" wrap-count="10"
+            animation="property:opacity; from:0.3; to:1; dur:900; loop:true; dir:alternate"></a-text>
+        <!-- Zona clic -->
+        <a-plane class="area-clic" width="2.6" height="1.9" position="0 0 0.12"
             material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco1')"></a-plane>
     </a-entity>
 
-    <!-- Cadro 2 — Morgana -->
-    <a-entity position="1.45 3.9 0">
-        <a-plane width="2.6" height="1.8" color="#0d1a2e" opacity="0.97"></a-plane>
-        <a-plane width="2.6" height="0.05" color="#ff4d6d" position="0 0.87 0.01"></a-plane>
-        <a-plane width="0.05" height="1.8" color="#ff4d6d" opacity="0.5" position="-1.27 0 0.01"></a-plane>
-        <a-text value="📖" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="center" width="1.0" position="-0.85 0.5 0.1"
-            color="#ffffff" negate="false" wrap-count="4"></a-text>
+
+    <!-- ══ FILA 1: MORGANA — cartel de cine ══ -->
+    <a-entity position="1.45 3.42 0">
+        <!-- Imaxe portada como fondo -->
+        <a-image src="#img-esmelle" width="2.6" height="1.9" position="0 0 0"></a-image>
+        <!-- Overlay -->
+        <a-plane width="2.6" height="1.9" color="#000000" opacity="0.48" position="0 0 0.01"
+            material="shader:flat; opacity:0.48; transparent:true"></a-plane>
+        <!-- Gradiente baixo -->
+        <a-plane width="2.6" height="0.9" color="#000000" opacity="0.78" position="0 -0.52 0.02"
+            material="shader:flat; opacity:0.78; transparent:true"></a-plane>
+        <!-- Bordes -->
+        <a-plane width="2.6" height="0.09" color="#a78bfa" position="0 0.905 0.04"></a-plane>
+        <a-plane width="0.04" height="1.9" color="#a78bfa" opacity="0.6" position="-1.28 0 0.04"></a-plane>
+        <a-plane width="0.04" height="1.9" color="#a78bfa" opacity="0.2" position="1.28 0 0.04"></a-plane>
+        <!-- BADGE ano -->
+        <a-plane width="0.52" height="0.26" color="#a78bfa" opacity="0.92" position="0.98 0.72 0.05"></a-plane>
+        <a-text value="2012" font="fonts/Outfit-Bold-msdf.json"
+            align="center" width="0.55" position="0.98 0.72 0.07"
+            color="#ffffff" negate="false" wrap-count="6"></a-text>
+        <!-- Título -->
         <a-text value="MORGANA" font="fonts/Outfit-Bold-msdf.json"
             font-image="fonts/Outfit-Bold-msdf.png"
-            align="left" width="2.2" position="-0.55 0.6 0.1"
-            color="#ffc1cc" negate="false" wrap-count="14"></a-text>
+            align="left" width="2.8" position="-1.15 -0.28 0.06"
+            color="#ffffff" negate="false" wrap-count="12"></a-text>
+        <!-- Subtítulo -->
         <a-text value="Morgana en Esmelle" font="fonts/Nunito-SemiBold-msdf.json"
             font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="left" width="2.2" position="-0.55 0.22 0.1"
-            color="#acd4ee" negate="false" wrap-count="22"></a-text>
-        <a-text value="2012 · Galaxia" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="left" width="2.0" position="-0.55 -0.08 0.1"
-            color="#5a7a8a" negate="false" wrap-count="20"></a-text>
-        <a-text value="Morgana. Utopía e ética na Galicia artúrica." font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="center" width="2.3" position="0 -0.52 0.1"
-            color="#c8dff0" negate="false" wrap-count="30"></a-text>
-        <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="center" width="1.4" position="0 -0.78 0.1"
-            color="#3f708c" negate="false" wrap-count="18"></a-text>
-        <a-plane class="area-clic" width="2.6" height="1.8" position="0 0 0.12"
+            align="left" width="2.4" position="-1.15 -0.56 0.06"
+            color="#d4b5fd" negate="false" wrap-count="26"></a-text>
+        <!-- Premios badge -->
+        <a-plane width="1.0" height="0.24" color="#fbbf24" opacity="0.88" position="-0.75 0.72 0.05"></a-plane>
+        <a-text value="🏆 4 premios" font="fonts/Nunito-SemiBold-msdf.json"
+            align="center" width="1.1" position="-0.75 0.72 0.07"
+            color="#1a0a00" negate="false" wrap-count="14"></a-text>
+        <!-- Icona toca -->
+        <a-text value="👆 toca" font="fonts/Nunito-SemiBold-msdf.json"
+            align="right" width="1.4" position="1.15 -0.80 0.06"
+            color="#ffffff" negate="false" wrap-count="10"
+            animation="property:opacity; from:0.3; to:1; dur:900; loop:true; dir:alternate"></a-text>
+        <!-- Zona clic -->
+        <a-plane class="area-clic" width="2.6" height="1.9" position="0 0 0.12"
             material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco2')"></a-plane>
     </a-entity>
 
-    <!-- ══ FILA 2: tres cadros temáticos (compactos) ══ -->
 
-    <!-- Cadro 3 — O xornalismo -->
-    <a-entity position="-2.05 2.0 0">
-        <a-plane width="1.7" height="1.4" color="#071220" opacity="0.97"></a-plane>
-        <a-plane width="1.7" height="0.05" color="#00e5ff" position="0 0.67 0.01"></a-plane>
+    <!-- ══ FILA 2: XORNALISMO — tarxeta cor vibrante ══ -->
+    <a-entity position="-2.05 1.45 0">
+        <!-- Fondo cor sólida vibrante -->
+        <a-plane width="1.72" height="1.38" color="#003a4a" opacity="1.0" position="0 0 0"></a-plane>
+        <!-- Faixa lateral de cor forte -->
+        <a-plane width="0.18" height="1.38" color="#00e5ff" opacity="1.0" position="-0.77 0 0.01"></a-plane>
+        <!-- Borde superior -->
+        <a-plane width="1.72" height="0.08" color="#00e5ff" position="0 0.65 0.01"></a-plane>
+        <!-- Punto decorativo pulsante -->
+        <a-plane width="0.10" height="0.10" color="#00e5ff" opacity="0.9" position="0.72 0.58 0.03"
+            animation="property:scale; from:1 1 1; to:1.4 1.4 1; dur:700; loop:true; dir:alternate"></a-plane>
+        <!-- Icona grande -->
         <a-text value="🎙️" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="center" width="0.9" position="0 0.32 0.1"
+            align="center" width="1.1" position="-0.28 0.28 0.05"
             color="#ffffff" negate="false" wrap-count="4"></a-text>
-        <a-text value="XORNALISMO" font="fonts/Outfit-Bold-msdf.json"
+        <!-- Título -->
+        <a-text value="XORNA-&#10;LISMO" font="fonts/Outfit-Bold-msdf.json"
             font-image="fonts/Outfit-Bold-msdf.png"
-            align="center" width="1.55" position="0 -0.02 0.1"
-            color="#00e5ff" negate="false" wrap-count="14"></a-text>
-        <a-text value="Radio Galega · 1989–2014" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="center" width="1.5" position="0 -0.32 0.1"
-            color="#acd4ee" negate="false" wrap-count="22"></a-text>
-        <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="center" width="1.2" position="0 -0.56 0.1"
-            color="#3f708c" negate="false" wrap-count="18"></a-text>
-        <a-plane class="area-clic" width="1.7" height="1.4" position="0 0 0.12"
+            align="left" width="1.4" position="-0.28 -0.12 0.05"
+            color="#00e5ff" negate="false" wrap-count="10"></a-text>
+        <!-- Dato clave -->
+        <a-text value="25 anos en Radio Galega" font="fonts/Nunito-SemiBold-msdf.json"
+            align="left" width="1.35" position="-0.28 -0.50 0.05"
+            color="#acd4ee" negate="false" wrap-count="18"></a-text>
+        <!-- Toca -->
+        <a-text value="👆" font="fonts/Nunito-SemiBold-msdf.json"
+            align="center" width="0.5" position="0.62 -0.56 0.05"
+            color="#ffffff" negate="false" wrap-count="4"
+            animation="property:opacity; from:0.2; to:1; dur:800; loop:true; dir:alternate"></a-text>
+        <a-plane class="area-clic" width="1.72" height="1.38" position="0 0 0.12"
             material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco3')"></a-plane>
     </a-entity>
 
-    <!-- Cadro 4 — A triloxía -->
-    <a-entity position="0 2.0 0">
-        <a-plane width="1.7" height="1.4" color="#071220" opacity="0.97"></a-plane>
-        <a-plane width="1.7" height="0.05" color="#a78bfa" position="0 0.67 0.01"></a-plane>
+
+    <!-- ══ FILA 2: TRILOXÍA — tarxeta cor vibrante ══ -->
+    <a-entity position="0 1.45 0">
+        <a-plane width="1.72" height="1.38" color="#1a0a35" opacity="1.0" position="0 0 0"></a-plane>
+        <!-- Faixa lateral -->
+        <a-plane width="0.18" height="1.38" color="#a78bfa" opacity="1.0" position="-0.77 0 0.01"></a-plane>
+        <!-- Borde superior -->
+        <a-plane width="1.72" height="0.08" color="#a78bfa" position="0 0.65 0.01"></a-plane>
+        <!-- Estrelas decorativas animadas -->
+        <a-plane width="0.06" height="0.06" color="#a78bfa" opacity="0.9" position="0.65 0.52 0.03"
+            animation="property:opacity; from:0.2; to:1; dur:600; loop:true; dir:alternate"></a-plane>
+        <a-plane width="0.04" height="0.04" color="#ffffff" opacity="0.7" position="0.50 0.38 0.03"
+            animation="property:opacity; from:0.1; to:0.9; dur:900; loop:true; dir:alternate"></a-plane>
+        <a-plane width="0.05" height="0.05" color="#c4b5fd" opacity="0.8" position="0.72 0.28 0.03"
+            animation="property:opacity; from:0.3; to:1; dur:750; loop:true; dir:alternate"></a-plane>
+        <!-- Icona grande -->
         <a-text value="🔮" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="center" width="0.9" position="0 0.32 0.1"
+            align="center" width="1.1" position="-0.28 0.28 0.05"
             color="#ffffff" negate="false" wrap-count="4"></a-text>
-        <a-text value="TRILOXÍA" font="fonts/Outfit-Bold-msdf.json"
+        <!-- Título -->
+        <a-text value="TRILO-&#10;XÍA" font="fonts/Outfit-Bold-msdf.json"
             font-image="fonts/Outfit-Bold-msdf.png"
-            align="center" width="1.55" position="0 -0.02 0.1"
-            color="#c4b5fd" negate="false" wrap-count="14"></a-text>
+            align="left" width="1.4" position="-0.28 -0.12 0.05"
+            color="#c4b5fd" negate="false" wrap-count="10"></a-text>
+        <!-- Dato -->
         <a-text value="Mitoloxías disidentes" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="center" width="1.5" position="0 -0.32 0.1"
-            color="#acd4ee" negate="false" wrap-count="22"></a-text>
-        <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="center" width="1.2" position="0 -0.56 0.1"
-            color="#3f708c" negate="false" wrap-count="18"></a-text>
-        <a-plane class="area-clic" width="1.7" height="1.4" position="0 0 0.12"
+            align="left" width="1.35" position="-0.28 -0.50 0.05"
+            color="#acd4ee" negate="false" wrap-count="18"></a-text>
+        <!-- Toca -->
+        <a-text value="👆" font="fonts/Nunito-SemiBold-msdf.json"
+            align="center" width="0.5" position="0.62 -0.56 0.05"
+            color="#ffffff" negate="false" wrap-count="4"
+            animation="property:opacity; from:0.2; to:1; dur:1000; loop:true; dir:alternate"></a-text>
+        <a-plane class="area-clic" width="1.72" height="1.38" position="0 0 0.12"
             material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco4')"></a-plane>
     </a-entity>
 
-    <!-- Cadro 5 — Legado e homenaxes -->
-    <a-entity position="2.05 2.0 0">
-        <a-plane width="1.7" height="1.4" color="#071220" opacity="0.97"></a-plane>
-        <a-plane width="1.7" height="0.05" color="#fbbf24" position="0 0.67 0.01"></a-plane>
+
+    <!-- ══ FILA 2: LEGADO — tarxeta cor vibrante ══ -->
+    <a-entity position="2.05 1.45 0">
+        <a-plane width="1.72" height="1.38" color="#2a1800" opacity="1.0" position="0 0 0"></a-plane>
+        <!-- Faixa lateral dourada -->
+        <a-plane width="0.18" height="1.38" color="#fbbf24" opacity="1.0" position="-0.77 0 0.01"></a-plane>
+        <!-- Borde superior -->
+        <a-plane width="1.72" height="0.08" color="#fbbf24" position="0 0.65 0.01"></a-plane>
+        <!-- Estrela pulsante -->
+        <a-plane width="0.08" height="0.08" color="#fbbf24" opacity="0.9" position="0.65 0.52 0.03"
+            animation="property:scale; from:1 1 1; to:1.5 1.5 1; dur:1100; loop:true; dir:alternate"></a-plane>
+        <!-- Icona grande -->
         <a-text value="★" font="fonts/Outfit-Bold-msdf.json"
             font-image="fonts/Outfit-Bold-msdf.png"
-            align="center" width="0.9" position="0 0.32 0.1"
-            color="#fbbf24" negate="false" wrap-count="4"></a-text>
+            align="center" width="1.2" position="-0.28 0.30 0.05"
+            color="#fbbf24" negate="false" wrap-count="4"
+            animation="property:scale; from:1 1 1; to:1.06 1.06 1; dur:1200; loop:true; dir:alternate"></a-text>
+        <!-- Título -->
         <a-text value="LEGADO" font="fonts/Outfit-Bold-msdf.json"
             font-image="fonts/Outfit-Bold-msdf.png"
-            align="center" width="1.55" position="0 -0.02 0.1"
-            color="#fde68a" negate="false" wrap-count="14"></a-text>
-        <a-text value="2014 · 2026" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="center" width="1.5" position="0 -0.32 0.1"
-            color="#acd4ee" negate="false" wrap-count="22"></a-text>
-        <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png"
-            align="center" width="1.2" position="0 -0.56 0.1"
-            color="#3f708c" negate="false" wrap-count="18"></a-text>
-        <a-plane class="area-clic" width="1.7" height="1.4" position="0 0 0.12"
+            align="left" width="1.4" position="-0.28 -0.12 0.05"
+            color="#fde68a" negate="false" wrap-count="10"></a-text>
+        <!-- Dato -->
+        <a-text value="2014 — 2026" font="fonts/Nunito-SemiBold-msdf.json"
+            align="left" width="1.35" position="-0.28 -0.50 0.05"
+            color="#acd4ee" negate="false" wrap-count="18"></a-text>
+        <!-- Toca -->
+        <a-text value="👆" font="fonts/Nunito-SemiBold-msdf.json"
+            align="center" width="0.5" position="0.62 -0.56 0.05"
+            color="#ffffff" negate="false" wrap-count="4"
+            animation="property:opacity; from:0.2; to:1; dur:850; loop:true; dir:alternate"></a-text>
+        <a-plane class="area-clic" width="1.72" height="1.38" position="0 0 0.12"
             material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco5')"></a-plane>
     </a-entity>
 
