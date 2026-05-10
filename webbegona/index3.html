@@ -1,1554 +1,2529 @@
-<!-- COORDENADAS
-
-
-•	0: É a túa posición inicial.
-•	Valores negativos (-Z): Móvense cara adiante (afástanse de ti cara ao fondo).
-•	Valores positivos (+Z): Móvense cara atrás (quedan ás túas costas).
-•	No teu exemplo (-12.15): O vídeo está a 12.15 metros por diante de ti.
-________________________________________
-2. Esquema de rotation="X Y Z"
-A rotación en A-Frame mídese en graos (de 0 a 360). Para colocar paneis arredor de ti nunha habitación, o eixo máis importante é o Y.
-Rotación no eixo Y (Xirar coma unha buxaina):
-Este eixo atravesa o panel de arriba a abaixo coma un mastro. Ao cambialo, fas que o panel mire cara a ti sen importar onde o coloques na sala.
-•	rotation="0 0 0": O panel mira cara ao fondo da sala (cara ao eixo $-Z$). Como ti estás no centro mirando ao mesmo sitio, ves a súa cara frontal perfectamente.
-•	rotation="0 90 0": O panel xira 90 graos. Úsase para a parede esquerda, para que o panel mire cara ao centro.
-•	rotation="0 -90 0" (ou 270): O panel xira cara ao outro lado. Úsase para a parede dereita.
-•	rotation="0 180 0": O panel xira por completo. Úsase para os obxectos que están na parede traseira (ás túas costas), para que miren cara ao centro e poidas velos ao dar a volta.
-________________________________________
-Como se aplica isto no teu código:
-Na túa entidade do vídeo tes isto:
-
-
-
-
-<a-entity position="-5.07 2.4 -12.15" rotation="0 0 0">
-
-•	-5.07 (X): Está á túa esquerda.
-•	2.4 (Y): Está elevado a dous metros e medio do chan.
-•	-12.15 (Z): Está bastante ao fondo da sala.
-•	rotation="0 0 0": Non ten rotación porque está na parede frontal e xa mira directamente cara a ti.
-
-
-Item / Parede,OPCIÓN 1: Mediana (Biblioteca)(Ancho ~20m x Fondo 20m),OPCIÓN 2: Pequena (O teu cuarto)(Ancho ~7m x Fondo 7m),OPCIÓN 3: Grande (Exterior)(Ancho ~35m x Fondo 35m)
-1. Quen foi? (Esquerda 1),"position=""-10.15 2.5 -5.07""","position=""-3.48 2.5 -1.74""","position=""-17.4 2.5 -8.7"""
-2. A que se dedicou? (Esquerda 2),"position=""-10.15 2.5 5.07""","position=""-3.48 2.5 1.74""","position=""-17.4 2.5 8.7"""
-3. Obras (Dereita 1),"position=""10.15 2.5 -5.07""","position=""3.48 2.5 -1.74""","position=""17.4 2.5 -8.7"""
-4. Por que merece? (Dereita 2),"position=""10.15 2.5 5.07""","position=""3.48 2.5 1.74""","position=""17.4 2.5 8.7"""
-5. Audio / Voz (Traseira 1),"position=""-5.07 2.4 10.15""","position=""-1.74 2.4 3.48""","position=""-8.7 2.4 17.4"""
-6. Anacos de obra (Traseira 2),"position=""5.07 2.4 10.15""","position=""1.74 2.4 3.48""","position=""8.7 2.4 17.4"""
-7. Vídeo / Xornalismo (Frontal 1),"position=""-5.07 2.4 -12.15""","position=""-1.74 2.4 -4.50""","position=""-8.7 2.4 -20.4"""
-8. Quiz (Frontal 2),"position=""5.07 2.6 -12.15""","position=""1.74 2.6 -4.50""","position=""8.7 2.6 -20.4"""
-
-  CITA 1: parede esquerda, entre os dous cadros -->
-<!-- <a-entity position="-10 4.6 0" rotation="0 90 0"> -->
-
-<!-- CITA 2: parede dereita, entre os dous cadros -->
-<!-- <a-entity position="10 4.6 0" rotation="0 -90 0"> -->
-
-<!-- CITA 3: parede frontal, por riba/entre vídeo e quiz -->
-<!-- <a-entity position="0 4.8 -12" rotation="0 0 0"> -->
-
-<!-- CITA 4: parede traseira, por riba/entre audio e anacos -->
-<!-- <a-entity position="0 4.8 10" rotation="0 180 0"> -->
 <!DOCTYPE html>
 <html lang="gl">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <!-- Preload da imaxe principal -->
-  <link rel="preload" as="image" href="imax/begonha2.png">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Nunito:wght@400;600;700&display=swap"
-    rel="stylesheet">
-  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-  <style>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="preload" as="image" href="imax/begonha2.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Nunito:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
 
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      font-family: 'Nunito', sans-serif;
-      overflow: hidden;
-      background: radial-gradient(circle at 50% 20%, rgba(0, 229, 255, .08), transparent 35%), linear-gradient(180deg, #07101e 0%, #050811 100%);
-    }
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 20%, rgba(0, 229, 255, .08), transparent 35%),
+                linear-gradient(180deg, #07101e 0%, #050811 100%);
+        }
 
-    /* PORTADA */
-    #portada {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(180deg, rgba(2, 8, 20, .76), rgba(5, 8, 16, .9));
-    }
+        /* ── PORTADA ── */
+        #portada {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, rgba(2, 8, 20, .76), rgba(5, 8, 16, .9));
+        }
 
-    #portada-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      /* Usamos un degradado radial coas túas cores escuras */
-      background: radial-gradient(circle at center, #0a1a35 0%, #040c1e 100%);
-      z-index: -1;
-    }
+        #portada-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #0a1a35 0%, #040c1e 100%);
+        }
 
-    #portada-bg::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 150%;
-      height: 150%;
-      background: radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, transparent 60%);
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
+        #portada-bg::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, transparent 60%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
 
-    #portada-bg.lista {
-      opacity: 1;
-    }
+        #portada-bg.lista {
+            opacity: 1;
+        }
 
-    .portada-inner {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      color: #fff;
-      padding: 34px 28px 28px;
-      max-width: 420px;
-      width: 92%;
-      background: rgba(6, 13, 28, .78);
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(120, 180, 255, .14);
-      border-radius: 30px;
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, .03) inset, 0 18px 60px rgba(0, 0, 0, .45), 0 0 40px rgba(0, 229, 255, .07);
-    }
+        .portada-inner {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: #fff;
+            padding: 34px 28px 28px;
+            max-width: 420px;
+            width: 92%;
+            background: rgba(6, 13, 28, .78);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(120, 180, 255, .14);
+            border-radius: 30px;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, .03) inset, 0 18px 60px rgba(0, 0, 0, .45), 0 0 40px rgba(0, 229, 255, .07);
+        }
 
-    .portada-kicker {
-      display: inline-block;
-      margin-bottom: 12px;
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-family: 'Outfit', sans-serif;
-      font-size: .68rem;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: #8db8d8;
-      background: rgba(0, 229, 255, .07);
-      border: 1px solid rgba(0, 229, 255, .18);
-    }
+        .portada-kicker {
+            display: inline-block;
+            margin-bottom: 12px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-family: 'Outfit', sans-serif;
+            font-size: .68rem;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: #8db8d8;
+            background: rgba(0, 229, 255, .07);
+            border: 1px solid rgba(0, 229, 255, .18);
+        }
 
-    .portada-divider {
-      width: 72px;
-      height: 3px;
-      margin: 0 auto 20px;
-      background: linear-gradient(90deg, transparent, #ff4d6d, transparent);
-      border-radius: 3px;
-    }
+        .portada-divider {
+            width: 72px;
+            height: 3px;
+            margin: 0 auto 20px;
+            background: linear-gradient(90deg, transparent, #ff4d6d, transparent);
+            border-radius: 3px;
+        }
 
-    .portada-foto {
-      width: 104px;
-      height: 104px;
-      border-radius: 50%;
-      border: 3px solid #ff4d6d;
-      object-fit: cover;
-      object-position: top;
-      box-shadow: 0 0 0 8px rgba(255, 77, 109, .08), 0 0 35px rgba(255, 77, 109, .3);
-      margin: 0 auto 16px;
-      display: block;
-    }
+        .portada-foto {
+            width: 104px;
+            height: 104px;
+            border-radius: 50%;
+            border: 3px solid #ff4d6d;
+            object-fit: cover;
+            object-position: top;
+            box-shadow: 0 0 0 8px rgba(255, 77, 109, .08), 0 0 35px rgba(255, 77, 109, .3);
+            margin: 0 auto 16px;
+            display: block;
+        }
 
-    .portada-nome {
-      margin: 0;
-      font-family: 'Outfit', sans-serif;
-      font-size: 2.15rem;
-      font-weight: 900;
-      line-height: .98;
-      letter-spacing: .03em;
-      text-transform: uppercase;
-    }
+        .portada-nome {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.15rem;
+            font-weight: 900;
+            line-height: .98;
+            letter-spacing: .03em;
+            text-transform: uppercase;
+        }
 
-    .portada-nome span {
-      display: inline-block;
-      color: #ff4d6d;
-    }
+        .portada-nome span {
+            display: inline-block;
+            color: #ff4d6d;
+        }
 
-    .portada-sub {
-      margin: 14px auto 0;
-      max-width: 290px;
-      font-size: .96rem;
-      line-height: 1.45;
-      color: #d8e6f3;
-    }
+        .portada-sub {
+            margin: 14px auto 0;
+            max-width: 290px;
+            font-size: .96rem;
+            line-height: 1.45;
+            color: #d8e6f3;
+        }
 
-    .portada-data {
-      display: inline-block;
-      margin: 16px 0 20px;
-      padding: 5px 14px;
-      border-radius: 999px;
-      font-size: .7rem;
-      color: #aab7c7;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      border: 1px solid rgba(255, 77, 109, .22);
-      font-family: 'Outfit', sans-serif;
-    }
+        .portada-data {
+            display: inline-block;
+            margin: 16px 0 20px;
+            padding: 5px 14px;
+            border-radius: 999px;
+            font-size: .7rem;
+            color: #aab7c7;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 77, 109, .22);
+            font-family: 'Outfit', sans-serif;
+        }
 
-    .portada-hint {
-      margin-top: 12px;
-      font-size: .74rem;
-      color: rgba(230, 240, 255, .5);
-      line-height: 1.4;
-    }
+        .portada-hint {
+            margin-top: 12px;
+            font-size: .74rem;
+            color: rgba(230, 240, 255, .5);
+            line-height: 1.4;
+        }
 
-    /* BOTÓN QUIZ E OVERLAY MÓBIL */
-    #btn-quiz-sala {
-      display: none;
-      position: fixed;
-      bottom: 20px;
-      right: 16px;
-      z-index: 2000;
-      padding: 11px 20px;
-      border-radius: 22px;
-      background: linear-gradient(135deg, #ff4d6d, #c0392b);
-      color: #fff;
-      border: none;
-      font-family: 'Outfit', sans-serif;
-      font-size: .85rem;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(255, 77, 109, .5);
-    }
+        /* ── BOTÓN QUIZ (móbil, aparece ao colocar o museo) ── */
+        #btn-quiz-sala {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 16px;
+            z-index: 2000;
+            padding: 11px 20px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #ff4d6d, #c0392b);
+            color: #fff;
+            border: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: .85rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(255, 77, 109, .5);
+        }
 
-    #overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 1000;
-      pointer-events: none;
-    }
+        /* ── OVERLAY DOM (dom-overlay WebXR) ── */
+        #overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .portada-escolar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            max-width: 520px;
+            padding: 14px 18px;
+            border-radius: 18px;
+            background: rgba(10, 20, 30, 0.88);
+            border: 1px solid rgba(136, 170, 204, 0.28);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+            color: #e8f1fb;
+            backdrop-filter: blur(6px);
+        }
+
+        .portada-escolar .info-textos {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .portada-escolar .nome {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            color: #fff;
+        }
+
+        .portada-escolar img {
+            width: 54px;
+            height: 54px;
+            flex: 0 0 54px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 229, 255, 0.35);
+            object-fit: cover;
+        }
+
+        .instrucions {
+            font-size: 0.92rem;
+            line-height: 1.35;
+            color: #c7d4e2;
+        }
+
+        .instrucions b {
+            color: #00e5ff;
+        }
+
+        /* ── QUIZ: fondo escuro ── */
+        #quiz-backdrop {
+            display: none;
+            position: absolute;
+            inset: 0;
+            z-index: 9998;
+            background: rgba(0, 0, 0, 0.6);
+            pointer-events: auto;
+        }
+
+        /* ── QUIZ: panel principal ── */
+        #quiz-panel {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            background: linear-gradient(180deg, #07101e 0%, #0a1a35 100%);
+            border: 3px solid #00FF66;
+            box-shadow: 0 0 40px rgba(0, 255, 102, 0.3);
+            border-radius: 22px;
+            padding: 28px 22px 22px;
+            width: 92%;
+            max-width: 460px;
+            color: white;
+            pointer-events: auto;
+        }
+
+        #quiz-panel.activo {
+            display: flex;
+            flex-direction: column;
+            animation: panelEntrada 0.4s ease-out forwards;
+        }
+
+        @keyframes panelEntrada {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -40%) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .qx {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: rgba(255, 255, 255, .06);
+            border: none;
+            color: #888;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qx:hover {
+            background: rgba(255, 255, 255, .12);
+            color: #fff;
+        }
+
+        .q-header {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            margin-bottom: 6px;
+        }
+
+        .q-chip {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: rgba(0, 229, 255, .08);
+            border: 1px solid rgba(0, 229, 255, .18);
+            color: #8db8d8;
+            font-size: .65rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .q-logo-wrap {
+            position: relative;
+            height: 58px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .q-logo-main,
+        .q-logo-g1,
+        .q-logo-g2 {
+            position: absolute;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.55rem;
+            font-weight: 900;
+            letter-spacing: .03em;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .q-logo-main {
+            color: #fff;
+            z-index: 3;
+        }
+
+        .q-logo-main span {
+            color: #ff4d6d;
+        }
+
+        .q-logo-g1 {
+            color: rgba(0, 229, 255, .8);
+            transform: translate(-1px, 0);
+            animation: glitch1 1.8s infinite steps(2);
+            z-index: 1;
+        }
+
+        .q-logo-g2 {
+            color: rgba(255, 77, 109, .75);
+            transform: translate(1px, 0);
+            animation: glitch2 2.1s infinite steps(2);
+            z-index: 2;
+        }
+
+        @keyframes glitch1 {
+
+            0%,
+            88%,
+            100% {
+                opacity: 0;
+                transform: translate(0, 0);
+            }
+
+            89% {
+                opacity: .9;
+                transform: translate(-3px, 1px);
+            }
+
+            91% {
+                opacity: .2;
+                transform: translate(2px, -1px);
+            }
+
+            93% {
+                opacity: .75;
+                transform: translate(-2px, 0);
+            }
+        }
+
+        @keyframes glitch2 {
+
+            0%,
+            86%,
+            100% {
+                opacity: 0;
+                transform: translate(0, 0);
+            }
+
+            87% {
+                opacity: .8;
+                transform: translate(3px, 0);
+            }
+
+            90% {
+                opacity: .25;
+                transform: translate(-2px, 1px);
+            }
+
+            92% {
+                opacity: .8;
+                transform: translate(1px, -1px);
+            }
+        }
+
+        .q-sub {
+            font-size: .74rem;
+            color: #6688aa;
+            text-align: center;
+            margin-bottom: 18px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .q-barra-c {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, .07);
+            border-radius: 3px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .q-barra {
+            height: 100%;
+            background: linear-gradient(90deg, #00FF66, #00E5FF);
+            border-radius: 3px;
+            transition: width .45s ease;
+            box-shadow: 0 0 10px #00FF66;
+        }
+
+        .q-num {
+            font-size: .72rem;
+            color: #4488aa;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+        }
+
+        .q-preg {
+            font-family: 'Outfit', sans-serif;
+            color: #fff;
+            font-size: 1.08rem;
+            font-weight: 800;
+            text-align: center;
+            line-height: 1.45;
+            margin-bottom: 18px;
+        }
+
+        .q-ops {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .opcion {
+            padding: 14px 12px;
+            border-radius: 18px;
+            border: 2px solid rgba(0, 229, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            color: #cce0f0;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .opcion:hover:not(:disabled) {
+            background: #00E5FF;
+            color: #050811;
+            border-color: #fff;
+            transform: scale(1.05);
+        }
+
+        .opcion:disabled {
+            cursor: default;
+            transform: none;
+        }
+
+        .opcion.correcta {
+            background: rgba(0, 230, 100, .15) !important;
+            border-color: #00e664 !important;
+            color: #00e664 !important;
+        }
+
+        .opcion.incorrecta {
+            background: rgba(255, 77, 109, .15) !important;
+            border-color: #ff4d6d !important;
+            color: #ff7a8a !important;
+        }
+
+        .q-fb {
+            min-height: 40px;
+            margin-top: 14px;
+            font-size: .88rem;
+            text-align: center;
+            font-weight: 700;
+            color: #00e664;
+            line-height: 1.5;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .q-fb.mal {
+            color: #ff7a8a;
+        }
+
+        .q-btn-seg {
+            margin-top: 16px;
+            display: none;
+            padding: 12px 36px;
+            border-radius: 26px;
+            background: linear-gradient(135deg, #00e5ff, #00b8d9);
+            color: #07090f;
+            border: none;
+            font-size: .92rem;
+            font-weight: 800;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            align-self: center;
+        }
+
+        #q-resultado {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 8px;
+        }
+
+        .r-trofeo {
+            font-size: 3rem;
+            animation: pulso 1.5s infinite;
+        }
+
+        @keyframes pulso {
+
+            0%,
+            100% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.08)
+            }
+        }
+
+        .r-puntos {
+            font-family: 'Outfit', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: #00e5ff;
+            line-height: 1;
+        }
+
+        .r-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .r-stars {
+            font-size: 1.6rem;
+            letter-spacing: 2px;
+        }
+
+        .r-msg {
+            font-size: .88rem;
+            color: #99bbcc;
+            max-width: 340px;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        .r-bots {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .r-btn-rep {
+            padding: 11px 28px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #ff4d6d, #c0392b);
+            color: #fff;
+            border: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: .9rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .r-btn-pec {
+            padding: 11px 28px;
+            border-radius: 22px;
+            background: transparent;
+            color: #6688aa;
+            border: 2px solid rgba(255, 255, 255, .12);
+            font-size: .9rem;
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        /* ── PANEL INFORMATIVOS (overlay 2D) ── */
+        #panel-backdrop {
+            display: none;
+            position: absolute;
+            inset: 0;
+            z-index: 9997;
+            background: rgba(0, 0, 0, 0.6);
+            pointer-events: auto;
+        }
+
+        /* #panel-overlay {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9998;
+            background: linear-gradient(180deg, #07101e 0%, #0a1a35 100%);
+            border: 2px solid #00e5ff;
+            border-radius: 22px;
+            padding: 28px 22px 22px;
+            width: 92%;
+            max-width: 480px;
+            color: white;
+            pointer-events: auto;
+            box-shadow: 0 0 60px rgba(0, 229, 255, .15);
+            max-height: 80vh;
+            overflow-y: auto;
+        } */
+        /* Só unha definición de #panel-overlay */
+        #panel-overlay {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9998;
+            background: linear-gradient(160deg, #08122a 0%, #0a1a3a 60%, #0d0f1e 100%);
+            border: 1.5px solid rgba(0, 229, 255, 0.35);
+            border-radius: 20px;
+            box-shadow: 0 0 60px rgba(0, 229, 255, .15);
+            padding: 0;
+            width: 92%;
+            max-width: 480px;
+            color: white;
+            pointer-events: auto;
+            max-height: 82vh;
+            overflow: visible;
+            /* ← CAMBIA hidden por visible */
+        }
+
+        #panel-overlay .p-pechar {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: rgba(255, 255, 255, .06);
+            border: none;
+            color: #888;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
 
-    .portada-escolar {
+
+        #panel-overlay-titulo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: #ffc1cc;
+            text-align: center;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+        }
+
+        #panel-overlay-corpo {
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #e7f0fb;
+            text-align: left;
+            overflow-y: auto;
+            max-height: calc(82vh - 90px);
+        }
+
+        /* ── ESCALA DISTANCIAS (panel de desenvolvemento AR) ── */
+        #escala-distancias-panel {
+            display: none;
+            position: absolute;
+            left: 50%;
+            bottom: 18px;
+            transform: translateX(-50%);
+            z-index: 5000;
+            width: min(360px, calc(100% - 32px));
+            padding: 10px 14px 12px;
+            border: 1px solid rgba(0, 229, 255, .35);
+            border-radius: 14px;
+            background: rgba(4, 12, 30, .92);
+            color: #d8f7ff;
+            pointer-events: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        #escala-distancias-panel label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 6px;
+            font-size: .72rem;
+            font-weight: 800;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: #8feeff;
+        }
+
+        #escala-distancias-valor {
+            color: #fff;
+            letter-spacing: 0;
+            white-space: nowrap;
+        }
+
+        #escala-distancias-slider {
+            width: 100%;
+            margin: 0;
+            accent-color: #00e5ff;
+        }
+
+
+
+        /* ══ PANEL INFORMATIVO OVERLAY 2D ══ */
+        #panel-overlay {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9998;
+
+            /* Fondo con gradiente máis rico */
+            background: linear-gradient(160deg, #08122a 0%, #0a1a3a 60%, #0d0f1e 100%);
+
+            /* Borde con gradiente simulado via box-shadow en capas */
+            border: 1.5px solid rgba(0, 229, 255, 0.35);
+            border-radius: 20px;
+
+            /* Sombra exterior con brillo de cor */
+            box-shadow:
+                0 0 0 1px rgba(255, 77, 109, 0.12),
+                0 0 40px rgba(0, 229, 255, 0.12),
+                0 20px 60px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+            padding: 0;
+            width: 92%;
+            max-width: 480px;
+            color: white;
+            pointer-events: auto;
+            max-height: 82vh;
+            overflow: hidden;
+            animation: panelSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes panelSlideIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -46%) scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* Cabeceira do panel con acento de cor */
+        #panel-overlay::before {
+            content: '';
+            display: block;
+            height: 3px;
+            background: linear-gradient(90deg, #ff4d6d, #00e5ff, #ff4d6d);
+            border-radius: 20px 20px 0 0;
+        }
+
+        /* Título do panel */
+        #panel-overlay-titulo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.0rem;
+            font-weight: 900;
+            color: #ffc1cc;
+            text-align: center;
+            padding: 18px 42px 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            /* Liña separadora baixo o título */
+            border-bottom: 1px solid rgba(0, 229, 255, 0.15);
+            margin-bottom: 0;
+            position: relative;
+        }
+
+        /* Punto decorativo no título */
+        #panel-overlay-titulo::after {
+            content: '';
+            display: block;
+            width: 36px;
+            height: 2px;
+            background: linear-gradient(90deg, #ff4d6d, #00e5ff);
+            border-radius: 2px;
+            margin: 8px auto 0;
+        }
+
+        /* Corpo do panel con scroll interno */
+        #panel-overlay-corpo {
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.93rem;
+            line-height: 1.65;
+            color: #e7f0fb;
+            text-align: left;
+            padding: 16px 22px 22px;
+            overflow-y: auto;
+            max-height: calc(82vh - 90px);
+        }
+
+        /* Scrollbar estilizada */
+        #panel-overlay-corpo::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        #panel-overlay-corpo::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 4px;
+        }
+
+        #panel-overlay-corpo::-webkit-scrollbar-thumb {
+            background: rgba(0, 229, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        /* Botón pechar */
+        #panel-overlay .p-pechar {
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #88a0b0;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        #panel-overlay .p-pechar:hover {
+            background: rgba(255, 77, 109, 0.2);
+            color: #ff4d6d;
+            border-color: rgba(255, 77, 109, 0.4);
+        }
+
+        /* Fondo escuro do panel */
+        #panel-backdrop {
+            display: none;
+            position: absolute;
+            inset: 0;
+            z-index: 9997;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(2px);
+            pointer-events: auto;
+        }
+
+        #q-nivel-selector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 8px 0 4px;
+        }
+
+        .q-nivel-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 20px;
+            border-radius: 16px;
+            border: 2px solid rgba(0, 229, 255, 0.2);
+            background: rgba(0, 229, 255, 0.04);
+            color: #cce0f0;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+
+        .q-nivel-btn span {
+            flex: 1;
+            text-align: left;
+            margin-left: 6px;
+        }
+
+        .q-nivel-btn small {
+            font-size: 0.72rem;
+            color: #4a6a8a;
+            font-weight: 400;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .q-nivel-btn:hover {
+            border-color: #00e5ff;
+            background: rgba(0, 229, 255, 0.1);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        #loader-wrapper {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 9999;
+            background: rgba(8, 16, 29, 0.8);
+            padding: 12px 20px;
+            border-radius: 50px;
+            border: 1px solid #00e5ff;
+            transition: opacity 0.5s ease;
+        }
+
+        #loader-wrapper p {
+            color: #00e5ff;
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .loader {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 229, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #00e5ff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Clase para ocultalo suavemente */
+        .loader-hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #btn-test-portada {
+  position: fixed;
+  left: 18px;
+  bottom: 18px;
+  z-index: 10001; /* por enriba da portada, pero baixo o quiz-panel */
+  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  padding: 10px 14px;
+  min-width: 120px;
+  border-radius: 10px;
+
+  background: radial-gradient(circle at 0 0, rgba(255,77,109,0.4), transparent 55%),
+              linear-gradient(135deg, #141829, #260409);
+  border: 1.5px solid rgba(255,77,109,0.8);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04),
+    0 8px 22px rgba(0,0,0,0.55),
+    0 0 16px rgba(255,77,109,0.55);
+
+  cursor: pointer;
+  user-select: none;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 900;
+  color: #ffffff;
+
+  transform: translateZ(0);
+  overflow: hidden;
+}
+
+/* Letras Canto / sabes? */
+#btn-test-portada .canto {
+  color: #ffffff;
+}
+
+#btn-test-portada .sabes {
+  color: #ff4d6d;
+}
+
+/* Glitch suave nas letras con pseudo-duplicado */
+#btn-test-portada::before,
+#btn-test-portada::after {
+  content: "Canto sabes?";
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
-  gap: 14px;
-  max-width: 520px;
-  padding: 14px 18px;
-  border-radius: 18px;
-  background: rgba(10, 20, 30, 0.88);
-  border: 1px solid rgba(136, 170, 204, 0.28);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
-  color: #e8f1fb;
-  backdrop-filter: blur(6px);
+  justify-content: center;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
 }
 
-    /* Para que os textos non queden un debaixo doutro e ocupen menos alto */
-    .portada-escolar .info-textos {
-    display: flex;
-  flex-direction: column;
-  gap: 4px;
-    }
-
-    .portada-escolar .nome {
-      font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: #ffffff;
-    }
-.portada-escolar img {
-  width: 54px;
-  height: 54px;
-  flex: 0 0 54px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 229, 255, 0.35);
-  object-fit: cover;
+#btn-test-portada::before {
+  color: rgba(0,229,255,0.75);
+  transform: translate(-1px, 0);
+  clip-path: inset(0 0 55% 0);
 }
-    .instrucions {
-      font-size: 0.92rem;
-  line-height: 1.35;
-  color: #c7d4e2;
-    }
 
+#btn-test-portada::after {
+  color: rgba(255,77,109,0.75);
+  transform: translate(1px, 0);
+  clip-path: inset(45% 0 0 0);
+}
 
-    .instrucions b {
-      color: #00e5ff;
-    }
+#btn-test-portada:hover::before,
+#btn-test-portada:hover::after {
+  animation: glitchPortada 0.45s steps(2, end) infinite;
+  opacity: 0.9;
+}
 
-    /* QUIZ PANEL */
-    #quiz-panel {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 9999;
-      background: rgba(4, 10, 28, 0.99);
-      border: 2px solid #00e5ff;
-      border-radius: 22px;
-      padding: 28px 22px 22px;
-      width: 92%;
-      max-width: 460px;
-      color: white;
-      pointer-events: auto;
-      box-shadow: 0 0 60px rgba(0, 229, 255, .15);
-    }
+/* Pequeno “bump” ao pasar o rato */
+#btn-test-portada:hover {
+  transform: translateZ(0) translateY(-1px);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06),
+    0 10px 26px rgba(0,0,0,0.65),
+    0 0 20px rgba(255,77,109,0.75);
+}
 
-    /* Fondo semitransparente detrás do quiz para enfocar a atención */
-    #quiz-backdrop {
-      display: none;
-      position: absolute;
-      inset: 0;
-      z-index: 9998;
-      background: rgba(0, 0, 0, 0.6);
-      pointer-events: auto;
-    }
+/* Efecto de “scanline” sutil */
+#btn-test-portada::marker { content: ""; } /* para evitar rarezas en algúns navegadores */
 
-    #quiz-panel.activo {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .qx {
-      position: absolute;
-      top: 12px;
-      right: 16px;
-      background: rgba(255, 255, 255, .06);
-      border: none;
-      color: #888;
-      font-size: 1.1rem;
-      cursor: pointer;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .qx:hover {
-      background: rgba(255, 255, 255, .12);
-      color: #fff;
-    }
-
-    .q-header {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      margin-bottom: 6px;
-    }
-
-    .q-chip {
-      display: inline-block;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: rgba(0, 229, 255, .08);
-      border: 1px solid rgba(0, 229, 255, .18);
-      color: #8db8d8;
-      font-size: .65rem;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      font-family: 'Outfit', sans-serif;
-    }
-
-    .q-logo-wrap {
-      position: relative;
-      height: 58px;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .q-logo-main,
-    .q-logo-g1,
-    .q-logo-g2 {
-      position: absolute;
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.55rem;
-      font-weight: 900;
-      letter-spacing: .03em;
-      text-transform: uppercase;
-      line-height: 1;
-    }
-
-    .q-logo-main {
-      color: #fff;
-      z-index: 3;
-    }
-
-    .q-logo-main span {
-      color: #ff4d6d;
-    }
-
-    .q-logo-g1 {
-      color: rgba(0, 229, 255, .8);
-      transform: translate(-1px, 0);
-      animation: glitch1 1.8s infinite steps(2);
-      z-index: 1;
-    }
-
-    .q-logo-g2 {
-      color: rgba(255, 77, 109, .75);
-      transform: translate(1px, 0);
-      animation: glitch2 2.1s infinite steps(2);
-      z-index: 2;
-    }
-
-    @keyframes glitch1 {
-
-      0%,
-      88%,
-      100% {
-        opacity: 0;
-        transform: translate(0, 0);
-      }
-
-      89% {
-        opacity: .9;
-        transform: translate(-3px, 1px);
-      }
-
-      91% {
-        opacity: .2;
-        transform: translate(2px, -1px);
-      }
-
-      93% {
-        opacity: .75;
-        transform: translate(-2px, 0);
-      }
-    }
-
-    @keyframes glitch2 {
-
-      0%,
-      86%,
-      100% {
-        opacity: 0;
-        transform: translate(0, 0);
-      }
-
-      87% {
-        opacity: .8;
-        transform: translate(3px, 0);
-      }
-
-      90% {
-        opacity: .25;
-        transform: translate(-2px, 1px);
-      }
-
-      92% {
-        opacity: .8;
-        transform: translate(1px, -1px);
-      }
-    }
-
-    .q-sub {
-      font-size: .74rem;
-      color: #6688aa;
-      text-align: center;
-      margin-bottom: 18px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .q-barra-c {
-      width: 100%;
-      height: 6px;
-      background: rgba(255, 255, 255, .07);
-      border-radius: 3px;
-      margin-bottom: 20px;
-      overflow: hidden;
-    }
-
-    .q-barra {
-      height: 100%;
-      background: linear-gradient(90deg, #00e5ff, #ff4d6d);
-      border-radius: 3px;
-      transition: width .45s ease;
-    }
-
-    .q-num {
-      font-size: .72rem;
-      color: #4488aa;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-    }
-
-    .q-preg {
-      font-family: 'Outfit', sans-serif;
-      color: #fff;
-      font-size: 1.08rem;
-      font-weight: 800;
-      text-align: center;
-      line-height: 1.45;
-      margin-bottom: 18px;
-    }
-
-    .q-ops {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .opcion {
-      padding: 14px 12px;
-      border-radius: 14px;
-      border: 2px solid rgba(0, 229, 255, .2);
-      background: rgba(0, 229, 255, .04);
-      color: #cce0f0;
-      font-size: .88rem;
-      font-weight: 700;
-      cursor: pointer;
-      text-align: center;
-      transition: all .15s;
-      font-family: 'Nunito', sans-serif;
-    }
-
-    .opcion:hover:not(:disabled) {
-      border-color: #00e5ff;
-      background: rgba(0, 229, 255, .12);
-      color: #fff;
-      transform: translateY(-2px);
-    }
-
-    .opcion:disabled {
-      cursor: default;
-      transform: none;
-    }
-
-    .opcion.correcta {
-      background: rgba(0, 230, 100, .15) !important;
-      border-color: #00e664 !important;
-      color: #00e664 !important;
-    }
-
-    .opcion.incorrecta {
-      background: rgba(255, 77, 109, .15) !important;
-      border-color: #ff4d6d !important;
-      color: #ff7a8a !important;
-    }
-
-    .q-fb {
-      min-height: 40px;
-      margin-top: 14px;
-      font-size: .88rem;
-      text-align: center;
-      font-weight: 700;
-      color: #00e664;
-      line-height: 1.5;
-      font-family: 'Nunito', sans-serif;
-    }
-
-    .q-fb.mal {
-      color: #ff7a8a;
-    }
-
-    .q-btn-seg {
-      margin-top: 16px;
-      display: none;
-      padding: 12px 36px;
-      border-radius: 26px;
-      background: linear-gradient(135deg, #00e5ff, #00b8d9);
-      color: #07090f;
-      border: none;
-      font-size: .92rem;
-      font-weight: 800;
-      cursor: pointer;
-      font-family: 'Outfit', sans-serif;
-      align-self: center;
-    }
-
-    #q-resultado {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 8px;
-    }
-
-    .r-trofeo {
-      font-size: 3rem;
-      animation: pulso 1.5s infinite;
-    }
-
-    @keyframes pulso {
-
-      0%,
-      100% {
-        transform: scale(1)
-      }
-
-      50% {
-        transform: scale(1.08)
-      }
-    }
-
-    .r-puntos {
-      font-family: 'Outfit', sans-serif;
-      font-size: 4.5rem;
-      font-weight: 900;
-      color: #00e5ff;
-      line-height: 1;
-    }
-
-    .r-label {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .r-stars {
-      font-size: 1.6rem;
-      letter-spacing: 2px;
-    }
-
-    .r-msg {
-      font-size: .88rem;
-      color: #99bbcc;
-      max-width: 340px;
-      line-height: 1.55;
-      margin: 0;
-    }
-
-    .r-bots {
-      display: flex;
-      gap: 10px;
-      margin-top: 14px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .r-btn-rep {
-      padding: 11px 28px;
-      border-radius: 22px;
-      background: linear-gradient(135deg, #ff4d6d, #c0392b);
-      color: #fff;
-      border: none;
-      font-family: 'Outfit', sans-serif;
-      font-size: .9rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .r-btn-pec {
-      padding: 11px 28px;
-      border-radius: 22px;
-      background: transparent;
-      color: #6688aa;
-      border: 2px solid rgba(255, 255, 255, .12);
-      font-size: .9rem;
-      cursor: pointer;
-      font-family: 'Nunito', sans-serif;
-    }
-
-    /* QUIZ PANEL LÚDICO */
-    #quiz-panel {
-      background: linear-gradient(180deg, #07101e 0%, #0a1a35 100%);
-      border: 3px solid #00FF66;
-      /* Verde Neón para o éxito */
-      box-shadow: 0 0 40px rgba(0, 255, 102, 0.3);
-    }
-
-    .opcion {
-      background: rgba(255, 255, 255, 0.05);
-      border: 2px solid rgba(0, 229, 255, 0.3);
-      border-radius: 18px;
-      /* Más redondeado, más moderno */
-      font-size: 1rem;
-      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .opcion:hover:not(:disabled) {
-      background: #00E5FF;
-      color: #050811;
-      border-color: #fff;
-      transform: scale(1.05);
-      /* Efecto de pop ao tocar */
-    }
-
-    .q-barra {
-      background: linear-gradient(90deg, #00FF66, #00E5FF);
-      box-shadow: 0 0 10px #00FF66;
-    }
-
-    /* Efecto de entrada do panel */
-    @keyframes panelEntrada {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -40%) scale(0.9);
-      }
-
-      to {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-      }
-    }
-
-    #quiz-panel.activo {
-      display: flex;
-      animation: panelEntrada 0.4s ease-out forwards;
-    }
-
-    /* PANEL DEV: escala de distancias AR */
-    #escala-distancias-panel {
-      display: none;
-      position: absolute;
-      left: 50%;
-      bottom: 18px;
-      transform: translateX(-50%);
-      z-index: 5000;
-      width: min(360px, calc(100% - 32px));
-      padding: 10px 14px 12px;
-      border: 1px solid rgba(0, 229, 255, .35);
-      border-radius: 14px;
-      background: rgba(4, 12, 30, .92);
-      color: #d8f7ff;
-      pointer-events: auto;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
-      font-family: 'Outfit', sans-serif;
-    }
-
-    #escala-distancias-panel label {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 6px;
-      font-size: .72rem;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: #8feeff;
-    }
-
-    #escala-distancias-valor {
-      color: #fff;
-      letter-spacing: 0;
-      white-space: nowrap;
-    }
-
-    #escala-distancias-slider {
-      width: 100%;
-      margin: 0;
-      accent-color: #00e5ff;
-    }
-  </style>
+@keyframes glitchPortada {
+  0% {
+    transform: translate(0,0);
+  }
+  50% {
+    transform: translate(2px, -1px);
+  }
+  100% {
+    transform: translate(-1px, 1px);
+  }
+}
+    </style>
 </head>
 
 <body>
-
-  <div id="portada">
-    <div id="portada-bg"></div>
-    <div class="portada-inner">
-      <div class="portada-kicker">Mostra inmersiva</div>
-      <div class="portada-divider"></div>
-      <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high">
-      <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
-      <p class="portada-sub">Xornalista, escritora e voz esencial das Letras Galegas 2026.</p>
-      <span class="portada-data">Letras Galegas · 2026</span><br>
-      <p class="portada-hint">Preme o botón [AR] (abaixo á dereita) para entrares na mostra.</p>
-      <p class="portada-hint">Precisas empregar o navegador Chrome e Android.</p>
+    <div id="loader-wrapper">
+        <div class="loader"></div>
+        <p>Cargando experiencia...</p>
     </div>
-  </div>
-
-
-  <!-- <div id="overlay">
-    <div class="portada-escolar">
-      <img src="imax/begonha2.png"
-        style="width:50px; height:50px; border-radius:50%; border:2px solid #00e5ff; object-fit:cover;"
-        alt="Begoña Caamaño">
-
-      <div class="info-textos">
-        <div class="nome">BEGOÑA CAAMAÑO <span
-            style="font-size: 0.7rem; color: #88aacc; font-weight: 400; margin-left: 10px;">Letras Galegas 2026</span>
+    <!-- ═══════════════════════════════════════════════════
+       PORTADA (visible antes de entrar en AR)
+       ═══════════════════════════════════════════════════ -->
+    <div id="portada">
+        <div id="portada-bg"></div>
+        <div class="portada-inner">
+            <div class="portada-kicker">Mostra - inmersiva</div>
+            <div class="portada-divider"></div>
+            <img class="portada-foto" src="imax/begonha2.png" alt="Begoña Caamaño" fetchpriority="high" width="104"
+                height="104">
+            <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
+            <p class="portada-sub">Xornalista, escritora e voz esencial das Letras Galegas 2026.</p>
+            <span class="portada-data">Letras Galegas · 2026</span><br>
+            <p class="portada-hint">Preme o botón [AR] (abaixo á dereita) para entrares na mostra.</p>
+            <p class="portada-hint">Precisas empregar o navegador Chrome e Android.</p>
         </div>
-        <div class="instrucions">
-          Toca a pantalla para <b>colocar a sala</b> e os paneis para <b>interactuar</b>.
-        </div>
-      </div>
-    </div> -->
-  <div id="overlay">
-  <div class="portada-escolar">
-    <img src="imax/begonha2.png" alt="Begoña Caamaño">
-    <div class="info-textos">
-      <div class="nome">
-        BEGOÑA CAAMAÑO
-        <span style="font-size: 0.7rem; color: #88aacc; font-weight: 400; margin-left: 10px;">
-          Letras Galegas 2026
-        </span>
-      </div>
-      <div class="instrucions">
-        Toca a pantalla para <b>colocar a sala</b> e os paneis para <b>interactuar</b>.
-      </div>
-    </div>
-  </div>
-    <div id="quiz-backdrop"></div>
-    <div id="escala-distancias-panel">
-      <label for="escala-distancias-slider">Escala distancias <span id="escala-distancias-valor">1.00x</span></label>
-      <!-- <input id="escala-distancias-slider" type="range" min="0.25" max="1.5" step="0.05" value="1"> -->
-      <input id="escala-distancias-slider" type="range" min="0.25" max="2" step="0.05" value="1">
 
-    </div>
-    <div id="quiz-panel">
-      <button class="qx" onclick="pecharQuiz()">✕</button>
-      <div id="q-xogo">
-        <div class="q-header">
-          <div class="q-chip">Test interactivo</div>
-          <div class="q-logo-wrap">
-            <div class="q-logo-g1">Canto <span>sabes</span>?</div>
-            <div class="q-logo-g2">Canto <span>sabes</span>?</div>
-            <div class="q-logo-main">Canto <span>sabes</span>?</div>
-          </div>
-        </div>
-        <div class="q-sub">Begoña Caamaño · Letras Galegas 2026</div>
-        <div class="q-barra-c">
-          <div class="q-barra" id="q-barra" style="width:0%"></div>
-        </div>
-        <div class="q-num" id="q-num"></div>
-        <div class="q-preg" id="q-preg"></div>
-        <div class="q-ops" id="q-ops"></div>
-        <div class="q-fb" id="q-fb"></div>
-        <button class="q-btn-seg" id="q-btn-seg" onclick="qSeguinte()">Seguinte →</button>
-      </div>
-      <div id="q-resultado">
-        <div class="r-trofeo">🏆</div>
-        <div class="r-puntos" id="r-puntos"></div>
-        <div class="r-label" id="r-label"></div>
-        <div class="r-stars" id="r-stars"></div>
-        <p class="r-msg" id="r-msg"></p>
-        <div class="r-bots">
-          <button class="r-btn-rep" onclick="qReiniciar()">↻ Repetir</button>
-          <button class="r-btn-pec" onclick="pecharQuiz()">Pechar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  
-  <a-scene xr-mode-ui="enabled: true; XRMode: ar"
-    webxr="optionalFeatures: hit-test, dom-overlay; overlayElement: #overlay"
-    renderer="colorManagement:true; antialias:true" proximity-zoom>
-    <a-assets>
-      <a-asset-item id="font-title" src="fonts/Outfit-Bold-msdf.json"></a-asset-item>
-      <a-asset-item id="font-body" src="fonts/Nunito-SemiBold-msdf.json"></a-asset-item>
-      <img id="img-bego" src="imax/Begonha1.jpg">
-      <img id="img-bego2" src="imax/begonha3.png">
-
-      <img id="img-circe" src="imax/circe.jpg">
-      <img id="img-esmelle" src="imax/esmelle.jpg">
-      <audio id="audio-file" src="sons/begonhaaudio.mp3" preload="auto"></audio>
-      <video id="video-file" src="imax/begona.mp4" preload="auto" loop crossorigin="anonymous" playsinline></video>
-      <img id="icon-audio" src="https://cdn-icons-png.flaticon.com/512/727/727269.png">
-    </a-assets>
-
-    <!-- raycaster="objects:.area-clic" -->
-    <a-camera position="0 1.6 0">
-      <a-entity cursor="fuse:false; rayOrigin:entity;" raycaster="objects:.area-clic; far: 40;" position="0 0 -1"
-        geometry="primitive:ring; radiusInner:0.015; radiusOuter:0.02"
-        material="color:#00e5ff; shader:flat; opacity:0.8; transparent:true">
-      </a-entity>
-    </a-camera>
-
-    <a-entity id="reticle" ar-hit-test="target:#museo"></a-entity>
-    <a-entity id="museo" visible="false">
-
-   
-      <!-- 1. QUEN FOI? (Esquerda 1 Atrás) -->
-      <!-- Posición: Atrás á esquerda, rotada cara ao centro -->
-      <a-entity position="-10.15 2.5 -5.07" rotation="0 90 0">
-        <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
-        <a-plane width="5.6" height="0.05" color="#FFFFFF" position="0 2.25 0.01"></a-plane>
-        <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
-          position="0 2.1 0.1" color="#FF0055" negate="false" wrap-count="30"></a-text>
-        <a-text value="Xornalista · Escritora · Activista feminista" font="fonts/Nunito-SemiBold-msdf.json"
-          align="center" width="4.8" position="0 2.5 0.1" color="#00E5FF" negate="false" wrap-count="42"></a-text>
-        <a-text value="Redefiniu a narrativa galega dende o feminismo e a sororidade."
-          font="fonts/Nunito-SemiBold-msdf.json" align="center" width="5" position="0 1.7 0.1" color="#FFFFFF"
-          negate="false" wrap-count="40"></a-text>
-        <!-- <a-image src="#img-bego" width="2.2" height="3.8" position="0 -0.92 0.05"></a-image> -->
-        <a-image src="#img-bego2" width="4.15" height="2.33" position="0 0.2 0.1"></a-image>
-
-        <a-plane class="area-clic" width="5.6" height="5.4" position="0 0.3 0.15" material="opacity:0; transparent:true"
-          onclick="toggle('info1')"></a-plane>
-
-        <a-entity id="info1" visible="false" position="0 0.8 0.5">
-          <a-plane width="5.25" height="3.55" color="#07101f" opacity="0.99"></a-plane>
-          <a-plane width="5.25" height="0.05" color="#ff4d6d" position="0 1.74 0.01"></a-plane>
-          <a-text value="VIGO, 1964 - SANTIAGO, 2014" font="fonts/Outfit-Bold-msdf.json" align="center" width="4.8"
-            position="0 1.35 0.1" color="#ff8ca1" negate="false" wrap-count="26"></a-text>
-          <a-text
-            value="Voz mítica da Radio Galega durante décadas. Traballou como xornalista política e cultural, sempre comprometida coa lingua galega e cos dereitos das mulleres."
-            font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.45" position="0 0.58 0.1" color="#e7f0fb"
-            negate="false" wrap-count="46"></a-text>
-          <a-text
-            value="Nas súas novelas, Circe e Morgana deixan de ser vilás para converterse en protagonistas donas do seu propio destino."
-            font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.45" position="0 -0.28 0.1" color="#acd4ee"
-            negate="false" wrap-count="46"></a-text>
-          <a-text value="Premio da Crítica Española · Finalista Blanco Amor" font="fonts/Outfit-Bold-msdf.json"
-            align="center" width="4.7" position="0 -1.16 0.1" color="#ffc978" negate="false" wrap-count="34"></a-text>
-        </a-entity>
-      </a-entity>
-
-      <!-- CITA  (Asociada a Quen foi) -->
-      <a-entity position="-10 4.6 0" rotation="0 90 0">
-        <a-plane width="3.8" height="1.5" color="#ff4d6d" opacity="0.08"></a-plane>
-        <a-plane width="0.06" height="1.5" color="#ff4d6d" position="-1.87 0 0.01"></a-plane>
-        <a-text value="« A muller dona do seu desexo\n e do seu propio corpo »" font="fonts/Nunito-SemiBold-msdf.json"
-          align="center" width="3.35" position="0 0.24 0.05" color="#ffffff" negate="false" wrap-count="24"></a-text>
-        <a-text value="- Circe ou o pracer do azul" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="2.55"
-          position="0.5 -0.48 0.05" color="#ffc0cb" negate="false" wrap-count="30"></a-text>
-      </a-entity>
-
-      <!-- 2. A QUE SE DEDICOU? (Esquerda 2 Diante) -->
-
-      <!-- A que se dedicou? -->
-      <a-entity position="-10.15 2.5 5.07" rotation="0 90 0">
-        <a-plane width="5.6" height="3" color="#08101d" opacity="0.9"></a-plane>
-        <a-text value="A QUE SE DEDICOU?" font="fonts/Outfit-Bold-msdf.json" align="center" width="7" color="#00E5FF"
-          negate="false" position="0 0.8 0.1"></a-text>
-        <a-text
-          value="Xornalista política comprometida,\nactivista na Marcha Mundial das Mulleres\ne referente do feminismo galego."
-          font="fonts/Nunito-SemiBold-msdf.json" position="0 -0.4 0.1" align="center" width="4.5" color="#FFFFFF"
-          negate="false"></a-text>
-      </a-entity>
-
-
-
-
-      <!-- 3. OBRAS (Dereita 1 Atrás) -->
-
-
-      <!-- Obras -->
-      <a-entity position="10.15 2.5 -5.07" rotation="0 -90 0">
-        <a-plane width="5.6" height="2.4" color="#08101d" opacity="0.98" position="0 1.2 0"></a-plane>
-        <a-plane width="5.6" height="0.05" color="#ffb6c1" position="0 2.36 0.01"></a-plane>
-        <a-text value="OBRAS FUNDAMENTAIS" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
-          position="0 1.92 0.1" color="#ffd6de" negate="false" wrap-count="22"></a-text>
-        <a-text value="A reescritura feminista dos mitos clásicos e artúricos" font="fonts/Nunito-SemiBold-msdf.json"
-          align="center" width="4.8" position="0 1.48 0.1" color="#79b9d8" negate="false" wrap-count="40"></a-text>
-        <a-image src="#img-circe" width="1.85" height="2.7" position="-1.22 -0.56 0.05"></a-image>
-        <a-image src="#img-esmelle" width="1.85" height="2.7" position="1.22 -0.56 0.05"></a-image>
-        <a-text value="Circe · 2009" font="fonts/Outfit-Bold-msdf.json" align="center" width="2.8"
-          position="-1.22 -2.17 0.1" color="#ff9aaa" negate="false" wrap-count="18"></a-text>
-        <a-text value="Morgana · 2012" font="fonts/Outfit-Bold-msdf.json" align="center" width="2.8"
-          position="1.22 -2.17 0.1" color="#ff9aaa" negate="false" wrap-count="18"></a-text>
-
-        <a-plane class="area-clic" width="5.6" height="6.1" position="0 -0.42 0.15"
-          material="opacity:0; transparent:true" onclick="toggle('info3')"></a-plane>
-
-        <a-entity id="info3" visible="false" position="0 0.82 0.5">
-          <a-plane width="5.25" height="3.7" color="#07101f" opacity="0.99"></a-plane>
-          <a-text value="Premio da Crítica Española" font="fonts/Outfit-Bold-msdf.json" align="center" width="4.8"
-            position="0 1.42 0.1" color="#ffc1cc" negate="false"></a-text>
-          <a-text value="As súas novelas reivindican a voz das mulleres silenciadas na historia."
-            font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.45" position="0 0.5 0.1" color="#e7f0fb"
-            negate="false"></a-text>
-        </a-entity>
-      </a-entity>
-
-      <!-- 4. POR QUE MERECE AS LETRAS? (Dereita 2 Adiante) -->
-
-
-
-      <!-- Por que merece as letras? -->
-      <!-- <a-entity position="12 2.5 6" rotation="0 -90 0">
-        <a-plane width="5.6" height="3" color="#08101d" opacity="0.9"></a-plane>
-        <a-text value="POR QUE MERECE AS LETRAS GALEGAS 2026" font="fonts/Outfit-Bold-msdf.json" align="center"
-          width="5.5" color="#FF0055" negate="false" position="0 0.8 0.1"></a-text>
-        <a-text
-          value="Pola súa calidade literaria excepcional\ne por poñer o feminismo no centro\nda nosa literatura contemporánea."
-          font="fonts/Nunito-SemiBold-msdf.json" position="0 -0.4 0.1" align="center" width="4.5" color="#FFFFFF"
-          negate="false"></a-text>
-      </a-entity> -->
-      <!-- Por que merece as letras? -->
-      <a-entity position="10.15 2.5 5.07" rotation="0 -90 0">
-        <a-plane width="5.6" height="2.8" color="#08101d" opacity="0.9" position="0 1.2 0"></a-plane>
-
-        <a-text value="POR QUE MERECE AS LETRAS GALEGAS 2026" font="fonts/Outfit-Bold-msdf.json" align="center"
-          width="5.5" color="#FF0055" negate="false" position="0 2.35 0.1"></a-text>
- <a-text
-  value="Pola súa calidade literaria excepcional por poñer o feminismo no centro da nosa literatura contemporánea."
-  font="fonts/Nunito-SemiBold-msdf.json"
-  position="0 1.7 0.1"
-  align="center"
-  width="4.8"
-  color="#FFFFFF"
-  negate="false"
-  wrap-count="30">
-</a-text>
-               <!-- A imaxe de Begoña  -->
-        <a-image src="#img-bego" width="2.2" height="3.8" position="0 -0.92 0.05"></a-image>
-
-      </a-entity>
-
-
-
-      <!-- 5. Audio (Detrás do usuario) -->
-      <!-- 5. Audio (Sen fondo) -->
-     
-      <a-entity position="-5.07 2.4 10.15" rotation="0 180 0">
-        <!-- Eliminamos o plane de cor #08101d e a liña azul superior -->
-
-        <!-- Icona de audio -->
-        <a-image src="#icon-audio" width="1.5" height="1.5" position="0 0.48 0.1"  animation="property: scale; to: 1.1 1.1 1.1; dir: alternate; loop: true; dur: 800"></a-image>
-
-        <!-- Texto -->
-        <a-text value="A VOZ DA AUTORA" position="0 -0.4 0" align="center" width="3" color="#2c3e50"></a-text>
+        <!-- BOTÓN TEST na portada -->
+         <div id="btn-test-portada" onclick="abrirQuizDesdePortada()">
+  <span class="canto">Canto</span>
+  <span class="sabes">sabes?</span>
+</div>
     
-        <!-- O CLIC: Mantemos un plano invisible para que sexa fácil de tocar co cursor -->
-        <a-plane class="area-clic" width="2.5" height="2.5" position="0 0 0.05" material="opacity:0; transparent:true"
-          onclick="toggleAudio()">
-        </a-plane>
+    </div> 
 
-        <a-entity id="sound-emitter" sound="src:#audio-file; volume:3"></a-entity>
-      </a-entity>
 
-      <!--6  ============================================================
+    <!-- ═══════════════════════════════════════════════════
+       DOM-OVERLAY WebXR (#overlay)
+       Todo o que apareza aquí por riba da cámara AR
+       ═══════════════════════════════════════════════════ -->
+    <div id="overlay">
+
+        <!-- Cabeceira informativa en AR -->
+        <div class="portada-escolar">
+            <img src="imax/begonha2.png" alt="Begoña Caamaño" width="54" height="54">
+            <div class="info-textos">
+                <div class="nome">
+                    BEGOÑA CAAMAÑO
+                    <span style="font-size:0.7rem;color:#88aacc;font-weight:400;margin-left:10px;">Letras Galegas
+                        2026</span>
+                </div>
+                <div class="instrucions">Toca a pantalla para <b>colocar a sala</b> e os paneis para
+                    <b>interactuar</b>.
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Fondo escuro do quiz -->
+        <div id="quiz-backdrop"></div>
+
+        <!-- Fondo escuro dos paneis informativos -->
+        <div id="panel-backdrop"></div>
+
+        <!-- Panel informativo 2D (substitúe os popups 3D) -->
+        <div id="panel-overlay"
+            style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:9998; background:linear-gradient(180deg,#07101e 0,#0a1a35 100%); border:2px solid #00e5ff; border-radius:22px; padding:28px 22px 22px; width:92%; max-width:480px; color:white; pointer-events:auto; box-shadow:0 0 60px rgba(0,229,255,.15); max-height:80vh; overflow-y:auto;">
+            <button onclick="pecharPanel()"
+                style="position:absolute;top:12px;right:16px;background:rgba(93, 23, 23, 0.849);border:none;
+                color:#888;font-size:1.1rem;cursor:pointer;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;">✕</button>
+
+            <div id="panel-overlay-titulo"></div>
+            <div id="panel-overlay-corpo"></div>
+        </div>
+
+        <!-- Panel escala distancias (ferramenta de desenvolvemento) -->
+        <div id="escala-distancias-panel">
+            <label for="escala-distancias-slider">
+                Escala distancias <span id="escala-distancias-valor">1.00x</span>
+            </label>
+            <input id="escala-distancias-slider" type="range" min="0.25" max="2" step="0.05" value="1">
+        </div>
+        <div id="quiz-panel">
+            <button class="qx" onclick="pecharQuiz()">✕</button>
+            <div id="q-xogo">
+                <div class="q-header">
+                    <div class="q-chip">Test interactivo</div>
+                    <div class="q-logo-wrap">
+                        <div class="q-logo-g1">Canto <span>sabes</span>?</div>
+                        <div class="q-logo-g2">Canto <span>sabes</span>?</div>
+                        <div class="q-logo-main">Canto <span>sabes</span>?</div>
+                    </div>
+                </div>
+                <div class="q-sub">Begoña Caamaño · Letras Galegas 2026</div>
+
+                <!-- ── SELECTOR DE NIVEL (novo) ── -->
+                <div id="q-nivel-selector">
+                    <div class="q-chip" style="margin-bottom:14px;">Escolle a dificultade</div>
+                    <div style="display:flex; flex-direction:column; gap:10px; width:100%;">
+                        <button class="q-nivel-btn" onclick="qComezar(10)">
+                            🟢 <span>Iniciación</span><small>10 preguntas</small>
+                        </button>
+                        <button class="q-nivel-btn" onclick="qComezar(15)">
+                            🟡 <span>Intermedio</span><small>15 preguntas</small>
+                        </button>
+                        <button class="q-nivel-btn" onclick="qComezar(20)">
+                            🔴 <span>Experto</span><small>20 preguntas</small>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ── XOGO (agochado ata elixir nivel) ── -->
+                <div id="q-xogo-contido" style="display:none; width:100%;">
+                    <div class="q-barra-c">
+                        <div class="q-barra" id="q-barra" style="width:0%"></div>
+                    </div>
+                    <div class="q-num" id="q-num"></div>
+                    <div class="q-preg" id="q-preg"></div>
+                    <div class="q-ops" id="q-ops"></div>
+                    <div class="q-fb" id="q-fb"></div>
+                    <button class="q-btn-seg" id="q-btn-seg" onclick="qSeguinte()">Seguinte →</button>
+                </div>
+            </div>
+            <div id="q-resultado">
+                <div class="r-trofeo">🏆</div>
+                <div class="r-puntos" id="r-puntos"></div>
+                <div class="r-label" id="r-label"></div>
+                <div class="r-stars" id="r-stars"></div>
+                <p class="r-msg" id="r-msg"></p>
+                <div class="r-bots">
+                    <button class="r-btn-rep" onclick="qReiniciar()">↻ Repetir</button>
+                    <button class="r-btn-pec" onclick="pecharQuiz()">Pechar</button>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div><!-- fin #overlay -->
+
+
+    <!-- ═══════════════════════════════════════════════════
+       ESCENA A-FRAME
+       ═══════════════════════════════════════════════════ -->
+    <a-scene xr-mode-ui="enabled: true; XRMode: ar"
+        webxr="optionalFeatures: hit-test, dom-overlay; overlayElement: #overlay"
+        renderer="colorManagement:true; antialias:true" proximity-zoom>
+
+        <a-assets>
+            <a-asset-item id="font-title" src="fonts/Outfit-Bold-msdf.json"></a-asset-item>
+            <a-asset-item id="font-body" src="fonts/Nunito-SemiBold-msdf.json"></a-asset-item>
+            <img id="img-bego" src="imax/cartelrag.jpg">
+            <img id="img-bego2" src="imax/begonha3.png">
+            <img id="img-circe" src="imax/circe.jpg">
+            <img id="imx-radio" src="imax/debuxo_radio.jpeg">
+            <img id="img-esmelle" src="imax/esmelle.jpg">
+            <img id="img-circe2" src="imax/Gustav_Klimt_021.jpg">
+            <img id="img-esmelle2" src="imax/Beguiling_of_Merlin.jpg">
+            <audio id="audio-file" src="sons/begonhaaudio.mp3" preload="auto"></audio>
+            <video id="video-file" src="imax/begona.mp4" preload="metadata" loop crossorigin="anonymous"
+                playsinline></video>
+            <img id="icon-audio" src="https://cdn-icons-png.flaticon.com/512/727/727269.png">
+            <a-assets>
+                <img id="icon-micro" src="iconas/micro.svg">
+                <img id="icon-triloxia" src="iconas/sparkle.svg">
+                <img id="icon-legado" src="iconas/certificate.svg">
+            </a-assets>
+
+        </a-assets>
+
+        <!-- Cámara con cursor raycaster -->
+        <a-camera position="0 1.6 0">
+            <a-entity cursor="fuse:false; rayOrigin:entity;" raycaster="objects:.area-clic; far:40;" position="0 0 -1"
+                geometry="primitive:ring; radiusInner:0.015; radiusOuter:0.02"
+                material="color:#00e5ff; shader:flat; opacity:0.8; transparent:true">
+            </a-entity>
+        </a-camera>
+
+        <!-- Reticle AR para hit-test -->
+        <a-entity id="reticle" ar-hit-test="target:#museo"></a-entity>
+
+        <!-- ── MUSEO (oculto ata colocar en AR) ── -->
+        <a-entity id="museo" visible="false">
+
+            <!-- ══ 1. QUEN FOI? · Esquerda atrás ══ -->
+            <a-entity position="-10.15 3 -5.07" rotation="0 90 0">
+                <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.98"></a-plane>
+                <a-plane width="5.6" height="0.06" color="#FFFFFF" position="0 1.45 0.01"></a-plane>
+                <a-text value="QUEN FOI BEGOÑA CAAMAÑO?" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
+                    position="0 1.2 0.1" color="#FF0055" negate="false" wrap-count="30"></a-text>
+                <!-- <a-text value="Xornalista · Escritora · Activista feminista" font="fonts/Nunito-SemiBold-msdf.json"
+                    align="center" width="4.8" position="0 0.5 0.1" color="#00E5FF" negate="false"
+                    wrap-count="42"></a-text> -->
+                <a-text value="Narrativa galega dende o feminismo e a sororidade."
+                    font="fonts/Nunito-SemiBold-msdf.json" align="center" width="5" position="0 0.75 0.1"
+                    color="#FFFFFF" negate="false" wrap-count="40"></a-text>
+                <a-image src="#img-bego2" width="4.15" height="2.33" position="0 -0.8 0.1"></a-image>
+                <!-- Zona de clic → abre overlay 2D -->
+                <a-plane class="area-clic" width="5.6" height="5.4" position="0 0.3 0.15"
+                    material="opacity:0; transparent:true" onclick="abrirPanel('info1')"></a-plane>
+            </a-entity>
+
+
+            <!-- 2. XORNALISMO E ACTIVISMO — Esquerda diante -->
+            <a-entity position="-10.15 3 5.07" rotation="0 90 0">
+                <!-- A BARRIÑA DE COR (Agora visible e no seu sitio) -->
+                <a-plane width="5.6" height="0.06" material="shader: flat; color: #00E5FF; opacity: 1"
+                    position="0 1.45 0.02">
+                </a-plane> <a-plane width="5.6" height="3" color="#08101d" opacity="0.9"></a-plane>
+                <a-text value="XORNALISMO E ACTIVISMO" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
+                    position="0 1.2 0.1" color="#00E5FF" negate="false" wrap-count="26"></a-text>
+
+                <a-image src="#imx-radio" width="4.15" height="2.44" position="0 -0.8 0.05"></a-image>
+
+                <a-text value="O camiño de Begoña" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.8"
+                    position="0 0.75 0.1" color="#FFFFFF" negate="false" wrap-count="32"></a-text>
+                <!-- <a-text
+                    value="Marcha Mundial das Mulleres · Bruxelas · Montreal&#10;Antimilitarismo · Soberanismo · Lingua galega"
+                    font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.8" position="0 -0.35 0.1"
+                    color="#acd4ee" negate="false" wrap-count="36"></a-text> -->
+                <a-plane class="area-clic" width="5.6" height="5.4" position="0 0 0.15" material="opacity:0"
+                    transparent="true" onclick="abrirPanel('info2')"></a-plane>
+            </a-entity>
+
+            <!-- ══ 3. OBRAS · Dereita atrás ══ -->
+            <a-entity position="10.15 3 -5.07" rotation="0 -90 0">
+                <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.98"></a-plane>
+                <a-plane width="5.6" height="0.05" color="#ffb6c1" position="0 1.45 0.01"></a-plane>
+                <a-text value="OBRAS FUNDAMENTAIS" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
+                    position="0 1.2 0.1" color="#ffd6de" negate="false" wrap-count="22"></a-text>
+                <a-text value="A reescritura feminista dos mitos clásicos e artúricos"
+                    font="fonts/Nunito-SemiBold-msdf.json" align="center" width="4.8" position="0 0.8 0.1"
+                    color="#79b9d8" negate="false" wrap-count="40"></a-text>
+
+                <!-- Imaxe Circe + clic propio -->
+                <a-image src="#img-circe" width="1.6" height="2.52" position="-1.22 -0.7 0.05">
+                </a-image>
+                <a-text value="Circe · 2009" font="fonts/Outfit-Bold-msdf.json" align="center" width="2.8"
+                    position="-1.22 -2.2 0.1" color="#ff9aaa" negate="false" wrap-count="18"></a-text>
+                <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="1.6"
+                    position="-1.22 -2.5 0.1" color="#3f708c" negate="false" wrap-count="18"></a-text>
+                <a-plane class="area-clic" width="1.85" height="3.1" position="-1.22 -0.7 0.15"
+                    material="opacity:0; transparent:true" onclick="abrirPanel('infoCirce')"></a-plane>
+
+                <!-- Imaxe Morgana + clic propio -->
+                <a-image src="#img-esmelle" width="1.6" height="2.45" position="1.22 -0.7 0.05"></a-image>
+                <a-text value="Morgana · 2012" font="fonts/Outfit-Bold-msdf.json" align="center" width="2.8"
+                    position="1.22 -2.2 0.1" color="#ff9aaa" negate="false" wrap-count="18"></a-text>
+                <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="1.6"
+                    position="1.22 -2.5 0.1" color="#3f708c" negate="false" wrap-count="18"></a-text>
+                <a-plane class="area-clic" width="1.85" height="3.1" position="1.22 -0.7 0.15"
+                    material="opacity:0; transparent:true" onclick="abrirPanel('infoMorgana')"></a-plane>
+            </a-entity>
+            <!-- 4. LETRAS GALEGAS: CRONOLOXÍA E MULLERES — Dereita diante -->
+
+            <a-entity position="10.15 3 5.07" rotation="0 -90 0">
+                <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.9"></a-plane>
+                <a-plane width="5.6" height="0.06" material="shader: flat; color: #00E5FF; opacity: 1" color="#FF0055"
+                    position="0 1.45 0.01"></a-plane>
+                <a-text value="As outras mulleres das letras galegas" font="fonts/Nunito-SemiBold-msdf.json"
+                    align="center" width="4.8" position="0 0.8 0.1" color="#79b9d8" negate="false"
+                    wrap-count="40"></a-text>
+                <a-text value="As nosas letras" font="fonts/Outfit-Bold-msdf.json" align="center" color="#FF0055"
+                    negate="false" position="0 1.2 0.1" wrap-count="30"></a-text>
+
+                <a-image src="#img-bego" width="4.15" height="2.71" position="0 -1.1 0.05"></a-image>
+                <a-plane class="area-clic" width="5.6" height="6" position="0 -0.2 0.15" material="opacity:0"
+                    transparent="true" onclick="abrirPanel('info4')"></a-plane>
+            </a-entity>
+
+
+
+            <!-- 5. AUDIO traseira-esquerda -->
+            <a-entity position="-5.07 2.4 10.15" rotation="0 180 0">
+                <a-entity class="zoom-wrapper">
+                    <!-- <a-circle radius="1.42" color="#0b1626" opacity="0.96"></a-circle> -->
+                    <a-torus radius="1.42" radius-tubular="0.025" color="#ff4d6d" opacity="0.55" position="0 0 0.01"
+                        animation="property: rotation; to: 0 0 360; loop: true; dur: 8000; easing: linear"></a-torus>
+                    <a-torus radius="1.08" radius-tubular="0.012" color="#00e5ff" opacity="0.30"
+                        position="0 0 0.02"></a-torus>
+                    <a-text value="♪" font="fonts/Nunito-SemiBold-msdf.json" font-image="fonts/Nunito-SemiBold-msdf.png"
+                        font-image="fonts/Outfit-Bold-msdf.png" align="center" width="2.5" position="0 0.38 0.08"
+                        color="#ff4d6d" negate="false"></a-text>
+                    <a-image src="#icon-audio" width="1.5" height="1.5" position="0 0.48 0.1"
+                        animation="property:scale; to:1.1 1.1 1.1; dir:alternate; loop:true; dur:800"></a-image>
+
+                    <a-text value="A VOZ DA AUTORA" font="fonts/Nunito-SemiBold-msdf.json"
+                        font-image="fonts/Nunito-SemiBold-msdf.png" font-image="fonts/Outfit-Bold-msdf.png"
+                        align="center" width="2.6" position="0 -0.83 0.08" color="#e8f4ff" wrap-count="16"
+                        negate="false"></a-text>
+                    <a-text value="toca para escoitar" font="fonts/Nunito-SemiBold-msdf.json"
+                        font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.2" position="0 -0.58 0.08"
+                        color="#5588aa" wrap-count="20" negate="false"></a-text>
+                    <a-circle class="area-clic" radius="1.5" position="0 0 0.12" material="opacity:0; transparent:true"
+                        onclick="toggleAudio()"></a-circle>
+                    <a-entity id="sound-emitter" sound="src:#audio-file; volume:3"></a-entity>
+                </a-entity>
+            </a-entity>
+
+
+
+            <!--6  ============================================================
      PAREDE TRASEIRA — ESQUERDA (ANACOS DE OBRAS)
      Panel con cadros clicables que despregan fragmentos de texto.
      Cada cadro é independente e ten o seu propio popup (infoAnaco1..5).
      Pódese editar: títulos dos cadros, textos dos popups, cores.
      Os textos están baleiros agás Circe e Morgana, listos para encher.
      ============================================================ -->
-      <!-- SALA PEQUENA:  position="-3.5 0 5" rotation="0 180 0" -->
-      <!-- SALA MEDIANA:  position="-4.5 0 7" rotation="0 180 0" -->
-      <!-- SALA GRANDE:   position="-6 0 9" rotation="0 180 0" -->
-      <!--6      Anacos de obras -->
-      <a-entity position="5.07 -0.6 10.15" rotation="0 180 0">
 
-        <!-- Cabeceira do panel -->
-        <a-plane width="5.8" height="0.8" color="#08101d" opacity="0.98" position="0 5.1 0"></a-plane>
-        <a-plane width="5.8" height="0.05" color="#ff4d6d" position="0 5.48 0.01"></a-plane>
-        <a-text value="ANACOS DE OBRAS" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
-          align="center" width="5.4" position="0 5.08 0.1" color="#ffd6de" negate="false" wrap-count="22"></a-text>
+            <a-entity position="5.07 -0.6 10.15" rotation="0 180 0">
 
-        <!-- CADRO 1 — CIRCE -->
-        <a-entity position="-2.2 3.9 0">
-          <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
-          <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
-          <a-text value="Circe" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
-            align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc" negate="false" wrap-count="16"></a-text>
-          <a-text value="Circe ou o pracer do azul" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1"
-            color="#acd4ee" negate="false" wrap-count="20"></a-text>
-          <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.6" position="0 -0.42 0.1"
-            color="#3f708c" negate="false" wrap-count="18"></a-text>
-          <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true"
-            onclick="toggle('infoAnaco1')"></a-plane>
-          <!-- Popup cadro 1 -->
-          <a-entity id="infoAnaco1" visible="false" position="0 0 0.6">
-            <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
-            <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
-            <a-text value="CIRCE OU O PRACER DO AZUL" font="fonts/Outfit-Bold-msdf.json"
-              font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"
-              negate="false" wrap-count="28"></a-text>
-            <!-- EDITAR: substitúe este texto polo fragmento real da obra -->
-            <a-text value="[ Fragmento da obra aquí ]" font="fonts/Nunito-SemiBold-msdf.json"
-              font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
-              color="#e7f0fb" negate="false" wrap-count="46"></a-text>
-          </a-entity>
-        </a-entity>
+                <!-- ══ CABECEIRA ══ -->
+                <a-plane width="6.2" height="1.1" color="#04080f" opacity="0.96" position="0 5.12 0"
+                    material="shader: flat"></a-plane>
+                <!-- Barra base -->
+                <a-plane width="6.2" height="0.06" color="#1a2a3a" opacity="0.8" position="0 5.65 0.01"
+                    material="shader: flat"></a-plane>
 
-        <!-- CADRO 2 — MORGANA -->
-        <a-entity position="0.4 3.9 0">
-          <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
-          <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
-          <a-text value="Morgana" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
-            align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc" negate="false" wrap-count="16"></a-text>
-          <a-text value="Morgana en Esmelle" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1"
-            color="#acd4ee" negate="false" wrap-count="20"></a-text>
-          <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.6" position="0 -0.42 0.1"
-            color="#3f708c" negate="false" wrap-count="18"></a-text>
-          <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true"
-            onclick="toggle('infoAnaco2')"></a-plane>
-          <!-- Popup cadro 2 -->
-          <a-entity id="infoAnaco2" visible="false" position="0 0 0.6">
-            <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
-            <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
-            <a-text value="MORGANA EN ESMELLE" font="fonts/Outfit-Bold-msdf.json"
-              font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"
-              negate="false" wrap-count="28"></a-text>
-            <!-- EDITAR: substitúe este texto polo fragmento real da obra -->
-            <a-text value="[ Fragmento da obra aquí ]" font="fonts/Nunito-SemiBold-msdf.json"
-              font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
-              color="#e7f0fb" negate="false" wrap-count="46"></a-text>
-          </a-entity>
-        </a-entity>
+                <!-- Luz que se desliza — discreta, non sobresae -->
+                <a-plane width="2.0" height="0.06" color="#a78bfa" opacity="0.5" position="0 5.65 0.02"
+                    material="shader: flat"
+                    animation="property:position; from:-2.1 5.65 0.02; to:2.1 5.65 0.02; dur:5000; loop:true; dir:alternate; easing:easeInOutSine"></a-plane>
 
-        <!-- CADRO 3 — BALEIRO -->
-        <a-entity position="3 3.9 0">
-          <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
-          <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
-          <!-- EDITAR: título da obra -->
-          <a-text value="Título obra" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
-            align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc" negate="false" wrap-count="16"></a-text>
-          <a-text value="[ Subtítulo ]" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1"
-            color="#acd4ee" negate="false" wrap-count="20"></a-text>
-          <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.6" position="0 -0.42 0.1"
-            color="#3f708c" negate="false" wrap-count="18"></a-text>
-          <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true"
-            onclick="toggle('infoAnaco3')"></a-plane>
-          <a-entity id="infoAnaco3" visible="false" position="0 0 0.6">
-            <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
-            <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
-            <!-- EDITAR: título e fragmento -->
-            <a-text value="[ TÍTULO DA OBRA ]" font="fonts/Outfit-Bold-msdf.json"
-              font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"
-              negate="false" wrap-count="28"></a-text>
-            <a-text value="[ Fragmento da obra aquí ]" font="fonts/Nunito-SemiBold-msdf.json"
-              font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
-              color="#e7f0fb" negate="false" wrap-count="46"></a-text>
-          </a-entity>
-        </a-entity>
-
-        <!-- CADRO 4 — BALEIRO -->
-        <a-entity position="-2.2 2.2 0">
-          <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
-          <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
-          <a-text value="Título obra" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
-            align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc" negate="false" wrap-count="16"></a-text>
-          <a-text value="[ Subtítulo ]" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1"
-            color="#acd4ee" negate="false" wrap-count="20"></a-text>
-          <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.6" position="0 -0.42 0.1"
-            color="#3f708c" negate="false" wrap-count="18"></a-text>
-          <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true"
-            onclick="toggle('infoAnaco4')"></a-plane>
-          <a-entity id="infoAnaco4" visible="false" position="0 0 0.6">
-            <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
-            <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
-            <a-text value="[ TÍTULO DA OBRA ]" font="fonts/Outfit-Bold-msdf.json"
-              font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"
-              negate="false" wrap-count="28"></a-text>
-            <a-text value="[ Fragmento da obra aquí ]" font="fonts/Nunito-SemiBold-msdf.json"
-              font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
-              color="#e7f0fb" negate="false" wrap-count="46"></a-text>
-          </a-entity>
-        </a-entity>
-
-        <!-- CADRO 5 — BALEIRO -->
-        <a-entity position="0.4 2.2 0">
-          <a-plane width="2.4" height="1.4" color="#0d1a2e" opacity="0.97"></a-plane>
-          <a-plane width="2.4" height="0.05" color="#ff4d6d" position="0 0.67 0.01"></a-plane>
-          <a-text value="Título obra" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
-            align="center" width="2.1" position="0 0.38 0.1" color="#ffc1cc" negate="false" wrap-count="16"></a-text>
-          <a-text value="[ Subtítulo ]" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="2.0" position="0 -0.05 0.1"
-            color="#acd4ee" negate="false" wrap-count="20"></a-text>
-          <a-text value="toca para ler" font="fonts/Nunito-SemiBold-msdf.json"
-            font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.6" position="0 -0.42 0.1"
-            color="#3f708c" negate="false" wrap-count="18"></a-text>
-          <a-plane class="area-clic" width="2.4" height="1.4" position="0 0 0.12" material="opacity:0; transparent:true"
-            onclick="toggle('infoAnaco5')"></a-plane>
-          <a-entity id="infoAnaco5" visible="false" position="0 0 0.6">
-            <a-plane width="5.2" height="3.2" color="#07101f" opacity="0.99"></a-plane>
-            <a-plane width="5.2" height="0.05" color="#ff4d6d" position="0 1.57 0.01"></a-plane>
-            <a-text value="[ TÍTULO DA OBRA ]" font="fonts/Outfit-Bold-msdf.json"
-              font-image="fonts/Outfit-Bold-msdf.png" align="center" width="4.7" position="0 1.22 0.1" color="#ffc1cc"
-              negate="false" wrap-count="28"></a-text>
-            <a-text value="[ Fragmento da obra aquí ]" font="fonts/Nunito-SemiBold-msdf.json"
-              font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.1 0.1"
-              color="#e7f0fb" negate="false" wrap-count="46"></a-text>
-          </a-entity>
-        </a-entity>
-      </a-entity>
+                <!-- Destello pequeno en sentido contrario -->
+                <a-plane width="0.8" height="0.06" color="#00e5ff" opacity="0.6" position="0 5.65 0.03"
+                    material="shader: flat"
+                    animation="property:position; from:2.1 5.65 0.03; to:-2.1 5.65 0.03; dur:3800; loop:true; dir:alternate; easing:easeInOutSine"></a-plane>
+                <a-text value="ANACOS DE BEGOÑA" font="fonts/Outfit-Bold-msdf.json"
+                    font-image="fonts/Outfit-Bold-msdf.png" align="center" width="5.8" position="0 5.17 0.08"
+                    color="#ffffff" negate="false" wrap-count="22" material="shader: flat;"></a-text>
+                <a-text value="toca cada cadro para descubrir" font="fonts/Nunito-SemiBold-msdf.json"
+                    font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="5.0" position="0 4.73 0.08"
+                    color="#4a6a8a" negate="false" wrap-count="40"></a-text>
+                <a-plane width="6.2" height="0.025" color="#ffffff" opacity="0.06" position="0 4.57 0.01"
+                    material="shader: flat"></a-plane>
 
 
-      <!-- 7. VIDEO (Xornalismo Político) (Fondo Esquerda) -->
-      <!-- Vídeo 
-      
-        <a-text value="▶" font="fonts/Outfit-Bold-msdf.json" align="center"
-    width="0.8" position="2.6 2.2 0.1" color="#00E5FF" negate="false">
-    <!-- Animación de pulso comoCTRue -->
-    <!-- <a-animation attribute="material.opacity" to="0.4" dir="alternate" dur="1000" loop="true"></a-animation>
-  </a-text> -->
-      
-   
-      <a-entity position="-5.07 2.4 -12.15" rotation="0 0 0">
-        <a-plane width="5.5" height="1.7" color="#08101d" opacity="0.98" position="0 1.74 0"></a-plane>
-        <a-text value="Vídeo: Circe e o pracer do azul" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.2"
-          position="0 2.3 0.1" color="#9af1ff" negate="false"></a-text>
-             <a-text value="▶ Begoña Caamaño fala sobre a obra" font="fonts/Nunito-SemiBold-msdf.json"
-              font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 2 0.1"
-              color="#e7f0fb" negate="false" wrap-count="46"><a-animation attribute="material.opacity" to="0.4" dir="alternate" dur="1000" loop="true"></a-animation>
-</a-text>
-        <a-video src="#video-file" width="4.68" height="2.62" position="0 0.5 0.05"></a-video>
-        <a-plane class="area-clic" width="4.68" height="2.62" position="0 1.5 0.2"
-          material="opacity:0; transparent:true" onclick="toggleVideo()"></a-plane>
-      </a-entity>
+                <!-- ══ FILA 1: CIRCE ══ -->
+                <a-entity position="-1.45 3.42 0">
+                    <a-image src="#img-circe" width="2.6" height="1.9" position="0 0 0"></a-image>
+                    <a-plane width="2.6" height="1.9" color="#000000" opacity="0.52" position="0 0 0.01"
+                        material="shader:flat; opacity:0.52; transparent:true"></a-plane>
+                    <a-plane width="2.6" height="0.9" color="#000000" opacity="0.75" position="0 -0.52 0.02"
+                        material="shader:flat; opacity:0.75; transparent:true"></a-plane>
+                    <a-plane width="2.6" height="0.09" color="#ff4d6d" position="0 0.905 0.04"></a-plane>
+                    <a-plane width="0.04" height="1.9" color="#ff4d6d" opacity="0.6" position="-1.28 0 0.04"></a-plane>
+                    <a-plane width="0.04" height="1.9" color="#ff4d6d" opacity="0.2" position="1.28 0 0.04"></a-plane>
+                    <!-- BADGE ano -->
+                    <a-plane width="0.52" height="0.26" color="#ff4d6d" opacity="0.92"
+                        position="0.98 0.72 0.05"></a-plane>
+                    <a-text value="2009" font="fonts/Outfit-Bold-msdf.json" align="center" width="0.55"
+                        position="0.98 0.72 0.07" color="#ffffff" negate="false" wrap-count="6"></a-text>
 
-      <!-- 8. CANTO SABES? (Fondo Dereita - A máis afastada) -->
+                    <!-- Título -->
+                    <a-text value="CIRCE" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+                        align="left" width="1.2 height=" 1.22" position="-1.15 -0.28 0.06" color="#ffffff"
+                        negate="false" wrap-count="12"></a-text>
+                    <a-text value="Circe ou o pracer do azul" font="fonts/Nunito-SemiBold-msdf.json"
+                        font-image="fonts/Nunito-SemiBold-msdf.png" align="left" width="2.4" position="-1.15 -0.56 0.06"
+                        color="#ffb3c1" negate="false" wrap-count="26"></a-text>
+                    <a-text value="toca" font="fonts/Nunito-SemiBold-msdf.json" align="right" width="1.0"
+                        position="1.15 -0.80 0.06" color="#ffffff" negate="false" wrap-count="10"
+                        animation="property:opacity; from:0.3; to:1; dur:900; loop:true; dir:alternate"></a-text>
+                    <a-plane class="area-clic" width="2.6" height="1.9" position="0 0 0.12"
+                        material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco1')"></a-plane>
+                </a-entity>
 
-      <!-- Quiz -->
-      <!-- <a-entity position="5.07 2 -12.15" rotation="0 0 0"> -->
-          <a-entity position="5.07 1.6 -20.15" rotation="0 0 0">
 
-        <!-- 1. O INTERROGANTE (SÓ VISUAL, MÁIS GRANDE) -->
-        <a-entity scale="30 30 1" position="0 3.8 0">
-          <a-text value="?" align="center" color="#FF0000" negate="false" font="fonts/Outfit-Bold-msdf.json"
-            font-image="fonts/Outfit-Bold-msdf.png"
-            animation="property: position; from: -0.01 0.01 -0.02; to: 0.01 -0.01 -0.02; dir: alternate; dur: 1200; loop: true">
-          </a-text>
-          <a-text value="?" align="center" color="#FFFFFF" negate="false" font="fonts/Outfit-Bold-msdf.json"
-            font-image="fonts/Outfit-Bold-msdf.png"
-            animation="property: opacity; from: 0.3; to: 1; dir: alternate; dur: 1000; loop: true">
-          </a-text>
-          <a-text value="?" align="center" color="#00E5FF" negate="false" font="fonts/Outfit-Bold-msdf.json"
-            font-image="fonts/Outfit-Bold-msdf.png"
-            animation="property: position; from: 0.01 -0.01 0.01; to: -0.01 0.01 0.01; dir: alternate; dur: 500; loop: true"
-            opacity="0.6">
-          </a-text>
-        </a-entity>
+                <!-- ══ FILA 1: MORGANA ══ -->
+                <a-entity position="1.45 3.42 0">
+                    <a-image src="#img-esmelle" width="1" height="1.75" position="0 0 0"></a-image>
+                    <a-plane width="2.6" height="1.9" color="#000000" opacity="0.48" position="0 0 0.01"
+                        material="shader:flat; opacity:0.48; transparent:true"></a-plane>
+                    <a-plane width="2.6" height="0.9" color="#000000" opacity="0.78" position="0 -0.52 0.02"
+                        material="shader:flat; opacity:0.78; transparent:true"></a-plane>
+                    <a-plane width="2.6" height="0.09" color="#a78bfa" position="0 0.905 0.04"></a-plane>
+                    <a-plane width="0.04" height="1.9" color="#a78bfa" opacity="0.6" position="-1.28 0 0.04"></a-plane>
+                    <a-plane width="0.04" height="1.9" color="#a78bfa" opacity="0.2" position="1.28 0 0.04"></a-plane>
+                    <!-- BADGE ano -->
+                    <a-plane width="0.52" height="0.26" color="#a78bfa" opacity="0.92"
+                        position="0.98 0.72 0.05"></a-plane>
+                    <a-text value="2012" font="fonts/Outfit-Bold-msdf.json" align="center" width="0.55"
+                        position="0.98 0.72 0.07" color="#ffffff" negate="false" wrap-count="6"></a-text>
+                    <!-- BADGE premios -->
+                    <a-plane width="1.0" height="0.24" color="#fbbf24" opacity="0.88"
+                        position="-0.75 0.72 0.05"></a-plane>
+                    <a-text value="4 premios" font="fonts/Outfit-Bold-msdf.json" align="center" width="1.1"
+                        position="-0.75 0.72 0.07" color="#1a0a00" negate="false" wrap-count="14"></a-text>
 
-        <!-- 2. O TÍTULO -->
-        <a-text value="Canto sabes?" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
-          align="center" width="16" position="0 2.2 0" color="#000000" negate="true" wrap-count="30"></a-text>
+                    <!-- Título -->
+                    <a-text value="MORGANA" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+                        align="left" width="2.8" position="-1.15 -0.28 0.06" color="#ffffff" negate="false"
+                        wrap-count="12"></a-text>
+                    <a-text value="Morgana en Esmelle" font="fonts/Nunito-SemiBold-msdf.json"
+                        font-image="fonts/Nunito-SemiBold-msdf.png" align="left" width="2.4" position="-1.15 -0.56 0.06"
+                        color="#d4b5fd" negate="false" wrap-count="26"></a-text>
+                    <a-text value="toca" font="fonts/Nunito-SemiBold-msdf.json" align="right" width="1.0"
+                        position="1.15 -0.80 0.06" color="#ffffff" negate="false" wrap-count="10"
+                        animation="property:opacity; from:0.3; to:1; dur:900; loop:true; dir:alternate"></a-text>
+                    <a-plane class="area-clic" width="2.6" height="1.9" position="0 0 0.12"
+                        material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco2')"></a-plane>
+                </a-entity>
 
-        <!-- 3. O BOTÓN (ÚNICO PUNTO DE CLIC) -->
-        <a-entity position="0 1.4 0">
-          <!-- Cadro do botón con brillo neón -->
-          <a-plane class="area-clic" width="7" height="1.6" color="#FF0000" onclick="abrirQuiz()"
-            material="shader: flat">
-            <a-text value="PREME para COMEZAR" align="center" width="14" color="#FFFFFF" negate="false"
-              font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png" position="0 0 0.1">
-            </a-text>
-          </a-plane>
-          <!-- Decoración: Liña de carga debaixo do botón -->
-          <a-plane width="7" height="0.15" color="#FFFFFF" position="0 -1 0" opacity="0.8"></a-plane>
-          <a-plane width="2" height="0.15" color="#00E5FF" position="-2.5 -1 0.01"
-            animation="property: position; from: -2.5 -1 0.01; to: 2.5 -1 0.01; dir: alternate; dur: 1500; loop: true; easing: easeInOutQuad">
-          </a-plane>
-        </a-entity>
 
-        <!-- Iluminación focal -->
-        <a-light type="point" color="#FF0000" intensity="1.5" distance="20" position="0 -0.2 2"></a-light>
+                <!-- ══ FILA 2: XORNALISMO ══ -->
+                <a-entity position="-2.05 1.45 0">
+                    <a-plane width="1.72" height="1.38" color="#003a4a" opacity="1.0" position="0 0 0"></a-plane>
+                    <a-plane width="0.18" height="1.38" color="#00e5ff" opacity="1.0" position="-0.77 0 0.01"></a-plane>
+                    <a-plane width="1.72" height="0.08" color="#00e5ff" position="0 0.65 0.01"></a-plane>
+                    <!-- ICONA micro: círculo + base + pé -->
+                    <!-- ICONA MICRO -->
+                    <a-image src="#icon-micro" width="0.35" height="0.35" position="0 0.36 0.06"
+                        material="shader:flat; transparent:true">
+                    </a-image>
+                    <a-text value="XORNALISMO" font="fonts/Outfit-Bold-msdf.json"
+                        font-image="fonts/Outfit-Bold-msdf.png" align="center" width="1.58" position="0 -0.13 0.05"
+                        color="#00e5ff" negate="false" wrap-count="12"></a-text>
+                    <a-text value="Radio Galega 1989-2014" font="fonts/Nunito-SemiBold-msdf.json"
+                        font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.52" position="0 -0.40 0.05"
+                        color="#acd4ee" negate="false" wrap-count="20"></a-text>
+                    <a-text value="toca" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="0.9"
+                        position="0 -0.58 0.05" color="#00e5ff" negate="false" wrap-count="8"
+                        animation="property:opacity; from:0.2; to:0.7; dur:900; loop:true; dir:alternate"></a-text>
+                    <a-plane class="area-clic" width="1.72" height="1.38" position="0 0 0.12"
+                        material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco3')"></a-plane>
+                </a-entity>
 
-      </a-entity>
-  
 
-  </a-scene>
+                <!-- ══ FILA 2: TRILOXÍA ══ -->
+                <a-entity position="0 1.45 0">
+                    <a-plane width="1.72" height="1.38" color="#1a0a35" opacity="1.0" position="0 0 0"></a-plane>
+                    <a-plane width="0.18" height="1.38" color="#a78bfa" opacity="1.0" position="-0.77 0 0.01"></a-plane>
+                    <a-plane width="1.72" height="0.08" color="#a78bfa" position="0 0.65 0.01"></a-plane>
+                    <!-- ICONA: tres diamantes animados -->
+                    <a-image src="#icon-triloxia" width="0.35" height="0.35" position="0 0.36 0.06"
+                        material="shader:flat; transparent:true">
+                    </a-image>
+                    <a-text value="TRILOXIA" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+                        align="center" width="1.58" position="0 -0.13 0.05" color="#c4b5fd" negate="false"
+                        wrap-count="12"></a-text>
+                    <a-text value="Mitoloxias disidentes" font="fonts/Nunito-SemiBold-msdf.json"
+                        font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.52" position="0 -0.40 0.05"
+                        color="#acd4ee" negate="false" wrap-count="20"></a-text>
+                    <a-text value="toca" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="0.9"
+                        position="0 -0.58 0.05" color="#a78bfa" negate="false" wrap-count="8"
+                        animation="property:opacity; from:0.2; to:0.7; dur:1000; loop:true; dir:alternate"></a-text>
+                    <a-plane class="area-clic" width="1.72" height="1.38" position="0 0 0.12"
+                        material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco4')"></a-plane>
+                </a-entity>
 
-  <script>
+
+                <!-- ══ FILA 2: LEGADO ══ -->
+                <a-entity position="2.05 1.45 0">
+                    <a-plane width="1.72" height="1.38" color="#2a1800" opacity="1.0" position="0 0 0"></a-plane>
+                    <a-plane width="0.18" height="1.38" color="#fbbf24" opacity="1.0" position="-0.77 0 0.01"></a-plane>
+                    <a-plane width="1.72" height="0.08" color="#fbbf24" position="0 0.65 0.01"></a-plane>
+
+
+                    <!-- ICONA LEGADO -->
+                    <a-image src="#icon-legado" width="0.35" height="0.35" position="0 0.36 0.06"
+                        material="shader:flat; transparent:true">
+                    </a-image>
+
+
+                    <a-text value="LEGADO" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+                        align="center" width="1.58" position="0 -0.13 0.05" color="#fde68a" negate="false"
+                        wrap-count="12"></a-text>
+                    <a-text value="2014 - 2026" font="fonts/Nunito-SemiBold-msdf.json"
+                        font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="1.52" position="0 -0.40 0.05"
+                        color="#acd4ee" negate="false" wrap-count="20"></a-text>
+                    <a-text value="toca" font="fonts/Nunito-SemiBold-msdf.json" align="center" width="0.9"
+                        position="0 -0.58 0.05" color="#fbbf24" negate="false" wrap-count="8"
+                        animation="property:opacity; from:0.2; to:0.7; dur:850; loop:true; dir:alternate"></a-text>
+                    <a-plane class="area-clic" width="1.72" height="1.38" position="0 0 0.12"
+                        material="opacity:0; transparent:true" onclick="abrirPanel('infoAnaco5')"></a-plane>
+                </a-entity>
+
+            </a-entity><!-- fin anacos de obras -->
+            <!-- ══ 7. VÍDEO · Frontal esquerda ══ -->
+            <a-entity position="-5.07 3 -12.15" rotation="0 0 0">
+                <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.98"></a-plane>
+                <a-plane width="5.6" height="0.06" material="shader: flat; color: #00E5FF; opacity: 1" color="#FF0055"
+                    position="0 1.45 0.01"></a-plane>
+                <a-text value="Vídeo: Circe e o pracer do azul" font="fonts/Outfit-Bold-msdf.json" align="center"
+                    width="5.2" position="0 1.2 0.1" color="#9af1ff" negate="false"></a-text>
+                <a-text value="▶ Begoña Caamaño fala sobre a obra" font="fonts/Nunito-SemiBold-msdf.json"
+                    font-image="fonts/Nunito-SemiBold-msdf.png" align="center" width="4.5" position="0 0.9 0.1"
+                    color="#e7f0fb" negate="false" wrap-count="46">
+                    <a-animation attribute="material.opacity" to="0.4" dir="alternate" dur="1000"
+                        loop="true"></a-animation>
+                </a-text>
+                <a-video src="#video-file" width="4.68" height="2.62" position="0 -0.8 0.05"></a-video>
+                <a-plane class="area-clic" width="4.68" height="2.62" position="0 -0.8 0.05"
+                    material="opacity:0; transparent:true" onclick="toggleVideo()"></a-plane>
+            </a-entity>
+
+            <!-- ══ 8. QUIZ · Frontal dereita ══ -->
+            <a-entity position="5.07 1.6 -20.15" rotation="0 0 0">
+                <!-- Decoración animada: signo de interrogación triple -->
+                <a-entity scale="30 30 1" position="0 3.8 0">
+                    <a-text value="?" align="center" color="#FF0000" negate="false" font="fonts/Outfit-Bold-msdf.json"
+                        font-image="fonts/Outfit-Bold-msdf.png"
+                        animation="property:position; from:-0.01 0.01 -0.02; to:0.01 -0.01 -0.02; dir:alternate; dur:1200; loop:true"></a-text>
+                    <a-text value="?" align="center" color="#FFFFFF" negate="false" font="fonts/Outfit-Bold-msdf.json"
+                        font-image="fonts/Outfit-Bold-msdf.png"
+                        animation="property:opacity; from:0.3; to:1; dir:alternate; dur:1000; loop:true"></a-text>
+                    <a-text value="?" align="center" color="#00E5FF" negate="false" opacity="0.6"
+                        font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+                        animation="property:position; from:0.01 -0.01 0.01; to:-0.01 0.01 0.01; dir:alternate; dur:500; loop:true"></a-text>
+                </a-entity>
+                <a-text value="Canto sabes?" font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+                    align="center" width="16" position="0 2.2 0" color="#000000" negate="true" wrap-count="30"></a-text>
+                <!-- Botón de inicio -->
+                <a-entity position="0 1.4 0">
+                    <a-plane class="area-clic" width="7" height="1.6" color="#FF0000" onclick="abrirQuiz()"
+                        material="shader:flat">
+                        <a-text value="PREME para COMEZAR" align="center" width="14" color="#FFFFFF" negate="false"
+                            font="fonts/Outfit-Bold-msdf.json" font-image="fonts/Outfit-Bold-msdf.png"
+                            position="0 0 0.1"></a-text>
+                    </a-plane>
+                    <a-plane width="7" height="0.15" color="#FFFFFF" position="0 -1 0" opacity="0.8"></a-plane>
+                    <a-plane width="2" height="0.15" color="#00E5FF" position="-2.5 -1 0.01"
+                        animation="property:position; from:-2.5 -1 0.01; to:2.5 -1 0.01; dir:alternate; dur:1500; loop:true; easing:easeInOutQuad"></a-plane>
+                </a-entity>
+                <a-light type="point" color="#FF0000" intensity="1.5" distance="20" position="0 -0.2 2"></a-light>
+            </a-entity>
 
 
 
+            <!-- CITAS-->
 
 
+            <!-- Cita asociada a "Quen foi" -->
+            <a-entity position="8 5.5 6" rotation="0 -135 0">
+                <a-plane width="3.8" height="1.5" color="#ff4d6d" opacity="0.05"></a-plane>
+                <a-plane width="0.06" height="1.5" color="#ff4d6d" position="-1.87 0 0.01"></a-plane>
+                <a-text value="« A muller dona do seu desexo\n e do seu propio corpo »"
+                    font="fonts/Nunito-SemiBold-msdf.json" align="center" width="3.35" position="0 0.24 0.05"
+                    color="#ffffff" negate="false" wrap-count="24"></a-text>
+                <a-text value="- Circe ou o pracer do azul" font="fonts/Nunito-SemiBold-msdf.json" align="center"
+                    width="2.55" position="0.5 -0.48 0.05" color="#ffc0cb" negate="false" wrap-count="30"></a-text>
+            </a-entity>
 
-    //EFECTO FACERSE GRANDE AO SE ACHEGAR 
-    //--------------------------------
-    // Rexistramos un novo compoñente de A-Frame para xestionar o zoom por proximidade
-    AFRAME.registerComponent('proximity-zoom', {
-      init: function () {
-        this.camera = document.querySelector('a-camera').object3D;
-        // Seleccionamos todos os paneis da escena (.area-clic para atopar as entidades nai)
-        this.panels = Array.from(document.querySelectorAll('.area-clic')).map(el => el.parentElement);
-        this.camPos = new THREE.Vector3();
-        this.panelPos = new THREE.Vector3();
-      },
-
-      tick: function () {
-        if (!this.camera || this.panels.length === 0) return;
-
-        this.camera.getWorldPosition(this.camPos);
-
-        this.panels.forEach(panel => {
-          if (!panel.object3D) return;
-
-          panel.object3D.getWorldPosition(this.panelPos);
-          const distance = this.camPos.distanceTo(this.panelPos);
-
-          // ==========================================
-          // VALORES ESAXERADOS PARA PROBAR
-          // ==========================================
-          // const minDistance = 1.2;  // Cando estás a 1.2 metros queda ao máximo. Evita o infinito ao achegarte a 0m.
-          // const maxDistance = 6.0;  // A 6 metros ou máis, o panel vólvese ao seu tamaño base.
-          // const maxScale = 5.0;     // O panel medra ata 5 veces o seu tamaño orixinal!
-          // const minScale = 1.0;     // O panel nunca encollerá por debaixo do seu 100% orixinal.
-
-          // ==========================================
-          // VALORES NORMAIS (Descomenta isto para a biblioteca ou cuarto)
-          // ==========================================
-          // const minDistance = 1.0;  
-          // const maxDistance = 3.5;  
-          // const maxScale = 1.4;     // Medra un 40% máis como máximo
-          // const minScale = 1.0;    
+            <!-- 1. Cita sobre a Utopía (Fronte - Dereita)
+Ideal para colocar preto da sección de Legado ou Activismo. -->
 
 
-          // ==========================================
-          // PARÁMETROS AXUSTADOS Á NOVA ESCALA 1.45x
-          // ==========================================
-          const minDistance = 1.8;   // A menos de 1.8 metros queda ao máximo tamaño (non se pega á cara)
-          const maxDistance = 6.5;   // A 6.5 metros ou máis ten o seu tamaño normal
-          const maxScale = 1.45;     // O zoom máximo que querías (45% máis grande)
-          const minScale = 1.0;      // O tamaño base normal
+            <a-entity position="5 5.5 -8" rotation="0 -20 0">
+                <a-plane width="4" height="1.2" color="#00e5ff" opacity="0.05"></a-plane>
+                <a-plane width="0.04" height="1.2" color="#00e5ff" position="-1.98 0 0.01"></a-plane>
+                <a-text value="« A utopía non é un luxo:\né a única forma honesta de vivir o presente »"
+                    font="fonts/Nunito-SemiBold-msdf.json" align="center" width="3.5" color="#ffffff" negate="false"
+                    wrap-count="28"></a-text>
+            </a-entity>
+            <!-- 2. Cita sobre o Xornalismo (Esquerda - Diante)
+Colocada alta sobre a zona de Xornalismo. -->
 
 
-          let targetScale = minScale;
+            <a-entity position="-10 5.5 5" rotation="0 90 0">
+                <a-plane width="4" height="1.2" color="#00e5ff" opacity="0.05"></a-plane>
+                <a-plane width="0.04" height="1.2" color="#00e5ff" position="-1.98 0 0.01"></a-plane>
+                <a-text value="« O xornalismo ten que servir\npara cambiar as cousas »"
+                    font="fonts/Nunito-SemiBold-msdf.json" align="center" width="3.8" color="#ffffff" negate="false"
+                    wrap-count="25"></a-text>
+            </a-entity>
+            <!-- 3. Cita sobre Viaxar (Fronte - Esquerda)
+Unha frase moi persoal dela sobre o coñecemento. -->
 
-          if (distance <= minDistance) {
-            // Se estás pegado ou a menos de 1.2m, mantén a escala máxima
-            targetScale = maxScale;
-          } else if (distance < maxDistance) {
-            // Interpola o tamaño segundo a distancia para que medre suavemente
-            const ratio = (distance - minDistance) / (maxDistance - minDistance);
-            targetScale = maxScale - (ratio * (maxScale - minScale));
-          }
 
-          // Aplicamos o tamaño calculado
-          panel.object3D.scale.set(targetScale, targetScale, targetScale);
+            <a-entity position="-6 5.8 -7" rotation="0 15 0">
+                <a-plane width="3.5" height="1" color="#ff4d6d" opacity="0.05"></a-plane>
+                <a-plane width="0.04" height="1" color="#ff4d6d" position="-1.73 0 0.01"></a-plane>
+                <a-text value="« Viaxar é ler o mundo\nsen intermediarios »" font="fonts/Nunito-SemiBold-msdf.json"
+                    align="center" width="3.2" color="#ffffff" negate="false" wrap-count="22"></a-text>
+            </a-entity>
+            <!-- 4. Cita de Morgana en Esmelle (Dereita - Fondo)
+Sobre a resistencia e a ética. -->
+
+
+            <a-entity position="10 5.5 0" rotation="0 -90 0">
+                <a-plane width="4.2" height="1.4" color="#fbbf24" opacity="0.05"></a-plane>
+                <a-plane width="0.04" height="1.4" color="#fbbf24" position="-2.08 0 0.01"></a-plane>
+                <a-text value="« Non hai vitoria posible sen ética,\n nin derrota se se mantén a dignidade »"
+                    font="fonts/Nunito-SemiBold-msdf.json" align="center" width="3.6" color="#ffffff" negate="false"
+                    wrap-count="30"></a-text>
+            </a-entity>
+        </a-entity><!-- fin #museo -->
+
+    </a-scene>
+
+
+    <script>
+        /* ═══════════════════════════════════════════════════
+           COMPOÑENTE: zoom por proximidade
+           Escala os paneis cando te achega a eles
+           ═══════════════════════════════════════════════════ */
+        AFRAME.registerComponent('proximity-zoom', {
+            init: function () {
+                this.camera = document.querySelector('a-camera').object3D;
+                this.panels = Array.from(document.querySelectorAll('.area-clic')).map(el => el.parentElement);
+                this.camPos = new THREE.Vector3();
+                this.panelPos = new THREE.Vector3();
+            },
+            tick: function () {
+                if (!this.camera || this.panels.length === 0) return;
+                this.camera.getWorldPosition(this.camPos);
+                this.panels.forEach(panel => {
+                    if (!panel.object3D) return;
+                    panel.object3D.getWorldPosition(this.panelPos);
+                    const distance = this.camPos.distanceTo(this.panelPos);
+                    const minDistance = 1.4, maxDistance = 4.2;
+                    const maxScale = 1.85, minScale = 1.0;
+                    let targetScale = minScale;
+                    if (distance <= minDistance) {
+                        targetScale = maxScale;
+                    } else if (distance < maxDistance) {
+                        const ratio = (distance - minDistance) / (maxDistance - minDistance);
+                        targetScale = maxScale - ratio * (maxScale - minScale);
+                    }
+                    const current = panel.object3D.scale.x;
+                    const next = current + (targetScale - current) * 0.08;
+                    panel.object3D.scale.set(next, next, next);
+                });
+            }
         });
-      }
-    });
+
+        /* ═══════════════════════════════════════════════════
+           REFERENCIAS DOM
+           ═══════════════════════════════════════════════════ */
+        const scene = document.querySelector('a-scene');
+        const museo = document.querySelector('#museo');
+        const reticle = document.querySelector('#reticle');
+        const portadaEl = document.getElementById('portada');
+        const btnQuizSala = document.getElementById('btn-quiz-sala');
+        const portadaBg = document.getElementById('portada-bg');
+        const escalaPanel = document.getElementById('escala-distancias-panel');
+        const escalaSlider = document.getElementById('escala-distancias-slider');
+        const escalaValor = document.getElementById('escala-distancias-valor');
+
+        /* ═══════════════════════════════════════════════════
+           ESCALA DISTANCIAS (ferramenta de desenvolvemento)
+           ═══════════════════════════════════════════════════ */
+        const posicionesBaseMuseo = new Map();
+        let escalaDistancias = 1;
+
+        function prepararEscalaDistancias() {
+            posicionesBaseMuseo.clear();
+            Array.from(museo.children).forEach(panel => {
+                posicionesBaseMuseo.set(panel, panel.object3D.position.clone());
+            });
+        }
+        function aplicarEscalaDistancias(escala) {
+            if (!scene.hasLoaded) return;
+            if (!posicionesBaseMuseo.size) prepararEscalaDistancias();
+            posicionesBaseMuseo.forEach((base, panel) => {
+                panel.object3D.position.set(base.x * escala, base.y, base.z * escala);
+            });
+            escalaValor.textContent = escala.toFixed(2) + 'x';
+        }
+        function inicializarEscalaDistancias() {
+            prepararEscalaDistancias();
+            aplicarEscalaDistancias(escalaDistancias);
+        }
+        if (scene.hasLoaded) { inicializarEscalaDistancias(); }
+        else { scene.addEventListener('loaded', inicializarEscalaDistancias, { once: true }); }
+
+        escalaSlider.addEventListener('input', () => {
+            escalaDistancias = parseFloat(escalaSlider.value);
+            aplicarEscalaDistancias(escalaDistancias);
+        });
+
+        /* ═══════════════════════════════════════════════════
+           PRELOAD PORTADA
+           ═══════════════════════════════════════════════════ */
+        const preloadImg = new Image();
+        preloadImg.src = 'imax/begonha2.png';
+        preloadImg.onload = () => portadaBg.classList.add('lista');
+
+        /* ═══════════════════════════════════════════════════
+           AUDIO E VÍDEO
+           ═══════════════════════════════════════════════════ */
+        function toggleAudio() {
+            const s = document.querySelector('#sound-emitter');
+            if (!s?.components?.sound) return;
+            s.components.sound.isPlaying ? s.components.sound.stopSound() : s.components.sound.playSound();
+        }
+        function toggleVideo() {
+            const v = document.querySelector('#video-file');
+            if (!v) return;
+            v.paused ? v.play().catch(() => { }) : v.pause();
+        }
+
+        /* ═══════════════════════════════════════════════════
+           COLOCACIÓN DO MUSEO EN AR
+           O clic fóra dos overlays activos coloca o museo
+           na posición do reticle de hit-test
+           ═══════════════════════════════════════════════════ */
+        window.addEventListener('click', e => {
+            if (
+                e.target.closest('#quiz-panel') ||
+                e.target.closest('#escala-distancias-panel') ||
+                e.target.closest('#panel-overlay') ||
+                e.target.closest('#panel-backdrop') ||
+                document.getElementById('quiz-panel').classList.contains('activo')
+            ) return;
+
+            if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
+                const pos = new THREE.Vector3();
+                reticle.object3D.getWorldPosition(pos);
+                museo.object3D.position.copy(pos);
+                museo.setAttribute('visible', true);
+                reticle.setAttribute('visible', false);
+                document.querySelector('.portada-escolar').style.display = 'none';
+                btnQuizSala.style.display = 'block';
+                reticle.setAttribute('ar-hit-test', 'enabled: false');
+            }
+        });
+
+        scene.addEventListener('enter-vr', () => {
+            portadaEl.style.display = 'none';
+            if (!scene.is('ar-mode')) {
+                // Modo VR (gafas ou PC)
+                museo.setAttribute('visible', true);
+                btnQuizSala.style.display = 'block';
+            } else {
+                // Modo AR (móbil)
+                document.querySelector('.portada-escolar').style.display = 'block';
+                escalaPanel.style.display = 'block';
+            }
+        });
+
+        scene.addEventListener('exit-vr', () => {
+            resetearMuseo();
+            portadaEl.style.display = 'flex';
+            document.querySelector('.portada-escolar').style.display = 'none';
+            if (escalaPanel) escalaPanel.style.display = 'none';
+        });
+
+        /* ═══════════════════════════════════════════════════
+           RESETEAR MUSEO (ao saír de AR)
+           ═══════════════════════════════════════════════════ */
+        function resetearMuseo() {
+            museo.setAttribute('visible', false);
+            museo.object3D.position.set(0, 0, 0);
+            reticle.setAttribute('visible', true);
+            reticle.setAttribute('ar-hit-test', 'target:#museo');
+
+            const soundEmitter = document.getElementById('sound-emitter');
+            if (soundEmitter?.components?.sound?.isPlaying) soundEmitter.components.sound.stopSound();
+
+            const videoEl = document.querySelector('#video-file');
+            if (videoEl) { videoEl.pause(); videoEl.currentTime = 0; }
+
+            pecharQuiz();
+            pecharPanel();
+
+            escalaDistancias = 1;
+            if (escalaSlider) escalaSlider.value = '1';
+            aplicarEscalaDistancias(1);
+            if (btnQuizSala) btnQuizSala.style.display = 'none';
+        }
 
 
-    const scene = document.querySelector('a-scene');
-    const museo = document.querySelector('#museo');
-    const reticle = document.querySelector('#reticle');
-    const portadaEl = document.getElementById('portada');
-    const btnQuizSala = document.getElementById('btn-quiz-sala');
-    const portadaBg = document.getElementById('portada-bg');
-    const escalaPanel = document.getElementById('escala-distancias-panel');
-    const escalaSlider = document.getElementById('escala-distancias-slider');
-    const escalaValor = document.getElementById('escala-distancias-valor');
-    const posicionesBaseMuseo = new Map();
-    let escalaDistancias = 1;
 
 
-    function prepararEscalaDistancias() {
-      posicionesBaseMuseo.clear();
-      Array.from(museo.children).forEach((panel) => {
-        posicionesBaseMuseo.set(panel, panel.object3D.position.clone());
-      });
-    }
+        window.addEventListener('load', () => {
+            const scene = document.querySelector('a-scene');
+            if (scene.hasLoaded) {
+                hideLoader();
+            } else {
+                scene.addEventListener('loaded', hideLoader);
+            }
+        });
 
-    function aplicarEscalaDistancias(escala) {
-      if (!scene.hasLoaded) return;
-      if (!posicionesBaseMuseo.size) prepararEscalaDistancias();
-      posicionesBaseMuseo.forEach((base, panel) => {
-        panel.object3D.position.set(base.x * escala, base.y, base.z * escala);
-      });
-      escalaValor.textContent = escala.toFixed(2) + 'x';
-    }
-
-    function inicializarEscalaDistancias() {
-      prepararEscalaDistancias();
-      aplicarEscalaDistancias(escalaDistancias);
-    }
-
-    if (scene.hasLoaded) {
-      inicializarEscalaDistancias();
-    } else {
-      scene.addEventListener('loaded', inicializarEscalaDistancias, { once: true });
-    }
-
-    escalaSlider.addEventListener('input', () => {
-      escalaDistancias = parseFloat(escalaSlider.value);
-      aplicarEscalaDistancias(escalaDistancias);
-    });
-    //ANCORAR O MUSEO 
+        function hideLoader() {
+            const loader = document.getElementById('loader-wrapper');
+            // Damos un pequeno marxe de medio segundo para que a transición sexa elegante
+            setTimeout(() => {
+                loader.classList.add('loader-hidden');
+            }, 500);
+        }
+        /* ═══════════════════════════════════════════════════
+           QUIZ
+           ═══════════════════════════════════════════════════ */
+        // const QP = [
+        //     { p: "En que cidade naceu Begoña Caamaño?", ops: ["Vigo", "Santiago de Compostela", "A Coruña", "Pontevedra"], ok: 0, exp: "Naceu en Vigo no ano 1964." },
+        //     { p: "En que medio traballou como xornalista?", ops: ["TVG", "Radio Galega", "La Voz de Galicia", "El Correo Gallego"], ok: 1, exp: "Foi unha voz fundamental na Radio Galega." },
+        //     { p: "En que ano faleceu Begoña Caamaño?", ops: ["2010", "2012", "2014", "2016"], ok: 2, exp: "Faleceu en Santiago de Compostela en 2014." },
+        //     { p: "Cal é o título da súa novela de 2009?", ops: ["Morgana en Esmelle", "Circe ou o pracer do azul", "A illa das mulleres", "O libro das fadas"], ok: 1, exp: "'Circe ou o pracer do azul' publicouse en 2009." },
+        //     { p: "En que ano se publicou 'Morgana en Esmelle'?", ops: ["2008", "2010", "2012", "2014"], ok: 2, exp: "'Morgana en Esmelle' publicouse en 2012." },
+        //     { p: "Que temática atravesa a obra de Begoña Caamaño?", ops: ["A guerra civil española", "O feminismo e a reescritura de mitos", "A emigración galega", "A vida rural no século XIX"], ok: 1, exp: "O feminismo e a revisión dos mitos son o núcleo da súa obra." },
+        //     { p: "A que ano das Letras Galegas corresponde a súa homenaxe?", ops: ["2024", "2025", "2026", "2027"], ok: 2, exp: "O Día das Letras Galegas 2026 está dedicado a Begoña Caamaño." }
+        // ];
 
 
 
+        let QP_ACTIVO = [];
 
-    // Carga de imaxe de fondo
-    const preloadImg = new Image();
-    preloadImg.src = 'imax/begonha2.png';
-    preloadImg.onload = () => portadaBg.classList.add('lista');
+        function shuffleArray(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+        let quizDesdePortada = false;
+        // function abrirQuizDesdePortada() {
+        //     quizDesdePortada = true;
+        //     abrirQuiz();
+        // }
 
-    // Funcións de interacción cos paneis 3D
-    function toggle(id) {
-      const el = document.getElementById(id);
-      el.setAttribute('visible', !el.getAttribute('visible'));
-    }
+        function abrirQuizDesdePortada() {
+            quizDesdePortada = true;
 
-    function toggleAudio() {
-      const s = document.querySelector('#sound-emitter');
-      if (!s || !s.components || !s.components.sound) return;
-      if (s.components.sound.isPlaying) {
-        s.components.sound.stopSound();
-      } else {
-        s.components.sound.playSound(); // En A-Frame 1.4 isto xa xestiona internamente o contexto de audio interactivo
-      }
-    }
+            // 1. Ocultar portada de inicio
+            const portada = document.getElementById('portada');
+            if (portada) portada.style.display = 'none';
 
-    function toggleVideo() {
-      const v = document.querySelector('#video-file');
-      if (!v) return;
-      v.paused ? v.play().catch(() => { }) : v.pause();
-    }
+            // 2. Ocultar elementos AR do overlay, pero NON o quiz
+            const cabAr = document.querySelector('.portada-escolar');
+            if (cabAr) cabAr.style.display = 'none';
 
-    // Lóxica de colocación en AR
-    window.addEventListener('click', (e) => {
-      if (e.target.closest('#quiz-panel') || e.target.closest('#escala-distancias-panel') || document.getElementById('quiz-panel').classList.contains('activo')) return;
-      if (scene.is('ar-mode') && reticle.getAttribute('visible')) {
-        // CAMBIO: usa posición real do mundo, non local
-        const pos = new THREE.Vector3();
-        reticle.object3D.getWorldPosition(pos);
-        museo.object3D.position.copy(pos);
+            const escalaPanel = document.getElementById('escala-distancias-panel');
+            if (escalaPanel) escalaPanel.style.display = 'none';
 
-        museo.setAttribute('visible', true);
-        reticle.setAttribute('visible', false);
-        document.querySelector('.portada-escolar').style.display = 'none';
-        btnQuizSala.style.display = 'block';
-        document.querySelector('#reticle').setAttribute('ar-hit-test', 'enabled: false');
-      }
-    });
-  
+            // 3. Abrir o quiz normalmente
+            abrirQuiz();
+        }
 
-    scene.addEventListener('enter-vr', () => {
-      portadaEl.style.display = 'none';
-      if (!scene.is('ar-mode')) {
-        // Modo VR estándar (Gafas ou PC)
-        museo.setAttribute('visible', true);
-        btnQuizSala.style.display = 'block';
-      } else {
-        // Modo AR (Móbil)
-        document.querySelector('.portada-escolar').style.display = 'block';
-        escalaPanel.style.display = 'block';
-      }
-    });
+        
+        function abrirQuiz() {
+            // Se se abre dende portada, ocúltase a portada aquí
+            if (quizDesdePortada) {
+                const portada = document.getElementById('portada');
+                if (portada) portada.style.display = 'none';
+            }
 
-    scene.addEventListener('exit-vr', () => {
-      portadaEl.style.display = 'flex'; // Volver amosar a portada ao saír
-      btnQuizSala.style.display = 'none';
-      document.querySelector('.portada-escolar').style.display = 'none';
-      escalaPanel.style.display = 'none';
-    });
+            if (document.getElementById('quiz-panel').classList.contains('activo')) return;
 
-    /* ================= LÓXICA DO QUIZ ================= */
-    const QP = [
-      { p: "En que cidade naceu Begoña Caamaño?", ops: ["Vigo", "Santiago de Compostela", "A Coruña", "Pontevedra"], ok: 0, exp: "Naceu en Vigo no ano 1964." },
-      { p: "En que medio traballou como xornalista?", ops: ["TVG", "Radio Galega", "La Voz de Galicia", "El Correo Gallego"], ok: 1, exp: "Foi unha voz fundamental na Radio Galega." },
-      { p: "En que ano faleceu Begoña Caamaño?", ops: ["2010", "2012", "2014", "2016"], ok: 2, exp: "Faleceu en Santiago de Compostela en 2014." },
-      { p: "Cal é o título da súa novela de 2009?", ops: ["Morgana en Esmelle", "Circe ou o pracer do azul", "A illa das mulleres", "O libro das fadas"], ok: 1, exp: "'Circe ou o pracer do azul' publicouse en 2009." },
-      { p: "En que ano se publicou 'Morgana en Esmelle'?", ops: ["2008", "2010", "2012", "2014"], ok: 2, exp: "'Morgana en Esmelle' publicouse en 2012." },
-      { p: "Que temática atravesa a obra de Begoña Caamaño?", ops: ["A guerra civil española", "O feminismo e a reescritura de mitos", "A emigración galega", "A vida rural no século XIX"], ok: 1, exp: "O feminismo e a revisión dos mitos son o núcleo da súa obra." },
-      { p: "A que ano das Letras Galegas corresponde a súa homenaxe?", ops: ["2024", "2025", "2026", "2027"], ok: 2, exp: "O Día das Letras Galegas 2026 está dedicado a Begoña Caamaño." }
-    ];
+            document.getElementById('quiz-panel').classList.add('activo');
+            document.getElementById('quiz-backdrop').style.display = 'block';
+            document.getElementById('quiz-backdrop').style.pointerEvents = 'auto';
+            document.getElementById('q-resultado').style.display = 'none';
+            document.getElementById('q-xogo').style.display = 'block';
+            document.getElementById('q-nivel-selector').style.display = 'flex';
+            document.getElementById('q-xogo-contido').style.display = 'none';
+        }
 
-    let qIdx = 0, qPts = 0, qResp = false;
-    function abrirQuiz() {
-      if (document.getElementById('quiz-panel').classList.contains('activo')) return;
-      qIdx = 0; qPts = 0;
-      document.getElementById('quiz-panel').classList.add('activo');
-      document.getElementById('quiz-backdrop').style.display = 'block';
-      document.getElementById('quiz-backdrop').style.pointerEvents = 'auto';
-      document.getElementById('q-resultado').style.display = 'none';
-      document.getElementById('q-xogo').style.display = 'block';
-      qMostrar();
-    }
+        function qComezar(num) {
+            qIdx = 0; qPts = 0;
+            QP_ACTIVO = shuffleArray(QP).slice(0, num);
+            document.getElementById('q-nivel-selector').style.display = 'none';
+            document.getElementById('q-xogo-contido').style.display = 'block';
+            qMostrar();
+        }
 
-    function pecharQuiz() {
-      document.getElementById('quiz-panel').classList.remove('activo');
-      document.getElementById('quiz-backdrop').style.display = 'none';
-      document.getElementById('quiz-backdrop').style.pointerEvents = 'none';
-    }
+        function pecharQuiz() {
+            const panel = document.getElementById('quiz-panel');
+            const backdrop = document.getElementById('quiz-backdrop');
 
-    function qReiniciar() {
-      qIdx = 0; qPts = 0;
-      document.getElementById('q-resultado').style.display = 'none';
-      document.getElementById('q-xogo').style.display = 'block';
-      qMostrar();
-    }
+            panel.classList.remove('activo');
+            backdrop.style.display = 'none';
+            backdrop.style.pointerEvents = 'none';
 
-    function qMostrar() {
-      qResp = false;
-      const q = QP[qIdx], tot = QP.length;
-      // Actualizamos a barra para que amose o progreso real *despois* de responder a anterior
-      document.getElementById('q-barra').style.width = ((qIdx) / tot * 100) + '%';
-      document.getElementById('q-num').textContent = 'Pregunta ' + (qIdx + 1) + ' de ' + tot;
-      document.getElementById('q-preg').textContent = q.p;
-      document.getElementById('q-fb').textContent = '';
-      document.getElementById('q-fb').className = 'q-fb';
-      document.getElementById('q-btn-seg').style.display = 'none';
+            if (quizDesdePortada) {
+                const portada = document.getElementById('portada');
+                if (portada) portada.style.display = 'flex';  // ou o que uses
 
-      const ops = document.getElementById('q-ops');
-      ops.innerHTML = '';
-      q.ops.forEach((o, i) => {
-        const b = document.createElement('button');
-        b.className = 'opcion';
-        b.textContent = o;
-        b.onclick = () => qResponder(i);
-        ops.appendChild(b);
-      });
-    }
+                // Non activamos nada de AR aquí
+                quizDesdePortada = false;
+            }
+        }
+        function qReiniciar() {
+            document.getElementById('q-resultado').style.display = 'none';
+            document.getElementById('q-nivel-selector').style.display = 'flex';
+            document.getElementById('q-xogo-contido').style.display = 'none';
+            document.getElementById('q-xogo').style.display = 'block';
+        }
 
-    function qResponder(idx) {
-      if (qResp) return;
-      qResp = true;
-      const q = QP[qIdx];
-      const bts = document.querySelectorAll('.opcion');
-      bts.forEach(b => b.disabled = true);
-      const fb = document.getElementById('q-fb');
+        function qMostrar() {
+            qResp = false;
+            const q = QP_ACTIVO[qIdx], tot = QP_ACTIVO.length;
+            document.getElementById('q-barra').style.width = (qIdx / tot * 100) + '%';
+            document.getElementById('q-num').textContent = 'Pregunta ' + (qIdx + 1) + ' de ' + tot;
+            document.getElementById('q-preg').textContent = q.p;
+            document.getElementById('q-fb').textContent = '';
+            document.getElementById('q-fb').className = 'q-fb';
+            document.getElementById('q-btn-seg').style.display = 'none';
+            const ops = document.getElementById('q-ops');
+            ops.innerHTML = '';
+            const opsMix = shuffleArray(q.ops.map((o, i) => ({ texto: o, orixinal: i })));
+            const novoOk = opsMix.findIndex(o => o.orixinal === q.ok);
+            opsMix.forEach((o, i) => {
+                const b = document.createElement('button');
+                b.className = 'opcion'; b.textContent = o.texto;
+                b.onclick = () => qResponder(i, novoOk);
+                ops.appendChild(b);
+            });
+        }
 
-       if (idx === q.ok) {
-        qPts++;
-        bts[idx].classList.add('correcta');
-        fb.textContent = '✓ Correcto! ' + q.exp;
-      } else {
-        bts[idx].classList.add('incorrecta');
-        bts[q.ok].classList.add('correcta');
-        fb.textContent = '✗ Incorrecto. ' + q.exp;
-        fb.className = 'q-fb mal';
-      }
+        function qResponder(idx, ok) {
+            if (qResp) return;
+            qResp = true;
+            const q = QP_ACTIVO[qIdx];
+            const bts = document.querySelectorAll('.opcion');
+            bts.forEach(b => b.disabled = true);
+            const fb = document.getElementById('q-fb');
+            if (idx === ok) {
+                qPts++;
+                bts[idx].classList.add('correcta');
+                fb.textContent = '✓ Correcto! ' + q.exp;
+            } else {
+                bts[idx].classList.add('incorrecta');
+                bts[ok].classList.add('correcta');
+                fb.textContent = '✗ Incorrecto. ' + q.exp;
+                fb.className = 'q-fb mal';
+            }
+            const bs = document.getElementById('q-btn-seg');
+            bs.style.display = 'inline-block';
+            bs.textContent = qIdx >= QP_ACTIVO.length - 1 ? 'Ver resultado ✦' : 'Seguinte →';
+            document.getElementById('q-barra').style.width = ((qIdx + 1) / QP_ACTIVO.length * 100) + '%';
+        }
 
-      const bs = document.getElementById('q-btn-seg');
-      bs.style.display = 'inline-block';
-      bs.textContent = qIdx >= QP.length - 1 ? 'Ver resultado ✦' : 'Seguinte →';
+        function qSeguinte() { qIdx++; qIdx >= QP_ACTIVO.length ? qResultado() : qMostrar(); }
 
-      // Avanzar a barra un pouco ao responder
-      document.getElementById('q-barra').style.width = ((qIdx + 1) / QP.length * 100) + '%';
-    }
+        function qResultado() {
+            document.getElementById('q-xogo').style.display = 'none';
+            document.getElementById('q-barra').style.width = '100%';
+            document.getElementById('q-resultado').style.display = 'flex';
+            const tot = QP_ACTIVO.length, pct = Math.round(qPts / tot * 100);
+            document.getElementById('r-puntos').textContent = qPts + '/' + tot;
+            let lb, mg, st;
+            if (pct === 100) { lb = 'Perfecto!'; st = '★★★★★'; mg = 'Dominas o legado de Begoña Caamaño!'; }
+            else if (pct >= 71) { lb = 'Moi ben!'; st = '★★★★☆'; mg = 'Coñeces ben a vida e a obra desta escritora.'; }
+            else if (pct >= 43) { lb = 'Vai ben!'; st = '★★★☆☆'; mg = 'Explora os paneis do museo para completar.'; }
+            else { lb = 'Sigue aprendendo!'; st = '★★☆☆☆'; mg = 'Revisa os paneis e volve tentar.'; }
+            document.getElementById('r-label').textContent = lb;
+            document.getElementById('r-stars').textContent = st;
+            document.getElementById('r-msg').textContent = mg;
+        }
+        const QP = [
+            // ── BIOGRAFÍA E PENSAMENTO ──
+            {
+                p: "En que barrio de Vigo naceu Begoña Caamaño en 1964?",
+                ops: ["O Calvario", "Coia", "Bouzas", "O Castro"],
+                ok: 0,
+                exp: "Naceu no barrio do Calvario, en Vigo. Nos anos 70 trasladouse a Coia."
+            },
+            {
+                p: "Con que coñecida escritora tivo as súas primeiras clases de francés de nena?",
+                ops: ["Xela Arias", "María Mariño", "María Xosé Queizán", "Luísa Villalta"],
+                ok: 2,
+                exp: "As súas primeiras clases de francés foron con María Xosé Queizán, escritora e activista feminista."
+            },
+            {
+                p: "Que autor clásico lía de nena, no cal botaba en falta referentes femininos activos?",
+                ops: ["Virxilio", "Homero", "Ovidio", "Sófocles"],
+                ok: 1,
+                exp: "Descubriu a Homero de pequena, e a ausencia de roles femininos independentes foi o motor da súa futura escrita."
+            },
+            {
+                p: "Para Begoña Caamaño, que significaba a acción de «viaxar»?",
+                ops: ["Fuxir da realidade", "Ler o mundo sen intermediarios", "Atopar inspiración para a ficción", "Descansar do xornalismo"],
+                ok: 1,
+                exp: "Cita textual da autora: «Viaxar é ler o mundo sen intermediarios»."
+            },
 
-    function qSeguinte() {
-      qIdx++;
-      qIdx >= QP.length ? qResultado() : qMostrar();
-    }
+            // ── XORNALISMO E ACTIVISMO ──
+            {
+                p: "En que medio traballou como xornalista durante máis de 25 anos?",
+                ops: ["TVG", "Radio Galega", "La Voz de Galicia", "El Correo Gallego"],
+                ok: 1,
+                exp: "Foi unha voz fundamental na Radio Galega desde 1989 ata 2014."
+            },
+            {
+                p: "Cal destes programas da Radio Galega NON foi dirixido por Begoña Caamaño?",
+                ops: ["Diario Cultural", "Andando a Terra", "Expreso de Medianoite", "Lume na Palleira"],
+                ok: 3,
+                exp: "Dirixiu 'Diario Cultural', 'Andando a Terra', 'Club Cultura' e 'Expreso de Medianoite'."
+            },
+            {
+                p: "Que cargo de defensa dos traballadores ocupou na CRTVG entre 2000 e 2003?",
+                ops: ["Directora de informativos", "Presidenta do Comité Interempresas", "Voceira do Sindicato de Xornalistas", "Xefa de redacción"],
+                ok: 1,
+                exp: "Foi Presidenta do Comité Interempresas da CRTVG, loitando contra a manipulación informativa nos medios públicos."
+            },
+            {
+                p: "Segundo a propia Begoña, para que ten que servir o xornalismo?",
+                ops: ["Para informar con obxectividade neutral", "Para cambiar as cousas", "Para entreter ás masas", "Para dar voz aos políticos"],
+                ok: 1,
+                exp: "«O xornalismo ten que servir para cambiar as cousas, non para contalas só»."
+            },
+            {
+                p: "Que organización clave para as mulleres nos medios cofundou en 1997?",
+                ops: ["Mulheres Nacionalistas", "Rede Feminista Galega", "MUGACOM", "Feministas Independentes"],
+                ok: 2,
+                exp: "Foi cofundadora de MUGACOM (Mulleres Galegas na Comunicación) no ano 1997."
+            },
+            {
+                p: "En que cidades representou ás mulleres galegas na Marcha Mundial das Mulleres?",
+                ops: ["París e Xenebra", "Nova York e Londres", "Bruxelas e Montreal", "Berlín e Roma"],
+                ok: 2,
+                exp: "Representou a Galicia na Marcha Mundial en Bruxelas (2000) e Montreal (2001)."
+            },
 
-    function qResultado() {
-      document.getElementById('q-xogo').style.display = 'none';
-      document.getElementById('q-barra').style.width = '100%';
-      document.getElementById('q-resultado').style.display = 'flex';
+            // ── LITERATURA: CIRCE E MORGANA ──
+            {
+                p: "A que idade publicou a súa primeira novela, 'Circe ou o pracer do azul'?",
+                ops: ["Aos 25 anos", "Aos 35 anos", "Aos 45 anos", "Aos 50 anos"],
+                ok: 2,
+                exp: "Publicouna no ano 2009, cando Begoña tiña 45 anos, cunha voz xa plenamente madura."
+            },
+            {
+                p: "Que dúas mulleres establecen un diálogo epistolar na novela 'Circe'?",
+                ops: ["Ariadna e Helena", "Medea e Antígona", "Penélope e Circe", "Nausícaa e Calipso"],
+                ok: 2,
+                exp: "Penélope e Circe, tradicionalmente rivais na Odisea, inician unha correspondencia chea de sororidade."
+            },
+            {
+                p: "«A muller dona do seu desexo e do seu propio corpo» é o lema central de que obra?",
+                ops: ["Morgana en Esmelle", "O Libro das Amigas", "Circe ou o pracer do azul", "Mitoloxías disidentes"],
+                ok: 2,
+                exp: "É a idea central que atravesa a súa primeira novela, 'Circe ou o pracer do azul'."
+            },
+            {
+                p: "Con que tradición literaria europea dialoga a súa novela 'Morgana en Esmelle'?",
+                ops: ["Mitoloxía celta", "Materia de Bretaña (ciclo artúrico)", "Mitoloxía grega", "Contos populares galegos"],
+                ok: 1,
+                exp: "Revisita a Materia de Bretaña e as lendas do Rei Artur poñendo o foco na fada Morgana."
+            },
+            {
+                p: "Que grandes tensións humanas e políticas explora 'Morgana en Esmelle'?",
+                ops: ["Relixión e ciencia", "Poder, ética, utopía e pragmatismo", "Amor romántico e desamor", "Pobreza e loita de clases"],
+                ok: 1,
+                exp: "Explora as tensións entre o poder, a ética e a necesidade da utopía no presente."
+            },
+            {
+                p: "Que prestixiosos premios recibiu 'Morgana en Esmelle' tras a súa publicación en 2012?",
+                ops: ["Premio Xerais e Jules Verne", "Premio Ánxel Casal, AELG e Premio da Crítica", "Premio Nacional de Literatura", "Premio Otero Pedrayo"],
+                ok: 1,
+                exp: "Recibiu o Ánxel Casal, o da AELG á mellor narrativa, o Premio da Crítica e o Losada Diéguez."
+            },
+            {
+                p: "Como completa Caamaño a frase: «A utopía non é un luxo...»?",
+                ops: ["é un soño inalcanzable", "é a única forma honesta de vivir o presente", "é o destino da humanidade", "é unha perda de tempo"],
+                ok: 1,
+                exp: "Na súa visión, a utopía non é un luxo: «é a única forma honesta de vivir o presente»."
+            },
 
-      const tot = QP.length, pct = Math.round(qPts / tot * 100);
-      document.getElementById('r-puntos').textContent = qPts + '/' + tot;
+            // ── LITERATURA: OBRAS INÉDITAS E LEGADO ──
+            {
+                p: "Que concepto engloba o núcleo central da obra narrativa de Begoña?",
+                ops: ["A novela histórica", "A reescritura feminista dos mitos", "O costumismo galego contemporáneo", "A ciencia ficción distópica"],
+                ok: 1,
+                exp: "A súa obra caracterízase por reescribir os grandes mitos (gregos, artúricos) dende a óptica das mulleres."
+            },
+            {
+                p: "Como se ía titular a triloxía que a súa morte prematura lle impediu rematar?",
+                ops: ["Lendas de Mulleres", "Mitoloxías disidentes", "Contos de Esmelle", "As voces silenciadas"],
+                ok: 1,
+                exp: "A súa ambiciosa obra proxectada íase chamar 'Triloxía das Mitoloxías disidentes'."
+            },
+            {
+                p: "Sobre que famosa personaxe tiña proxectado escribir unha das súas seguintes novelas?",
+                ops: ["Medea", "Helena de Troia", "Sherezade", "Xoana de Arco"],
+                ok: 2,
+                exp: "Os seus proxectos inéditos incluían historias sobre a contadora de contos Sherezade e sobre a súa propia bisavoa."
+            },
+            {
+                p: "A que idade faleceu Begoña Caamaño o 27 de outubro de 2014?",
+                ops: ["Aos 45 anos", "Aos 50 anos", "Aos 55 anos", "Aos 60 anos"],
+                ok: 1,
+                exp: "Faleceu debido a un cancro de páncreas en Santiago de Compostela, con só 50 anos."
+            },
+            {
+                p: "Que libro colectivo se publicou en 2015 para honrar a súa memoria?",
+                ops: ["O Libro das Amigas", "Mulleres con Begoña", "Cartas a Esmelle", "Begoñísima"],
+                ok: 0,
+                exp: "Publicouse 'O Libro das Amigas', xunto coa celebración da homenaxe 'Begoñísima'."
+            },
+            {
+                p: "A académica Ana Romaní definiu a Begoña Caamaño como: «Definitivamente utópica...»",
+                ops: ["terriblemente soñadora", "profundamente galega", "radicalmente vital", "eternamente xornalista"],
+                ok: 2,
+                exp: "«Definitivamente utópica, radicalmente vital», unha das citas que mellor a resume."
+            },
+            {
+                p: "Con que coñecida cantante galega colaborou para a canción 'Rosalía pequeniña'?",
+                ops: ["Guadi Galego", "Uxía", "Mercedes Peón", "Sés"],
+                ok: 1,
+                exp: "Colaborou con Uxía na canción 'Rosalía pequeniña', ademais de participar no proxecto 'María Fumaça'."
+            },
 
-      let lb, mg, st;
-      if (pct === 100) { lb = 'Excelente!'; st = '★★★★★'; mg = 'Dominas o legado de Begoña Caamaño. Parabéns!'; }
-      else if (pct >= 71) { lb = 'Moi ben!'; st = '★★★★☆'; mg = 'Coñeces ben a vida e a obra desta escritora fundamental.'; }
-      else if (pct >= 43) { lb = 'Vai ben!'; st = '★★★☆☆'; mg = 'Tes boa base. Explora os paneis do museo para completar.'; }
-      else { lb = 'Sigue aprendendo!'; st = '★★☆☆☆'; mg = 'Revisa os paneis da sala e volve tentar. Begoña merece máis tempo.'; }
+            // ── LETRAS GALEGAS E OUTRAS MULLERES ──
+            {
+                p: "Que número fai Begoña na lista de mulleres homenaxeadas nas Letras Galegas?",
+                ops: ["A quinta", "A sexta", "A oitava", "A décima"],
+                ok: 2,
+                exp: "É a oitava muller homenaxeada na historia do certame dende a súa creación en 1963."
+            },
+            {
+                p: "Cantas mulleres en total foron homenaxeadas antes do ano de Begoña (2026)?",
+                ops: ["5", "7", "9", "12"],
+                ok: 1,
+                exp: "Foron 7: Rosalía, Herrera Garrido, María Mariño, Mª Victoria Moreno, Xela Arias, Luísa Villalta e As Cantareiras."
+            },
+            {
+                p: "Quen foi a primeira muller en ser homenaxeada no Día das Letras Galegas (1963)?",
+                ops: ["Francisca Herrera Garrido", "Rosalía de Castro", "María Mariño", "Xela Arias"],
+                ok: 1,
+                exp: "O certame inaugurouse en 1963 dedicándollo a Rosalía de Castro e á publicación de Cantares Gallegos."
+            },
+            {
+                p: "Quen foi a primeira muller académica da RAG, homenaxeada no ano 1987?",
+                ops: ["Luísa Villalta", "Mª Victoria Moreno", "María Mariño", "Francisca Herrera Garrido"],
+                ok: 3,
+                exp: "Francisca Herrera Garrido foi narradora, poeta e a primeira muller na Real Academia Galega."
+            },
+            {
+                p: "Que poeta de vangarda, autora de 'Palabra no Tempo', foi homenaxeada en 2007?",
+                ops: ["Xela Arias", "María Mariño", "Luísa Villalta", "Mª Victoria Moreno"],
+                ok: 1,
+                exp: "María Mariño, poeta marcada polo exilio interior en Galicia, foi a protagonista no 2007."
+            },
+            {
+                p: "Que escritora cacereña, pioneira na literatura infantil galega, tivo o seu Día en 2018?",
+                ops: ["Mª Victoria Moreno", "Xela Arias", "Francisca Herrera", "Luísa Villalta"],
+                ok: 0,
+                exp: "Mª Victoria Moreno, nada en Estremadura pero galega de adopción, foi a elixida en 2018."
+            },
+            {
+                p: "A que poeta e tradutora luguesa, de escrita rupturista, se lle dedicou o ano 2021?",
+                ops: ["María Mariño", "Luísa Villalta", "Xela Arias", "Begoña Caamaño"],
+                ok: 2,
+                exp: "Xela Arias foi a protagonista das Letras Galegas 2021."
+            },
+            {
+                p: "A quen correspondeu a primeira homenaxe colectiva feminina da historia do certame en 2025?",
+                ops: ["As Redeiras", "As Cantareiras", "As Batareiras", "As Pandereteiras"],
+                ok: 1,
+                exp: "En 2025 homenaxeouse á figura d'As Cantareiras, gardiás da tradición oral e musical de Galicia."
+            }
+        ];
+        // let qIdx = 0, qPts = 0, qResp = false;
 
-      document.getElementById('r-label').textContent = lb;
-      document.getElementById('r-stars').textContent = st;
-      document.getElementById('r-msg').textContent = mg;
-    }
+        // function abrirQuiz() {
+        //     if (document.getElementById('quiz-panel').classList.contains('activo')) return;
+        //     qIdx = 0; qPts = 0;
+        //     document.getElementById('quiz-panel').classList.add('activo');
+        //     document.getElementById('quiz-backdrop').style.display = 'block';
+        //     document.getElementById('quiz-backdrop').style.pointerEvents = 'auto';
+        //     document.getElementById('q-resultado').style.display = 'none';
+        //     document.getElementById('q-xogo').style.display = 'block';
+        //     qMostrar();
+        // }
+        // function pecharQuiz() {
+        //     document.getElementById('quiz-panel').classList.remove('activo');
+        //     document.getElementById('quiz-backdrop').style.display = 'none';
+        //     document.getElementById('quiz-backdrop').style.pointerEvents = 'none';
+        // }
+        // function qReiniciar() {
+        //     qIdx = 0; qPts = 0;
+        //     document.getElementById('q-resultado').style.display = 'none';
+        //     document.getElementById('q-xogo').style.display = 'block';
+        //     qMostrar();
+        // }
+        // function qMostrar() {
+        //     qResp = false;
+        //     const q = QP[qIdx], tot = QP.length;
+        //     document.getElementById('q-barra').style.width = (qIdx / tot * 100) + '%';
+        //     document.getElementById('q-num').textContent = 'Pregunta ' + (qIdx + 1) + ' de ' + tot;
+        //     document.getElementById('q-preg').textContent = q.p;
+        //     document.getElementById('q-fb').textContent = '';
+        //     document.getElementById('q-fb').className = 'q-fb';
+        //     document.getElementById('q-btn-seg').style.display = 'none';
+        //     const ops = document.getElementById('q-ops');
+        //     ops.innerHTML = '';
+        //     q.ops.forEach((o, i) => {
+        //         const b = document.createElement('button');
+        //         b.className = 'opcion'; b.textContent = o;
+        //         b.onclick = () => qResponder(i);
+        //         ops.appendChild(b);
+        //     });
+        // }
+        // function qResponder(idx) {
+        //     if (qResp) return;
+        //     qResp = true;
+        //     const q = QP[qIdx];
+        //     const bts = document.querySelectorAll('.opcion');
+        //     bts.forEach(b => b.disabled = true);
+        //     const fb = document.getElementById('q-fb');
+        //     if (idx === q.ok) {
+        //         qPts++;
+        //         bts[idx].classList.add('correcta');
+        //         fb.textContent = '✓ Correcto! ' + q.exp;
+        //     } else {
+        //         bts[idx].classList.add('incorrecta');
+        //         bts[q.ok].classList.add('correcta');
+        //         fb.textContent = '✗ Incorrecto. ' + q.exp;
+        //         fb.className = 'q-fb mal';
+        //     }
+        //     const bs = document.getElementById('q-btn-seg');
+        //     bs.style.display = 'inline-block';
+        //     bs.textContent = qIdx >= QP.length - 1 ? 'Ver resultado ✦' : 'Seguinte →';
+        //     document.getElementById('q-barra').style.width = ((qIdx + 1) / QP.length * 100) + '%';
+        // }
+        // function qSeguinte() { qIdx++; qIdx >= QP.length ? qResultado() : qMostrar(); }
+        // function qResultado() {
+        //     document.getElementById('q-xogo').style.display = 'none';
+        //     document.getElementById('q-barra').style.width = '100%';
+        //     document.getElementById('q-resultado').style.display = 'flex';
+        //     const tot = QP.length, pct = Math.round(qPts / tot * 100);
+        //     document.getElementById('r-puntos').textContent = qPts + '/' + tot;
+        //     let lb, mg, st;
+        //     if (pct === 100) { lb = 'Excelente!'; st = '★★★★★'; mg = 'Dominas o legado de Begoña Caamaño. Parabéns!'; }
+        //     else if (pct >= 71) { lb = 'Moi ben!'; st = '★★★★☆'; mg = 'Coñeces ben a vida e a obra desta escritora fundamental.'; }
+        //     else if (pct >= 43) { lb = 'Vai ben!'; st = '★★★☆☆'; mg = 'Tes boa base. Explora os paneis do museo para completar.'; }
+        //     else { lb = 'Sigue aprendendo!'; st = '★★☆☆☆'; mg = 'Revisa os paneis da sala e volve tentar. Begoña merece máis tempo.'; }
+        //     document.getElementById('r-label').textContent = lb;
+        //     document.getElementById('r-stars').textContent = st;
+        //     document.getElementById('r-msg').textContent = mg;
+        // }
 
-  </script>
+        /* ═══════════════════════════════════════════════════
+           PANEIS INFORMATIVOS 2D
+           Para editar contidos: modifica PANEL_CONTIDOS
+           ═══════════════════════════════════════════════════ */
+        const PANEL_CONTIDOS = {
+
+            // SECCIÓN 1 — QUEN FOI?
+            info1: {
+                titulo: 'BEGOÑA CAAMAÑO (VIGO, 1964 – SANTIAGO, 2014)',
+                corpo: `
+      <p>Naceu o <b>14 de outubro de 1964</b> no barrio do <b>Calvario, en Vigo</b>. Segunda de catro irmáns (Roberto, Beatriz e Javier), medrou nun ambiente de xogos, lecturas e hortas que marcaría para sempre a súa maneira de entender o mundo.</p>
+      <p style="margin-top:10px">Nos anos 70 trasladouse ao barrio de <b>Coia</b>, onde xa participou en mobilizacións veciñais sendo adolescente. Estudou EXB no Colexio Amor de Dios, BUP no Instituto Coia 2 e Maxisterio na CEU. As súas primeiras clases de francés foron con <b>María Xosé Queizán</b>.</p>
+      <p style="margin-top:10px">Lectora voraz dende moi nova, descubriu a Homero sendo pequena pero botou en falta referentes femininos. Esa ausencia convertéuse no motor da súa escrita: <b>reescribir os mitos clásicos dando protagonismo ás mulleres</b>.</p>
+      <p style="margin-top:10px; color:#ffc978; font-weight:700">Faleceu o 27 de outubro de 2014, aos 50 anos, por cancro de páncreas. Homenaxeada no <b>Día das Letras Galegas 2026</b>.</p>
+    `
+            },
+
+            // SECCIÓN 2 — XORNALISMO E ACTIVISMO
+            info2: {
+                titulo: 'XORNALISTA, ACTIVISTA E VOZ COMPROMETIDA',
+                corpo: `
+      <p><b style="color:#00e5ff">🎙️ Traxectoria xornalística</b></p>
+      <p>Comezou en <b>Radio Noroeste</b> (1986), pasou pola <b>Cadena COPE</b> (1988-89) e incorporouse á <b>Radio Galega</b> en 1989, onde traballou ata 2014. Primeiro en Vigo, logo en Santiago de Compostela.</p>
+      <p style="margin-top:8px">Programas que dirixiu: <b>Diario Cultural · Andando a Terra · Club Cultura · Expreso de Medianoite</b>. Colaborou en <i>A Nosa Terra</i>, <i>Tempos Novos</i> e a Axencia Galega de Noticias.</p>
+      <p style="margin-top:10px"><b style="color:#ff4d6d">✊ Activismo feminista</b></p>
+      <p>Representante da <b>Marcha Mundial das Mulleres</b> en Bruxelas (2000) e Montreal (2001). Cofundadora de <b>MUGACOM</b> (Mulleres Galegas na Comunicación, 1997). Membro de Mulheres Nacionalistas Galegas e da Rede Feminista.</p>
+      <p style="margin-top:10px"><b style="color:#acd4ee">🌍 Outros compromisos</b></p>
+      <p>Antimilitarismo (revista <i>Ar!</i>), defensa da lingua galega, loita contra o <b>Prestige</b> (2002), soberanismo (BNG), plurilingüismo. Viaxou a Cuba, Senegal, Nicaragua e Chiapas: <i>"Viaxar é ler o mundo sen intermediarios"</i>.</p>
+      <p style="margin-top:8px">Presidenta do <b>Comité Interempresas da CRTVG</b> (2000-2003) contra a manipulación informativa nos medios públicos.</p>
+        <p>Imaxe: Ilustración de Nuria Díaz para o álbum ilustrado 'Os fíos de Begoña', editado por Xerais © Nuria Díaz</p>`
+
+            },
+
+            // SECCIÓN 3 — OBRAS FUNDAMENTAIS
+            info3: {
+                titulo: 'OBRAS: A REESCRITURA FEMINISTA DOS MITOS',
+                corpo: `
+      <p><b style="color:#ffc1cc">📖 Circe ou o pracer do azul</b> <span style="color:#acd4ee">(Galaxia, 2009)</span></p>
+      <p>Primeira novela, publicada aos 45 anos. Reinterpretación feminista da <b>Odisea</b> de Homero: Penélope e Circe —dúas rivais segundo a tradición— establecen un <b>diálogo epistolar de sororidade</b>. Cuestiona os relatos heroicos masculinos e reivindica o desexo e a autonomía das mulleres.</p>
+      <p style="margin-top:10px"><b style="color:#ffc1cc">📖 Morgana en Esmelle</b> <span style="color:#acd4ee">(Galaxia, 2012)</span></p>
+      <p>Revisita a <b>Materia de Bretaña</b> centrándose en Morgana. Explora as tensións entre poder e ética, utopía e pragmatismo. <b>Gran éxito de crítica e público.</b></p>
+      <p style="margin-top:8px; color:#00e664">
+        🏆 Premio Ánxel Casal 2012<br>
+        🏆 Premio AELG mellor narrativa 2012<br>
+        🏆 Premio da Crítica 2012<br>
+        🏆 Premio Losada Diéguez 2013
+      </p>
+      <p style="margin-top:10px; color:#ffc978"><b>Proxectos inéditos:</b> estaba a preparar una triloxía de mitoloxías disidentes: Sherezade e a vida da súa bisavoa.</p>
+    `
+            },
+
+            // SECCIÓN 4 — LETRAS GALEGAS: CRONOLOXÍA E MULLERES
+            info4: {
+                titulo: 'LETRAS GALEGAS: MULLERES HOMENAXEADAS',
+                corpo: `
+      <p style="color:#acd4ee; font-size:0.85rem; margin-bottom:10px">Desde 1963, <b>só 8 mulleres</b> foron homenaxeadas fronte a máis de 55 homes. Un reflexo das desigualdades históricas na literatura galega.</p>
+
+      <p><span style="color:#ff4d6d; font-weight:700">1963 — Rosalía de Castro</span><br>
+      <span style="font-size:0.88rem">A primeira. Poeta universal, voz da Galicia do XIX. <i>Cantares Gallegos</i> (1863) deu orixe ao propio Día das Letras.</span></p>
+
+      <p style="margin-top:8px"><span style="color:#ff4d6d; font-weight:700">1987 — Francisca Herrera Garrido</span><br>
+      <span style="font-size:0.88rem">Primeira muller académica da RAG. Narradora e poeta nos comezos do século XX.</span></p>
+
+      <p style="margin-top:8px"><span style="color:#ff4d6d; font-weight:700">2007 — María Mariño</span><br>
+      <span style="font-size:0.88rem">Poetisa de vangarda, autora de <i>Palabra no Tempo</i>. Vida marcada pola escuridade e o exilio interior.</span></p>
+
+      <p style="margin-top:8px"><span style="color:#ff4d6d; font-weight:700">2018 — María Victoria Moreno</span><br>
+      <span style="font-size:0.88rem">Mestra e escritora cacereña que fixo de Galicia a súa patria. Pioneira na literatura infantil e xuvenil en galego.</span></p>
+
+      <p style="margin-top:8px"><span style="color:#ff4d6d; font-weight:700">2021 — Xela Arias</span><br>
+      <span style="font-size:0.88rem">Poeta luguesa de escrita rupturista e voz reivindicativa. Faleceu con só 41 anos en 2003.</span></p>
+
+      <p style="margin-top:8px"><span style="color:#ff4d6d; font-weight:700">2024 — Luísa Villalta</span><br>
+      <span style="font-size:0.88rem">Violinista e poeta coruñesa. Profesora de Lingua Galega, faleceu en 2004 con 46 anos.</span></p>
+
+      <p style="margin-top:8px"><span style="color:#ff4d6d; font-weight:700">2025 — As Cantareiras</span><br>
+      <span style="font-size:0.88rem">Primeira homenaxe colectiva a mulleres. Representantes da tradición oral e musical galega.</span></p>
+
+      <p style="margin-top:8px"><span style="color:#ff4d6d; font-weight:700">2026 — Begoña Caamaño ★</span><br>
+      <span style="font-size:0.88rem">Xornalista, escritora e activista. A oitava muller homenaxeada. <i>"Definitivamente utópica, radicalmente vital."</i></span></p>
+    `
+            },
+
+            // ANACOS DE OBRAS
+            //         infoAnaco1: {
+            //             titulo: 'CIRCE OU O PRACER DO AZUL (2009)',
+            //             corpo: `
+            //   <p style="color:#acd4ee; font-style:italic; font-size:0.92rem; line-height:1.6; margin-bottom:12px">"A muller dona do seu desexo e do seu propio corpo."</p>
+            //   <p>Nesta novela, <b>Penélope escríbelle cartas a Circe</b> rompendo o relato homérico que as presenta como rivais. Entre elas nace un vínculo de sororidade, amizade e complicidade que subverte a tradición.</p>
+            //   <p style="margin-top:10px">Caamaño pregúntase: <i>"E se o que conta Homero non foi verdade?"</i> Deste xeito converte a mitoloxía nunha ferramenta de <b>crítica feminista e emancipación</b>.</p>
+            //   <p style="margin-top:10px; color:#ffc978">📚 Editorial Galaxia, 2009. Primeira novela publicada aos 45 anos.</p>
+            // `
+            //         },
+
+            //         infoAnaco2: {
+            //             titulo: 'MORGANA EN ESMELLE (2012)',
+            //             corpo: `
+            //   <p style="color:#acd4ee; font-style:italic; font-size:0.92rem; line-height:1.6; margin-bottom:12px">"A utopía non é un luxo, é unha necesidade."</p>
+            //   <p><b>Morgana</b>, a feiticeira artúrica que a tradición pintou como villá, convértese aquí en protagonista complexa. A novela sitúase en <b>Esmelle</b> (Ferrol) e explora as tensións entre <b>poder e ética, idealismo e pragmatismo</b>.</p>
+            //   <p style="margin-top:10px">A Materia de Bretaña reinterpretada para falar do presente: a comunidade como espazo de resistencia, as mulleres como suxeitos políticos.</p>
+            //   <p style="margin-top:10px; color:#00e664">
+            //     🏆 Premio Ánxel Casal · Premio AELG · Premio da Crítica · Premio Losada Diéguez
+            //   </p>
+            // `
+            //         },
+            infoAnaco1: {
+                titulo: 'CIRCE · FRAGMENTO E CONTEXTO',
+                corpo: `
+        <p style="font-style:italic; color:#acd4ee; font-size:0.92rem; line-height:1.65; margin-bottom:12px">"Querida Penélope: non entendo por que seguimos sendo inimigas nos relatos dos homes. Ti agardas, eu encanto. Pero as dúas, ao final, facemos o mesmo: sobrevivir."</p>
+        <p style="font-size:0.88rem; color:#e7f0fb">Caamaño imaxina a correspondencia que nunca existiu entre dúas das grandes figuras femininas da <i>Odisea</i>. A través das cartas, as dúas mulleres descóbrense como aliadas, non como rivais.</p>
+        <p style="margin-top:10px; font-size:0.85rem; color:#ffc978">O libro propón que os mitos non son verdades inmutables: son relatos que alguén escribiu, e que outras poden reescribir.</p>
+    `
+            },
+
+            infoAnaco2: {
+                titulo: 'MORGANA · FRAGMENTO E CONTEXTO',
+                corpo: `
+        <p style="font-style:italic; color:#acd4ee; font-size:0.92rem; line-height:1.65; margin-bottom:12px">"Sempre me chamaron breixa, fada, traidora. Pero eu só fixen o que fixo Artur: querer un mundo xusto. A diferenza é que a min non me puxeron nunha lenda de heroe."</p>
+        <p style="font-size:0.88rem; color:#e7f0fb">Morgana en Esmelle sitúa a feiticeira artúrica nun lugar real de Galicia. Alí, entre mulleres dunha comunidade, constrúe un espazo de reflexión sobre o poder, a traizón e a esperanza.</p>
+        <p style="margin-top:10px; font-size:0.85rem; color:#ffc978">A novela máis premiada de Caamaño demostra que a épica tamén pode ser feminista, local e fondamente contemporánea.</p>
+    `
+            },
+
+            infoAnaco3: {
+                titulo: 'O XORNALISMO COMO COMPROMISO',
+                corpo: `
+      <p>Para Begoña Caamaño, o xornalismo nunca foi só un traballo: foi un <b>acto político e ético</b>.</p>
+      <p style="margin-top:10px">Na <b>Radio Galega</b> (1989-2014) deu voz a movementos obreiros, folgas, a reconversión naval e os grandes debates culturais de Galicia. O seu programa <i>Andando a Terra</i> viaxaba polas culturas do mundo.</p>
+      <p style="margin-top:10px; color:#acd4ee; font-style:italic">"O xornalismo ten que servir para cambiar as cousas, non para contalas só."</p>
+      <p style="margin-top:10px">Colaborou con <b>Uxía</b> na canción <i>Rosalía pequeniña</i> e con <b>María Fumaça</b>, demostrando que a súa creatividade ía máis aló das palabras.</p>
+    `
+            },
+
+            infoAnaco4: {
+                titulo: 'A TRILOXÍA DAS MITOLOXÍAS DISIDENTES',
+                corpo: `
+      <p>Begoña Caamaño tiña un proxecto literario ambicioso: unha <b>triloxía de mitoloxías disidentes</b> que reescribise os grandes relatos da humanidade desde as mulleres.</p>
+      <p style="margin-top:10px">
+        <b style="color:#ffc1cc">Publicadas:</b><br>
+        📖 <i>Circe ou o pracer do azul</i> (2009)<br>
+        📖 <i>Morgana en Esmelle</i> (2012)
+      </p>
+      <p style="margin-top:10px">
+        <b style="color:#acd4ee">Proxectadas (inéditas):</b><br>
+        ✍️ Novela sobre <b>Sherezade</b><br>
+        ✍️ Novela sobre a <b>vida da súa bisavoa</b>
+      </p>
+      <p style="margin-top:10px; color:#ffc978; font-style:italic">A morte prematura en 2014 deixou incompleto este proxecto que prometía redefinir a narrativa galega contemporánea.</p>
+    `
+            },
+
+            infoAnaco5: {
+                titulo: 'HOMENAXE E LEGADO (2014–2026)',
+                corpo: `
+      <p>Begoña Caamaño faleceu o <b>27 de outubro de 2014</b> en Santiago de Compostela, con só <b>50 anos</b>.</p>
+      <p style="margin-top:10px">A súa perda foi sentida colectivamente. En <b>2015</b> celebrouse a homenaxe <i>"Begoñísima"</i> e publicouse <b>O Libro das Amigas</b>, un volume colectivo con testemuños e textos en honra á súa memoria.</p>
+      <p style="margin-top:10px">A <b>Real Academia Galega</b> designouna homenaxeada do <b>Día das Letras Galegas 2026</b>, recoñecendo que a súa voz —na literatura, no xornalismo e no activismo— foi e segue sendo imprescindible.</p>
+      <p style="margin-top:10px; color:#acd4ee; font-style:italic">"Definitivamente utópica, radicalmente vital." — Ana Romaní, RAG</p>
+    `
+            },
+            infoCirce: {
+                titulo: 'CIRCE OU O PRACER DO AZUL (2009)',
+                corpo: `
+        <p style="color:#acd4ee; font-size:0.88rem; margin-bottom:10px">Editorial Galaxia · Primeira novela · 2009</p>
+        <p style="font-style:italic; color:#ffc1cc; font-size:0.95rem; line-height:1.6; margin-bottom:12px">"A muller dona do seu desexo e do seu propio corpo."</p>
+        <p>Begoña Caamaño pregúntase: <b>"E se o que conta Homero non foi verdade?"</b> Dende esa dúbida constrúe un diálogo epistolar entre <b>Penélope e Circe</b>, dúas mulleres que a tradición sitúa como rivais.</p>
+        <p style="margin-top:10px">Na novela, as dúas protagonistas recoñécense e crean un <b>vínculo de sororidade e complicidade</b>. O desexo, a autonomía e a identidade feminina son o centro dunha historia que subverte o canon épico occidental.</p>
+        <p style="margin-top:10px">Caamaño publica esta novela aos <b>45 anos</b>, cunha voz plenamente formada que fusiona tradición clásica con sensibilidade feminista contemporánea.</p>
+        <p style="margin-top:12px; color:#ffc978; font-size:0.88rem">📚 Premio da Crítica Galicia · Finalista Premio Blanco Amor</p>
+    `
+            },
+
+            infoMorgana: {
+                titulo: 'MORGANA EN ESMELLE (2012)',
+                corpo: `
+        <p style="color:#acd4ee; font-size:0.88rem; margin-bottom:10px">Editorial Galaxia · Segunda novela · 2012</p>
+        <p style="font-style:italic; color:#ffc1cc; font-size:0.95rem; line-height:1.6; margin-bottom:12px">"A utopía non é un luxo: é a única forma honesta de vivir o presente."</p>
+        <p><b>Morgana</b>, a feiticeira do ciclo artúrico que a tradición pintou como vilá, convértese en protagonista complexa e libre. A novela sitúase en <b>Esmelle</b> (Ferrol), un lugar concreto e galego que acolla a lenda artúrica.</p>
+        <p style="margin-top:10px">Explora as tensións entre <b>poder e ética</b>, utopía e pragmatismo. Caamaño emprega a Materia de Bretaña para falar de comunidade, resistencia e xustiza no presente.</p>
+        <p style="margin-top:12px; color:#00e664; font-size:0.9rem; line-height:1.8">
+            🏆 Premio Ánxel Casal 2012<br>
+            🏆 Premio AELG mellor narrativa 2012<br>
+            🏆 Premio da Crítica de Galicia 2012<br>
+            🏆 Premio Losada Diéguez 2013
+        </p>
+    `
+            },
+        };
+
+
+        function abrirPanel(id) {
+            const datos = PANEL_CONTIDOS[id];
+            if (!datos) return;
+            document.getElementById('panel-overlay-titulo').textContent = datos.titulo;
+            document.getElementById('panel-overlay-corpo').innerHTML = datos.corpo;
+            document.getElementById('panel-overlay').style.display = 'block';
+            document.getElementById('panel-backdrop').style.display = 'block';
+        }
+        function pecharPanel() {
+            document.getElementById('panel-overlay').style.display = 'none';
+            document.getElementById('panel-backdrop').style.display = 'none';
+        }
+        document.getElementById('panel-backdrop').addEventListener('click', pecharPanel);
+
+    </script>
 </body>
 
 </html>
