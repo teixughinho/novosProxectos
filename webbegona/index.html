@@ -991,21 +991,44 @@
             opacity: 0;
             pointer-events: none;
         }
-        #btn-test-portada {
+
+
+
+/* Efecto de “scanline” sutil */
+#btn-test-portada::marker { content: ""; } /* para evitar rarezas en algúns navegadores */
+
+@keyframes glitchPortada {
+  0% {
+    transform: translate(0,0);
+  }
+  50% {
+    transform: translate(2px, -1px);
+  }
+  100% {
+    transform: translate(-1px, 1px);
+  }
+}
+/* Contedor común dos dous botóns */
+.portada-botons {
   position: fixed;
-  left: 18px;
+  left: 50%;
   bottom: 18px;
-  z-index: 10001; /* por enriba da portada, pero baixo o quiz-panel */
-  
+  transform: translateX(-50%);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Botón quiz: mantemos o estilo glitch que xa tiñas */
+#btn-test-portada {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
-
   padding: 10px 14px;
   min-width: 120px;
   border-radius: 10px;
-
   background: radial-gradient(circle at 0 0, rgba(255,77,109,0.4), transparent 55%),
               linear-gradient(135deg, #141829, #260409);
   border: 1.5px solid rgba(255,77,109,0.8);
@@ -1013,7 +1036,6 @@
     0 0 0 1px rgba(255,255,255,0.04),
     0 8px 22px rgba(0,0,0,0.55),
     0 0 16px rgba(255,77,109,0.55);
-
   cursor: pointer;
   user-select: none;
   text-transform: uppercase;
@@ -1022,19 +1044,13 @@
   font-size: 0.78rem;
   font-weight: 900;
   color: #ffffff;
-
   transform: translateZ(0);
   overflow: hidden;
 }
 
-/* Letras Canto / sabes? */
-#btn-test-portada .canto {
-  color: #ffffff;
-}
+#btn-test-portada .canto { color: #ffffff; }
+#btn-test-portada .sabes { color: #ff4d6d; }
 
-#btn-test-portada .sabes {
-  color: #ff4d6d;
-}
 
 /* Glitch suave nas letras con pseudo-duplicado */
 #btn-test-portada::before,
@@ -1066,7 +1082,6 @@
   transform: translate(1px, 0);
   clip-path: inset(45% 0 0 0);
 }
-
 #btn-test-portada:hover::before,
 #btn-test-portada:hover::after {
   animation: glitchPortada 0.45s steps(2, end) infinite;
@@ -1082,19 +1097,37 @@
     0 0 20px rgba(255,77,109,0.75);
 }
 
-/* Efecto de “scanline” sutil */
-#btn-test-portada::marker { content: ""; } /* para evitar rarezas en algúns navegadores */
+/* Botón Museo 3D, similar pero cunha cor propia */
+#btn-museo-3d {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  min-width: 120px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #00e5ff, #0077ff);
+  border: 1.5px solid rgba(0,229,255,0.9);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04),
+    0 8px 22px rgba(0,0,0,0.55),
+    0 0 16px rgba(0,229,255,0.55);
+  cursor: pointer;
+  user-select: none;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 900;
+  color: #050811;
+  transform: translateZ(0);
+}
 
-@keyframes glitchPortada {
-  0% {
-    transform: translate(0,0);
-  }
-  50% {
-    transform: translate(2px, -1px);
-  }
-  100% {
-    transform: translate(-1px, 1px);
-  }
+#btn-museo-3d:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06),
+    0 10px 26px rgba(0,0,0,0.65),
+    0 0 20px rgba(0,229,255,0.75);
 }
     </style>
 </head>
@@ -1120,13 +1153,18 @@
             <p class="portada-hint">Preme o botón [AR] (abaixo á dereita) para entrares na mostra.</p>
             <p class="portada-hint">Precisas empregar o navegador Chrome e Android.</p>
         </div>
+<div class="portada-botons">
+    <div id="btn-test-portada" onclick="abrirQuizDesdePortada()">
+      <span class="canto">Canto</span>
+      <span class="sabes">sabes?</span>
+    </div>
 
-        <!-- BOTÓN TEST na portada -->
-         <div id="btn-test-portada" onclick="abrirQuizDesdePortada()">
-  <span class="canto">Canto</span>
-  <span class="sabes">sabes?</span>
-</div>
-    
+    <div id="btn-museo-3d" onclick="entrarMuseo3D()">
+      <span>Museo 3D</span>
+    </div>
+  </div>
+
+ 
     </div> 
 
 
@@ -2239,85 +2277,7 @@ Sobre a resistencia e a ética. -->
                 exp: "En 2025 homenaxeouse á figura d'As Cantareiras, gardiás da tradición oral e musical de Galicia."
             }
         ];
-        // let qIdx = 0, qPts = 0, qResp = false;
-
-        // function abrirQuiz() {
-        //     if (document.getElementById('quiz-panel').classList.contains('activo')) return;
-        //     qIdx = 0; qPts = 0;
-        //     document.getElementById('quiz-panel').classList.add('activo');
-        //     document.getElementById('quiz-backdrop').style.display = 'block';
-        //     document.getElementById('quiz-backdrop').style.pointerEvents = 'auto';
-        //     document.getElementById('q-resultado').style.display = 'none';
-        //     document.getElementById('q-xogo').style.display = 'block';
-        //     qMostrar();
-        // }
-        // function pecharQuiz() {
-        //     document.getElementById('quiz-panel').classList.remove('activo');
-        //     document.getElementById('quiz-backdrop').style.display = 'none';
-        //     document.getElementById('quiz-backdrop').style.pointerEvents = 'none';
-        // }
-        // function qReiniciar() {
-        //     qIdx = 0; qPts = 0;
-        //     document.getElementById('q-resultado').style.display = 'none';
-        //     document.getElementById('q-xogo').style.display = 'block';
-        //     qMostrar();
-        // }
-        // function qMostrar() {
-        //     qResp = false;
-        //     const q = QP[qIdx], tot = QP.length;
-        //     document.getElementById('q-barra').style.width = (qIdx / tot * 100) + '%';
-        //     document.getElementById('q-num').textContent = 'Pregunta ' + (qIdx + 1) + ' de ' + tot;
-        //     document.getElementById('q-preg').textContent = q.p;
-        //     document.getElementById('q-fb').textContent = '';
-        //     document.getElementById('q-fb').className = 'q-fb';
-        //     document.getElementById('q-btn-seg').style.display = 'none';
-        //     const ops = document.getElementById('q-ops');
-        //     ops.innerHTML = '';
-        //     q.ops.forEach((o, i) => {
-        //         const b = document.createElement('button');
-        //         b.className = 'opcion'; b.textContent = o;
-        //         b.onclick = () => qResponder(i);
-        //         ops.appendChild(b);
-        //     });
-        // }
-        // function qResponder(idx) {
-        //     if (qResp) return;
-        //     qResp = true;
-        //     const q = QP[qIdx];
-        //     const bts = document.querySelectorAll('.opcion');
-        //     bts.forEach(b => b.disabled = true);
-        //     const fb = document.getElementById('q-fb');
-        //     if (idx === q.ok) {
-        //         qPts++;
-        //         bts[idx].classList.add('correcta');
-        //         fb.textContent = '✓ Correcto! ' + q.exp;
-        //     } else {
-        //         bts[idx].classList.add('incorrecta');
-        //         bts[q.ok].classList.add('correcta');
-        //         fb.textContent = '✗ Incorrecto. ' + q.exp;
-        //         fb.className = 'q-fb mal';
-        //     }
-        //     const bs = document.getElementById('q-btn-seg');
-        //     bs.style.display = 'inline-block';
-        //     bs.textContent = qIdx >= QP.length - 1 ? 'Ver resultado ✦' : 'Seguinte →';
-        //     document.getElementById('q-barra').style.width = ((qIdx + 1) / QP.length * 100) + '%';
-        // }
-        // function qSeguinte() { qIdx++; qIdx >= QP.length ? qResultado() : qMostrar(); }
-        // function qResultado() {
-        //     document.getElementById('q-xogo').style.display = 'none';
-        //     document.getElementById('q-barra').style.width = '100%';
-        //     document.getElementById('q-resultado').style.display = 'flex';
-        //     const tot = QP.length, pct = Math.round(qPts / tot * 100);
-        //     document.getElementById('r-puntos').textContent = qPts + '/' + tot;
-        //     let lb, mg, st;
-        //     if (pct === 100) { lb = 'Excelente!'; st = '★★★★★'; mg = 'Dominas o legado de Begoña Caamaño. Parabéns!'; }
-        //     else if (pct >= 71) { lb = 'Moi ben!'; st = '★★★★☆'; mg = 'Coñeces ben a vida e a obra desta escritora fundamental.'; }
-        //     else if (pct >= 43) { lb = 'Vai ben!'; st = '★★★☆☆'; mg = 'Tes boa base. Explora os paneis do museo para completar.'; }
-        //     else { lb = 'Sigue aprendendo!'; st = '★★☆☆☆'; mg = 'Revisa os paneis da sala e volve tentar. Begoña merece máis tempo.'; }
-        //     document.getElementById('r-label').textContent = lb;
-        //     document.getElementById('r-stars').textContent = st;
-        //     document.getElementById('r-msg').textContent = mg;
-        // }
+     
 
         /* ═══════════════════════════════════════════════════
            PANEIS INFORMATIVOS 2D
@@ -2522,7 +2482,91 @@ Sobre a resistencia e a ética. -->
             document.getElementById('panel-backdrop').style.display = 'none';
         }
         document.getElementById('panel-backdrop').addEventListener('click', pecharPanel);
+function entrarMuseo3D() {
+  const portada = document.getElementById('portada');
+  const cabAr = document.querySelector('.portada-escolar');
+  const escalaPanel = document.getElementById('escala-distancias-panel');
+  const museo = document.getElementById('museo');
+  const scene = document.querySelector('a-scene');
+  const btnQuizSala = document.getElementById('btn-quiz-sala');
 
+  // 1. Ocultar portada de inicio
+  if (portada) portada.style.display = 'none';
+
+  // 2. Ocultar elementos propios de AR (non fan falta en modo 3D PC)
+  if (cabAr) cabAr.style.display = 'none';
+  if (escalaPanel) escalaPanel.style.display = 'none';
+
+  // 3. Poñer fondo propio para a escena (sen cámara do móbil)
+  if (scene) {
+    scene.setAttribute('background', 'color: #050811');
+  }
+
+  // 4. Amosar o museo completo
+  if (museo) {
+    museo.setAttribute('visible', true);
+  }
+
+  // 5. Botón flotante de quiz dentro da sala
+  if (btnQuizSala) {
+    btnQuizSala.style.display = 'block';
+  }
+}
+
+
+//         window.addEventListener('load', () => {
+//   const museo = document.getElementById('museo');
+//   const portada = document.getElementById('portada');
+//   const cabAr = document.querySelector('.portada-escolar');
+//   const escalaPanel = document.getElementById('escala-distancias-panel');
+
+//   // Se non hai API WebXR, activamos directamente o modo museo 3D (fallback)
+//   if (!navigator.xr || !navigator.xr.isSessionSupported) {
+//     activarMuseoFallback();
+//     return;
+//   }
+
+//   navigator.xr.isSessionSupported('immersive-ar')
+//     .then((supported) => {
+//       if (!supported) {
+//         // O navegador non soporta AR: activar fallback
+//         activarMuseoFallback();
+//       }
+//       // Se supported === true, non facemos nada aquí:
+//       // a portada queda igual e o botón AR “de Google” aparecerá cando corresponda.
+//     })
+//     .catch(() => {
+//       // En caso de erro, tamén mellor activar fallback
+//       activarMuseoFallback();
+//     });
+
+//   function activarMuseoFallback() {
+//     // 1. Agochar portada
+//     if (portada) portada.style.display = 'none';
+
+//     // 2. Agochar elementos propios de AR (cabeceira overlay + escala)
+//     if (cabAr) cabAr.style.display = 'none';
+//     if (escalaPanel) escalaPanel.style.display = 'none';
+
+//     // 3. Poñer fondo propio para a escena (sen cámara do móbil)
+//     const scene = document.querySelector('a-scene');
+//     if (scene && scene.renderer && scene.renderer.setClearColor) {
+//       scene.renderer.setClearColor('#050811'); // fondo escuro
+//     } else if (scene) {
+//       // fallback simple para A-Frame
+//       scene.setAttribute('renderer', 'colorManagement: true;');
+//       scene.setAttribute('background', 'color: #050811');
+//     }
+
+//     // 4. Mostrar o museo 3D completo
+//     if (museo) museo.setAttribute('visible', true);
+
+//     // 5. (Opcional) amosar o botón flotante de quiz dentro da sala
+//     const btnQuizSala = document.getElementById('btn-quiz-sala');
+//     if (btnQuizSala) btnQuizSala.style.display = 'block';
+//   }
+// });
+    
     </script>
 </body>
 
