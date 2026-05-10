@@ -1011,42 +1011,16 @@
 /* Contedor común dos dous botóns */
 .portada-botons {
   position: fixed;
-  left: 50%;
+  left: 18px;        /* esquina inferior esquerda */
   bottom: 18px;
-  transform: translateX(-50%);
   z-index: 10001;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 /* Botón quiz: mantemos o estilo glitch que xa tiñas */
-#btn-test-portada {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  padding: 10px 14px;
-  min-width: 120px;
-  border-radius: 10px;
-  background: radial-gradient(circle at 0 0, rgba(255,77,109,0.4), transparent 55%),
-              linear-gradient(135deg, #141829, #260409);
-  border: 1.5px solid rgba(255,77,109,0.8);
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.04),
-    0 8px 22px rgba(0,0,0,0.55),
-    0 0 16px rgba(255,77,109,0.55);
-  cursor: pointer;
-  user-select: none;
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-  font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 0.78rem;
-  font-weight: 900;
-  color: #ffffff;
-  transform: translateZ(0);
-  overflow: hidden;
-}
+
 
 #btn-test-portada .canto { color: #ffffff; }
 #btn-test-portada .sabes { color: #ff4d6d; }
@@ -1098,12 +1072,62 @@
 }
 
 /* Botón Museo 3D, similar pero cunha cor propia */
-#btn-museo-3d {
+
+
+#btn-museo-3d:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06),
+    0 10px 26px rgba(0,0,0,0.65),
+    0 0 20px rgba(0,229,255,0.75);
+}
+
+
+
+/* Botón quiz */
+#btn-test-portada {
   display: inline-flex;
+  flex-direction: column;   /* apilar texto en vertical */
   align-items: center;
   justify-content: center;
-  padding: 10px 16px;
-  min-width: 120px;
+  gap: 0;
+  padding: 10px 10px;
+  min-width: 100px;
+  min-height: 60px;         /* máis cadrado */
+  border-radius: 10px;
+  background: radial-gradient(circle at 0 0, rgba(255,77,109,0.4), transparent 55%),
+              linear-gradient(135deg, #141829, #260409);
+  border: 1.5px solid rgba(255,77,109,0.8);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04),
+    0 8px 22px rgba(0,0,0,0.55),
+    0 0 16px rgba(255,77,109,0.55);
+  cursor: pointer;
+  user-select: none;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: #ffffff;
+  transform: translateZ(0);
+  overflow: hidden;
+}
+
+#btn-test-portada .canto,
+#btn-test-portada .sabes {
+  display: block;          /* dúas liñas */
+}
+
+/* Botón Museo 3D */
+#btn-museo-3d {
+  display: inline-flex;
+  flex-direction: column;   /* dúas liñas */
+  align-items: center;
+  justify-content: center;
+  padding: 10px 10px;
+  min-width: 100px;
+  min-height: 60px;         /* cadrado */
   border-radius: 10px;
   background: linear-gradient(135deg, #00e5ff, #0077ff);
   border: 1.5px solid rgba(0,229,255,0.9);
@@ -1116,18 +1140,67 @@
   text-transform: uppercase;
   letter-spacing: 0.09em;
   font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 900;
   color: #050811;
   transform: translateZ(0);
 }
 
-#btn-museo-3d:hover {
-  transform: translateY(-1px);
+#btn-museo-3d .museo,
+#btn-museo-3d .tresd {
+  display: block;          /* Museo / 3D separados */
+}
+.portada-info-app {
+  margin-top: 18px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: radial-gradient(circle at 0 0, rgba(255,77,109,0.18), transparent 60%),
+              linear-gradient(135deg, rgba(5,10,24,0.95), rgba(8,18,40,0.98));
+  border: 1px solid rgba(255,77,109,0.55);
   box-shadow:
-    0 0 0 1px rgba(255,255,255,0.06),
-    0 10px 26px rgba(0,0,0,0.65),
-    0 0 20px rgba(0,229,255,0.75);
+    0 0 0 1px rgba(255,255,255,0.03),
+    0 10px 26px rgba(0,0,0,0.6);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  text-align: left;
+}
+
+.portada-info-app .info-icono {
+  flex: 0 0 26px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff4d6d, #ff9900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+  font-size: 1rem;
+  color: #050811;
+  box-shadow: 0 0 12px rgba(255,77,109,0.8);
+}
+
+.portada-info-app .info-texto p {
+  margin: 2px 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: #e4f0ff;
+}
+
+.portada-info-app .info-texto p strong {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ffc1cc;
+}
+
+.portada-info-app .info-nota {
+  margin-top: 4px;
+  font-size: 0.7rem;
+  color: #93b0d9;
+  opacity: 0.9;
 }
     </style>
 </head>
@@ -1150,19 +1223,27 @@
             <h1 class="portada-nome">Begoña<br><span>Caamaño</span></h1>
             <p class="portada-sub">Xornalista, escritora e voz esencial das Letras Galegas 2026.</p>
             <span class="portada-data">Letras Galegas · 2026</span><br>
-            <p class="portada-hint">Preme o botón [AR] (abaixo á dereita) para entrares na mostra.</p>
-            <p class="portada-hint">Precisas empregar o navegador Chrome e Android.</p>
+            <div class="portada-info-app">
+  <!-- <div class="info-icono">!</div> -->
+  <div class="info-texto">
+    <p><strong>Como entrar na mostra:</strong></p>
+    <p>1. Se ves o botón [AR] abaixo á dereita, preme para vivir a experiencia en Realidade Aumentada.</p>
+    <p>2. Se o teu dispositivo non é compatible, utiliza o modo <b>[Sala 3D]</b> para visitar o museo virtual.</p>
+    <p class="info-nota">Modo AR: precisas empregar o navegador Chrome en Android.</p>
+  </div>
+</div>
         </div>
 <div class="portada-botons">
-    <div id="btn-test-portada" onclick="abrirQuizDesdePortada()">
-      <span class="canto">Canto</span>
-      <span class="sabes">sabes?</span>
-    </div>
-
-    <div id="btn-museo-3d" onclick="entrarMuseo3D()">
-      <span>Museo 3D</span>
-    </div>
+  <div id="btn-test-portada" onclick="abrirQuizDesdePortada()">
+    <span class="canto">Canto</span>
+    <span class="sabes">sabes?</span>
   </div>
+
+  <div id="btn-museo-3d" onclick="entrarMuseo3D()">
+    <span class="museo">Sala</span>
+    <span class="tresd">3D</span>
+  </div>
+</div>
 
  
     </div> 
@@ -1316,7 +1397,38 @@
 
         <!-- ── MUSEO (oculto ata colocar en AR) ── -->
         <a-entity id="museo" visible="false">
+  <!-- sala cúbica arredor -->
+ <a-entity id="sala-3d" visible="false">
+  <!-- Paredes e teito, baixadas un pouco -->
+  <a-box
+    position="0 2.5 0"      
+    width="26"
+    height="9"          
+    depth="26"
+    material="side: back; color: #f3f3f0; roughness: 1; metalness: 0">
+  </a-box>
 
+  <!-- Chan máis abaixo -->
+  <a-plane
+    position="0 -0.8 0"     
+    rotation="-90 0 0"
+    width="24"
+    height="24"
+    material="color: #d4c2a3; roughness: 1; metalness: 0">
+  </a-plane>
+
+  <!-- Zócolo seguindo o chan -->
+  <a-box
+    position="0 0.2 0"      
+    width="25.8"
+    height="0.6"
+    depth="25.8"
+    material="side: back; color: #444854; roughness: 1; metalness: 0">
+  </a-box>
+
+  <a-entity light="type: ambient; intensity: 0.55; color: #ffffff"></a-entity>
+  <a-entity light="type: directional; intensity: 0.9; color: #fff8e6" position="3 6 2"></a-entity>
+</a-entity>
             <!-- ══ 1. QUEN FOI? · Esquerda atrás ══ -->
             <a-entity position="-10.15 3 -5.07" rotation="0 90 0">
                 <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.98"></a-plane>
@@ -1358,7 +1470,7 @@
             </a-entity>
 
             <!-- ══ 3. OBRAS · Dereita atrás ══ -->
-            <a-entity position="10.15 3 -5.07" rotation="0 -90 0">
+            <a-entity position="10.15 3.5 -5.07" rotation="0 -90 0">
                 <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.98"></a-plane>
                 <a-plane width="5.6" height="0.05" color="#ffb6c1" position="0 1.45 0.01"></a-plane>
                 <a-text value="OBRAS FUNDAMENTAIS" font="fonts/Outfit-Bold-msdf.json" align="center" width="5.3"
@@ -1388,7 +1500,7 @@
             </a-entity>
             <!-- 4. LETRAS GALEGAS: CRONOLOXÍA E MULLERES — Dereita diante -->
 
-            <a-entity position="10.15 3 5.07" rotation="0 -90 0">
+            <a-entity position="10.15 3.5 5.07" rotation="0 -90 0">
                 <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.9"></a-plane>
                 <a-plane width="5.6" height="0.06" material="shader: flat; color: #00E5FF; opacity: 1" color="#FF0055"
                     position="0 1.45 0.01"></a-plane>
@@ -1406,7 +1518,7 @@
 
 
             <!-- 5. AUDIO traseira-esquerda -->
-            <a-entity position="-5.07 2.4 10.15" rotation="0 180 0">
+            <a-entity position="-5.07 2.6 10.15" rotation="0 180 0">
                 <a-entity class="zoom-wrapper">
                     <!-- <a-circle radius="1.42" color="#0b1626" opacity="0.96"></a-circle> -->
                     <a-torus radius="1.42" radius-tubular="0.025" color="#ff4d6d" opacity="0.55" position="0 0 0.01"
@@ -1442,7 +1554,7 @@
      Os textos están baleiros agás Circe e Morgana, listos para encher.
      ============================================================ -->
 
-            <a-entity position="5.07 -0.6 10.15" rotation="0 180 0">
+            <a-entity position="5.07 0.5 10.15" rotation="0 180 0">
 
                 <!-- ══ CABECEIRA ══ -->
                 <a-plane width="6.2" height="1.1" color="#04080f" opacity="0.96" position="0 5.12 0"
@@ -1612,7 +1724,7 @@
 
             </a-entity><!-- fin anacos de obras -->
             <!-- ══ 7. VÍDEO · Frontal esquerda ══ -->
-            <a-entity position="-5.07 3 -12.15" rotation="0 0 0">
+            <a-entity position="-5.07 4 -12.15" rotation="0 0 0">
                 <a-plane width="5.6" height="2.94" color="#08101d" opacity="0.98"></a-plane>
                 <a-plane width="5.6" height="0.06" material="shader: flat; color: #00E5FF; opacity: 1" color="#FF0055"
                     position="0 1.45 0.01"></a-plane>
@@ -1630,7 +1742,7 @@
             </a-entity>
 
             <!-- ══ 8. QUIZ · Frontal dereita ══ -->
-            <a-entity position="5.07 1.6 -20.15" rotation="0 0 0">
+            <a-entity position="5.07 1.6 -12.15" rotation="0 0 0">
                 <!-- Decoración animada: signo de interrogación triple -->
                 <a-entity scale="30 30 1" position="0 3.8 0">
                     <a-text value="?" align="center" color="#FF0000" negate="false" font="fonts/Outfit-Bold-msdf.json"
@@ -1666,8 +1778,8 @@
 
 
             <!-- Cita asociada a "Quen foi" -->
-            <a-entity position="8 5.5 6" rotation="0 -135 0">
-                <a-plane width="3.8" height="1.5" color="#ff4d6d" opacity="0.05"></a-plane>
+            <a-entity position="7 5.6 5" rotation="0 -115 0">
+                <a-plane width="3.8" height="1.5" color="#ff4d6d" opacity="0.1"></a-plane>
                 <a-plane width="0.06" height="1.5" color="#ff4d6d" position="-1.87 0 0.01"></a-plane>
                 <a-text value="« A muller dona do seu desexo\n e do seu propio corpo »"
                     font="fonts/Nunito-SemiBold-msdf.json" align="center" width="3.35" position="0 0.24 0.05"
@@ -1680,8 +1792,8 @@
 Ideal para colocar preto da sección de Legado ou Activismo. -->
 
 
-            <a-entity position="5 5.5 -8" rotation="0 -20 0">
-                <a-plane width="4" height="1.2" color="#00e5ff" opacity="0.05"></a-plane>
+            <a-entity position="8 5.8 -8" rotation="0 -50 0">
+                <a-plane width="4" height="1.2" color="#00e5ff" opacity="0.1"></a-plane>
                 <a-plane width="0.04" height="1.2" color="#00e5ff" position="-1.98 0 0.01"></a-plane>
                 <a-text value="« A utopía non é un luxo:\né a única forma honesta de vivir o presente »"
                     font="fonts/Nunito-SemiBold-msdf.json" align="center" width="3.5" color="#ffffff" negate="false"
@@ -1691,8 +1803,8 @@ Ideal para colocar preto da sección de Legado ou Activismo. -->
 Colocada alta sobre a zona de Xornalismo. -->
 
 
-            <a-entity position="-10 5.5 5" rotation="0 90 0">
-                <a-plane width="4" height="1.2" color="#00e5ff" opacity="0.05"></a-plane>
+            <a-entity position="-10 5.8 5" rotation="0 90 0">
+                <a-plane width="4" height="1.2" color="#00e5ff" opacity="0.15"></a-plane>
                 <a-plane width="0.04" height="1.2" color="#00e5ff" position="-1.98 0 0.01"></a-plane>
                 <a-text value="« O xornalismo ten que servir\npara cambiar as cousas »"
                     font="fonts/Nunito-SemiBold-msdf.json" align="center" width="3.8" color="#ffffff" negate="false"
@@ -1703,7 +1815,7 @@ Unha frase moi persoal dela sobre o coñecemento. -->
 
 
             <a-entity position="-6 5.8 -7" rotation="0 15 0">
-                <a-plane width="3.5" height="1" color="#ff4d6d" opacity="0.05"></a-plane>
+                <a-plane width="3.5" height="1" color="#ff4d6d" opacity="0.15"></a-plane>
                 <a-plane width="0.04" height="1" color="#ff4d6d" position="-1.73 0 0.01"></a-plane>
                 <a-text value="« Viaxar é ler o mundo\nsen intermediarios »" font="fonts/Nunito-SemiBold-msdf.json"
                     align="center" width="3.2" color="#ffffff" negate="false" wrap-count="22"></a-text>
@@ -1712,8 +1824,8 @@ Unha frase moi persoal dela sobre o coñecemento. -->
 Sobre a resistencia e a ética. -->
 
 
-            <a-entity position="10 5.5 0" rotation="0 -90 0">
-                <a-plane width="4.2" height="1.4" color="#fbbf24" opacity="0.05"></a-plane>
+            <a-entity position="10 5.8 0" rotation="0 -90 0">
+                <a-plane width="4.2" height="1.4" color="#fbbf24" opacity="0.15"></a-plane>
                 <a-plane width="0.04" height="1.4" color="#fbbf24" position="-2.08 0 0.01"></a-plane>
                 <a-text value="« Non hai vitoria posible sen ética,\n nin derrota se se mantén a dignidade »"
                     font="fonts/Nunito-SemiBold-msdf.json" align="center" width="3.6" color="#ffffff" negate="false"
@@ -2489,7 +2601,8 @@ function entrarMuseo3D() {
   const museo = document.getElementById('museo');
   const scene = document.querySelector('a-scene');
   const btnQuizSala = document.getElementById('btn-quiz-sala');
-
+const sala = document.getElementById('sala-3d');
+if (sala) sala.setAttribute('visible', true);
   // 1. Ocultar portada de inicio
   if (portada) portada.style.display = 'none';
 
